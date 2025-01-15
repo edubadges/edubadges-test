@@ -6,7 +6,9 @@
     "check:types": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "check:all": "npm run check:types && npm run lint",
+    "format": "prettier --write .",
+    "format-check": "prettier --check .",
+    "check:all": "npm run check:types && npm run lint && npm run format-check",
     "precommit": "npm run check:all && npm test",
     "test": "npm playwright test",
     "test:dev": "npm playwright test --ui"
@@ -24,7 +26,9 @@
     "@typescript-eslint/eslint-plugin": "^8.20.0",
     "@typescript-eslint/parser": "^8.20.0",
     "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
     "globals": "^15.14.0",
+    "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
