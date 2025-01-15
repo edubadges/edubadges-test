@@ -17,7 +17,7 @@ export default [
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
-      "no-unused-vars": "off", // Uitschakelen omdat dit door TypeScript wordt afgehandeld
+      "no-unused-vars": "off", // Disable the base rule. It is handled by the TypeScript plugin
       "@typescript-eslint/no-unused-vars": ["error"],
       "@typescript-eslint/no-explicit-any": "warn",
     },
@@ -25,7 +25,7 @@ export default [
   {
     files: ["tests/**/*.ts"],
     rules: {
-      "no-console": "off", // Console loggen toestaan in tests
+      "no-console": "off", // Console log is a usefull for test output. It is part of Playwright
     },
   },
 ];
