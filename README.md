@@ -25,7 +25,7 @@ After cloning this repository, follow these steps to retrieve the required packa
 Playwright supports an ui mode. This provides a fancy environment in which you can select a test to be run, check the test execution and retreive locators. This environment is started by:
 
 ```bash
-   px playwright test --ui
+   npx playwright test --ui
 ```
 
 If you want to run all the test:
