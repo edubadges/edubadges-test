@@ -65,15 +65,30 @@ export class LoginPage extends BasePageMultiLanguage {
   }
 
   async loginWithInstitutionAdmin() {
+    await this.login(this.testdata.institutionAdminUsername, this.testdata.institutionAdminPassword);
+  }
+
+  async loginWithBadgeClassAdmin() {
+    await this.login(this.testdata.institutionAdminPassword, this.testdata.institutionAdminPassword);
+  }
+
+  private async login(username: string, password: string) {
     await this.openIssuerPortalLocator.click();
 
     await this.searchFieldLocator.fill('test idp');
     await expect(this.surfConextLocator).toBeVisible();
+    await this.page.waitForTimeout(2000);
     await this.surfConextLocator.click();
 
-    await this.usernameLocator.fill(this.testdata.institutionAdminUsername);
-    await this.passwordLocator.fill(this.testdata.institutionAdminPassword);
+    await this.usernameLocator.fill(username);
+    await this.passwordLocator.fill(password);
     await this.loginButtonLocator.click();
+
+    await this.page.waitForTimeout(5000);
+    const proceedToEdubadgesFound = await this.page.getByRole('button', { name: 'Proceed to Edubadges [' }).count();
+    if (proceedToEdubadgesFound > 0) {
+      await this.page.getByRole('button', { name: 'Proceed to Edubadges [' }).click();
+    }
   }
 
   async switchToDutch() {

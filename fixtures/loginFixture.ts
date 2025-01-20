@@ -11,7 +11,10 @@ type LoginFixture = {
 
 var institutionAdminUsername = process.env.INSTUTUTION_ADMIN_USERNAME || '';
 var institutionAdminPassword = process.env.INSTUTUTION_ADMIN_PASSWORD || '';
-var testdata = new Testdata(institutionAdminUsername, institutionAdminPassword);
+var badgeClassAdminUsername = process.env.BADGE_CLASS_ADMIN_USERNAME || '';
+var badgeClassAdminPassword = process.env.BADGE_CLASS_ADMIN_PASSWORD || '';
+
+var testdata = new Testdata(institutionAdminUsername, institutionAdminPassword, badgeClassAdminUsername, badgeClassAdminPassword);
 
 export const test = base.extend<LoginFixture>({
   loginPage: async ({ page }, use) => {

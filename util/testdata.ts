@@ -3,15 +3,21 @@ import { BasePageMultiLanguage } from '../pages/basePageMultiLanguage';
 export class Testdata {
   private _institutionAdminUsername: string;
   private _institutionAdminPassword: string;
+  private _badgeClassAdminUsername: string;
+  private _badgeClassAdminPassword: string;
   private _language: Language = Language.en;
   private _pagesForLanguageChangeNotification: BasePageMultiLanguage[] = [];
 
   constructor(
     institutionAdminUsername: string,
     institutionAdminPassword: string,
+    badgeClassAdminUsername: string,
+    badgeClassAdminPassword: string
   ) {
     this._institutionAdminUsername = institutionAdminUsername;
     this._institutionAdminPassword = institutionAdminPassword;
+    this._badgeClassAdminUsername = badgeClassAdminUsername;
+    this._badgeClassAdminPassword = badgeClassAdminPassword;
   }
 
   get institutionAdminUsername(): string {
@@ -19,6 +25,14 @@ export class Testdata {
   }
 
   get institutionAdminPassword(): string {
+    return this._institutionAdminPassword;
+  }
+
+  get badgeClassAdminUsername(): string {
+    return this._institutionAdminUsername;
+  }
+
+  get badgeClassAdminPassword(): string {
     return this._institutionAdminPassword;
   }
 
