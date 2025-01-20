@@ -3,7 +3,7 @@ import { LoginPage } from '../pages/loginPage';
 import { IssuerPortalPage } from '../pages/issuerPortalPage';
 import { Testdata } from '../util/testdata';
 
-type MyFixtures = {
+type LoginFixture = {
   loginPage: LoginPage;
   issuerPortalPage: IssuerPortalPage;
   testdata: Testdata;
@@ -13,7 +13,7 @@ var institutionAdminUsername = process.env.INSTUTUTION_ADMIN_USERNAME || '';
 var institutionAdminPassword = process.env.INSTUTUTION_ADMIN_PASSWORD || '';
 var testdata = new Testdata(institutionAdminUsername, institutionAdminPassword);
 
-export const test = base.extend<MyFixtures>({
+export const test = base.extend<LoginFixture>({
   loginPage: async ({ page }, use) => {
     // Set up the fixture
     const loginPage = new LoginPage(page, testdata);
