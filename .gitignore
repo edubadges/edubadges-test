@@ -133,3 +133,4 @@ package-lock.json
 # playwright outputs
 test-results/
 playwright-report/
+.DS_Store
