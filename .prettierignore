@@ -1,0 +1,7 @@
+node_modules
+dist
+*.config.js
+.prettierrc
+eslint.config.mjs
+tsconfig.json
+README.md
