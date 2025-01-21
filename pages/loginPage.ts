@@ -57,9 +57,9 @@ export class LoginPage extends BasePageMultiLanguage {
     var snapshotName = '';
 
     if (this.testdata.language === Language.en) {
-      snapshotName = 'expectedLoginPageAfterLoginIn-eng.png';
+      snapshotName = `expectedLoginPageOpened-eng.png`;
     } else {
-      snapshotName = 'expectedLoginPageAfterLoginIn-nl.png';
+      snapshotName = `expectedLoginPageOpened-nl.png`;
     }
     await expect(this.page).toHaveScreenshot(snapshotName, { fullPage: true });
   }
@@ -68,8 +68,16 @@ export class LoginPage extends BasePageMultiLanguage {
     await this.login(this.testdata.institutionAdminUsername, this.testdata.institutionAdminPassword);
   }
 
+  async loginWithIssuerGroupAdmin() {
+    await this.login(this.testdata.issuerGroupAdminUsername, this.testdata.issuerGroupAdminPassword);
+  }
+
+  async loginWithIssuerAdmin() {
+    await this.login(this.testdata.issuerAdminUsername, this.testdata.issuerAdminPassword);
+  }
+
   async loginWithBadgeClassAdmin() {
-    await this.login(this.testdata.institutionAdminPassword, this.testdata.institutionAdminPassword);
+    await this.login(this.testdata.badgeClassAdminUsername, this.testdata.badgeClassAdminPassword);
   }
 
   private async login(username: string, password: string) {
@@ -89,6 +97,7 @@ export class LoginPage extends BasePageMultiLanguage {
     if (proceedToEdubadgesFound > 0) {
       await this.page.getByRole('button', { name: 'Proceed to Edubadges [' }).click();
     }
+    await this.page.waitForTimeout(5000);
   }
 
   async switchToDutch() {
