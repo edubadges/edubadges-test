@@ -49,7 +49,7 @@ export class LoginPage extends BasePageMultiLanguage {
     });
   }
 
-  async navigateToLoginPage() {
+  async navigateToLoginPageForIssuerPortal() {
     await this.page.goto('');
   }
 
@@ -65,19 +65,35 @@ export class LoginPage extends BasePageMultiLanguage {
   }
 
   async loginWithInstitutionAdmin() {
-    await this.login(this.testdata.institutionAdminUsername, this.testdata.institutionAdminPassword);
+    await this.login(
+      this.testdata.institutionAdminUsername,
+      this.testdata.institutionAdminPassword,
+    );
   }
 
   async loginWithIssuerGroupAdmin() {
-    await this.login(this.testdata.issuerGroupAdminUsername, this.testdata.issuerGroupAdminPassword);
+    await this.login(
+      this.testdata.issuerGroupAdminUsername,
+      this.testdata.issuerGroupAdminPassword,
+    );
   }
 
   async loginWithIssuerAdmin() {
-    await this.login(this.testdata.issuerAdminUsername, this.testdata.issuerAdminPassword);
+    await this.login(
+      this.testdata.issuerAdminUsername,
+      this.testdata.issuerAdminPassword,
+    );
   }
 
   async loginWithBadgeClassAdmin() {
-    await this.login(this.testdata.badgeClassAdminUsername, this.testdata.badgeClassAdminPassword);
+    await this.login(
+      this.testdata.badgeClassAdminUsername,
+      this.testdata.badgeClassAdminPassword,
+    );
+  }
+
+  async loginWithStudent() {
+    await this.login(this.testdata.studentName, this.testdata.studentPassword);
   }
 
   private async login(username: string, password: string) {
@@ -93,9 +109,13 @@ export class LoginPage extends BasePageMultiLanguage {
     await this.loginButtonLocator.click();
 
     await this.page.waitForTimeout(5000);
-    const proceedToEdubadgesFound = await this.page.getByRole('button', { name: 'Proceed to Edubadges [' }).count();
+    const proceedToEdubadgesFound = await this.page
+      .getByRole('button', { name: 'Proceed to Edubadges [' })
+      .count();
     if (proceedToEdubadgesFound > 0) {
-      await this.page.getByRole('button', { name: 'Proceed to Edubadges [' }).click();
+      await this.page
+        .getByRole('button', { name: 'Proceed to Edubadges [' })
+        .click();
     }
     await this.page.waitForTimeout(5000);
   }
@@ -109,4 +129,8 @@ export class LoginPage extends BasePageMultiLanguage {
     await this.page.getByRole('link', { name: 'EN' }).click();
     this.testdata.language = Language.nl;
   }
+
+  async OpenCatalog() {
+    await this.page.getByRole('link', { name: 'Open the catalog' }).click();
+}
 }
