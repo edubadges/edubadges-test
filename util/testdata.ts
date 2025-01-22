@@ -1,3 +1,4 @@
+import { emit } from 'process';
 import { BasePageMultiLanguage } from '../pages/basePageMultiLanguage';
 
 export class Testdata {
@@ -11,6 +12,9 @@ export class Testdata {
   private _IssuerAdminPassword: string;
   private _badgeClassAdminUsername: string;
   private _badgeClassAdminPassword: string;
+  private _studentName: string = '';
+  private _studentPassword: string = '';
+  private _studentEmail: string = '';
   private _language: Language = Language.en;
   private _pagesForLanguageChangeNotification: BasePageMultiLanguage[] = [];
 
@@ -23,7 +27,7 @@ export class Testdata {
     issuerAdminUsername: string,
     issuerAdminPassword: string,
     badgeClassAdminUsername: string,
-    badgeClassAdminPassword: string
+    badgeClassAdminPassword: string,
   ) {
     this._institutionAdminUsername = institutionAdminUsername;
     this._institutionAdminPassword = institutionAdminPassword;
@@ -78,6 +82,30 @@ export class Testdata {
 
   get badgeClassAdminPassword(): string {
     return this._badgeClassAdminPassword;
+  }
+
+  get studentName(): string {
+    return this._studentName;
+  }
+
+  set studentName(name: string) {
+    this._studentName = name;
+  }
+
+  get studentPassword(): string {
+    return this._studentPassword;
+  }
+
+  set studentPassword(password: string) {
+    this._studentPassword = password;
+  }
+
+  get studentEmail(): string {
+    return this._studentEmail;
+  }
+
+  set studentEmail(email: string) {
+    this._studentEmail = email;
   }
 
   get language(): Language {
