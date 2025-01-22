@@ -1,4 +1,3 @@
-import { emit } from 'process';
 import { BasePageMultiLanguage } from '../pages/basePageMultiLanguage';
 
 export class Testdata {
