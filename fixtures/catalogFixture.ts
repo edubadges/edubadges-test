@@ -35,7 +35,7 @@ var testdata = new Testdata(
 );
 
 export const test = base.extend<CatalogFixture>({
-    catalogPage: async ({ page }, use) => {
+  catalogPage: async ({ page }, use) => {
     // Set up the fixture.
     testdata.studentName = studentName;
     testdata.studentPassword = studentPassword;
