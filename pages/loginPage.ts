@@ -69,6 +69,10 @@ export class LoginPage extends BasePageMultiLanguage {
       this.testdata.institutionAdminUsername,
       this.testdata.institutionAdminPassword,
     );
+    await this.login(
+      this.testdata.institutionAdminUsername,
+      this.testdata.institutionAdminPassword,
+    );
   }
 
   async loginWithIssuerGroupAdmin() {
@@ -76,9 +80,17 @@ export class LoginPage extends BasePageMultiLanguage {
       this.testdata.issuerGroupAdminUsername,
       this.testdata.issuerGroupAdminPassword,
     );
+    await this.login(
+      this.testdata.issuerGroupAdminUsername,
+      this.testdata.issuerGroupAdminPassword,
+    );
   }
 
   async loginWithIssuerAdmin() {
+    await this.login(
+      this.testdata.issuerAdminUsername,
+      this.testdata.issuerAdminPassword,
+    );
     await this.login(
       this.testdata.issuerAdminUsername,
       this.testdata.issuerAdminPassword,
