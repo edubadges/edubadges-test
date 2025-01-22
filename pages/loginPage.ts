@@ -144,5 +144,5 @@ export class LoginPage extends BasePageMultiLanguage {
 
   async OpenCatalog() {
     await this.page.getByRole('link', { name: 'Open the catalog' }).click();
-}
+  }
 }
