@@ -57,23 +57,63 @@ export class LoginPage extends BasePageMultiLanguage {
     var snapshotName = '';
 
     if (this.testdata.language === Language.en) {
-      snapshotName = 'expectedLoginPageAfterLoginIn-eng.png';
+      snapshotName = `expectedLoginPageOpened-eng.png`;
     } else {
-      snapshotName = 'expectedLoginPageAfterLoginIn-nl.png';
+      snapshotName = `expectedLoginPageOpened-nl.png`;
     }
     await expect(this.page).toHaveScreenshot(snapshotName, { fullPage: true });
   }
 
   async loginWithInstitutionAdmin() {
+    await this.login(
+      this.testdata.institutionAdminUsername,
+      this.testdata.institutionAdminPassword,
+    );
+  }
+
+  async loginWithIssuerGroupAdmin() {
+    await this.login(
+      this.testdata.issuerGroupAdminUsername,
+      this.testdata.issuerGroupAdminPassword,
+    );
+  }
+
+  async loginWithIssuerAdmin() {
+    await this.login(
+      this.testdata.issuerAdminUsername,
+      this.testdata.issuerAdminPassword,
+    );
+  }
+
+  async loginWithBadgeClassAdmin() {
+    await this.login(
+      this.testdata.badgeClassAdminUsername,
+      this.testdata.badgeClassAdminPassword,
+    );
+  }
+
+  private async login(username: string, password: string) {
     await this.openIssuerPortalLocator.click();
 
     await this.searchFieldLocator.fill('test idp');
     await expect(this.surfConextLocator).toBeVisible();
+    await this.page.waitForTimeout(2000);
     await this.surfConextLocator.click();
 
-    await this.usernameLocator.fill(this.testdata.institutionAdminUsername);
-    await this.passwordLocator.fill(this.testdata.institutionAdminPassword);
+    await this.usernameLocator.fill(username);
+    await this.passwordLocator.fill(password);
     await this.loginButtonLocator.click();
+
+    await this.page.waitForTimeout(5000);
+    const proceedToEdubadgesFound = await this.page
+      .getByRole('button', { name: 'Proceed to Edubadges [' })
+      .count();
+    if (proceedToEdubadgesFound > 0) {
+      await this.page
+        .getByRole('button', { name: 'Proceed to Edubadges [' })
+        .click();
+    }
+    await this.page.waitForTimeout(5000);
   }
 
   async switchToDutch() {

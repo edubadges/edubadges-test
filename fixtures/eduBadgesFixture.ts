@@ -3,8 +3,7 @@ import { LoginPage } from '../pages/loginPage';
 import { IssuerPortalPage } from '../pages/issuerPortalPage';
 import { Testdata } from '../util/testdata';
 
-type LoginFixture = {
-  loginPage: LoginPage;
+type EdubadgeFixture = {
   issuerPortalPage: IssuerPortalPage;
   testdata: Testdata;
 };
@@ -32,23 +31,14 @@ var testdata = new Testdata(
   badgeClassAdminPassword,
 );
 
-export const test = base.extend<LoginFixture>({
-  loginPage: async ({ page }, use, testInfo) => {
-    // Set up the fixture
-    testdata.testCaseName = testInfo.title;
-    console.log(testInfo.title);
-    const loginPage = new LoginPage(page, testdata);
-    await loginPage.navigateToLoginPage();
-
-    // Use the fixture value in the test.
-    await use(loginPage);
-
-    // Clean up the fixture.
-  },
-
+export const test = base.extend<EdubadgeFixture>({
   issuerPortalPage: async ({ page }, use) => {
     // Set up the fixture.
+    const loginPage = new LoginPage(page, testdata);
+    await loginPage.navigateToLoginPage();
+    await loginPage.loginWithInstitutionAdmin();
     const issuerPortalPage = new IssuerPortalPage(page, testdata);
+    await issuerPortalPage.goToManage();
 
     // Use the fixture value in the test.
     await use(issuerPortalPage);
