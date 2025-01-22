@@ -13,22 +13,35 @@ var institutionAdminUsername = process.env.INSTUTUTION_ADMIN_USERNAME || '';
 var institutionAdminPassword = process.env.INSTUTUTION_ADMIN_PASSWORD || '';
 var issuerGroupAdminUsername = process.env.ISSUER_GROUP_ADMIN_USERNAME || '';
 var iissuerGroupAdminPassword = process.env.ISSUER_GROUP_ADMIN_PASSWORD || '';
-var issuerGroupAdminIssuerGroup = process.env.ISSUER_GROUP_ADMIN_ISSUERGROUP || '';
+var issuerGroupAdminIssuerGroup =
+  process.env.ISSUER_GROUP_ADMIN_ISSUERGROUP || '';
 var issuerAdminUsername = process.env.ISSUER_ADMIN_USERNAME || '';
 var iissuerAdminPassword = process.env.ISSUER_ADMIN_PASSWORD || '';
 var badgeClassAdminUsername = process.env.BADGE_CLASS_ADMIN_USERNAME || '';
 var badgeClassAdminPassword = process.env.BADGE_CLASS_ADMIN_PASSWORD || '';
+var studentName = process.env.STUDENT_USERNAME || '';
+var studentPassword = process.env.STUDENT_PASSWORD || '';
 
-var testdata = new Testdata(institutionAdminUsername, institutionAdminPassword, issuerGroupAdminUsername, iissuerGroupAdminPassword, issuerGroupAdminIssuerGroup, 
-  issuerAdminUsername, iissuerAdminPassword, badgeClassAdminUsername, badgeClassAdminPassword);
+var testdata = new Testdata(
+  institutionAdminUsername,
+  institutionAdminPassword,
+  issuerGroupAdminUsername,
+  iissuerGroupAdminPassword,
+  issuerGroupAdminIssuerGroup,
+  issuerAdminUsername,
+  iissuerAdminPassword,
+  badgeClassAdminUsername,
+  badgeClassAdminPassword,
+);
 
 export const test = base.extend<LoginFixture>({
   loginPage: async ({ page }, use, testInfo) => {
     // Set up the fixture
     testdata.testCaseName = testInfo.title;
-    console.log(testInfo.title);
+    testdata.studentName = studentName;
+    testdata.studentPassword = studentPassword;
     const loginPage = new LoginPage(page, testdata);
-    await loginPage.navigateToLoginPage();
+    await loginPage.navigateToLoginPageForIssuerPortal();
 
     // Use the fixture value in the test.
     await use(loginPage);
