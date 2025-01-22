@@ -23,7 +23,7 @@ export class Testdata {
     issuerAdminUsername: string,
     issuerAdminPassword: string,
     badgeClassAdminUsername: string,
-    badgeClassAdminPassword: string
+    badgeClassAdminPassword: string,
   ) {
     this._institutionAdminUsername = institutionAdminUsername;
     this._institutionAdminPassword = institutionAdminPassword;
