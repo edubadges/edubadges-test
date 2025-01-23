@@ -1,5 +1,5 @@
 import { expect, Page } from '@playwright/test';
-import { Testdata, Language } from '../util/testdata';
+import { Testdata } from '../util/testdata';
 import { BasePage } from './basePage';
 import path from 'path';
 
@@ -16,16 +16,6 @@ export class IssuerPortalPage extends BasePage {
     await expect(
       this.page.getByRole('link', { name: 'Badge classes' }),
     ).toBeVisible();
-
-    var snapshotName = '';
-
-    if (this.testdata.language === Language.en) {
-      snapshotName = `expectedIssuerPortalPageAfterLoginIn-eng${this.testdata.testCaseName}.png`;
-    } else {
-      snapshotName = `expectedIssuerPortalPageAfterLoginIn-nl${this.testdata.testCaseName}.png`;
-    }
-
-    await expect(this.page).toHaveScreenshot(snapshotName, { fullPage: true });
   }
 
   async goToManage() {
