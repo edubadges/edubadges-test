@@ -40,7 +40,6 @@ export class CatalogPage extends BasePage {
     if (termsAndConditionsPageShown > 0) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
-    await this.page.getByRole('link', { name: 'Confirm' }).click();
   }
 
   private async Login() {
