@@ -55,20 +55,20 @@ export class LoginPage extends BasePageMultiLanguage {
 
   async expectLoginPageOpened() {
     var snapshotName = '';
+    var maskedLocator = await this.page.getByText(' Badge Classes').first();
 
     if (this.testdata.language === Language.en) {
       snapshotName = `expectedLoginPageOpened-eng.png`;
     } else {
       snapshotName = `expectedLoginPageOpened-nl.png`;
     }
-    await expect(this.page).toHaveScreenshot(snapshotName, { fullPage: true });
+    await expect(this.page).toHaveScreenshot(snapshotName, {
+      fullPage: true,
+      mask: [maskedLocator],
+    });
   }
 
   async loginWithInstitutionAdmin() {
-    await this.login(
-      this.testdata.institutionAdminUsername,
-      this.testdata.institutionAdminPassword,
-    );
     await this.login(
       this.testdata.institutionAdminUsername,
       this.testdata.institutionAdminPassword,
@@ -80,17 +80,9 @@ export class LoginPage extends BasePageMultiLanguage {
       this.testdata.issuerGroupAdminUsername,
       this.testdata.issuerGroupAdminPassword,
     );
-    await this.login(
-      this.testdata.issuerGroupAdminUsername,
-      this.testdata.issuerGroupAdminPassword,
-    );
   }
 
   async loginWithIssuerAdmin() {
-    await this.login(
-      this.testdata.issuerAdminUsername,
-      this.testdata.issuerAdminPassword,
-    );
     await this.login(
       this.testdata.issuerAdminUsername,
       this.testdata.issuerAdminPassword,
