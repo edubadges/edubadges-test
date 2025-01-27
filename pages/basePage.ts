@@ -2,7 +2,7 @@ import { Page } from 'playwright/test';
 import { Testdata } from '../util/testdata';
 
 export abstract class BasePage {
-  protected page: Page;
+  public page: Page;
   protected testdata: Testdata;
 
   constructor(page: Page, testdata: Testdata) {
