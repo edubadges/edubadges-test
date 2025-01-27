@@ -111,9 +111,11 @@ export class LoginPage extends BasePageMultiLanguage {
     await expect(this.surfConextLocator).toBeVisible();
     await this.page.waitForTimeout(2000);
     await this.surfConextLocator.click();
+    await this.page.waitForTimeout(2000);
 
     await this.usernameLocator.fill(username);
     await this.passwordLocator.fill(password);
+    await this.page.waitForTimeout(500);
     await this.loginButtonLocator.click();
 
     await this.page.waitForTimeout(5000);
