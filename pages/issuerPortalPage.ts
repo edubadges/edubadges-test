@@ -108,9 +108,31 @@ export class IssuerPortalPage extends BasePage {
     await this.page.getByRole('link', { name: 'Publish' }).click();
   }
 
-  validateLoginFailed() {
+  async validateLoginFailed() {
     this.page
       .getByRole('heading', { name: "Sorry, you don't have access" })
       .isVisible();
+  }
+
+  async SearchForClass(name: string) {
+    await this.page.getByPlaceholder('Search...').fill(name);
+  }
+
+  async openBadgeClassWithNameFromMainPage(name: string) {
+    await this.page.getByText(name).click();
+  }
+
+  async rewardBadgeToStudent() {
+    await this.page.getByRole('link', { name: 'Open requests ' }).click();
+    await this.page
+      .getByRole('row', { name: 'Petra Penttilä' })
+      .locator('label span')
+      .click();
+    await this.page.getByRole('link', { name: 'Award', exact: true }).click();
+    await expect(this.page.getByText('Are you sure you want to')).toBeVisible();
+    await this.page
+      .getByText('Cancel Award')
+      .getByRole('link', { name: 'Award', exact: true })
+      .click();
   }
 }
