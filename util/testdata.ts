@@ -2,41 +2,41 @@ import { BasePageMultiLanguage } from '../pages/basePageMultiLanguage';
 
 export class Testdata {
   private _testCaseName: string = '';
-  private _institutionAdminUsername: string;
-  private _institutionAdminPassword: string;
-  private _issuerGroupAdminUsername: string;
-  private _issuerGroupAdminPassword: string;
-  private _issuerGroupAdminIssuerGroup: string;
-  private _IssuerAdminUsername: string;
-  private _IssuerAdminPassword: string;
-  private _badgeClassAdminUsername: string;
-  private _badgeClassAdminPassword: string;
+  private _institutionAdminUsername: string = '';
+  private _institutionAdminPassword: string = '';
+  private _issuerGroupAdminUsername: string = '';
+  private _issuerGroupAdminPassword: string = '';
+  private _issuerGroupAdminIssuerGroup: string = '';
+  private _issuerAdminUsername: string = '';
+  private _issuerAdminPassword: string = '';
+  private _badgeClassAdminUsername: string = '';
+  private _badgeClassAdminPassword: string = '';
   private _studentName: string = '';
   private _studentPassword: string = '';
   private _studentEmail: string = '';
   private _language: Language = Language.en;
   private _pagesForLanguageChangeNotification: BasePageMultiLanguage[] = [];
 
-  constructor(
-    institutionAdminUsername: string,
-    institutionAdminPassword: string,
-    issuerGroupAdminUsername: string,
-    issuerGroupAdminPassword: string,
-    issuerGroupAdminIssuerGroup: string,
-    issuerAdminUsername: string,
-    issuerAdminPassword: string,
-    badgeClassAdminUsername: string,
-    badgeClassAdminPassword: string,
-  ) {
-    this._institutionAdminUsername = institutionAdminUsername;
-    this._institutionAdminPassword = institutionAdminPassword;
-    this._issuerGroupAdminUsername = issuerGroupAdminUsername;
-    this._issuerGroupAdminPassword = issuerGroupAdminPassword;
-    this._issuerGroupAdminIssuerGroup = issuerGroupAdminIssuerGroup;
-    this._IssuerAdminUsername = issuerAdminUsername;
-    this._IssuerAdminPassword = issuerAdminPassword;
-    this._badgeClassAdminUsername = badgeClassAdminUsername;
-    this._badgeClassAdminPassword = badgeClassAdminPassword;
+  constructor() {
+    this._institutionAdminUsername =
+      process.env.INSTUTUTION_ADMIN_USERNAME || '';
+    this._institutionAdminPassword =
+      process.env.INSTUTUTION_ADMIN_PASSWORD || '';
+    this._issuerGroupAdminUsername =
+      process.env.ISSUER_GROUP_ADMIN_USERNAME || '';
+    this._issuerGroupAdminPassword =
+      process.env.ISSUER_GROUP_ADMIN_PASSWORD || '';
+    this._issuerGroupAdminIssuerGroup =
+      process.env.ISSUER_GROUP_ADMIN_ISSUERGROUP || '';
+    this._issuerAdminUsername = process.env.ISSUER_ADMIN_USERNAME || '';
+    this._issuerAdminPassword = process.env.ISSUER_ADMIN_PASSWORD || '';
+    this._badgeClassAdminUsername =
+      process.env.BADGE_CLASS_ADMIN_USERNAME || '';
+    this._badgeClassAdminPassword =
+      process.env.BADGE_CLASS_ADMIN_PASSWORD || '';
+    this._studentName = process.env.STUDENT_USERNAME || '';
+    this._studentPassword = process.env.STUDENT_PASSWORD || '';
+    this._studentEmail = process.env.STUDENT_EMAIL || '';
   }
 
   get testCaseName(): string {
@@ -68,11 +68,11 @@ export class Testdata {
   }
 
   get issuerAdminUsername(): string {
-    return this._IssuerAdminUsername;
+    return this._issuerAdminUsername;
   }
 
   get issuerAdminPassword(): string {
-    return this._IssuerAdminPassword;
+    return this._issuerAdminPassword;
   }
 
   get badgeClassAdminUsername(): string {
@@ -87,24 +87,12 @@ export class Testdata {
     return this._studentName;
   }
 
-  set studentName(name: string) {
-    this._studentName = name;
-  }
-
   get studentPassword(): string {
     return this._studentPassword;
   }
 
-  set studentPassword(password: string) {
-    this._studentPassword = password;
-  }
-
   get studentEmail(): string {
     return this._studentEmail;
-  }
-
-  set studentEmail(email: string) {
-    this._studentEmail = email;
   }
 
   get language(): Language {
