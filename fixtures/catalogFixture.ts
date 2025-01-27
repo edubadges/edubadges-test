@@ -1,11 +1,10 @@
 import { test as base } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
-import { IssuerPortalPage } from '../pages/issuerPortalPage';
 import { Testdata } from '../util/testdata';
+import { CatalogPage } from '../pages/catalogPage';
 
-type LoginFixture = {
-  loginPage: LoginPage;
-  issuerPortalPage: IssuerPortalPage;
+type CatalogFixture = {
+  catalogPage: CatalogPage;
   testdata: Testdata;
 };
 
@@ -21,6 +20,7 @@ var badgeClassAdminUsername = process.env.BADGE_CLASS_ADMIN_USERNAME || '';
 var badgeClassAdminPassword = process.env.BADGE_CLASS_ADMIN_PASSWORD || '';
 var studentName = process.env.STUDENT_USERNAME || '';
 var studentPassword = process.env.STUDENT_PASSWORD || '';
+var studentEmail = process.env.STUDENT_EMAIL || '';
 
 var testdata = new Testdata(
   institutionAdminUsername,
@@ -34,27 +34,19 @@ var testdata = new Testdata(
   badgeClassAdminPassword,
 );
 
-export const test = base.extend<LoginFixture>({
-  loginPage: async ({ page }, use, testInfo) => {
-    // Set up the fixture
-    testdata.testCaseName = testInfo.title;
+export const test = base.extend<CatalogFixture>({
+  catalogPage: async ({ page }, use) => {
+    // Set up the fixture.
     testdata.studentName = studentName;
     testdata.studentPassword = studentPassword;
+    testdata.studentEmail = studentEmail;
     const loginPage = new LoginPage(page, testdata);
     await loginPage.navigateToLoginPageForIssuerPortal();
+    await loginPage.OpenCatalog();
+    const catalogPage = new CatalogPage(page, testdata);
 
     // Use the fixture value in the test.
-    await use(loginPage);
-
-    // Clean up the fixture.
-  },
-
-  issuerPortalPage: async ({ page }, use) => {
-    // Set up the fixture.
-    const issuerPortalPage = new IssuerPortalPage(page, testdata);
-
-    // Use the fixture value in the test.
-    await use(issuerPortalPage);
+    await use(catalogPage);
 
     // Clean up the fixture.
   },

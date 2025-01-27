@@ -1,38 +1,46 @@
 import { test } from '../../fixtures/loginFixture';
 
-test('Login with institution admin', async ({
+test('Login with institution admin in the issuer portal', async ({
   loginPage,
   issuerPortalPage,
 }) => {
-  await loginPage.navigateToLoginPage();
   await loginPage.expectLoginPageOpened();
   await loginPage.loginWithInstitutionAdmin();
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with issuer group admin', async ({
+test('Login with issuer group admin in the issuer portal', async ({
   loginPage,
   issuerPortalPage,
 }) => {
-  await loginPage.navigateToLoginPage();
   await loginPage.expectLoginPageOpened();
   await loginPage.loginWithIssuerGroupAdmin();
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with badge class admin', async ({
+test('Login with badge class admin in the issuer portal', async ({
   loginPage,
   issuerPortalPage,
 }) => {
-  await loginPage.navigateToLoginPage();
   await loginPage.expectLoginPageOpened();
   await loginPage.loginWithBadgeClassAdmin();
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with issuerAdmin', async ({ loginPage, issuerPortalPage }) => {
-  await loginPage.navigateToLoginPage();
+test('Login with issuerAdmin in the issuer portal', async ({
+  loginPage,
+  issuerPortalPage,
+}) => {
   await loginPage.expectLoginPageOpened();
   await loginPage.loginWithIssuerAdmin();
   await issuerPortalPage.validateLoginSuccesfull();
+});
+
+test('Login with student in the issuer portal', async ({
+  loginPage,
+  issuerPortalPage,
+}) => {
+  await loginPage.expectLoginPageOpened();
+  await loginPage.loginWithStudent();
+  await issuerPortalPage.validateLoginFailed();
 });

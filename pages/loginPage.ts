@@ -49,19 +49,23 @@ export class LoginPage extends BasePageMultiLanguage {
     });
   }
 
-  async navigateToLoginPage() {
+  async navigateToLoginPageForIssuerPortal() {
     await this.page.goto('');
   }
 
   async expectLoginPageOpened() {
     var snapshotName = '';
+    var maskedLocator = await this.page.getByText(' Badge Classes').first();
 
     if (this.testdata.language === Language.en) {
       snapshotName = `expectedLoginPageOpened-eng.png`;
     } else {
       snapshotName = `expectedLoginPageOpened-nl.png`;
     }
-    await expect(this.page).toHaveScreenshot(snapshotName, { fullPage: true });
+    await expect(this.page).toHaveScreenshot(snapshotName, {
+      fullPage: true,
+      mask: [maskedLocator],
+    });
   }
 
   async loginWithInstitutionAdmin() {
@@ -90,6 +94,10 @@ export class LoginPage extends BasePageMultiLanguage {
       this.testdata.badgeClassAdminUsername,
       this.testdata.badgeClassAdminPassword,
     );
+  }
+
+  async loginWithStudent() {
+    await this.login(this.testdata.studentName, this.testdata.studentPassword);
   }
 
   private async login(username: string, password: string) {
@@ -124,5 +132,9 @@ export class LoginPage extends BasePageMultiLanguage {
   async switchToEnglish() {
     await this.page.getByRole('link', { name: 'EN' }).click();
     this.testdata.language = Language.nl;
+  }
+
+  async OpenCatalog() {
+    await this.page.getByRole('link', { name: 'Open the catalog' }).click();
   }
 }

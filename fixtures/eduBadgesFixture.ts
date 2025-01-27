@@ -35,7 +35,7 @@ export const test = base.extend<EdubadgeFixture>({
   issuerPortalPage: async ({ page }, use) => {
     // Set up the fixture.
     const loginPage = new LoginPage(page, testdata);
-    await loginPage.navigateToLoginPage();
+    await loginPage.navigateToLoginPageForIssuerPortal();
     await loginPage.loginWithInstitutionAdmin();
     const issuerPortalPage = new IssuerPortalPage(page, testdata);
     await issuerPortalPage.goToManage();
