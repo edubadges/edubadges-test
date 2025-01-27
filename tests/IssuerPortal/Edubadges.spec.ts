@@ -64,12 +64,16 @@ test('Validate microcredention badge class creation', async ({
   await issuerPortalPage.openBadgeClassWithName('Medicine');
   await issuerPortalPage.createNewBadgeClass();
   await issuerPortalPage.createNewMicroCredential();
-  await expect(page).toHaveScreenshot('emptyMicrocredentialForm.png', {
-    fullPage: true,
-  });
   await issuerPortalPage.fillInMicrocredentialForm();
   await issuerPortalPage.publishBadge();
-  await page.waitForTimeout(2000);
+
+  await expect(
+    page.getByRole('link', { name: 'Edit badge class' }),
+  ).toBeVisible();
+  var maskedLocators = [await page.getByText('Created ').locator('..')];
+  await expect(page).toHaveScreenshot('microBadgeCreated.png', {
+    mask: maskedLocators,
+  });
 });
 
 test('Validate regular edu badge creation', async ({
@@ -80,9 +84,16 @@ test('Validate regular edu badge creation', async ({
   await issuerPortalPage.openBadgeClassWithName('Medicine');
   await issuerPortalPage.createNewBadgeClass();
   await issuerPortalPage.createRegularEduBadge();
-  await issuerPortalPage.fillInMicrocredentialForm();
+  await issuerPortalPage.fillInRegularForm();
   await issuerPortalPage.publishBadge();
-  await page.waitForTimeout(2000);
+
+  await expect(
+    page.getByRole('link', { name: 'Edit badge class' }),
+  ).toBeVisible();
+  var maskedLocators = [await page.getByText('Created ').locator('..')];
+  await expect(page).toHaveScreenshot('regularBadgeCreated.png', {
+    mask: maskedLocators,
+  });
 });
 
 test('Validate extra curricular edu badge creation', async ({
@@ -93,7 +104,14 @@ test('Validate extra curricular edu badge creation', async ({
   await issuerPortalPage.openBadgeClassWithName('Medicine');
   await issuerPortalPage.createNewBadgeClass();
   await issuerPortalPage.createExtraCurricularEduBadge();
-  await issuerPortalPage.fillInMicrocredentialForm();
+  await issuerPortalPage.fillInExtraCurricularForm();
   await issuerPortalPage.publishBadge();
-  await page.waitForTimeout(2000);
+
+  await expect(
+    page.getByRole('link', { name: 'Edit badge class' }),
+  ).toBeVisible();
+  var maskedLocators = [await page.getByText('Created ').locator('..')];
+  await expect(page).toHaveScreenshot('extraCurricularBadgeCreated.png', {
+    mask: maskedLocators,
+  });
 });
