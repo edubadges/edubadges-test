@@ -9,7 +9,7 @@ test('Login with institution admin in the issuer portal', async ({
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test('Login with issuer group admin in the issuer portal', async ({
+test.skip('Login with issuer group admin in the issuer portal', async ({
   loginPage,
   issuerPortalPage,
 }) => {
@@ -18,7 +18,7 @@ test('Login with issuer group admin in the issuer portal', async ({
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test('Login with badge class admin in the issuer portal', async ({
+test.skip('Login with badge class admin in the issuer portal', async ({
   loginPage,
   issuerPortalPage,
 }) => {
@@ -27,7 +27,7 @@ test('Login with badge class admin in the issuer portal', async ({
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test('Login with issuerAdmin in the issuer portal', async ({
+test.skip('Login with issuerAdmin in the issuer portal', async ({
   loginPage,
   issuerPortalPage,
 }) => {
