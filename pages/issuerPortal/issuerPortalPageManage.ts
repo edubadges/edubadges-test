@@ -1,24 +1,11 @@
 import { expect, Page } from '@playwright/test';
-import { Testdata } from '../util/testdata';
-import { BasePage } from './basePage';
+import { Testdata } from '../../util/testdata';
+import { BasePage } from '../basePage';
 import path from 'path';
 
-export class IssuerPortalPage extends BasePage {
-  switchToDutch() {
-    this.page.getByRole('link', { name: 'NL' }).click();
-  }
-
-  async validateLoginSuccesfull() {
-    await expect(
-      this.page.getByRole('link', { name: 'Badge classes' }),
-    ).toBeVisible();
-  }
-
-  async goToManage() {
-    await this.page.getByRole('link', { name: 'Manage' }).click();
-    await expect(
-      this.page.getByRole('link', { name: 'Edit educational institution' }),
-    ).toBeVisible();
+export class IssuerPortalPageManage extends BasePage {
+  constructor(page: Page, testdata: Testdata) {
+    super(page, testdata);
   }
 
   async searchForBadgeClass(badgeClassName: string) {
@@ -179,39 +166,8 @@ export class IssuerPortalPage extends BasePage {
       path.join(__dirname + '/images/', 'edubadge.png'),
     );
   }
-  constructor(page: Page, testdata: Testdata) {
-    super(page, testdata);
-  }
 
   async publishBadge() {
     await this.page.getByRole('link', { name: 'Publish' }).click();
-  }
-
-  async validateLoginFailed() {
-    this.page
-      .getByRole('heading', { name: "Sorry, you don't have access" })
-      .isVisible();
-  }
-
-  async SearchForClass(name: string) {
-    await this.page.getByPlaceholder('Search...').fill(name);
-  }
-
-  async openBadgeClassWithNameFromMainPage(name: string) {
-    await this.page.getByText(name).click();
-  }
-
-  async rewardBadgeToStudent() {
-    await this.page.getByRole('link', { name: 'Open requests ' }).click();
-    await this.page
-      .getByRole('row', { name: 'Petra Penttilä' })
-      .locator('label span')
-      .click();
-    await this.page.getByRole('link', { name: 'Award', exact: true }).click();
-    await expect(this.page.getByText('Are you sure you want to')).toBeVisible();
-    await this.page
-      .getByText('Cancel Award')
-      .getByRole('link', { name: 'Award', exact: true })
-      .click();
   }
 }

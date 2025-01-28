@@ -13,19 +13,20 @@ test('Teacher approve enrollment', async ({
   catalogPage,
   issuerPortalPage,
 }) => {
-  //different badge
   await catalogPage.SearchForClass('Group Dynamics');
   await catalogPage.filterOn('university-example.org');
   await catalogPage.openEduClass('Group Dynamics');
   await catalogPage.RequestEdubadge();
-  await catalogPage.page.waitForTimeout(5000);
+  await catalogPage.page.waitForTimeout(2000);
 
-  //await issuerPortalPage.refresh();
   await issuerPortalPage.SearchForClass('Group Dynamics');
   await issuerPortalPage.openBadgeClassWithNameFromMainPage('Group Dynamics');
   await issuerPortalPage.rewardBadgeToStudent();
   await issuerPortalPage.page.waitForTimeout(5000);
 
   await catalogPage.OpenBackpack();
-  await expect(catalogPage.page).toHaveScreenshot('eduBadgeReceived.png');
+  var maskedElement = [await catalogPage.page.locator('.card > .header')];
+  await expect(catalogPage.page).toHaveScreenshot('eduBadgeReceived.png', {
+    mask: maskedElement,
+  });
 });
