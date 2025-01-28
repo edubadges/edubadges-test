@@ -1,10 +1,10 @@
 import { test as base } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
-import { IssuerPortalPage } from '../pages/issuerPortalPage';
+import { HomePage } from '../pages/homePage';
+import { IssuerPortalPage } from '../pages/issuerPortal/issuerPortalPage';
 import { Testdata } from '../util/testdata';
 
 type LoginFixture = {
-  loginPage: LoginPage;
+  homePage: HomePage;
   issuerPortalPage: IssuerPortalPage;
   testdata: Testdata;
 };
@@ -12,11 +12,11 @@ type LoginFixture = {
 var testdata = new Testdata();
 
 export const test = base.extend<LoginFixture>({
-  loginPage: async ({ page }, use, testInfo) => {
+  homePage: async ({ page }, use, testInfo) => {
     // Set up the fixture
     testdata.testCaseName = testInfo.title;
-    const loginPage = new LoginPage(page, testdata);
-    await loginPage.navigateToLoginPageForIssuerPortal();
+    const loginPage = new HomePage(page, testdata);
+    await loginPage.navigateToHomePage();
 
     // Use the fixture value in the test.
     await use(loginPage);

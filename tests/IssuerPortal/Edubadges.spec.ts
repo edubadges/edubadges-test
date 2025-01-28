@@ -3,13 +3,13 @@ import { expect, test } from '../../fixtures/eduBadgesFixture';
 //Need to make this more flexable so that we can perform these tests with accounts with different roles
 
 test('Validate error messages empty microcredential form', async ({
-  issuerPortalPage,
+  issuerPortalPageManage,
   page,
 }) => {
-  await issuerPortalPage.searchForBadgeClass('Medicine');
-  await issuerPortalPage.openBadgeClassWithName('Medicine');
-  await issuerPortalPage.createNewBadgeClass();
-  await issuerPortalPage.createNewMicroCredential();
+  await issuerPortalPageManage.searchForBadgeClass('Medicine');
+  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
+  await issuerPortalPageManage.createNewBadgeClass();
+  await issuerPortalPageManage.createNewMicroCredential();
   await expect(page).toHaveScreenshot('emptyMicrocredentialForm.png', {
     fullPage: true,
   });
@@ -21,13 +21,13 @@ test('Validate error messages empty microcredential form', async ({
 });
 
 test('Validate error messages empty regular badge form', async ({
-  issuerPortalPage,
+  issuerPortalPageManage,
   page,
 }) => {
-  await issuerPortalPage.searchForBadgeClass('Medicine');
-  await issuerPortalPage.openBadgeClassWithName('Medicine');
-  await issuerPortalPage.createNewBadgeClass();
-  await issuerPortalPage.createRegularEduBadge();
+  await issuerPortalPageManage.searchForBadgeClass('Medicine');
+  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
+  await issuerPortalPageManage.createNewBadgeClass();
+  await issuerPortalPageManage.createRegularEduBadge();
   await expect(page).toHaveScreenshot('emptyRegularEdubadgeForm.png', {
     fullPage: true,
   });
@@ -39,13 +39,13 @@ test('Validate error messages empty regular badge form', async ({
 });
 
 test('Validate error messages empty extra curricular badge form', async ({
-  issuerPortalPage,
+  issuerPortalPageManage,
   page,
 }) => {
-  await issuerPortalPage.searchForBadgeClass('Medicine');
-  await issuerPortalPage.openBadgeClassWithName('Medicine');
-  await issuerPortalPage.createNewBadgeClass();
-  await issuerPortalPage.createExtraCurricularEduBadge();
+  await issuerPortalPageManage.searchForBadgeClass('Medicine');
+  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
+  await issuerPortalPageManage.createNewBadgeClass();
+  await issuerPortalPageManage.createExtraCurricularEduBadge();
   await expect(page).toHaveScreenshot('emptyExtraCurricularEdubadgeForm.png', {
     fullPage: true,
   });
@@ -57,15 +57,15 @@ test('Validate error messages empty extra curricular badge form', async ({
 });
 
 test('Validate microcredention badge class creation', async ({
-  issuerPortalPage,
+  issuerPortalPageManage,
   page,
 }) => {
-  await issuerPortalPage.searchForBadgeClass('Medicine');
-  await issuerPortalPage.openBadgeClassWithName('Medicine');
-  await issuerPortalPage.createNewBadgeClass();
-  await issuerPortalPage.createNewMicroCredential();
-  await issuerPortalPage.fillInMicrocredentialForm();
-  await issuerPortalPage.publishBadge();
+  await issuerPortalPageManage.searchForBadgeClass('Medicine');
+  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
+  await issuerPortalPageManage.createNewBadgeClass();
+  await issuerPortalPageManage.createNewMicroCredential();
+  await issuerPortalPageManage.fillInMicrocredentialForm();
+  await issuerPortalPageManage.publishBadge();
 
   await expect(
     page.getByRole('link', { name: 'Edit badge class' }),
@@ -77,15 +77,15 @@ test('Validate microcredention badge class creation', async ({
 });
 
 test('Validate regular edu badge creation', async ({
-  issuerPortalPage,
+  issuerPortalPageManage,
   page,
 }) => {
-  await issuerPortalPage.searchForBadgeClass('Medicine');
-  await issuerPortalPage.openBadgeClassWithName('Medicine');
-  await issuerPortalPage.createNewBadgeClass();
-  await issuerPortalPage.createRegularEduBadge();
-  await issuerPortalPage.fillInRegularForm();
-  await issuerPortalPage.publishBadge();
+  await issuerPortalPageManage.searchForBadgeClass('Medicine');
+  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
+  await issuerPortalPageManage.createNewBadgeClass();
+  await issuerPortalPageManage.createRegularEduBadge();
+  await issuerPortalPageManage.fillInRegularForm();
+  await issuerPortalPageManage.publishBadge();
 
   await expect(
     page.getByRole('link', { name: 'Edit badge class' }),
@@ -97,15 +97,15 @@ test('Validate regular edu badge creation', async ({
 });
 
 test('Validate extra curricular edu badge creation', async ({
-  issuerPortalPage,
+  issuerPortalPageManage,
   page,
 }) => {
-  await issuerPortalPage.searchForBadgeClass('Medicine');
-  await issuerPortalPage.openBadgeClassWithName('Medicine');
-  await issuerPortalPage.createNewBadgeClass();
-  await issuerPortalPage.createExtraCurricularEduBadge();
-  await issuerPortalPage.fillInExtraCurricularForm();
-  await issuerPortalPage.publishBadge();
+  await issuerPortalPageManage.searchForBadgeClass('Medicine');
+  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
+  await issuerPortalPageManage.createNewBadgeClass();
+  await issuerPortalPageManage.createExtraCurricularEduBadge();
+  await issuerPortalPageManage.fillInExtraCurricularForm();
+  await issuerPortalPageManage.publishBadge();
 
   await expect(
     page.getByRole('link', { name: 'Edit badge class' }),

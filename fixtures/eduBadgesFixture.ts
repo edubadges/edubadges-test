@@ -1,28 +1,33 @@
 import { test as base } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
-import { IssuerPortalPage } from '../pages/issuerPortalPage';
+import { HomePage } from '../pages/homePage';
+import { IssuerPortalPage } from '../pages/issuerPortal/issuerPortalPage';
 import { Testdata } from '../util/testdata';
+import { IssuerPortalPageManage } from '../pages/issuerPortal/issuerPortalPageManage';
 
 type EdubadgeFixture = {
-  issuerPortalPage: IssuerPortalPage;
+  issuerPortalPageManage: IssuerPortalPageManage;
   testdata: Testdata;
 };
 
 var testdata = new Testdata();
 
 export const test = base.extend<EdubadgeFixture>({
-  issuerPortalPage: async ({ page }, use, testInfo) => {
+  issuerPortalPageManage: async ({ page }, use, testInfo) => {
     testdata.testCaseName = testInfo.title;
 
     // Set up the fixture.
-    const loginPage = new LoginPage(page, testdata);
-    await loginPage.navigateToLoginPageForIssuerPortal();
-    await loginPage.loginWithInstitutionAdmin();
+    const homePage = new HomePage(page, testdata);
+    await homePage.navigateToHomePage();
+    await homePage.openIssuerPortal();
+
     const issuerPortalPage = new IssuerPortalPage(page, testdata);
+    await issuerPortalPage.loginWithInstitutionAdmin();
     await issuerPortalPage.goToManage();
 
+    const issuerPortalPageManage = new IssuerPortalPageManage(page, testdata);
+
     // Use the fixture value in the test.
-    await use(issuerPortalPage);
+    await use(issuerPortalPageManage);
 
     // Clean up the fixture.
   },
