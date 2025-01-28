@@ -55,7 +55,11 @@ export class LoginPage extends BasePageMultiLanguage {
 
   async expectLoginPageOpened() {
     var snapshotName = '';
-    var maskedLocator = await this.page.getByText(' Badge Classes').first();
+    var maskedLocators: Locator[] = [];
+    maskedLocators.push(await this.page.getByText(' Badge Classes').first());
+    maskedLocators.push(
+      await this.page.getByRole('heading', { name: 'At this moment ' }).first(),
+    );
 
     if (this.testdata.language === Language.en) {
       snapshotName = `expectedLoginPageOpened-eng.png`;
@@ -64,7 +68,7 @@ export class LoginPage extends BasePageMultiLanguage {
     }
     await expect(this.page).toHaveScreenshot(snapshotName, {
       fullPage: true,
-      mask: [maskedLocator],
+      mask: maskedLocators,
     });
   }
 
@@ -107,9 +111,11 @@ export class LoginPage extends BasePageMultiLanguage {
     await expect(this.surfConextLocator).toBeVisible();
     await this.page.waitForTimeout(2000);
     await this.surfConextLocator.click();
+    await this.page.waitForTimeout(2000);
 
     await this.usernameLocator.fill(username);
     await this.passwordLocator.fill(password);
+    await this.page.waitForTimeout(500);
     await this.loginButtonLocator.click();
 
     await this.page.waitForTimeout(5000);

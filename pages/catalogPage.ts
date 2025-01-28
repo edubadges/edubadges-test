@@ -40,13 +40,22 @@ export class CatalogPage extends BasePage {
     if (termsAndConditionsPageShown > 0) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
+
+    const confirm = await this.page
+      .getByRole('link', { name: 'Confirm' })
+      .count();
+    if (confirm > 0) {
+      await this.page.getByRole('link', { name: 'Confirm' }).click();
+    }
   }
 
   private async Login() {
     await this.page
       .getByPlaceholder('e.g. user@gmail.com')
       .fill(this.testdata.studentEmail);
+    await this.page.waitForTimeout(2000);
     await this.page.getByRole('link', { name: 'Next' }).click();
+
     await this.page
       .getByPlaceholder('Password')
       .fill(this.testdata.studentPassword);
@@ -58,5 +67,9 @@ export class CatalogPage extends BasePage {
     if (termsAndConditionsPageShown > 0) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
+  }
+
+  async OpenBackpack() {
+    await this.page.getByRole('link', { name: 'My backpack' }).click();
   }
 }
