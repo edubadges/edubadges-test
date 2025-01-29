@@ -10,10 +10,17 @@ type CatalogFixture = {
   testdata: Testdata;
 };
 
-var testdata = new Testdata();
-
 export const test = base.extend<CatalogFixture>({
-  catalogPage: async ({ page }, use, testInfo) => {
+  testdata: async ({}, use, testInfo) => {
+    var testdata = new Testdata();
+    testdata.testCaseName = testInfo.title;
+
+    // Use the fixture value in the test.
+    await use(testdata);
+
+    // Clean up the fixture.
+  },
+  catalogPage: async ({ page, testdata }, use, testInfo) => {
     // Set up the fixture.
     testdata.testCaseName = testInfo.title;
     const homePage = new HomePage(page, testdata);
@@ -26,7 +33,7 @@ export const test = base.extend<CatalogFixture>({
 
     // Clean up the fixture.
   },
-  issuerPortalPage: async ({ browser }, use) => {
+  issuerPortalPage: async ({ browser, testdata }, use) => {
     // Set up the fixture.
     var issuerContext = await browser.newContext();
     var issuerPage = await issuerContext.newPage();

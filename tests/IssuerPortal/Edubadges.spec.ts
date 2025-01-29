@@ -58,8 +58,11 @@ test('Validate error messages empty extra curricular badge form', async ({
 
 test('Validate microcredention badge class creation', async ({
   issuerPortalPageManage,
+  testdata,
   page,
 }) => {
+  testdata.badgeData.title = 'Microcredential Test automation';
+  testdata.badgeData.criteria = 'hffgcgvf';
   await issuerPortalPageManage.searchForBadgeClass('Medicine');
   await issuerPortalPageManage.openBadgeClassWithName('Medicine');
   await issuerPortalPageManage.createNewBadgeClass();
@@ -78,8 +81,10 @@ test('Validate microcredention badge class creation', async ({
 
 test('Validate regular edu badge creation', async ({
   issuerPortalPageManage,
+  testdata,
   page,
 }) => {
+  testdata.badgeData.title = 'Regular edu badge';
   await issuerPortalPageManage.searchForBadgeClass('Medicine');
   await issuerPortalPageManage.openBadgeClassWithName('Medicine');
   await issuerPortalPageManage.createNewBadgeClass();
@@ -98,8 +103,10 @@ test('Validate regular edu badge creation', async ({
 
 test('Validate extra curricular edu badge creation', async ({
   issuerPortalPageManage,
+  testdata,
   page,
 }) => {
+  testdata.badgeData.title = 'Extra curricular badge';
   await issuerPortalPageManage.searchForBadgeClass('Medicine');
   await issuerPortalPageManage.openBadgeClassWithName('Medicine');
   await issuerPortalPageManage.createNewBadgeClass();

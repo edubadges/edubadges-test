@@ -9,12 +9,17 @@ type EdubadgeFixture = {
   testdata: Testdata;
 };
 
-var testdata = new Testdata();
-
 export const test = base.extend<EdubadgeFixture>({
-  issuerPortalPageManage: async ({ page }, use, testInfo) => {
+  testdata: async ({}, use, testInfo) => {
+    var testdata = new Testdata();
     testdata.testCaseName = testInfo.title;
 
+    // Use the fixture value in the test.
+    await use(testdata);
+
+    // Clean up the fixture.
+  },
+  issuerPortalPageManage: async ({ page, testdata }, use) => {
     // Set up the fixture.
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
