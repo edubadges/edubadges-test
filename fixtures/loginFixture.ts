@@ -9,10 +9,17 @@ type LoginFixture = {
   testdata: Testdata;
 };
 
-var testdata = new Testdata();
-
 export const test = base.extend<LoginFixture>({
-  homePage: async ({ page }, use, testInfo) => {
+  testdata: async ({}, use, testInfo) => {
+    var testdata = new Testdata();
+    testdata.testCaseName = testInfo.title;
+
+    // Use the fixture value in the test.
+    await use(testdata);
+
+    // Clean up the fixture.
+  },
+  homePage: async ({ page, testdata }, use, testInfo) => {
     // Set up the fixture
     testdata.testCaseName = testInfo.title;
     const loginPage = new HomePage(page, testdata);
@@ -24,7 +31,7 @@ export const test = base.extend<LoginFixture>({
     // Clean up the fixture.
   },
 
-  issuerPortalPage: async ({ page }, use) => {
+  issuerPortalPage: async ({ page, testdata }, use) => {
     // Set up the fixture.
     const issuerPortalPage = new IssuerPortalPage(page, testdata);
 
