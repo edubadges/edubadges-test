@@ -1,4 +1,5 @@
 import { BasePageMultiLanguage } from '../pages/basePageMultiLanguage';
+import { BadgeData } from './badgeData';
 
 export class Testdata {
   private _testCaseName: string = '';
@@ -16,6 +17,7 @@ export class Testdata {
   private _studentEmail: string = '';
   private _language: Language = Language.en;
   private _pagesForLanguageChangeNotification: BasePageMultiLanguage[] = [];
+  private _badgeData: BadgeData = new BadgeData();
 
   constructor() {
     this._institutionAdminUsername =
@@ -93,6 +95,10 @@ export class Testdata {
 
   get studentEmail(): string {
     return this._studentEmail;
+  }
+
+  get badgeData(): BadgeData {
+    return this._badgeData;
   }
 
   get language(): Language {
