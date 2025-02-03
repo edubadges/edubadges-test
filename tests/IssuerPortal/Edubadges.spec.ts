@@ -1,7 +1,5 @@
 import { expect, test } from '../../fixtures/eduBadgesFixture';
 
-//Need to make this more flexable so that we can perform these tests with accounts with different roles
-
 test('Validate error messages empty microcredential form', async ({
   issuerPortalPageManage,
   page,
