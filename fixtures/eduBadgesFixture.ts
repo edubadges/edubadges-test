@@ -6,6 +6,7 @@ import { IssuerPortalPageManage } from '../pages/issuerPortal/issuerPortalPageMa
 
 type EdubadgeFixture = {
   issuerPortalPageManage: IssuerPortalPageManage;
+  mboIssuerPortalPageManage: IssuerPortalPageManage;
   testdata: Testdata;
 };
 
@@ -33,6 +34,26 @@ export const test = base.extend<EdubadgeFixture>({
 
     // Use the fixture value in the test.
     await use(issuerPortalPageManage);
+
+    // Clean up the fixture.
+  },
+  mboIssuerPortalPageManage: async ({ page, testdata }, use) => {
+    // Set up the fixture.
+    const homePage = new HomePage(page, testdata);
+    await homePage.navigateToHomePage();
+    await homePage.openIssuerPortal();
+
+    const issuerPortalPage = new IssuerPortalPage(page, testdata);
+    await issuerPortalPage.loginWithMBOInstitutionAdmin();
+    await issuerPortalPage.goToManage();
+
+    const mboIssuerPortalPageManage = new IssuerPortalPageManage(
+      page,
+      testdata,
+    );
+
+    // Use the fixture value in the test.
+    await use(mboIssuerPortalPageManage);
 
     // Clean up the fixture.
   },

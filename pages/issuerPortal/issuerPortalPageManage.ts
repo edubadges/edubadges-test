@@ -59,6 +59,11 @@ export class IssuerPortalPageManage extends BasePage {
     await this.fillInBadgeForm();
   }
 
+  async fillInMBOExtraCurricularForm() {
+    await this.fillInBadgeForm();
+    await this.fillInBadgeHoursForm();
+  }
+
   private async fillInBadgeForm() {
     await this.page
       .getByPlaceholder('(Required field) e.g.')
@@ -116,6 +121,12 @@ export class IssuerPortalPageManage extends BasePage {
     await fileChooser.setFiles(
       path.join(__dirname + '/images/', 'edubadge.png'),
     );
+  }
+
+  private async fillInBadgeHoursForm() {
+    await this.page
+      .getByPlaceholder('e.g. 24')
+      .fill(this.testdata.badgeData.hours);
   }
 
   async publishBadge() {
