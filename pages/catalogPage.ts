@@ -52,13 +52,13 @@ export class CatalogPage extends BasePage {
   private async Login() {
     await this.page
       .getByPlaceholder('e.g. user@gmail.com')
-      .fill(this.testdata.studentEmail);
+      .fill(this.testdata.accounts.studentEmail);
     await this.page.waitForTimeout(2000);
     await this.page.getByRole('link', { name: 'Next' }).click();
 
     await this.page
       .getByPlaceholder('Password')
-      .fill(this.testdata.studentPassword);
+      .fill(this.testdata.accounts.studentPassword);
     await this.page.getByRole('link', { name: 'Login' }).click();
     await this.page.waitForTimeout(2000);
     const termsAndConditionsPageShown = await this.page

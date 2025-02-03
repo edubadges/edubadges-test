@@ -1,6 +1,6 @@
 import { test } from '../../fixtures/loginFixture';
 
-test('Login with institution admin in the issuer portal', async ({
+test('Login with institution admin for uni in the issuer portal', async ({
   homePage,
   issuerPortalPage,
 }) => {
@@ -10,7 +10,7 @@ test('Login with institution admin in the issuer portal', async ({
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with issuer group admin in the issuer portal', async ({
+test.skip('Login with issuer group admin for uni in the issuer portal', async ({
   homePage,
   issuerPortalPage,
 }) => {
@@ -20,7 +20,7 @@ test.skip('Login with issuer group admin in the issuer portal', async ({
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with badge class admin in the issuer portal', async ({
+test.skip('Login with badge class admin for uni in the issuer portal', async ({
   homePage,
   issuerPortalPage,
 }) => {
@@ -30,7 +30,7 @@ test.skip('Login with badge class admin in the issuer portal', async ({
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with issuerAdmin in the issuer portal', async ({
+test.skip('Login with issuerAdmin for uni in the issuer portal', async ({
   homePage,
   issuerPortalPage,
 }) => {
@@ -48,4 +48,24 @@ test('Login with student in the issuer portal', async ({
   await homePage.openIssuerPortal();
   await issuerPortalPage.loginWithStudent();
   await issuerPortalPage.validateLoginFailed();
+});
+
+test('Login with institution admin for MBO in the issuer portal', async ({
+  homePage,
+  issuerPortalPage,
+}) => {
+  await homePage.expectHomePageOpened();
+  await homePage.openIssuerPortal();
+  await issuerPortalPage.loginWithMBOInstitutionAdmin();
+  await issuerPortalPage.validateLoginSuccesfull();
+});
+
+test('Login with institution admin for HBO in the issuer portal', async ({
+  homePage,
+  issuerPortalPage,
+}) => {
+  await homePage.expectHomePageOpened();
+  await homePage.openIssuerPortal();
+  await issuerPortalPage.loginWithHBOInstitutionAdmin();
+  await issuerPortalPage.validateLoginSuccesfull();
 });
