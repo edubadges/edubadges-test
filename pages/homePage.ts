@@ -43,9 +43,13 @@ export class HomePage extends BasePageMultiLanguage {
   async expectHomePageOpened() {
     var snapshotName = '';
     var maskedLocators: Locator[] = [];
-    maskedLocators.push(await this.page.getByText(' Badge Classes').first());
     maskedLocators.push(
-      await this.page.getByRole('heading', { name: 'At this moment ' }).first(),
+      await this.page
+        .getByText(' Badge Classes')
+        .first()
+        .locator('..')
+        .locator('..')
+        .locator('..'),
     );
 
     if (this.testdata.language === Language.en) {

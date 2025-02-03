@@ -1,11 +1,12 @@
 import { test as base } from '@playwright/test';
-import { HomePage } from '../pages/homePage';
-import { IssuerPortalPage } from '../pages/issuerPortal/issuerPortalPage';
-import { Testdata } from '../util/testdata';
-import { IssuerPortalPageManage } from '../pages/issuerPortal/issuerPortalPageManage';
+import { HomePage } from '../../pages/homePage';
+import { IssuerPortalPage } from '../../pages/issuerPortal/issuerPortalPage';
+import { Testdata } from '../../util/testdata';
+import { IssuerPortalPageManage } from '../../pages/issuerPortal/issuerPortalPageManage';
 
 type EdubadgeFixture = {
   issuerPortalPageManage: IssuerPortalPageManage;
+  mboIssuerPortalPageManage: IssuerPortalPageManage;
   testdata: Testdata;
 };
 

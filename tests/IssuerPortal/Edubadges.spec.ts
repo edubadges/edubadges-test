@@ -1,4 +1,4 @@
-import { expect, test } from '../../fixtures/eduBadgesFixture';
+import { expect, test } from '../../fixtures/eduBadges/eduBadgesFixture';
 
 test('Validate error messages empty microcredential form', async ({
   issuerPortalPageManage,

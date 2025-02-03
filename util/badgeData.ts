@@ -12,6 +12,7 @@ export class BadgeData {
   frameworkUrl: string = 'wwww.surf.nl';
   frameworkCode: string = 'wut';
   frameworkDescription: string = 'iugaiuegfigaef';
+  hours: string = '0';
 
   constructor() {}
 }

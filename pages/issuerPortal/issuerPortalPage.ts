@@ -59,34 +59,51 @@ export class IssuerPortalPage extends BasePage {
 
   async loginWithInstitutionAdmin() {
     await this.login(
-      this.testdata.institutionAdminUsername,
-      this.testdata.institutionAdminPassword,
+      this.testdata.accounts.institutionAdminUsername,
+      this.testdata.accounts.institutionAdminPassword,
     );
   }
 
   async loginWithIssuerGroupAdmin() {
     await this.login(
-      this.testdata.issuerGroupAdminUsername,
-      this.testdata.issuerGroupAdminPassword,
+      this.testdata.accounts.issuerGroupAdminUsername,
+      this.testdata.accounts.issuerGroupAdminPassword,
     );
   }
 
   async loginWithIssuerAdmin() {
     await this.login(
-      this.testdata.issuerAdminUsername,
-      this.testdata.issuerAdminPassword,
+      this.testdata.accounts.issuerAdminUsername,
+      this.testdata.accounts.issuerAdminPassword,
     );
   }
 
   async loginWithBadgeClassAdmin() {
     await this.login(
-      this.testdata.badgeClassAdminUsername,
-      this.testdata.badgeClassAdminPassword,
+      this.testdata.accounts.badgeClassAdminUsername,
+      this.testdata.accounts.badgeClassAdminPassword,
     );
   }
 
   async loginWithStudent() {
-    await this.login(this.testdata.studentName, this.testdata.studentPassword);
+    await this.login(
+      this.testdata.accounts.studentName,
+      this.testdata.accounts.studentPassword,
+    );
+  }
+
+  async loginWithMBOInstitutionAdmin() {
+    await this.login(
+      this.testdata.accounts.mboInstitutionAdminUsername,
+      this.testdata.accounts.mboInstitutionAdminPassword,
+    );
+  }
+
+  async loginWithHBOInstitutionAdmin() {
+    await this.login(
+      this.testdata.accounts.hboInstitutionAdminUsername,
+      this.testdata.accounts.hboInstitutionAdminPassword,
+    );
   }
 
   private async login(username: string, password: string) {
