@@ -50,6 +50,11 @@ export class CatalogPage extends BasePage {
   }
 
   private async Login() {
+    await this.page.getByPlaceholder('Search...').fill('test idp');
+    await expect(this.page.getByRole('heading', { name: 'Login with eduID (NL) test' })).toBeVisible();
+    await this.page.getByRole('heading', { name: 'Login with eduID (NL) test' }).click();
+    await this.page.waitForTimeout(2000);
+
     await this.page
       .getByPlaceholder('e.g. user@gmail.com')
       .fill(this.testdata.accounts.studentEmail);

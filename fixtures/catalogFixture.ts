@@ -20,14 +20,18 @@ export const test = base.extend<CatalogFixture>({
 
     // Clean up the fixture.
   },
-  catalogPage: async ({ page, testdata }, use, testInfo) => {
+  catalogPage: async ({ browser, testdata }, use, testInfo) => {
     // Set up the fixture.
     testdata.testCaseName = testInfo.title;
+
+    var catalogContext = await browser.newContext();
+    var page = await catalogContext.newPage();
+    
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
     await homePage.OpenCatalog();
     const catalogPage = new CatalogPage(page, testdata);
-
+    
     // Use the fixture value in the test.
     await use(catalogPage);
 

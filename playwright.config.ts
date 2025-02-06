@@ -22,7 +22,7 @@ export default defineConfig({
 
   // Reporter to use
   reporter: [['html', { open: 'never' }], ['junit', { outputFile: 'test-results.xml' }]],
-  timeout: 60000,
+  timeout: 120000,
 
   use: {
     // Base URL to use in actions like `await page.goto('/')`.
