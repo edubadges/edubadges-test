@@ -35,11 +35,13 @@ test('Make edubadge public', async ({
   await catalogPage.page.waitForTimeout(2000 );
   await catalogPage.page.getByRole('link', { name: 'Copy the link' }).click();
   await catalogPage.page.waitForTimeout(2000 );
+  
   await catalogPage.page.goto('http://google.com');
   await catalogPage.page.getByRole('button', { name: 'Alles afwijzen' }).click();
   await catalogPage.page.getByLabel('Zoek', { exact: true }).click();
   await catalogPage.page.keyboard.press('ControlOrMeta+v');
   const url : string = await catalogPage.page.getByLabel('Zoek', { exact: true }).inputValue();
+
   await catalogPage.page.goto(url);
   //snapshot toevoegen
   await catalogPage.page.getByRole('link', { name: 'Verify' }).click();

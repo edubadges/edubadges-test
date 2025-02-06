@@ -1,12 +1,12 @@
 import { expect, test } from '../../fixtures/catalogFixture';
 
-test('Student can enroll in batch class', async ({ catalogPage, page }) => {
+test('Student can enroll in batch class', async ({ catalogPage }) => {
   await catalogPage.SearchForClass('Psychometrics');
   await catalogPage.filterOn('university-example.org');
   await catalogPage.openEduClass('Psychometrics');
   await catalogPage.RequestEdubadge();
-  await page.waitForTimeout(500);
-  await expect(page).toHaveScreenshot('eduBadgeRequested.png');
+  await catalogPage.page.waitForTimeout(500);
+  await expect(catalogPage.page).toHaveScreenshot('eduBadgeRequested.png');
 });
 
 test('Teacher approve enrollment', async ({

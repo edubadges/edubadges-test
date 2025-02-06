@@ -10,7 +10,7 @@ type EdubadgeFixture = {
 };
 
 export const test = base.extend<EdubadgeFixture>({
-  testdata: async ({}, use, testInfo) => {
+  testdata: async ({browser}, use, testInfo) => {
     var testdata = new Testdata();
     testdata.testCaseName = testInfo.title;
 
