@@ -26,12 +26,12 @@ export const test = base.extend<CatalogFixture>({
 
     var catalogContext = await browser.newContext();
     var page = await catalogContext.newPage();
-    
+
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
     await homePage.OpenCatalog();
     const catalogPage = new CatalogPage(page, testdata);
-    
+
     // Use the fixture value in the test.
     await use(catalogPage);
 

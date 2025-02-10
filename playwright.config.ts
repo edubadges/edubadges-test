@@ -21,7 +21,10 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   // Reporter to use
-  reporter: [['html', { open: 'never' }], ['junit', { outputFile: 'test-results.xml' }]],
+  reporter: [
+    ['html', { open: 'never' }],
+    ['junit', { outputFile: 'test-results.xml' }],
+  ],
   timeout: 120000,
 
   use: {
