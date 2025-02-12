@@ -5,6 +5,8 @@ import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 export default defineConfig({
+  globalSetup: require.resolve('./api/global-setup'),
+
   // Look for test files in the "tests" directory, relative to this configuration file.
   testDir: 'tests',
 
@@ -21,7 +23,10 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   // Reporter to use
-  reporter: [['html', { open: 'never' }], ['junit', { outputFile: 'test-results.xml' }]],
+  reporter: [
+    ['html', { open: 'never' }],
+    ['junit', { outputFile: 'test-results.xml' }],
+  ],
   timeout: 60000,
 
   use: {
