@@ -66,8 +66,12 @@ test('Teacher can enroll student', async ({
   await issuerPortalPage.page.waitForTimeout(5000);
   await backpackPage.releadPage();
   await backpackPage.page.waitForTimeout(2000);
-  const mask = [await backpackPage.page.getByText('Feb 12, 2025 View details to')];
-  await expect(backpackPage.page).toHaveScreenshot('badgeAwarded.png', {mask: mask});
+  const mask = [
+    await backpackPage.page.getByText('Feb 12, 2025 View details to'),
+  ];
+  await expect(backpackPage.page).toHaveScreenshot('badgeAwarded.png', {
+    mask: mask,
+  });
   await backpackPage.AcceptBadge();
   await expect(backpackPage.page).toHaveScreenshot('badgeAccepted.png');
 });
