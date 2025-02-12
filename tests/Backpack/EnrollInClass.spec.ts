@@ -1,14 +1,16 @@
 import { expect, test } from '../../fixtures/catalogFixture';
 
 test('Make edubadge public', async ({ catalogPage, issuerPortalPage }) => {
-  await catalogPage.SearchForClass('Group Dynamics');
+  await catalogPage.SearchForClass('Introduction to Political Science');
   await catalogPage.filterOn('university-example.org');
-  await catalogPage.openEduClass('Group Dynamics');
+  await catalogPage.openEduClass('Introduction to Political Science');
   await catalogPage.RequestEdubadge();
   await catalogPage.page.waitForTimeout(2000);
 
-  await issuerPortalPage.SearchForClass('Group Dynamics');
-  await issuerPortalPage.openBadgeClassWithNameFromMainPage('Group Dynamics');
+  await issuerPortalPage.SearchForClass('Introduction to Political Science');
+  await issuerPortalPage.openBadgeClassWithNameFromMainPage(
+    'Introduction to Political Science',
+  );
   await issuerPortalPage.rewardBadgeToStudent();
   await issuerPortalPage.page.waitForTimeout(5000);
 
@@ -18,11 +20,15 @@ test('Make edubadge public', async ({ catalogPage, issuerPortalPage }) => {
     mask: maskedElement,
   });
 
-  await catalogPage.page.getByText('Group Dynamics').click();
+  await catalogPage.page.getByText('Introduction to Political Science').click();
   await catalogPage.page.waitForTimeout(2000);
 
-  await expect(catalogPage.page).toHaveScreenshot('hallo1.png');
-
+  await expect(
+    catalogPage.page
+      .getByText('New')
+      .locator('..')
+      .getByText('Introduction to Political Science'),
+  ).toBeVisible();
   await catalogPage.page.locator('label span').click({ force: true });
   await catalogPage.page.waitForTimeout(2000);
   await catalogPage.page.getByRole('link', { name: 'Confirm' }).click();
@@ -66,12 +72,12 @@ test('Teacher can enroll student', async ({
   await issuerPortalPage.page.waitForTimeout(5000);
   await backpackPage.releadPage();
   await backpackPage.page.waitForTimeout(2000);
-  const mask = [
-    await backpackPage.page.getByText('Feb 12, 2025 View details to'),
-  ];
-  await expect(backpackPage.page).toHaveScreenshot('badgeAwarded.png', {
-    mask: mask,
-  });
-  await backpackPage.AcceptBadge();
+  await expect(
+    backpackPage.page
+      .getByText('Unclaimed')
+      .locator('..')
+      .getByText('Digestion and Defense'),
+  ).toBeVisible();
+  await backpackPage.AcceptBadge('Digestion and Defense');
   await expect(backpackPage.page).toHaveScreenshot('badgeAccepted.png');
 });

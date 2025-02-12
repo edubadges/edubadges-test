@@ -48,12 +48,16 @@ export class BackpackPage extends BasePage {
     await this.page.getByRole('link', { name: 'My backpack' }).click();
   }
 
-  async AcceptBadge() {
-    await this.page.getByText('Digestion and Defense').click();
+  async AcceptBadge(badgeName: string) {
+    await this.page.getByText(badgeName).click();
     await this.page
       .getByRole('link', { name: 'Claim & Add to your backpack' })
       .click();
-    await this.page.getByRole('link', { name: 'I agree' }).click();
+
+    await this.page.waitForTimeout(2000);
+    if ((await this.page.getByRole('link', { name: 'I agree' }).count()) > 0) {
+      await this.page.getByRole('link', { name: 'I agree' }).click();
+    }
     await this.page.getByRole('link', { name: 'Confirm' }).click();
   }
 }
