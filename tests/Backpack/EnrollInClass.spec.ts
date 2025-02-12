@@ -49,3 +49,25 @@ test('Make edubadge public', async ({ catalogPage, issuerPortalPage }) => {
   //snapshot toevoegen
   await expect(catalogPage.page.locator('.check')).toHaveCount(9);
 });
+
+test('Teacher can enroll student', async ({
+  backpackPage,
+  issuerPortalPage,
+  testdata,
+}) => {
+  await issuerPortalPage.SearchForClass('Digestion and Defense');
+  await issuerPortalPage.openBadgeClassWithNameFromMainPage(
+    'Digestion and Defense',
+  );
+  await issuerPortalPage.awardBadgeToStudent(
+    testdata.accounts.studentEmail,
+    testdata.accounts.studentEPPN,
+  );
+  await issuerPortalPage.page.waitForTimeout(5000);
+  await backpackPage.releadPage();
+  await backpackPage.page.waitForTimeout(2000);
+  const mask = [await backpackPage.page.getByText('Feb 12, 2025 View details to')];
+  await expect(backpackPage.page).toHaveScreenshot('badgeAwarded.png', {mask: mask});
+  await backpackPage.AcceptBadge();
+  await expect(backpackPage.page).toHaveScreenshot('badgeAccepted.png');
+});

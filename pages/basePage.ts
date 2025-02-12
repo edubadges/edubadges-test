@@ -9,4 +9,8 @@ export abstract class BasePage {
     this.page = page;
     this.testdata = testdata;
   }
+
+  async releadPage() {
+    await this.page.reload();
+  }
 }

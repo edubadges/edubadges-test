@@ -2,54 +2,12 @@ import { expect, Page } from '@playwright/test';
 import { Testdata } from '../util/testdata';
 import { BasePage } from './basePage';
 
-export class CatalogPage extends BasePage {
+export class BackpackPage extends BasePage {
   constructor(page: Page, testdata: Testdata) {
     super(page, testdata);
   }
 
-  async SearchForClass(name: string) {
-    await this.page.getByPlaceholder('Search...').fill(name);
-  }
-
-  async filterOn(filterText: string) {
-    await this.page.getByText(filterText).click();
-  }
-
-  async openEduClass(name: string) {
-    await this.page.getByText(name).click();
-    await expect(
-      this.page.getByRole('heading', { name: 'The programme' }),
-    ).toBeVisible();
-  }
-
-  async RequestEdubadge() {
-    const isLoginButtonVisible = await this.page
-      .getByRole('link', { name: 'Login to request this edubadge' })
-      .count();
-    if (isLoginButtonVisible > 0) {
-      await this.page
-        .getByRole('link', { name: 'Login to request this edubadge' })
-        .click();
-      await this.Login();
-    }
-    await this.page.getByRole('link', { name: 'Request', exact: true }).click();
-    await this.page.waitForTimeout(2000);
-    const termsAndConditionsPageShown = await this.page
-      .getByRole('link', { name: 'I agree' })
-      .count();
-    if (termsAndConditionsPageShown > 0) {
-      await this.page.getByRole('link', { name: 'I agree' }).click();
-    }
-
-    const confirm = await this.page
-      .getByRole('link', { name: 'Confirm' })
-      .count();
-    if (confirm > 0) {
-      await this.page.getByRole('link', { name: 'Confirm' }).click();
-    }
-  }
-
-  private async Login() {
+  public async Login() {
     await expect(
       this.page
         .getByPlaceholder('Search...')
@@ -88,5 +46,14 @@ export class CatalogPage extends BasePage {
 
   async OpenBackpack() {
     await this.page.getByRole('link', { name: 'My backpack' }).click();
+  }
+
+  async AcceptBadge() {
+    await this.page.getByText('Digestion and Defense').click();
+    await this.page
+      .getByRole('link', { name: 'Claim & Add to your backpack' })
+      .click();
+    await this.page.getByRole('link', { name: 'I agree' }).click();
+    await this.page.getByRole('link', { name: 'Confirm' }).click();
   }
 }
