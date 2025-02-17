@@ -10,7 +10,7 @@
     "format-check": "prettier --check .",
     "check:all": "npm run check:types && npm run lint && npm run format-check",
     "precommit": "npm run check:all && npm run test",
-    "test": "npx playwright test",
+    "test": "npx playwright test --project chromium",
     "test:dev": "npx playwright test --ui"
   },
   "keywords": [],
