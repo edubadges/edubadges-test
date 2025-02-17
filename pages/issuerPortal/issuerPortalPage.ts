@@ -55,6 +55,7 @@ export class IssuerPortalPage extends BasePage {
       .getByText('Cancel Award')
       .getByRole('link', { name: 'Award', exact: true })
       .click();
+    await this.page.waitForTimeout(5000);
   }
 
   async loginWithInstitutionAdmin() {
@@ -108,10 +109,11 @@ export class IssuerPortalPage extends BasePage {
 
   private async login(username: string, password: string) {
     await this.searchFieldLocator.fill('test idp');
+    await this.page.waitForTimeout(500);
     await expect(this.surfConextLocator).toBeVisible();
-    await this.page.waitForTimeout(2000);
+    await this.page.waitForTimeout(500);
     await this.surfConextLocator.click();
-    await this.page.waitForTimeout(2000);
+    await this.page.waitForTimeout(500);
 
     await this.usernameLocator.fill(username);
     await this.passwordLocator.fill(password);

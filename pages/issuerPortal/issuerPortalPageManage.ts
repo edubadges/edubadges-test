@@ -112,12 +112,9 @@ export class IssuerPortalPageManage extends BasePage {
     await this.page.locator('.CodeMirror-scroll').nth(3).click();
     await this.page.keyboard.type(this.testdata.badgeData.frameworkDescription);
 
-    await this.page.getByText('Upload image').click();
-
     const fileChooserPromise = this.page.waitForEvent('filechooser');
     await this.page.getByText('Upload image').click();
     const fileChooser = await fileChooserPromise;
-    console.log(__dirname);
     await fileChooser.setFiles(
       path.join(__dirname + '/images/', 'edubadge.png'),
     );

@@ -1,17 +1,9 @@
 import { expect, test } from '../../fixtures/catalogFixture';
 
-test('Student can enroll in batch class', async ({ catalogPage }) => {
-  await catalogPage.SearchForClass('Psychometrics');
-  await catalogPage.filterOn('university-example.org');
-  await catalogPage.openEduClass('Psychometrics');
-  await catalogPage.RequestEdubadge();
-  await catalogPage.page.waitForTimeout(500);
-  await expect(catalogPage.page).toHaveScreenshot('eduBadgeRequested.png');
-});
-
-test('Teacher approve enrollment', async ({
+test('Make edubadge public', async ({
   catalogPage,
   issuerPortalPage,
+  copyPastePage,
 }) => {
   await catalogPage.SearchForClass('Group Dynamics');
   await catalogPage.filterOn('university-example.org');
@@ -22,11 +14,21 @@ test('Teacher approve enrollment', async ({
   await issuerPortalPage.SearchForClass('Group Dynamics');
   await issuerPortalPage.openBadgeClassWithNameFromMainPage('Group Dynamics');
   await issuerPortalPage.rewardBadgeToStudent();
-  await issuerPortalPage.page.waitForTimeout(5000);
 
   await catalogPage.OpenBackpack();
   var maskedElement = [await catalogPage.page.locator('.card > .header')];
   await expect(catalogPage.page).toHaveScreenshot('eduBadgeReceived.png', {
     mask: maskedElement,
   });
+
+  await catalogPage.page.getByText('Group Dynamics').click();
+  await catalogPage.page.waitForTimeout(2000);
+
+  await expect(catalogPage.page).toHaveScreenshot('privateEdubadge.png');
+
+  await catalogPage.ShareEdubadge();
+
+  const url = await copyPastePage.retreiveValueFromClipboard();
+
+  await catalogPage.ValidateBadge(url);
 });
