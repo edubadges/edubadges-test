@@ -58,6 +58,7 @@ This project makes use of an .env file for storing url's, usernames and password
    STUDENT_USERNAME=[value]
    STUDENT_PASSWORD=[value]
    STUDENT_EMAIL=[value]
+   STUDENT_EPPN=[value]
    BASE_URL=http://0.0.0.0:8080
 ```
 

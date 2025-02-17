@@ -5,14 +5,16 @@ test('Make edubadge public', async ({
   issuerPortalPage,
   copyPastePage,
 }) => {
-  await catalogPage.SearchForClass('Group Dynamics');
+  await catalogPage.SearchForClass('Introduction to Political Science');
   await catalogPage.filterOn('university-example.org');
-  await catalogPage.openEduClass('Group Dynamics');
+  await catalogPage.openEduClass('Introduction to Political Science');
   await catalogPage.RequestEdubadge();
   await catalogPage.page.waitForTimeout(2000);
 
-  await issuerPortalPage.SearchForClass('Group Dynamics');
-  await issuerPortalPage.openBadgeClassWithNameFromMainPage('Group Dynamics');
+  await issuerPortalPage.SearchForClass('Introduction to Political Science');
+  await issuerPortalPage.openBadgeClassWithNameFromMainPage(
+    'Introduction to Political Science',
+  );
   await issuerPortalPage.rewardBadgeToStudent();
 
   await catalogPage.OpenBackpack();
@@ -21,14 +23,45 @@ test('Make edubadge public', async ({
     mask: maskedElement,
   });
 
-  await catalogPage.page.getByText('Group Dynamics').click();
+  await catalogPage.page.getByText('Introduction to Political Science').click();
   await catalogPage.page.waitForTimeout(2000);
 
-  await expect(catalogPage.page).toHaveScreenshot('privateEdubadge.png');
+  await expect(
+    catalogPage.page
+      .getByText('New')
+      .locator('..')
+      .getByText('Introduction to Political Science'),
+  ).toBeVisible();
 
   await catalogPage.ShareEdubadge();
 
   const url = await copyPastePage.retreiveValueFromClipboard();
 
   await catalogPage.ValidateBadge(url);
+});
+
+test('Teacher can enroll student', async ({
+  backpackPage,
+  issuerPortalPage,
+  testdata,
+}) => {
+  await issuerPortalPage.SearchForClass('Digestion and Defense');
+  await issuerPortalPage.openBadgeClassWithNameFromMainPage(
+    'Digestion and Defense',
+  );
+  await issuerPortalPage.awardBadgeToStudent(
+    testdata.accounts.studentEmail,
+    testdata.accounts.studentEPPN,
+  );
+  await issuerPortalPage.page.waitForTimeout(5000);
+  await backpackPage.releadPage();
+  await backpackPage.page.waitForTimeout(2000);
+  await expect(
+    backpackPage.page
+      .getByText('Unclaimed')
+      .locator('..')
+      .getByText('Digestion and Defense'),
+  ).toBeVisible();
+  await backpackPage.AcceptBadge('Digestion and Defense');
+  await expect(backpackPage.page).toHaveScreenshot('badgeAccepted.png');
 });

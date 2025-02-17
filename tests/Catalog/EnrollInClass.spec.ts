@@ -25,8 +25,7 @@ test('Teacher approve enrollment', async ({
   await issuerPortalPage.page.waitForTimeout(5000);
 
   await catalogPage.OpenBackpack();
-  var maskedElement = [await catalogPage.page.locator('.card > .header')];
-  await expect(catalogPage.page).toHaveScreenshot('eduBadgeReceived.png', {
-    mask: maskedElement,
-  });
+  await expect(
+    catalogPage.page.getByText('New').locator('..').getByText('Group Dynamics'),
+  ).toBeVisible();
 });

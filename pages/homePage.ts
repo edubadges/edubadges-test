@@ -40,6 +40,10 @@ export class HomePage extends BasePageMultiLanguage {
     await this.page.getByRole('link', { name: 'Open the catalog' }).click();
   }
 
+  async OpenBackpack() {
+    await this.page.getByRole('link', { name: 'Open your backpack' }).click();
+  }
+
   async expectHomePageOpened() {
     var snapshotName = '';
     var maskedLocators: Locator[] = [];

@@ -16,6 +16,7 @@ export class Accounts {
   private _studentName: string = '';
   private _studentPassword: string = '';
   private _studentEmail: string = '';
+  private _studentEPPN: string = '';
 
   constructor() {
     this._institutionAdminUsername =
@@ -37,6 +38,7 @@ export class Accounts {
     this._studentName = process.env.STUDENT_USERNAME || '';
     this._studentPassword = process.env.STUDENT_PASSWORD || '';
     this._studentEmail = process.env.STUDENT_EMAIL || '';
+    this._studentEPPN = process.env.STUDENT_EPPN || '';
     this._mboInstitutionAdminUsername =
       process.env.BADGE_CLASS_ADMIN_MBO_USERNAME || '';
     this._mboInstitutionAdminPassword =
@@ -109,5 +111,9 @@ export class Accounts {
 
   get studentEmail(): string {
     return this._studentEmail;
+  }
+
+  get studentEPPN(): string {
+    return this._studentEPPN;
   }
 }
