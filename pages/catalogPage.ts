@@ -89,4 +89,22 @@ export class CatalogPage extends BasePage {
   async OpenBackpack() {
     await this.page.getByRole('link', { name: 'My backpack' }).click();
   }
+
+  async ShareEdubadge() {
+    await this.page.locator('label span').click({ force: true });
+    await this.page.waitForTimeout(2000);
+    await this.page.getByRole('link', { name: 'Confirm' }).click();
+    await this.page.waitForTimeout(2000);
+    await this.page.getByRole('link', { name: 'Share' }).click();
+    await this.page.waitForTimeout(2000);
+    await this.page.getByRole('link', { name: 'Copy the link' }).click();
+    await this.page.waitForTimeout(2000);
+  }
+
+  async ValidateBadge(url: string) {
+    await this.page.goto(url);
+    await this.page.getByRole('link', { name: 'Verify' }).click();
+    await this.page.waitForTimeout(20000);
+    await expect(this.page.locator('.check')).toHaveCount(9);
+  }
 }

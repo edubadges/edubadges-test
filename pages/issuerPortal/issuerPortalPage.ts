@@ -55,6 +55,7 @@ export class IssuerPortalPage extends BasePage {
       .getByText('Cancel Award')
       .getByRole('link', { name: 'Award', exact: true })
       .click();
+    await this.page.waitForTimeout(5000);
   }
 
   async loginWithInstitutionAdmin() {

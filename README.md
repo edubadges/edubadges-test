@@ -78,9 +78,14 @@ This command performs the following checks:
 * TypeScript Compiler (tsc)
 * Linter
 * Prettier
-* Run all the tests
+* Run all the tests for the chromium project
 
-Ensure all issues are resolved before committing your changes.
+Ensure all issues are resolved before committing your changes. If you want to validate wether the test
+pass using Firefox, please use the following command:
+
+```bash
+   npm run precommit:firefox
+```
 
 With the following command it is possible to apply the Prettier format automatically:
 
