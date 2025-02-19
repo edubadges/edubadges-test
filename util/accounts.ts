@@ -35,7 +35,7 @@ export class Accounts {
       process.env.BADGE_CLASS_ADMIN_USERNAME || '';
     this._badgeClassAdminPassword =
       process.env.BADGE_CLASS_ADMIN_PASSWORD || '';
-    this._studentName = process.env.STUDENT_USERNAME || '';
+    this._studentName = process.env.STUDENT_NAME || '';
     this._studentPassword = process.env.STUDENT_PASSWORD || '';
     this._studentEmail = process.env.STUDENT_EMAIL || '';
     this._studentEPPN = process.env.STUDENT_EPPN || '';

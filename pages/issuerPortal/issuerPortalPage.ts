@@ -46,7 +46,7 @@ export class IssuerPortalPage extends BasePage {
   async rewardBadgeToStudent() {
     await this.page.getByRole('link', { name: 'Open requests ' }).click();
     await this.page
-      .getByRole('row', { name: 'Petra Penttilä' })
+      .getByRole('row', { name: this.testdata.accounts.studentName })
       .locator('label span')
       .click();
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
