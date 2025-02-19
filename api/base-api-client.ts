@@ -16,24 +16,19 @@ export type RequestParams<TData = unknown> = Omit<
 export class BaseApiClient {
   protected request: APIRequestContext;
   protected config: FetchConfig;
-  protected basePath: string;
 
-  constructor(
-    config: FetchConfig,
-    request: APIRequestContext,
-    basePath: string,
-  ) {
+  constructor(config: FetchConfig, request: APIRequestContext) {
     this.config = config;
     this.request = request;
-    this.basePath = basePath;
   }
 
-  protected async makeRequest<T, D extends T = T>(
+  // So D (request) is extended with T (response).
+  protected async makeRequest<T, D>(
     endpoint: string,
     options: RequestParams<D> = {},
   ): Promise<FetchResponse<T>> {
-    const url = new URL(endpoint, this.config.baseURL).toString();
-    return fetchWithConfig<T>(this.request, url, {
+    const url = new URL(endpoint, process.env.DA_BASE_URL).toString();
+    return fetchWithConfig<T, D>(this.request, url, {
       ...options,
       headers: {
         ...this.config.headers,

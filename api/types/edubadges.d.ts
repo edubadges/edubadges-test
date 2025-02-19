@@ -4,1190 +4,1608 @@
  */
 
 export interface paths {
-  "/directaward/bundle/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/directaward/accept/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Either accept or reject a direct award (claim) */
+        post: operations["directaward_accept_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations["directaward_bundle_retrieve"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/directaward/create": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/directaward/bundle/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get direct award bundle information */
+        get: operations["directaward_bundle_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** @description POST a new entity to be owned by the authenticated user and / or the default SIS user of the institution */
-    post: operations["directaward_create_create"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/directaward/delete-direct-awards": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/directaward/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Create a direct award bundle */
+        post: operations["directaward_create_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    /** @description PUT a new version of an entity */
-    put: operations["directaward_delete_direct_awards_update"];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/directaward/resend-direct-awards": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/directaward/delete-direct-awards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** @description PUT a new version of an entity */
+        put: operations["directaward_delete_direct_awards_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations["directaward_resend_direct_awards_create"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/directaward/revoke-direct-awards": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/directaward/edit/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** @description Updated a direct award */
+        put: operations["directaward_edit_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** @description Revoke direct awards */
-    post: operations["directaward_revoke_direct_awards_create"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/earner/badges": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/directaward/resend-direct-awards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Resend direct awards */
+        post: operations["directaward_resend_direct_awards_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** @description Upload a new Assertion to the backpack */
-    post: operations["earner_badges_create"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/earner/badges/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/directaward/revoke-direct-awards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Revoke direct awards */
+        post: operations["directaward_revoke_direct_awards_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    /** @description Update acceptance of an Assertion in the user's Backpack and make public / private */
-    put: operations["earner_badges_update"];
-    post?: never;
-    /** @description Remove an assertion from the backpack */
-    delete: operations["earner_badges_destroy"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/badgeclasses/archive/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/earner/badges": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Upload a new Assertion to the backpack */
+        post: operations["earner_badges_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    /** @description PUT a new version of an entity */
-    put: operations["issuer_badgeclasses_archive_update"];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/badgeclasses/award-enrollments/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/earner/badges/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** @description Update acceptance of an Assertion in the user's Backpack and make public / private */
+        put: operations["earner_badges_update"];
+        post?: never;
+        /** @description Remove an assertion from the backpack */
+        delete: operations["earner_badges_destroy"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post: operations["issuer_badgeclasses_award_enrollments_create"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/badgeclasses/create": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/badgeclasses/archive/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** @description PUT a new version of an entity */
+        put: operations["issuer_badgeclasses_archive_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** @description POST a new entity to be owned by the authenticated user and / or the default SIS user of the institution */
-    post: operations["issuer_badgeclasses_create_create"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/badgeclasses/delete/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/badgeclasses/award-enrollments/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["issuer_badgeclasses_award_enrollments_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    /** @description DELETE a single entity by identifier */
-    delete: operations["issuer_badgeclasses_delete_destroy"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/badgeclasses/edit/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/badgeclasses/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description POST a new entity to be owned by the authenticated user and / or the default SIS user of the institution */
+        post: operations["issuer_badgeclasses_create_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    /** @description PUT a new version of an entity */
-    put: operations["issuer_badgeclasses_edit_update"];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/create": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/badgeclasses/delete/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** @description DELETE a single entity by identifier */
+        delete: operations["issuer_badgeclasses_delete_destroy"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** @description POST a new entity to be owned by the authenticated user and / or the default SIS user of the institution */
-    post: operations["issuer_create_create"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/delete/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/badgeclasses/edit/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** @description PUT a new version of an entity */
+        put: operations["issuer_badgeclasses_edit_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    post?: never;
-    /** @description DELETE a single entity by identifier */
-    delete: operations["issuer_delete_destroy"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/edit/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/create": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description POST a new entity to be owned by the authenticated user and / or the default SIS user of the institution */
+        post: operations["issuer_create_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    /** @description PUT a new version of an entity */
-    put: operations["issuer_edit_update"];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/issuer/revoke-assertions": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/delete/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** @description DELETE a single entity by identifier */
+        delete: operations["issuer_delete_destroy"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get?: never;
-    put?: never;
-    /** @description Endpoint for revoking a badge (DELETE) */
-    post: operations["issuer_revoke_assertions_create"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/public/assertions/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/edit/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** @description PUT a new version of an entity */
+        put: operations["issuer_edit_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** @description ## You might see this screen because the badge you are looking for is <span style="color:red">*set to private*</span>.
-     *     ## Ask the recipient to set the badge to public, then try again. */
-    get: operations["public_assertions_retrieve"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/public/assertions/identity/{identity}/{salt}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/issuer/revoke-assertions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Endpoint for revoking a badge (DELETE) */
+        post: operations["issuer_revoke_assertions_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    get: operations["public_assertions_identity_retrieve"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/public/assertions/validate/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/public/assertions/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description ## You might see this screen because the badge you are looking for is <span style="color:red">*set to private*</span>.
+         *     ## Ask the recipient to set the badge to public, then try again. */
+        get: operations["public_assertions_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** @description GET a single entity by its identifier */
-    get: operations["public_assertions_validate_retrieve"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/public/badges/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/public/assertions/identity/{identity}/{salt}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["public_assertions_identity_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** @description Abstract Component Class */
-    get: operations["public_badges_retrieve"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/public/institutions/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/public/assertions/validate/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description GET a single entity by its identifier */
+        get: operations["public_assertions_validate_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** @description Abstract Component Class */
-    get: operations["public_institutions_retrieve"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/public/issuers/{entity_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/public/badges/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Abstract Component Class */
+        get: operations["public_badges_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** @description Abstract Component Class */
-    get: operations["public_issuers_retrieve"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/public/issuers/{entity_id}/badges": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
+    "/public/institutions/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Abstract Component Class */
+        get: operations["public_institutions_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    /** @description Abstract Component Class */
-    get: operations["public_issuers_badges_retrieve"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/public/issuers/{entity_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Abstract Component Class */
+        get: operations["public_issuers_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/issuers/{entity_id}/badges": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Abstract Component Class */
+        get: operations["public_issuers_badges_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/validator/info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["public_validator_info_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-  schemas: {
-    AlignmentItem: {
-      target_name: string;
-      /** Format: uri */
-      target_url?: string | null;
-      target_description?: string | null;
-      target_framework?: string | null;
-      target_code?: string | null;
+    schemas: {
+        AlignmentItem: {
+            target_name: string;
+            /** Format: uri */
+            target_url?: string | null;
+            target_description?: string | null;
+            target_framework?: string | null;
+            target_code?: string | null;
+        };
+        BadgeAssertion: {
+            full_name: string;
+            email: string;
+            public: boolean;
+            revoked: boolean;
+            entity_id: string;
+            eppn: string;
+        };
+        /** @description Mixin used to override errors created when to_internal_value() Serializer method is called
+         *     create your own to_internal_value_error_override() method to go along with this mixin. */
+        BadgeClass: {
+            /** Format: date-time */
+            readonly created_at: string;
+            readonly created_by: string;
+            name: string;
+            /** Format: uri */
+            image?: string | null;
+            formal: boolean;
+            /** @default false */
+            is_private: boolean;
+            /** @default false */
+            narrative_required: boolean;
+            /** @default false */
+            evidence_required: boolean;
+            /** @default false */
+            narrative_student_required: boolean;
+            /** @default false */
+            evidence_student_required: boolean;
+            /** @default false */
+            award_non_validated_name_allowed: boolean;
+            /** @default false */
+            is_micro_credentials: boolean;
+            /** @default false */
+            direct_awarding_disabled: boolean;
+            /** @default false */
+            self_enrollment_disabled: boolean;
+            readonly entity_id: string;
+            issuer: string;
+            criteria_text?: string | null;
+            description?: string;
+            badge_class_type: string;
+            participation?: string | null;
+            assessment_type?: string | null;
+            /** @default false */
+            assessment_id_verified: boolean;
+            /** @default false */
+            assessment_supervised: boolean;
+            quality_assurance_name?: string | null;
+            /** Format: uri */
+            quality_assurance_url?: string | null;
+            quality_assurance_description?: string | null;
+            /** @default false */
+            grade_achieved_required: boolean;
+            /** @default false */
+            stackable: boolean;
+            alignments?: components["schemas"]["AlignmentItem"][];
+            extensions?: {
+                [key: string]: unknown;
+            };
+            expiration_period?: string;
+            award_allowed_institutions?: number[];
+            tags?: number[];
+        };
+        BadgeInstance: {
+            /** @default false */
+            allow_uppercase: boolean;
+            issue_signed?: boolean;
+            signing_password?: string;
+            enrollment_entity_id?: string;
+            extensions?: {
+                [key: string]: unknown;
+            };
+            grade_achieved?: string | null;
+            narrative?: string | null;
+            evidence_items?: components["schemas"]["EvidenceItem"][];
+        };
+        BadgeInstanceRevoke: {
+            revocation_reason: string;
+            assertions: components["schemas"]["NestedInlineOneOff"][];
+        };
+        DirectAward: {
+            recipient_email: string;
+            eppn: string;
+            status: string;
+            entity_id: string;
+        };
+        DirectAwardAcceptAcceptedResponse: {
+            entity_id: string;
+        };
+        DirectAwardAcceptBadRequestResponse: {
+            error: string;
+        };
+        DirectAwardAcceptRejectedResponse: {
+            rejected: boolean;
+        };
+        DirectAwardAcceptRequest: {
+            entity_id: string;
+            accept: boolean;
+        };
+        DirectAwardCreateBundleBadRequestRepsonse: {
+            error: string;
+        };
+        DirectAwardCreateBundleRequest: {
+            badgeclass: string;
+            direct_awards: components["schemas"]["DirectAwardDetails"][];
+            sis_user_id: string;
+            batch_mode: boolean;
+            lti_import: boolean;
+            status: string;
+            identifier_type: string;
+            scheduled_at?: string;
+            notify_recipients: boolean;
+        };
+        DirectAwardCreateBundleResponse: {
+            badgeclass: string;
+            entity_id: string;
+        };
+        DirectAwardDeleteRequest: {
+            revocation_reason: string;
+            direct_awards: components["schemas"]["NestedInlineOneOff"][];
+        };
+        DirectAwardDeleteResponse: {
+            un_successful_direct_awards: components["schemas"]["DirectAwardsUnclaimedResponse"][];
+            result: string;
+        };
+        DirectAwardDetails: {
+            eppn: string;
+            /** Format: email */
+            recipient_email: string;
+        };
+        DirectAwardGetBundleRequest: {
+            entity_id: string;
+        };
+        DirectAwardGetBundleResponse: {
+            initial_total: number;
+            status: string;
+            badgeclass: string;
+            assertion_count: number;
+            direct_award_count: number;
+            direct_award_rejected_count: number;
+            direct_award_scheduled_count: number;
+            direct_award_deleted_count: number;
+            direct_award_revoked_count: number;
+            direct_awards: components["schemas"]["DirectAward"][];
+            badge_assertions: components["schemas"]["BadgeAssertion"][];
+        };
+        DirectAwardNoValidDeleteResponse: {
+            error: string;
+        };
+        DirectAwardNoValidResend: {
+            error: string;
+        };
+        DirectAwardNoValidRevokedResponse: {
+            error: string;
+        };
+        DirectAwardNotFoundResponse: {
+            detail: string;
+        };
+        DirectAwardResendRequest: {
+            direct_awards: components["schemas"]["NestedInlineOneOff"][];
+        };
+        DirectAwardResendResponse: {
+            un_successful_direct_awards: components["schemas"]["DirectAwardsUnclaimedResponse"][];
+            result: string;
+        };
+        DirectAwardRevokeRequest: {
+            revocation_reason: string;
+            direct_awards: components["schemas"]["NestedInlineOneOff"][];
+        };
+        DirectAwardRevokeResponse: {
+            un_successful_direct_awards: components["schemas"]["DirectAwardsUnclaimedResponse"][];
+            result: string;
+        };
+        DirectAwardUnprocessableEntityResponse: {
+            error: string;
+        };
+        DirectAwardUpdateBadRequestResponse: {
+            error: string;
+        };
+        DirectAwardUpdateSuccessResponse: {
+            un_successful_direct_awards: components["schemas"]["DirectAwardsUnclaimedResponse"][];
+            result: string;
+        };
+        DirectAwardUpdateValidationErrorResponse: {
+            revocation_reason: string;
+            direct_awards: string;
+        };
+        DirectAwardsUnclaimedResponse: {
+            error: string;
+            eppn: string;
+            recipient_email: string;
+        };
+        EvidenceItem: {
+            /** Format: uri */
+            evidence_url?: string | null;
+            narrative?: string | null;
+            name?: string | null;
+            description?: string | null;
+        };
+        /** @description Mixin used to override errors created when to_internal_value() Serializer method is called
+         *     create your own to_internal_value_error_override() method to go along with this mixin. */
+        Issuer: {
+            /** Format: date-time */
+            readonly created_at: string;
+            readonly created_by: string;
+            name_english?: string | null;
+            name_dutch?: string | null;
+            readonly entity_id: string;
+            /** Format: uri */
+            image_english?: string | null;
+            /** Format: uri */
+            image_dutch?: string | null;
+            /** Format: email */
+            email: string;
+            description_english?: string | null;
+            description_dutch?: string | null;
+            /** Format: uri */
+            url_english?: string | null;
+            /** Format: uri */
+            url_dutch?: string | null;
+            faculty: string;
+            extensions?: {
+                [key: string]: unknown;
+            };
+        };
+        LocalBadgeInstanceUploadSerializerV1: {
+            /** Format: uri */
+            image?: string;
+            /** Format: uri */
+            url?: string;
+            assertion?: string;
+            readonly recipient_identifier: string;
+            /** @default Accepted */
+            acceptance: string;
+            /** @default false */
+            public: boolean;
+            /** @default false */
+            include_evidence: boolean;
+            /** @default false */
+            include_grade_achieved: boolean;
+            readonly narrative: string;
+            readonly extensions: {
+                [key: string]: unknown;
+            };
+        };
+        NestedInlineOneOff: {
+            entity_id: string;
+        };
+        PermissionDeniedResponse: {
+            detail: string;
+        };
     };
-    /** @description Mixin used to override errors created when to_internal_value() Serializer method is called
-     *     create your own to_internal_value_error_override() method to go along with this mixin. */
-    BadgeClass: {
-      /** Format: date-time */
-      readonly created_at: string;
-      readonly created_by: string;
-      name: string;
-      /** Format: uri */
-      image?: string | null;
-      formal: boolean;
-      /** @default false */
-      is_private: boolean;
-      /** @default false */
-      narrative_required: boolean;
-      /** @default false */
-      evidence_required: boolean;
-      /** @default false */
-      narrative_student_required: boolean;
-      /** @default false */
-      evidence_student_required: boolean;
-      /** @default false */
-      award_non_validated_name_allowed: boolean;
-      /** @default false */
-      is_micro_credentials: boolean;
-      /** @default false */
-      direct_awarding_disabled: boolean;
-      /** @default false */
-      self_enrollment_disabled: boolean;
-      readonly entity_id: string;
-      issuer: string;
-      criteria_text?: string | null;
-      description?: string;
-      badge_class_type: string;
-      participation?: string | null;
-      assessment_type?: string | null;
-      /** @default false */
-      assessment_id_verified: boolean;
-      /** @default false */
-      assessment_supervised: boolean;
-      quality_assurance_name?: string | null;
-      /** Format: uri */
-      quality_assurance_url?: string | null;
-      quality_assurance_description?: string | null;
-      /** @default false */
-      grade_achieved_required: boolean;
-      /** @default false */
-      stackable: boolean;
-      alignments?: components["schemas"]["AlignmentItem"][];
-      extensions?: {
-        [key: string]: unknown;
-      };
-      expiration_period?: string;
-      award_allowed_institutions?: number[];
-      tags?: number[];
-    };
-    BadgeInstance: {
-      /** @default false */
-      allow_uppercase: boolean;
-      issue_signed?: boolean;
-      signing_password?: string;
-      enrollment_entity_id?: string;
-      extensions?: {
-        [key: string]: unknown;
-      };
-      grade_achieved?: string | null;
-      narrative?: string | null;
-      evidence_items?: components["schemas"]["EvidenceItem"][];
-    };
-    BadgeInstanceRevoke: {
-      revocation_reason: string;
-      assertions: components["schemas"]["NestedInlineOneOff"][];
-    };
-    DirectAward: {
-      badgeclass?: string;
-      eppn?: string | null;
-      /** Format: email */
-      recipient_email?: string;
-      status?: string;
-      /** Format: uri */
-      evidence_url?: string | null;
-      narrative?: string | null;
-      name?: string | null;
-      description?: string | null;
-      grade_achieved?: string | null;
-    };
-    DirectAwardBundle: {
-      badgeclass?: string;
-      direct_awards: components["schemas"]["DirectAward"][];
-      readonly entity_id: string;
-      sis_user_id?: string | null;
-      batch_mode: boolean;
-      lti_import: boolean;
-      /** @default Active */
-      status: string;
-      /** @default eppn */
-      identifier_type: string;
-      /** Format: date-time */
-      scheduled_at?: string | null;
-      notify_recipients: boolean;
-    };
-    DirectAwardDelete: {
-      revocation_reason: string;
-      direct_awards: components["schemas"]["NestedInlineOneOff"][];
-    };
-    DirectAwardResend: {
-      direct_awards: components["schemas"]["NestedInlineOneOff"][];
-    };
-    DirectAwardRevoke: {
-      revocation_reason: string;
-      direct_awards: components["schemas"]["NestedInlineOneOff"][];
-    };
-    EvidenceItem: {
-      /** Format: uri */
-      evidence_url?: string | null;
-      narrative?: string | null;
-      name?: string | null;
-      description?: string | null;
-    };
-    /** @description Mixin used to override errors created when to_internal_value() Serializer method is called
-     *     create your own to_internal_value_error_override() method to go along with this mixin. */
-    Issuer: {
-      /** Format: date-time */
-      readonly created_at: string;
-      readonly created_by: string;
-      name_english?: string | null;
-      name_dutch?: string | null;
-      readonly entity_id: string;
-      /** Format: uri */
-      image_english?: string | null;
-      /** Format: uri */
-      image_dutch?: string | null;
-      /** Format: email */
-      email: string;
-      description_english?: string | null;
-      description_dutch?: string | null;
-      /** Format: uri */
-      url_english?: string | null;
-      /** Format: uri */
-      url_dutch?: string | null;
-      faculty: string;
-      extensions?: {
-        [key: string]: unknown;
-      };
-    };
-    LocalBadgeInstanceUploadSerializerV1: {
-      /** Format: uri */
-      image?: string;
-      /** Format: uri */
-      url?: string;
-      assertion?: string;
-      readonly recipient_identifier: string;
-      /** @default Accepted */
-      acceptance: string;
-      /** @default false */
-      public: boolean;
-      /** @default false */
-      include_evidence: boolean;
-      /** @default false */
-      include_grade_achieved: boolean;
-      readonly narrative: string;
-      readonly extensions: {
-        [key: string]: unknown;
-      };
-    };
-    NestedInlineOneOff: {
-      entity_id: string;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-  directaward_bundle_retrieve: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    directaward_accept_create: {
+        parameters: {
+            query: {
+                /** @description Either accept (true) or reject (false) */
+                accept: boolean;
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
         };
-        content?: never;
-      };
-    };
-  };
-  directaward_create_create: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["DirectAwardBundle"];
-        "application/x-www-form-urlencoded": components["schemas"]["DirectAwardBundle"];
-        "multipart/form-data": components["schemas"]["DirectAwardBundle"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DirectAwardAcceptRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["DirectAwardAcceptRequest"];
+                "multipart/form-data": components["schemas"]["DirectAwardAcceptRequest"];
+            };
         };
-        content: {
-          "application/ld+json": components["schemas"]["DirectAwardBundle"];
-          "application/json": components["schemas"]["DirectAwardBundle"];
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardAcceptRejectedResponse"];
+                    "application/json": components["schemas"]["DirectAwardAcceptRejectedResponse"];
+                };
+            };
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardAcceptAcceptedResponse"];
+                    "application/json": components["schemas"]["DirectAwardAcceptAcceptedResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardAcceptBadRequestResponse"];
+                    "application/json": components["schemas"]["DirectAwardAcceptBadRequestResponse"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["PermissionDeniedResponse"];
+                    "application/json": components["schemas"]["PermissionDeniedResponse"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNotFoundResponse"];
+                    "application/json": components["schemas"]["DirectAwardNotFoundResponse"];
+                };
+            };
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardUnprocessableEntityResponse"];
+                    "application/json": components["schemas"]["DirectAwardUnprocessableEntityResponse"];
+                };
+            };
         };
-      };
     };
-  };
-  directaward_delete_direct_awards_update: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["DirectAwardDelete"];
-        "application/x-www-form-urlencoded": components["schemas"]["DirectAwardDelete"];
-        "multipart/form-data": components["schemas"]["DirectAwardDelete"];
-      };
-    };
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    directaward_bundle_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
         };
-        content?: never;
-      };
-    };
-  };
-  directaward_resend_direct_awards_create: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["DirectAwardResend"];
-        "application/x-www-form-urlencoded": components["schemas"]["DirectAwardResend"];
-        "multipart/form-data": components["schemas"]["DirectAwardResend"];
-      };
-    };
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardGetBundleResponse"];
+                    "application/json": components["schemas"]["DirectAwardGetBundleResponse"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["PermissionDeniedResponse"];
+                    "application/json": components["schemas"]["PermissionDeniedResponse"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNotFoundResponse"];
+                    "application/json": components["schemas"]["DirectAwardNotFoundResponse"];
+                };
+            };
         };
-        content?: never;
-      };
     };
-  };
-  directaward_revoke_direct_awards_create: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["DirectAwardRevoke"];
-        "application/x-www-form-urlencoded": components["schemas"]["DirectAwardRevoke"];
-        "multipart/form-data": components["schemas"]["DirectAwardRevoke"];
-      };
-    };
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    directaward_create_create: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content?: never;
-      };
-    };
-  };
-  earner_badges_create: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: {
-      content: {
-        "application/json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
-        "application/x-www-form-urlencoded": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
-        "multipart/form-data": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DirectAwardCreateBundleRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["DirectAwardCreateBundleRequest"];
+                "multipart/form-data": components["schemas"]["DirectAwardCreateBundleRequest"];
+            };
         };
-        content: {
-          "application/ld+json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
-          "application/json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardCreateBundleResponse"];
+                    "application/json": components["schemas"]["DirectAwardCreateBundleResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardCreateBundleBadRequestRepsonse"];
+                    "application/json": components["schemas"]["DirectAwardCreateBundleBadRequestRepsonse"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["PermissionDeniedResponse"];
+                    "application/json": components["schemas"]["PermissionDeniedResponse"];
+                };
+            };
         };
-      };
     };
-  };
-  earner_badges_update: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: {
-      content: {
-        "application/json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
-        "application/x-www-form-urlencoded": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
-        "multipart/form-data": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+    directaward_delete_direct_awards_update: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          "application/ld+json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
-          "application/json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DirectAwardDeleteRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["DirectAwardDeleteRequest"];
+                "multipart/form-data": components["schemas"]["DirectAwardDeleteRequest"];
+            };
         };
-      };
-    };
-  };
-  earner_badges_destroy: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      204: {
-        headers: {
-          [name: string]: unknown;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardDeleteResponse"];
+                    "application/json": components["schemas"]["DirectAwardDeleteResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNoValidDeleteResponse"];
+                    "application/json": components["schemas"]["DirectAwardNoValidDeleteResponse"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["PermissionDeniedResponse"];
+                    "application/json": components["schemas"]["PermissionDeniedResponse"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNotFoundResponse"];
+                    "application/json": components["schemas"]["DirectAwardNotFoundResponse"];
+                };
+            };
         };
-        content?: never;
-      };
     };
-  };
-  issuer_badgeclasses_archive_update: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["BadgeClass"];
-        "application/x-www-form-urlencoded": components["schemas"]["BadgeClass"];
-        "multipart/form-data": components["schemas"]["BadgeClass"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+    directaward_edit_update: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
         };
-        content: {
-          "application/ld+json": components["schemas"]["BadgeClass"];
-          "application/json": components["schemas"]["BadgeClass"];
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardUpdateSuccessResponse"];
+                    "application/json": components["schemas"]["DirectAwardUpdateSuccessResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardUpdateBadRequestResponse"];
+                    "application/json": components["schemas"]["DirectAwardUpdateBadRequestResponse"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["PermissionDeniedResponse"];
+                    "application/json": components["schemas"]["PermissionDeniedResponse"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNotFoundResponse"];
+                    "application/json": components["schemas"]["DirectAwardNotFoundResponse"];
+                };
+            };
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardUpdateValidationErrorResponse"];
+                    "application/json": components["schemas"]["DirectAwardUpdateValidationErrorResponse"];
+                };
+            };
         };
-      };
     };
-  };
-  issuer_badgeclasses_award_enrollments_create: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: {
-      content: {
-        "application/json": components["schemas"]["BadgeInstance"];
-        "application/x-www-form-urlencoded": components["schemas"]["BadgeInstance"];
-        "multipart/form-data": components["schemas"]["BadgeInstance"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+    directaward_resend_direct_awards_create: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-        content: {
-          "application/ld+json": components["schemas"]["BadgeInstance"];
-          "application/json": components["schemas"]["BadgeInstance"];
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DirectAwardResendRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["DirectAwardResendRequest"];
+                "multipart/form-data": components["schemas"]["DirectAwardResendRequest"];
+            };
         };
-      };
-    };
-  };
-  issuer_badgeclasses_create_create: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["BadgeClass"];
-        "application/x-www-form-urlencoded": components["schemas"]["BadgeClass"];
-        "multipart/form-data": components["schemas"]["BadgeClass"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardResendResponse"];
+                    "application/json": components["schemas"]["DirectAwardResendResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNoValidResend"];
+                    "application/json": components["schemas"]["DirectAwardNoValidResend"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["PermissionDeniedResponse"];
+                    "application/json": components["schemas"]["PermissionDeniedResponse"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNotFoundResponse"];
+                    "application/json": components["schemas"]["DirectAwardNotFoundResponse"];
+                };
+            };
         };
-        content: {
-          "application/ld+json": components["schemas"]["BadgeClass"];
-          "application/json": components["schemas"]["BadgeClass"];
+    };
+    directaward_revoke_direct_awards_create: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-    };
-  };
-  issuer_badgeclasses_delete_destroy: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      204: {
-        headers: {
-          [name: string]: unknown;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DirectAwardRevokeRequest"];
+                "application/x-www-form-urlencoded": components["schemas"]["DirectAwardRevokeRequest"];
+                "multipart/form-data": components["schemas"]["DirectAwardRevokeRequest"];
+            };
         };
-        content?: never;
-      };
-    };
-  };
-  issuer_badgeclasses_edit_update: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["BadgeClass"];
-        "application/x-www-form-urlencoded": components["schemas"]["BadgeClass"];
-        "multipart/form-data": components["schemas"]["BadgeClass"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardRevokeResponse"];
+                    "application/json": components["schemas"]["DirectAwardRevokeResponse"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNoValidRevokedResponse"];
+                    "application/json": components["schemas"]["DirectAwardNoValidRevokedResponse"];
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["PermissionDeniedResponse"];
+                    "application/json": components["schemas"]["PermissionDeniedResponse"];
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["DirectAwardNotFoundResponse"];
+                    "application/json": components["schemas"]["DirectAwardNotFoundResponse"];
+                };
+            };
         };
-        content: {
-          "application/ld+json": components["schemas"]["BadgeClass"];
-          "application/json": components["schemas"]["BadgeClass"];
+    };
+    earner_badges_create: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-    };
-  };
-  issuer_create_create: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["Issuer"];
-        "application/x-www-form-urlencoded": components["schemas"]["Issuer"];
-        "multipart/form-data": components["schemas"]["Issuer"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+                "application/x-www-form-urlencoded": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+                "multipart/form-data": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+            };
         };
-        content: {
-          "application/ld+json": components["schemas"]["Issuer"];
-          "application/json": components["schemas"]["Issuer"];
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+                    "application/json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+                };
+            };
         };
-      };
     };
-  };
-  issuer_delete_destroy: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      204: {
-        headers: {
-          [name: string]: unknown;
+    earner_badges_update: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
         };
-        content?: never;
-      };
-    };
-  };
-  issuer_edit_update: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["Issuer"];
-        "application/x-www-form-urlencoded": components["schemas"]["Issuer"];
-        "multipart/form-data": components["schemas"]["Issuer"];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+                "application/x-www-form-urlencoded": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+                "multipart/form-data": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+            };
         };
-        content: {
-          "application/ld+json": components["schemas"]["Issuer"];
-          "application/json": components["schemas"]["Issuer"];
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+                    "application/json": components["schemas"]["LocalBadgeInstanceUploadSerializerV1"];
+                };
+            };
         };
-      };
     };
-  };
-  issuer_revoke_assertions_create: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["BadgeInstanceRevoke"];
-        "application/x-www-form-urlencoded": components["schemas"]["BadgeInstanceRevoke"];
-        "multipart/form-data": components["schemas"]["BadgeInstanceRevoke"];
-      };
-    };
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    earner_badges_destroy: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
         };
-        content?: never;
-      };
-    };
-  };
-  public_assertions_retrieve: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
-        content?: never;
-      };
     };
-  };
-  public_assertions_identity_retrieve: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        identity: string;
-        salt: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    issuer_badgeclasses_archive_update: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
         };
-        content?: never;
-      };
-    };
-  };
-  public_assertions_validate_retrieve: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BadgeClass"];
+                "application/x-www-form-urlencoded": components["schemas"]["BadgeClass"];
+                "multipart/form-data": components["schemas"]["BadgeClass"];
+            };
         };
-        content?: never;
-      };
-    };
-  };
-  public_badges_retrieve: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["BadgeClass"];
+                    "application/json": components["schemas"]["BadgeClass"];
+                };
+            };
         };
-        content?: never;
-      };
     };
-  };
-  public_institutions_retrieve: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+    issuer_badgeclasses_award_enrollments_create: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
         };
-        content?: never;
-      };
-    };
-  };
-  public_issuers_retrieve: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["BadgeInstance"];
+                "application/x-www-form-urlencoded": components["schemas"]["BadgeInstance"];
+                "multipart/form-data": components["schemas"]["BadgeInstance"];
+            };
         };
-        content?: never;
-      };
-    };
-  };
-  public_issuers_badges_retrieve: {
-    parameters: {
-      query?: {
-        format?: "json" | "ld+json";
-      };
-      header?: never;
-      path: {
-        entity_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      200: {
-        headers: {
-          [name: string]: unknown;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["BadgeInstance"];
+                    "application/json": components["schemas"]["BadgeInstance"];
+                };
+            };
         };
-        content?: never;
-      };
     };
-  };
+    issuer_badgeclasses_create_create: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BadgeClass"];
+                "application/x-www-form-urlencoded": components["schemas"]["BadgeClass"];
+                "multipart/form-data": components["schemas"]["BadgeClass"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["BadgeClass"];
+                    "application/json": components["schemas"]["BadgeClass"];
+                };
+            };
+        };
+    };
+    issuer_badgeclasses_delete_destroy: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    issuer_badgeclasses_edit_update: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BadgeClass"];
+                "application/x-www-form-urlencoded": components["schemas"]["BadgeClass"];
+                "multipart/form-data": components["schemas"]["BadgeClass"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["BadgeClass"];
+                    "application/json": components["schemas"]["BadgeClass"];
+                };
+            };
+        };
+    };
+    issuer_create_create: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Issuer"];
+                "application/x-www-form-urlencoded": components["schemas"]["Issuer"];
+                "multipart/form-data": components["schemas"]["Issuer"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["Issuer"];
+                    "application/json": components["schemas"]["Issuer"];
+                };
+            };
+        };
+    };
+    issuer_delete_destroy: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    issuer_edit_update: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Issuer"];
+                "application/x-www-form-urlencoded": components["schemas"]["Issuer"];
+                "multipart/form-data": components["schemas"]["Issuer"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/ld+json": components["schemas"]["Issuer"];
+                    "application/json": components["schemas"]["Issuer"];
+                };
+            };
+        };
+    };
+    issuer_revoke_assertions_create: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BadgeInstanceRevoke"];
+                "application/x-www-form-urlencoded": components["schemas"]["BadgeInstanceRevoke"];
+                "multipart/form-data": components["schemas"]["BadgeInstanceRevoke"];
+            };
+        };
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    public_assertions_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    public_assertions_identity_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                identity: string;
+                salt: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    public_assertions_validate_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    public_badges_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    public_institutions_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    public_issuers_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    public_issuers_badges_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path: {
+                entity_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    public_validator_info_retrieve: {
+        parameters: {
+            query?: {
+                format?: "json" | "ld+json";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No response body */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
 }

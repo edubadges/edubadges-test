@@ -1,25 +1,28 @@
 import { APIRequestContext } from '@playwright/test';
+
 export interface FetchConfig {
-  baseURL: string;
   headers: Record<string, string>;
   validateStatus?: (status: number) => boolean;
 }
+
 export interface FetchResponse<T = unknown> {
   status: number;
   statusText: string;
   data: T;
   headers: Record<string, string>;
 }
+
 export interface FetchOptions<T = unknown> {
   method?: string;
   headers?: Record<string, string>;
   data?: T;
   params?: Record<string, string | number | boolean | undefined>;
 }
-export async function fetchWithConfig<T>(
+
+export async function fetchWithConfig<T, D>(
   request: APIRequestContext,
   url: string,
-  options: FetchOptions<T> = {},
+  options: FetchOptions<D> = {},
 ): Promise<FetchResponse<T>> {
   const { method = 'GET', headers = {}, data, params } = options;
   // Build URL with query parameters
