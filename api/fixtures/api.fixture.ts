@@ -10,7 +10,11 @@ interface ApiFixtures {
 
 export const test = base.extend<ApiFixtures>({
   directAwardApiClient: async ({ request }, use) => {
-    const directAwardApiClient = createDirectAwardApiClient(request);
+    const directAwardApiClient = createDirectAwardApiClient(
+      request,
+      '',
+      `Bearer ${process.env.TOKEN}`,
+    );
     await use(directAwardApiClient);
   },
 });

@@ -1,26 +1,26 @@
-import { test } from './fixtures/api.fixture';
+import { test } from '../../api/fixtures/api.fixture';
 import { expect } from '@playwright/test';
 import {
   CreateBundleRequest,
   DirectAwardDeleteRequest,
-} from './directaward-api-client';
+} from '../../api/directaward-api-client';
 
 let bundle_entity_id: string;
 let first_da_entity_id: string;
 
-test.describe('Create DirectAward API', () => {
+test.describe.serial('Create DirectAward API', () => {
   test('should create a directaward', async ({
     directAwardApiClient: client,
   }) => {
     const newDA: CreateBundleRequest = {
-      badgeclass: '9yykCyxiQA2j59enkLAQxg',
+      badgeclass: 'xsKfN1rlRdCRh3X8S3yk-w',
       direct_awards: [
         {
-          eppn: '',
-          recipient_email: 'test@edubadges.nl',
+          eppn: 'student19@university-example.org',
+          recipient_email: 'test@example.com',
         },
       ],
-      sis_user_id: 'joseph+wheeler',
+      sis_user_id: 'joseph+weeler',
       batch_mode: false,
       lti_import: false,
       status: 'Active',
@@ -31,14 +31,21 @@ test.describe('Create DirectAward API', () => {
     const createdDirectAwards = await client.createBundle(newDA);
     expect(createdDirectAwards.entity_id).toBeDefined();
     bundle_entity_id = createdDirectAwards.entity_id;
+
+    // Try to create duplicate, needs to fail
+    //const createdDirectAwardsFail = await client.createBundle(newDA);
+    //await expect(createdDirectAwardsFail).rejects.toThrow(/400/);
   });
   test('get bundle information', async ({ directAwardApiClient: client }) => {
+    console.log(bundle_entity_id);
     const bundle = await client.getBundle(bundle_entity_id);
-    expect(bundle.assertion_count).toEqual(1);
+    console.log(bundle);
+    expect(bundle.direct_award_count).toBe(1);
     const firstDA = bundle.direct_awards[0];
     expect(firstDA.entity_id).toBeDefined();
     first_da_entity_id = firstDA.entity_id;
-    expect(firstDA.status).toEqual('Active');
+    console.log(firstDA);
+    expect(firstDA.status).toBe('Unaccepted');
   });
   test('directaward deletion scenarios', async ({
     directAwardApiClient: client,

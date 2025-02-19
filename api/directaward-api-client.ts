@@ -20,7 +20,7 @@ export class DirectAwardApiClient extends BaseApiClient {
   async getBundleRaw(
     entity_id: string,
   ): Promise<FetchResponse<GetBundleResponse>> {
-    return this.makeRequest<GetBundleResponse, never>(`/bundle/${entity_id}`, {
+    return this.makeRequest<GetBundleResponse, never>(`bundle/${entity_id}`, {
       method: 'GET',
     });
   }
@@ -35,7 +35,7 @@ export class DirectAwardApiClient extends BaseApiClient {
     data: CreateBundleRequest,
   ): Promise<FetchResponse<CreateBundleResponse>> {
     return this.makeRequest<CreateBundleResponse, CreateBundleRequest>(
-      '/create',
+      'create',
       {
         method: 'POST',
         data,
@@ -55,7 +55,7 @@ export class DirectAwardApiClient extends BaseApiClient {
     return this.makeRequest<
       DirectAwardDeleteResponse,
       DirectAwardDeleteRequest
-    >(`/delete-direct-awards`, {
+    >(`delete-direct-awards`, {
       method: 'PUT',
       data,
     });
@@ -80,7 +80,7 @@ export function createDirectAwardApiClient(
       'X-api-version': '1.0',
       'content-type': 'application/json;charset=UTF-8',
       Cookie: cookies,
-      Authorization: token ? `Bearer ${process.env.TOKEN}` : '',
+      Authorization: token,
     },
     validateStatus: () => true,
   };

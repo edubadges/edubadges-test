@@ -27,7 +27,10 @@ export class BaseApiClient {
     endpoint: string,
     options: RequestParams<D> = {},
   ): Promise<FetchResponse<T>> {
-    const url = new URL(endpoint, process.env.DA_BASE_URL).toString();
+    const url = new URL(
+      '/directaward/' + endpoint,
+      process.env.DA_BASE_URL,
+    ).toString();
     return fetchWithConfig<T, D>(this.request, url, {
       ...options,
       headers: {
