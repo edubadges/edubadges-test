@@ -9,12 +9,22 @@ export type CreateBundleRequest =
   components['schemas']['DirectAwardCreateBundleRequest'];
 export type CreateBundleResponse =
   components['schemas']['DirectAwardCreateBundleResponse'];
+export type CreateBundleBadRequestResponse =
+  components['schemas']['DirectAwardCreateBundleBadRequestRepsonse'];
 export type GetBundleResponse =
   components['schemas']['DirectAwardGetBundleResponse'];
 export type DirectAwardDeleteRequest =
   components['schemas']['DirectAwardDeleteRequest'];
 export type DirectAwardDeleteResponse =
   components['schemas']['DirectAwardDeleteResponse'];
+export type DirectAwardAcceptRequest =
+  components['schemas']['DirectAwardAcceptRequest'];
+export type DirectAwardAcceptRejectedResponse =
+  components['schemas']['DirectAwardAcceptRejectedResponse'];
+export type UpdateBundleRequest =
+  components['schemas']['DirectAwardUpdateBundleRequest'];
+export type UpdateBundleResponse =
+  components['schemas']['DirectAwardUpdateSuccessResponse'];
 
 export class DirectAwardApiClient extends BaseApiClient {
   async getBundleRaw(
@@ -25,9 +35,63 @@ export class DirectAwardApiClient extends BaseApiClient {
     });
   }
 
+  async acceptDirectAward(
+    entity_id: string,
+  ): Promise<DirectAwardAcceptRejectedResponse> {
+    const response = await this.acceptDirectAwardRaw({
+      entity_id: entity_id,
+      accept: true,
+    });
+    expect(response).toHaveStatusCode(API_STATUSES.SUCCESSFUL_200_STATUS);
+    return response.data;
+  }
+
+  async rejectDirectAward(
+    entity_id: string,
+  ): Promise<DirectAwardAcceptRejectedResponse> {
+    const response = await this.acceptDirectAwardRaw({
+      entity_id: entity_id,
+      accept: false,
+    });
+    expect(response).toHaveStatusCode(API_STATUSES.SUCCESSFUL_200_STATUS);
+    return response.data;
+  }
+
+  async acceptDirectAwardRaw(
+    data: DirectAwardAcceptRequest,
+  ): Promise<FetchResponse<DirectAwardAcceptRejectedResponse>> {
+    return this.makeRequest<
+      DirectAwardAcceptRejectedResponse,
+      DirectAwardAcceptRequest
+    >(`accept/${data.entity_id}`, {
+      method: 'POST',
+      data,
+    });
+  }
+
   async getBundle(entity_id: string): Promise<GetBundleResponse> {
     const response = await this.getBundleRaw(entity_id);
     expect(response).toHaveStatusCode(API_STATUSES.SUCCESSFUL_200_STATUS);
+    return response.data;
+  }
+
+  async updateBundleRaw(
+    data: UpdateBundleRequest,
+  ): Promise<FetchResponse<UpdateBundleResponse>> {
+    return this.makeRequest<UpdateBundleResponse, UpdateBundleRequest>(
+      `edit/${data.entity_id}`,
+      {
+        method: 'PUT',
+        data,
+      },
+    );
+  }
+
+  async updateBundleSuccess(
+    data: UpdateBundleRequest,
+  ): Promise<UpdateBundleResponse> {
+    const response = await this.updateBundleRaw(data);
+    expect(response).toHaveStatusCode(API_STATUSES.CREATED_201_STATUS);
     return response.data;
   }
 
@@ -43,9 +107,31 @@ export class DirectAwardApiClient extends BaseApiClient {
     );
   }
 
-  async createBundle(data: CreateBundleRequest): Promise<CreateBundleResponse> {
+  async createBundle400Raw(
+    data: CreateBundleRequest,
+  ): Promise<FetchResponse<CreateBundleBadRequestResponse>> {
+    return this.makeRequest<
+      CreateBundleBadRequestResponse,
+      CreateBundleRequest
+    >('create', {
+      method: 'POST',
+      data,
+    });
+  }
+
+  async createBundleSuccess(
+    data: CreateBundleRequest,
+  ): Promise<CreateBundleResponse> {
     const response = await this.createBundleRaw(data);
     expect(response).toHaveStatusCode(API_STATUSES.CREATED_201_STATUS);
+    return response.data;
+  }
+
+  async createBundleFail(
+    data: CreateBundleRequest,
+  ): Promise<CreateBundleBadRequestResponse> {
+    const response = await this.createBundle400Raw(data);
+    expect(response).toHaveStatusCode(API_STATUSES.GENERIC_400_STATUS);
     return response.data;
   }
 

@@ -567,7 +567,7 @@ export interface components {
             lti_import: boolean;
             status: string;
             identifier_type: string;
-            scheduled_at?: string;
+            scheduled_at?: string | null;
             notify_recipients: boolean;
         };
         DirectAwardCreateBundleResponse: {
@@ -586,9 +586,6 @@ export interface components {
             eppn: string;
             /** Format: email */
             recipient_email: string;
-        };
-        DirectAwardGetBundleRequest: {
-            entity_id: string;
         };
         DirectAwardGetBundleResponse: {
             initial_total: number;
