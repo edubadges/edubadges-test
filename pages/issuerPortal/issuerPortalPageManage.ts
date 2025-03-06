@@ -19,6 +19,7 @@ export class IssuerPortalPageManage extends BasePage {
     ).toBeVisible();
   }
 
+  // TODO: Zorgt er voor dat 1 retry niet genoeg is (fail -> second screenshot not asserted/created -> rerun -> fail onsecond screenshot)
   async createNewBadgeClass() {
     await this.page.getByRole('link', { name: 'Add new badge class' }).click();
     await expect(this.page).toHaveScreenshot('PopupEduBadgeTypes.png', {

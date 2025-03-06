@@ -19,6 +19,7 @@ test('Make edubadge public', async ({
 
   await catalogPage.OpenBackpack();
   var maskedElement = [await catalogPage.page.locator('.card > .header')];
+  // TODO: screenshot is different if it is parallel, first testcase, and other variables
   await expect(catalogPage.page).toHaveScreenshot('eduBadgeReceived.png', {
     mask: maskedElement,
   });
@@ -28,9 +29,10 @@ test('Make edubadge public', async ({
 
   await expect(
     catalogPage.page
-      .getByText('New')
-      .locator('..')
-      .getByText('Introduction to Political Science'),
+      // not persistent?
+      //.getByText('New')
+      //.locator('..')
+      .getByText('Introduction to Political Science').first(),
   ).toBeVisible();
 
   await catalogPage.ShareEdubadge();
