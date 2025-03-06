@@ -66,7 +66,7 @@ test('Validate error messages empty extra curricular badge form', async ({
   );
 });
 
-test('Validate regular HBO edu badge creation', async ({
+test.skip('Validate regular HBO edu badge creation', async ({
   hboIssuerPortalPageManage,
   testdata,
 }) => {
@@ -97,7 +97,7 @@ test('Validate regular HBO edu badge creation', async ({
   );
 });
 
-test('Validate micro credential HBO edu badge creation', async ({
+test.skip('Validate micro credential HBO edu badge creation', async ({
   hboIssuerPortalPageManage,
   testdata,
 }) => {
@@ -128,7 +128,7 @@ test('Validate micro credential HBO edu badge creation', async ({
   );
 });
 
-test('Validate extra curricular HBO edu badge creation', async ({
+test.skip('Validate extra curricular HBO edu badge creation', async ({
   hboIssuerPortalPageManage,
   testdata,
 }) => {

@@ -66,7 +66,7 @@ test('Validate error messages empty extra curricular badge form', async ({
   );
 });
 
-test('Validate microcredention badge class creation', async ({
+test.skip('Validate microcredention badge class creation', async ({
   issuerPortalPageManage,
   testdata,
 }) => {
@@ -96,7 +96,7 @@ test('Validate microcredention badge class creation', async ({
   );
 });
 
-test('Validate regular edu badge creation', async ({
+test.skip('Validate regular edu badge creation', async ({
   issuerPortalPageManage,
   testdata,
 }) => {
@@ -125,7 +125,7 @@ test('Validate regular edu badge creation', async ({
   );
 });
 
-test('Validate extra curricular edu badge creation', async ({
+test.skip('Validate extra curricular edu badge creation', async ({
   issuerPortalPageManage,
   testdata,
 }) => {

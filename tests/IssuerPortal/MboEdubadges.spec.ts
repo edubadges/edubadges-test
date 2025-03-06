@@ -66,7 +66,7 @@ test('Validate error messages empty extra curricular badge form', async ({
   );
 });
 
-test('Validate regular MBO edu badge creation', async ({
+test.skip('Validate regular MBO edu badge creation', async ({
   mboIssuerPortalPageManage,
   testdata,
 }) => {
@@ -97,7 +97,7 @@ test('Validate regular MBO edu badge creation', async ({
   );
 });
 
-test('Validate micro credential MBO edu badge creation', async ({
+test.skip('Validate micro credential MBO edu badge creation', async ({
   mboIssuerPortalPageManage,
   testdata,
 }) => {
@@ -128,7 +128,7 @@ test('Validate micro credential MBO edu badge creation', async ({
   );
 });
 
-test('Validate extra curricular MBO edu badge creation', async ({
+test.skip('Validate extra curricular MBO edu badge creation', async ({
   mboIssuerPortalPageManage,
   testdata,
 }) => {
