@@ -11,7 +11,7 @@ export class CatalogPage extends BasePage {
     await this.page.getByPlaceholder('Search...').fill(name);
   }
 
-  async filterOn(filterText: string) {
+  async filterOn(filterText: string = "university-example.org") {
     await this.page.getByText(filterText).click();
   }
 
