@@ -10,3 +10,15 @@ test('Search for non existing badge', async ({
     await catalogPage.SearchForClass(course);
     await expect(catalogPage.page).toHaveScreenshot("emptyCatalogPage.png");
 });
+
+test('Look at existing badge', async ({
+    catalogPage,
+}) => {
+    // var
+    const course = "Group Dynamics";
+
+    // test
+    await catalogPage.SearchForClass(course);
+    await catalogPage.openEduClass(course);
+    await expect(catalogPage.page).toHaveScreenshot('edubadgeAnonymous.png');
+});
