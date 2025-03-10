@@ -16,7 +16,7 @@ export class CatalogPage extends BasePage {
   }
 
   async openEduClass(name: string) {
-    await this.page.getByText(name).click();
+    await this.page.getByText(name).first().click();
     await expect(
       this.page.getByRole('heading', { name: 'The programme' }),
     ).toBeVisible();
