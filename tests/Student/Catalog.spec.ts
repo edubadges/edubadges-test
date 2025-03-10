@@ -1,17 +1,20 @@
 import { expect, test } from '../../fixtures/catalogFixture';
 
-test('Look at a badge', async ({
+test('Request badge', async ({
     catalogPage,
 }) => {
 // var
-  const course = "Group dynamics";
-  const institution = "university-example.org";
+    const course = "Group Dynamics";
+    const institution = "university-example.org";
 
-  // test
-  await catalogPage.SearchForClass(course);
-  await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
-  await catalogPage.RequestEdubadge();
-  await catalogPage.page.waitForTimeout(1000);
-  await expect(catalogPage.page).toHaveScreenshot('eduBadgeRequested.png');
+    // setup
+    await catalogPage.SearchForClass(course);
+    await catalogPage.filterOn(institution);
+    await catalogPage.openEduClass(course);
+
+    // test
+    await catalogPage.RequestEdubadge();
+    await catalogPage.page.waitForTimeout(1000);
+    await expect(catalogPage.page.getByText(`successfully requested edubadge ${course}`)).toBeVisible();
+    await expect(catalogPage.page).toHaveScreenshot('eduBadgeRequested.png');
 });
