@@ -132,10 +132,20 @@ export class IssuerPortalPage extends BasePage {
     await this.page.waitForTimeout(5000);
   }
 
-  async awardBadgeToStudent(studentEmail: string, studentNumber: string) {
+  private async awardBadgeToStudent(studentEmail: string, studentNumber: string) {
     await this.page.getByRole('link', { name: 'Award edubadge(s)' }).click();
     await this.page.getByRole('textbox').first().fill(studentEmail);
     await this.page.getByRole('textbox').nth(1).fill(studentNumber);
     await this.page.getByRole('link', { name: 'Award' }).click();
+  }
+
+  async directAwardBadgeToStudent(courseName: string,
+     studentEmail: string = this.testdata.accounts.studentEmail,
+     studentNumber: string = this.testdata.accounts.studentEPPN,){
+    await this.SearchForClass(courseName);
+    await this.openBadgeClassWithNameFromMainPage(courseName);
+    await this.awardBadgeToStudent(studentEmail, studentNumber,
+    );
+    await expect(this.page.getByText("Direct awards have been sent")).toBeVisible();
   }
 }
