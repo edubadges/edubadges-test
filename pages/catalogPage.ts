@@ -106,6 +106,7 @@ export class CatalogPage extends BasePage {
     await this.page.goto(url);
     await this.page.getByRole('link', { name: 'Verify' }).click();
     await this.page.waitForTimeout(20000);
+    // If this test fails, it is because the verify functionality is not running correctly
     await expect(this.page.locator('.check')).toHaveCount(9);
   }
 }
