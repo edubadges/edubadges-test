@@ -29,7 +29,7 @@ test('Make edubadge public', async ({
 
   await expect(
     catalogPage.page
-      // not persistent?
+      // not persistent? vgm zorgt parallel ervoor dat de New weggaat
       //.getByText('New')
       //.locator('..')
       .getByText('Introduction to Political Science').first(),
@@ -45,17 +45,9 @@ test('Make edubadge public', async ({
 test('Teacher can enroll student', async ({
   backpackPage,
   issuerPortalPage,
-  testdata,
 }) => {
-  await issuerPortalPage.SearchForClass('Digestion and Defense');
-  await issuerPortalPage.openBadgeClassWithNameFromMainPage(
-    'Digestion and Defense',
-  );
-  await issuerPortalPage.awardBadgeToStudent(
-    testdata.accounts.studentEmail,
-    testdata.accounts.studentEPPN,
-  );
-  await issuerPortalPage.page.waitForTimeout(5000);
+  const courseName = 'Digestion and Defense';
+  await issuerPortalPage.directAwardBadgeToStudent(courseName);
   await backpackPage.releadPage();
   await backpackPage.page.waitForTimeout(2000);
   await expect(
