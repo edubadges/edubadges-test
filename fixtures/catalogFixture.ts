@@ -43,8 +43,8 @@ export const test = base.extend<CatalogFixture>({
     // Set up the fixture.
     testdata.testCaseName = testInfo.title;
 
-    var catalogContext = await browser.newContext();
-    var page = await catalogContext.newPage();
+    var backpackContext = await browser.newContext();
+    var page = await backpackContext.newPage();
 
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
@@ -80,6 +80,8 @@ export const test = base.extend<CatalogFixture>({
     await homePage.openIssuerPortal();
 
     const issuerPortalPage = new IssuerPortalPage(issuerPage, testdata);
+    // TODO: should you always login with institution admin?
+    // maybe add logout if loggedin before each login?
     await issuerPortalPage.loginWithInstitutionAdmin();
 
     // Use the fixture value in the test.

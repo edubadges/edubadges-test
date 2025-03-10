@@ -7,6 +7,7 @@ export class BackpackPage extends BasePage {
     super(page, testdata);
   }
 
+      // if multiple accounts this should have parameters
   public async Login() {
     await expect(
       this.page
@@ -35,17 +36,26 @@ export class BackpackPage extends BasePage {
       .getByPlaceholder('Password')
       .fill(this.testdata.accounts.studentPassword);
     await this.page.getByRole('link', { name: 'Login', exact: true }).click();
-    await this.page.waitForTimeout(2000);
+    await this.page.waitForTimeout(5000);
     const termsAndConditionsPageShown = await this.page
       .getByRole('link', { name: 'I agree' })
       .count();
     if (termsAndConditionsPageShown > 0) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
+    await this.page.waitForTimeout(5000);
   }
 
   async OpenBackpack() {
     await this.page.getByRole('link', { name: 'My backpack' }).click();
+  }
+
+  async OpenBadgeRequests() {
+    await this.page.getByRole('link', { name : 'Edubadge requests' }).click();
+  }
+
+  async OpenAccount(){
+    await this.page.getByRole('link', { name : 'Account' }).click();
   }
 
   async AcceptBadge(badgeName: string) {
