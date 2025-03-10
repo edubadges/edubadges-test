@@ -25,8 +25,8 @@ export class CatalogPage extends BasePage {
   async RequestEdubadge() {
     const isLoginButtonVisible = await this.page
       .getByRole('link', { name: 'Login to request this edubadge' })
-      .count();
-    if (isLoginButtonVisible > 0) {
+      .isVisible();
+    if (isLoginButtonVisible) {
       await this.page
         .getByRole('link', { name: 'Login to request this edubadge' })
         .click();
@@ -34,17 +34,18 @@ export class CatalogPage extends BasePage {
     }
     await this.page.getByRole('link', { name: 'Request', exact: true }).click();
     await this.page.waitForTimeout(2000);
+
     const termsAndConditionsPageShown = await this.page
       .getByRole('link', { name: 'I agree' })
-      .count();
-    if (termsAndConditionsPageShown > 0) {
+      .isVisible();
+    if (termsAndConditionsPageShown) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
 
     const confirm = await this.page
       .getByRole('link', { name: 'Confirm' })
-      .count();
-    if (confirm > 0) {
+      .isVisible();
+    if (confirm) {
       await this.page.getByRole('link', { name: 'Confirm' }).click();
     }
   }
@@ -56,7 +57,7 @@ export class CatalogPage extends BasePage {
         .or(this.page.getByPlaceholder('e.g. user@gmail.com')),
     ).toBeVisible();
 
-    if ((await this.page.getByPlaceholder('Search...').count()) > 0) {
+    if ((await this.page.getByPlaceholder('Search...').isVisible())) {
       await this.page.getByPlaceholder('Search...').fill('test idp');
       await expect(
         this.page.getByRole('heading', { name: 'Login with eduID (NL) test' }),
@@ -80,8 +81,8 @@ export class CatalogPage extends BasePage {
     await this.page.waitForTimeout(5000);
     const termsAndConditionsPageShown = await this.page
       .getByRole('link', { name: 'I agree' })
-      .count();
-    if (termsAndConditionsPageShown > 0) {
+      .isVisible();
+    if (termsAndConditionsPageShown) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
     await this.page.waitForTimeout(5000);

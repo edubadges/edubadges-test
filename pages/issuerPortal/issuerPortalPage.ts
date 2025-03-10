@@ -123,8 +123,8 @@ export class IssuerPortalPage extends BasePage {
     await this.page.waitForTimeout(5000);
     const proceedToEdubadgesFound = await this.page
       .getByRole('button', { name: 'Proceed to Edubadges [' })
-      .count();
-    if (proceedToEdubadgesFound > 0) {
+      .isVisible();
+    if (proceedToEdubadgesFound) {
       await this.page
         .getByRole('button', { name: 'Proceed to Edubadges [' })
         .click();
