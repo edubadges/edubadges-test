@@ -8,6 +8,8 @@ export class IssuerPortalPageManage extends BasePage {
     super(page, testdata);
   }
 
+  //#region access badge
+
   async searchForBadgeClass(badgeClassName: string) {
     await this.page.getByPlaceholder('Search...').fill(badgeClassName);
   }
@@ -27,6 +29,9 @@ export class IssuerPortalPageManage extends BasePage {
     });
   }
 
+  //#endregion
+
+  //#region create badge
   async createNewMicroCredential() {
     await this.page
       .getByText('Microcredential A badge class')
@@ -130,4 +135,52 @@ export class IssuerPortalPageManage extends BasePage {
   async publishBadge() {
     await this.page.getByRole('link', { name: 'Publish' }).click();
   }
+
+  //#endregion
+
+
+  //#region badge requests
+
+  private async searchByStudentName(studentName: string){
+    this.page.getByPlaceholder('Search...').fill(studentName);
+  }
+
+  /** Clicks the according checkbox once. 
+   * Finds the tr by finding the courseName and selecting the parent's parent.
+   * Finds the checkbox by searching within the tr
+   */
+  private async selectRequest(courseName: string, studentName: string
+  ){
+    this.searchByStudentName(studentName);
+    await this.page.getByRole('link', { name: courseName })
+          .locator('../..')
+          .getByRole('checkbox')
+          .click();
+  }
+/*
+  private async selectRequests(courseStudentTuples: [string,string][]){
+    courseStudentTuples.forEach(tuple => {
+      this.selectRequest(tuple[0], tuple[1]);
+    });
+  }
+    */
+
+  //im
+  async approveRequest(courseName: string,
+    studentName: string = this.testdata.accounts.studentName,
+  ){
+    this.selectRequest(courseName, studentName);
+    this.page.getByRole('link', { name: 'Award' }).click();
+    this.page.waitForTimeout(500);
+    this.page.locator('.options')
+      .getByRole('link', { name: 'Award' })
+      .click();
+  }
+
+  async approveBadgeRequest(courseName: string,
+    studentEmail: string = this.testdata.accounts.studentEmail,
+    studentNumber: string = this.testdata.accounts.studentEPPN,){
+    }
+
+  //#endregion
 }
