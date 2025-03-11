@@ -43,10 +43,13 @@ export class IssuerPortalPage extends BasePage {
     await this.page.getByText(name).click();
   }
 
-  async rewardBadgeToStudent() {
+  // TODO: refactor, rewardBadge(badgename, studentname) so that it can be used more freely
+  async rewardBadgeToStudent(
+    studentName: string = 'Petra Penttilä',
+  ) {
     await this.page.getByRole('link', { name: 'Open requests ' }).click();
     await this.page
-      .getByRole('row', { name: 'Petra Penttilä' })
+      .getByRole('row', { name:  studentName })
       .locator('label span')
       .click();
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
