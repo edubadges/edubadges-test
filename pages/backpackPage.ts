@@ -15,7 +15,7 @@ export class BackpackPage extends BasePage {
         .or(this.page.getByPlaceholder('e.g. user@gmail.com')),
     ).toBeVisible();
 
-    if ((await this.page.getByPlaceholder('Search...').count()) > 0) {
+    if ((await this.page.getByPlaceholder('Search...').isVisible())) {
       await this.page.getByPlaceholder('Search...').fill('test idp');
       await expect(
         this.page.getByRole('heading', { name: 'Login with eduID (NL) test' }),
@@ -39,8 +39,8 @@ export class BackpackPage extends BasePage {
     await this.page.waitForTimeout(5000);
     const termsAndConditionsPageShown = await this.page
       .getByRole('link', { name: 'I agree' })
-      .count();
-    if (termsAndConditionsPageShown > 0) {
+      .isVisible();
+    if (termsAndConditionsPageShown) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
     await this.page.waitForTimeout(5000);
@@ -65,7 +65,7 @@ export class BackpackPage extends BasePage {
       .click();
 
     await this.page.waitForTimeout(2000);
-    if ((await this.page.getByRole('link', { name: 'I agree' }).count()) > 0) {
+    if ((await this.page.getByRole('link', { name: 'I agree' }).isVisible())) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
     await this.page.getByRole('link', { name: 'Confirm' }).click();
