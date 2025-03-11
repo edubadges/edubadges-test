@@ -10,7 +10,7 @@ export abstract class BasePage {
     this.testdata = testdata;
   }
 
-  async releadPage() {
+  async reloadPage() {
     await this.page.reload();
   }
 }

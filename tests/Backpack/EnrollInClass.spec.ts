@@ -48,7 +48,7 @@ test('Teacher can enroll student', async ({
 }) => {
   const courseName = 'Digestion and Defense';
   await issuerPortalPage.directAwardBadgeToStudent(courseName);
-  await backpackPage.releadPage();
+  await backpackPage.reloadPage();
   await backpackPage.page.waitForTimeout(2000);
   await expect(
     backpackPage.page
