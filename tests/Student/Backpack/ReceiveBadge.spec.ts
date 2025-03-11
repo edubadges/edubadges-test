@@ -1,5 +1,7 @@
 import { expect, test } from '../../../fixtures/catalogFixture';
 
+// TODO: improve locator for unclaimed badge (see Teacher -> Award badge)
+
 test('Reject received badge', async ({
     backpackPage,
     issuerPortalPage,
