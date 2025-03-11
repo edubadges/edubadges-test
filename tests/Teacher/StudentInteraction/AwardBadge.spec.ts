@@ -1,7 +1,7 @@
-import { expect, test } from '../../fixtures/catalogFixture';
+import { expect, test } from '../../../fixtures/catalogFixture';
 
+// TODO: add parameterised test to also test with other accounts.
 test('Award requested badge', async ({
-    backpackPage,
     catalogPage,
     issuerPortalPage,
   }) => {
@@ -24,7 +24,6 @@ test('Award requested badge', async ({
 
 test('Direct award badge', async ({
     backpackPage,
-    catalogPage,
     issuerPortalPage,
   }) => {
     // var
