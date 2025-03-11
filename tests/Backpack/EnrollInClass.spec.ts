@@ -42,6 +42,8 @@ test('Make edubadge public', async ({
   await catalogPage.ValidateBadge(url);
 });
 
+/* replaced by InstitutionAdmin -> BadgeAward -> Direct award badge
+
 test('Teacher can enroll student', async ({
   backpackPage,
   issuerPortalPage,
@@ -59,3 +61,4 @@ test('Teacher can enroll student', async ({
   await backpackPage.AcceptBadge('Digestion and Defense');
   await expect(backpackPage.page).toHaveScreenshot('badgeAccepted.png');
 });
+*/
