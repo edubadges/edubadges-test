@@ -16,7 +16,7 @@ export class CatalogPage extends BasePage {
   }
 
   async openEduClass(name: string) {
-    await this.page.getByText(name).click();
+    await this.page.getByText(name).first().click();
     await expect(
       this.page.getByRole('heading', { name: 'The programme' }),
     ).toBeVisible();
@@ -50,7 +50,10 @@ export class CatalogPage extends BasePage {
     }
   }
 
-  private async Login() {
+  async Login(
+    username: string = this.testdata.accounts.studentEmail,
+    password: string = this.testdata.accounts.studentPassword,
+  ) {
     await expect(
       this.page
         .getByPlaceholder('Search...')
@@ -70,13 +73,13 @@ export class CatalogPage extends BasePage {
 
     await this.page
       .getByPlaceholder('e.g. user@gmail.com')
-      .fill(this.testdata.accounts.studentEmail);
+      .fill(username);
     await this.page.waitForTimeout(2000);
     await this.page.getByRole('link', { name: 'Next' }).click();
 
     await this.page
       .getByPlaceholder('Password')
-      .fill(this.testdata.accounts.studentPassword);
+      .fill(password);
     await this.page.getByRole('link', { name: 'Login', exact: true }).click();
     await this.page.waitForTimeout(5000);
     const termsAndConditionsPageShown = await this.page

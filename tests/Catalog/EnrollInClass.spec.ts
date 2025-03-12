@@ -1,5 +1,6 @@
 import { expect, test } from '../../fixtures/catalogFixture';
 
+/* replaced by Student -> Catalog -> Request badge
 test('Student can enroll in batch class', async ({ catalogPage }) => {
   await catalogPage.SearchForClass('Psychometrics');
   await catalogPage.filterOn('university-example.org');
@@ -8,6 +9,7 @@ test('Student can enroll in batch class', async ({ catalogPage }) => {
   await catalogPage.page.waitForTimeout(500);
   await expect(catalogPage.page).toHaveScreenshot('eduBadgeRequested.png');
 });
+*/
 
 test('Teacher approve enrollment', async ({
   catalogPage,

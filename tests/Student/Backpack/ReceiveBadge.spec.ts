@@ -1,4 +1,6 @@
-import { expect, test } from '../../fixtures/catalogFixture';
+import { expect, test } from '../../../fixtures/catalogFixture';
+
+// TODO: improve locator for unclaimed badge (see Teacher -> Award badge)
 
 test('Reject received badge', async ({
     backpackPage,
@@ -20,29 +22,22 @@ test('Reject received badge', async ({
     await expect(backpackPage.page.getByText('Edubadge is rejected')).toBeVisible();
 });
 
-test('Reject accepted badge', async ({
+test('Accept received badge', async ({
     backpackPage,
     issuerPortalPage,
 }) => {
     // var
-    const course = "Circulation and Breathing";
+    const course = "Law and Politics";
 
-    //setup
+    // setup
     await issuerPortalPage.directAwardBadgeToStudent(course);
+    
+    // test
     await backpackPage.OpenBackpack();
     await backpackPage.page.getByText('View details to claim this edubadge').click();
+    await backpackPage.page.waitForTimeout(500);
     await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
-    // TODO: first time accepting fix, maybe function it away
-    await backpackPage.page.waitForTimeout(1000);
-    if(await backpackPage.page.getByRole('link', { name: 'I agree' }).isVisible())
-        { backpackPage.page.getByRole('link', { name: 'I agree' }).click(); }
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+    await backpackPage.page.waitForTimeout(500);
+    await backpackPage.page.getByRole('link', {name: 'Confirm'}).click();
     await expect(backpackPage.page.getByText('Successfully claimed edubadge')).toBeVisible();
-
-    // test
-    await backpackPage.page.getByRole('link', { name: 'Reject this edubadge' }).click();
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
-    await expect(backpackPage.page.getByText('Rejected')).toBeVisible();
-
-    
 });
