@@ -36,8 +36,8 @@ test('Accept received badge', async ({
     await backpackPage.OpenBackpack();
     await backpackPage.page.getByText('View details to claim this edubadge').click();
     await backpackPage.page.waitForTimeout(500);
-    await backpackPage.page.getByRole('link', { name: 'Accept' }).click();
+    await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
     await backpackPage.page.waitForTimeout(500);
     await backpackPage.page.getByRole('link', {name: 'Confirm'}).click();
-    await expect(backpackPage.page.getByText('Edubadge is accepted')).toBeVisible();
+    await expect(backpackPage.page.getByText('Successfully claimed edubadge')).toBeVisible();
 });
