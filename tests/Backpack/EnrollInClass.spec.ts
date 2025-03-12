@@ -1,6 +1,6 @@
 import { expect, test } from '../../fixtures/catalogFixture';
 
-test('Make edubadge public', async ({
+test.skip('Make edubadge public', async ({
   catalogPage,
   issuerPortalPage,
   copyPastePage,

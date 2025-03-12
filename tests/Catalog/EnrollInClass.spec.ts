@@ -11,6 +11,7 @@ test('Student can enroll in batch class', async ({ catalogPage }) => {
 });
 */
 
+/* replaced by Teacher -> Student interaction -> Award badge
 test('Teacher approve enrollment', async ({
   catalogPage,
   issuerPortalPage,
@@ -31,3 +32,4 @@ test('Teacher approve enrollment', async ({
     catalogPage.page.getByText('New').locator('..').getByText('Group Dynamics'),
   ).toBeVisible();
 });
+*/
