@@ -1,5 +1,6 @@
 import { expect, test } from '../../fixtures/eduBadges/eduBadgesFixture';
 
+// TODO: institution admin folder -> create badges
 test('Validate error messages empty microcredential form', async ({
   issuerPortalPageManage,
 }) => {

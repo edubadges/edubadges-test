@@ -1,5 +1,6 @@
 import { test } from '../../fixtures/loginFixture';
 
+// TODO: create basicsLogin test
 test('Login with institution admin for uni in the issuer portal', async ({
   homePage,
   issuerPortalPage,
