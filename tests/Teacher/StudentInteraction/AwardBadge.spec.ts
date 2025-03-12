@@ -1,6 +1,8 @@
 import { expect, test } from '../../../fixtures/catalogFixture';
 
 // TODO: add parameterised test to also test with other accounts.
+// TODO: bulk award
+
 test('Award requested badge', async ({
     catalogPage,
     issuerPortalPage,
@@ -27,7 +29,6 @@ test('Direct award badge', async ({
     issuerPortalPage,
   }) => {
     // var
-    const studentName = "Petra Penttilä";   // TODO: change login to multiple accounts, then verify using this
     const courseName = "Cognitive Psychology";
     const receivedBadgeLocator = backpackPage.page
         .getByText('Unclaimed')
