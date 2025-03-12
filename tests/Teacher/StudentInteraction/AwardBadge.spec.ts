@@ -8,7 +8,7 @@ test('Award requested badge', async ({
     issuerPortalPage,
   }) => {
     // var
-    const course = "Group Dynamics";
+    const course = "Psychometrics";
     const institution = "university-example.org";
     
     // setup

@@ -16,9 +16,11 @@ test('Look at existing badge', async ({
 }) => {
     // var
     const course = "Group Dynamics";
+    const institution = "harvard-example.edu";
 
     // test
     await catalogPage.SearchForClass(course);
+    await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
     await expect(catalogPage.page).toHaveScreenshot('edubadgeAnonymous.png');
 });

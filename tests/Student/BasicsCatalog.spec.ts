@@ -4,10 +4,13 @@ test('See existing badge logged in', async ({
     catalogPage,
 }) => {
     // var
-    const course = 'Introduction to Psychology';
+    const course = "Introduction to Psychology";
+    const institution = "harvard-example.edu";
+
 
     // setup
     await catalogPage.SearchForClass(course);
+    await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
     
     // test
@@ -23,8 +26,8 @@ test('Request badge', async ({
     catalogPage,
 }) => {
     // var
-    const course = 'Group Dynamics';
-    const institution = 'university-example.org';
+    const course = "Group Dynamics";
+    const institution = "university-example.org";
 
     // setup
     await catalogPage.SearchForClass(course);
@@ -43,11 +46,14 @@ test('Log out from catalog', async ({
     catalogPage,
 }) => {
     // var
-    const course = 'Introduction to Psychology';
+    const course = "Introduction to Psychology";
+    const institution = "harvard-example.edu";
 
     // setup
     await catalogPage.SearchForClass(course);
+    await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
+
     await catalogPage.page
         .getByRole('link', { name: 'Login to request this edubadge' })
         .click();
