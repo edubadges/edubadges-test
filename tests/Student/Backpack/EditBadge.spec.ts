@@ -1,5 +1,7 @@
 import { expect, test } from '../../../fixtures/catalogFixture';
 
+// TODO: Make public, Share, Make private
+
 test('Reject accepted badge', async ({
     backpackPage,
     issuerPortalPage,

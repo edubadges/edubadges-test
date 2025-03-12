@@ -44,6 +44,8 @@ export class BackpackPage extends BasePage {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
     await this.page.waitForTimeout(5000);
+
+    await expect(this.page.locator('.expand-menu')).toBeVisible();
   }
 
   async OpenBackpack() {
