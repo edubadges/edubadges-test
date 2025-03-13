@@ -1,7 +1,6 @@
-import { expect, test } from '../../fixtures/eduBadges/eduBadgesFixture';
+import { expect, test } from '../../../../fixtures/eduBadges/eduBadgesFixture';
 
-/* replaced by Teacher -> BadgeInteraction -> BadgeCreation
-
+// TODO: institution admin folder -> create badges
 test('Validate error messages empty microcredential form', async ({
   issuerPortalPageManage,
 }) => {
@@ -68,6 +67,8 @@ test('Validate error messages empty extra curricular badge form', async ({
   );
 });
 
+
+// following tests are skipped because of a known issue in publishing badges
 test.skip('Validate microcredention badge class creation', async ({
   issuerPortalPageManage,
   testdata,
@@ -155,4 +156,3 @@ test.skip('Validate extra curricular edu badge creation', async ({
     },
   );
 });
-*/

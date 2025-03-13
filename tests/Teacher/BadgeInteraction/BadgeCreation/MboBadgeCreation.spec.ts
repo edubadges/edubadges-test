@@ -1,6 +1,5 @@
-import { expect, test } from '../../fixtures/eduBadges/eduBadgesMboFixture';
+import { expect, test } from '../../../../fixtures/eduBadges/eduBadgesMboFixture';
 
-/* replaced by Teacher -> BadgeInteraction -> MboBadgeCreation
 test('Validate error messages empty microcredential form', async ({
   mboIssuerPortalPageManage,
 }) => {
@@ -159,4 +158,3 @@ test.skip('Validate extra curricular MBO edu badge creation', async ({
     },
   );
 });
-*/

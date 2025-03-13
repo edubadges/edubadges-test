@@ -1,6 +1,5 @@
-import { expect, test } from '../../fixtures/eduBadges/eduBadgesHboFixture';
+import { expect, test } from '../../../../fixtures/eduBadges/eduBadgesHboFixture';
 
-/* replaced by Teacher -> BadgeInteraction -> HboBadgeCreation
 test('Validate error messages empty microcredential form', async ({
   hboIssuerPortalPageManage,
 }) => {
@@ -159,4 +158,3 @@ test.skip('Validate extra curricular HBO edu badge creation', async ({
     },
   );
 });
-*/

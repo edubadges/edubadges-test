@@ -1,1 +1,0 @@
-import { expect, test } from '../../../fixtures/catalogFixture';
