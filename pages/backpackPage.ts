@@ -72,4 +72,16 @@ export class BackpackPage extends BasePage {
     }
     await this.page.getByRole('link', { name: 'Confirm' }).click();
   }
+
+  /**
+   * Page should already be on a received and opened edubadge
+   */
+  async ShareEdubadge(){
+    await this.page.getByRole('slider').click();
+    await this.page.getByText('Confirm').click();
+    await expect(
+      this.page.getByText('This edubadge has been made publicly visible. You can share this edubadge now')
+    ).toBeVisible();
+    expect(this.page.getByRole('img', { name: 'shield-unlock', }).count()).toBe(2);
+  }
 }
