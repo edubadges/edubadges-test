@@ -1,5 +1,6 @@
 import { expect, test } from '../../fixtures/catalogFixture';
 
+/* Replaced by Student -> Backpack -> ShareBadge
 test.skip('Make edubadge public', async ({
   catalogPage,
   issuerPortalPage,
@@ -41,6 +42,7 @@ test.skip('Make edubadge public', async ({
 
   await catalogPage.ValidateBadge(url);
 });
+*/
 
 /* replaced by InstitutionAdmin -> BadgeAward -> Direct award badge
 
