@@ -4,74 +4,75 @@ test('Make edubadge public', async ({
     catalogPage,
     backpackPage,
     issuerPortalPage,
-    copyPastePage,
   }) => {
     //var
     const course = "Introduction to Political Science";
     const institution = "university-example.org";
-    const eduBadgeCard = backpackPage.page
-        .getByText('New')
-        .locator('..')
-        .getByText(course);
 
     //setup
     await catalogPage.SearchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
     await catalogPage.RequestEdubadge();
-    await catalogPage.page.waitForTimeout(500);
 
     await issuerPortalPage.SearchForClass(course);
     await issuerPortalPage.openBadgeClassWithNameFromMainPage(course);
-    await issuerPortalPage.rewardBadgeToStudent();
+    await issuerPortalPage.rewardRequestedBadgeToStudent();
     
-    // TODO: screenshot is different if it is parallel, first testcase, and other variables
-    await expect(eduBadgeCard).toBeVisible();
-    await eduBadgeCard.click();  
-    await expect(eduBadgeCard).toBeVisible();
+    await backpackPage.OpenBackpack();
+    await backpackPage.reloadPage();
   
     // test
-    await expect(eduBadgeCard.locator('checked')).toBeVisible();
-    await backpackPage.MakeEdubadgePublic();
-    await expect(eduBadgeCard.locator('checked')).not.toBeVisible();
+    await backpackPage.page
+    .locator('.card.badge')
+    .getByText(course)
+    .first()
+    .click();
+    await expect(backpackPage.page
+      .getByRole('link', { name: 'Share' }))
+      // disabled is an attribute, not a property. locator.isDisabled() returns false
+      .toHaveAttribute('disabled', 'true');
+    await expect(backpackPage.page.locator('.slider')).toBeChecked();
+    
+    await backpackPage.page.goto('');
+    await backpackPage.MakeEdubadgePublicFromBackpack(course);
+
+    await expect(backpackPage.page
+      .getByRole('link', { name: 'Share' }))
+      .toHaveAttribute('disabled', 'false');
+    await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
+    await expect(backpackPage.page).toHaveScreenshot('Successfully made badge public.png');
   });
 
   // known issue on the verification of the public badge
-  test.skip('Share public edubadge', async ({
+  test('Share public edubadge', async ({
     catalogPage,
     backpackPage,
     issuerPortalPage,
-    copyPastePage,
   }) => {
     //var
     const course = "History of Political Thought";
     const institution = "university-example.org";
-    const eduBadgeCard = backpackPage.page
-        .getByText('New')
-        .locator('..')
-        .getByText(course);
 
     //setup
     await catalogPage.SearchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
     await catalogPage.RequestEdubadge();
-    await catalogPage.page.waitForTimeout(500);
 
     await issuerPortalPage.SearchForClass(course);
     await issuerPortalPage.openBadgeClassWithNameFromMainPage(course);
-    await issuerPortalPage.rewardBadgeToStudent();
+    await issuerPortalPage.rewardRequestedBadgeToStudent();
     
-    // TODO: screenshot is different if it is parallel, first testcase, and other variables
-    await expect(eduBadgeCard).toBeVisible();
-    await eduBadgeCard.click();  
-    await expect(eduBadgeCard).toBeVisible();
+    await backpackPage.OpenBackpack();
+    await backpackPage.reloadPage();
+    await backpackPage.page
+      .locator(`.card.badge > ${course}`)
+      .first()
+    await backpackPage.MakeEdubadgePublicFromBackpack(course);
   
-    // test    
-    await backpackPage.MakeEdubadgePublic();
-  
-    const url = await copyPastePage.retreiveValueFromClipboard();
-  
+    // test
+    const url = await backpackPage.getShareLink();
     await backpackPage.ValidateBadge(url);
   });
   
