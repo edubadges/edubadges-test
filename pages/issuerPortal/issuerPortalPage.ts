@@ -46,7 +46,7 @@ export class IssuerPortalPage extends BasePage {
   // TODO: refactor, rewardBadge(badgename, studentname) so that it can be used more freely. 
   // IssuerPortalManage heeft de functionaliteit al
   // TODO: issuerportal structuur verbeteren (base inheriten, extended functionality)
-  async rewardBadgeToStudent(
+  async rewardRequestedBadgeToStudent(
     studentName: string = 'Petra Penttilä',
   ) {
     await this.page.getByRole('link', { name: 'Open requests ' }).click();
@@ -60,6 +60,8 @@ export class IssuerPortalPage extends BasePage {
       .getByText('Cancel Award')
       .getByRole('link', { name: 'Award', exact: true })
       .click();
+
+    await this.page.waitForTimeout(1000);
   }
 
   async loginWithInstitutionAdmin() {
