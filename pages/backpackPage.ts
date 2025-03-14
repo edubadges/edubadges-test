@@ -1,6 +1,7 @@
 import { expect, Page } from '@playwright/test';
 import { Testdata } from '../util/testdata';
 import { BasePage } from './basePage';
+import { CopyPastePage } from './copyPastePage';
 
 export class BackpackPage extends BasePage {
   constructor(page: Page, testdata: Testdata) {
@@ -48,6 +49,7 @@ export class BackpackPage extends BasePage {
     await expect(this.page.locator('.expand-menu')).toBeVisible();
   }
 
+  //#region open categories
   async OpenBackpack() {
     await this.page.getByRole('link', { name: 'My backpack' }).click();
   }
@@ -73,15 +75,48 @@ export class BackpackPage extends BasePage {
     await this.page.getByRole('link', { name: 'Confirm' }).click();
   }
 
-  /**
-   * Page should already be on a received and opened edubadge
-   */
-  async ShareEdubadge(){
-    await this.page.getByRole('slider').click();
+  //#endregion
+
+//#region Share badge
+
+  async MakeEdubadgePublicFromBackpack(courseName : string){
+    const eduBadgeCard = this.page
+        .locator('.card.badge')
+        .getByText(courseName)
+        .first();
+
+    // open badge
+    await expect(eduBadgeCard).toBeVisible();
+    await eduBadgeCard.click();  
+    await expect(eduBadgeCard).toBeVisible();
+
+    // make public
+    await this.page.locator('.slider').click({ force: true });
     await this.page.getByText('Confirm').click();
+
+    // assert success
     await expect(
       this.page.getByText('This edubadge has been made publicly visible. You can share this edubadge now')
     ).toBeVisible();
-    expect(this.page.getByRole('img', { name: 'shield-unlock', }).count()).toBe(2);
+    await this.page.waitForLoadState();
   }
+
+  async getShareLink(): Promise<string>{
+    let copyPastePage = new CopyPastePage(this.page, this.testdata);
+    await this.page.getByRole('link', { name: 'Share' }).click();
+    await this.page.getByRole('link', { name: 'Copy the link' }).click();
+    
+    return copyPastePage.retreiveValueFromClipboard();
+  }
+
+  async ValidateBadge(url: string) {
+    await this.page.goto(url);
+    await this.page.getByRole('link', { name: 'Verify' }).click();
+    await this.page.waitForTimeout(20000);
+    // If this test fails, it is because the verify functionality is not running correctly
+    await expect(this.page.locator('.check')).toHaveCount(9);
+  }
+
+  //#endregion
+
 }

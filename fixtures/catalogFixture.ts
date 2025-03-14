@@ -3,12 +3,10 @@ import { HomePage } from '../pages/homePage';
 import { Testdata } from '../util/testdata';
 import { CatalogPage } from '../pages/catalogPage';
 import { IssuerPortalPage } from '../pages/issuerPortal/issuerPortalPage';
-import { CopyPastePage } from '../pages/copyPastePage';
 import { BackpackPage } from '../pages/backpackPage';
 
 type CatalogFixture = {
   catalogPage: CatalogPage;
-  copyPastePage: CopyPastePage;
   backpackPage: BackpackPage;
   issuerPortalPage: IssuerPortalPage;
   testdata: Testdata;
@@ -57,20 +55,7 @@ export const test = base.extend<CatalogFixture>({
 
     // Clean up the fixture.
   },
-  copyPastePage: async ({ catalogPage, testdata }, use) => {
-    // Set up the fixture.
-    var page = await catalogPage.page.context().newPage();
-
-    const homePage = new HomePage(page, testdata);
-    await homePage.navigateToHomePage();
-    await homePage.OpenCatalog();
-    const copyPastePage = new CopyPastePage(page, testdata);
-
-    // Use the fixture value in the test.
-    await use(copyPastePage);
-
-    // Clean up the fixture.
-  },
+  
   issuerPortalPage: async ({ browser, testdata }, use) => {
     // Set up the fixture.
     var issuerContext = await browser.newContext();
