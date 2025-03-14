@@ -20,7 +20,7 @@ test('Award requested badge', async ({
     // test
     await issuerPortalPage.SearchForClass(course);
     await issuerPortalPage.openBadgeClassWithNameFromMainPage(course);
-    await issuerPortalPage.rewardBadgeToStudent();
+    await issuerPortalPage.rewardRequestedBadgeToStudent();
     await expect(issuerPortalPage.page.getByText('The request(s) have been awarded.')).toBeVisible();
   });
 
