@@ -55,24 +55,5 @@ export const test = base.extend<CatalogFixture>({
 
     // Clean up the fixture.
   },
-  
-  issuerPortalPage: async ({ browser, testdata }, use) => {
-    // Set up the fixture.
-    var issuerContext = await browser.newContext();
-    var issuerPage = await issuerContext.newPage();
-    const homePage = new HomePage(issuerPage, testdata);
-    await homePage.navigateToHomePage();
-    await homePage.openIssuerPortal();
-
-    const issuerPortalPage = new IssuerPortalPage(issuerPage, testdata);
-    // TODO: should you always login with institution admin?
-    // maybe add logout if loggedin before each login?
-    await issuerPortalPage.loginWithInstitutionAdmin();
-
-    // Use the fixture value in the test.
-    await use(issuerPortalPage);
-
-    // Clean up the fixture.
-  },
 });
 export { expect, BrowserContext } from '@playwright/test';
