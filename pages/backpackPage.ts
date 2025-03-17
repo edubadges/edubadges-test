@@ -58,6 +58,20 @@ export class BackpackPage extends BasePage {
     await this.page.getByRole('link', { name : 'Edubadge requests' }).click();
   }
 
+  async OpenCollections() {
+    await this.page.getByRole('link', { name : 'Collections' }).click();
+  }
+
+  async OpenImported()
+  {
+    await this.page.getByRole('link', { name : 'Imported' }).click();
+  }
+
+  async OpenArchive()
+  {
+    await this.page.getByRole('link', { name : 'Archive' }).click();
+  }
+
   async OpenAccount(){
     await this.page.getByRole('link', { name : 'Account' }).click();
   }
