@@ -1,6 +1,9 @@
 import { BasePageMultiLanguage } from '../pages/basePageMultiLanguage';
 import { Accounts } from './accounts';
 import { BadgeData } from './badgeData';
+import { WOAccounts } from './WOAccounts';
+import { HBOAccounts } from './HBOAccounts';
+import { MBOAccounts } from './MBOAccounts';
 
 export class Testdata {
   private _testCaseName: string = '';
@@ -8,6 +11,10 @@ export class Testdata {
   private _pagesForLanguageChangeNotification: BasePageMultiLanguage[] = [];
   private _badgeData: BadgeData = new BadgeData();
   private _accounts: Accounts = new Accounts();
+
+  readonly WOAccounts = new WOAccounts();
+  readonly HBOAccounts = new HBOAccounts();
+  readonly MBOAccounts = new MBOAccounts();
 
   constructor() {}
 
