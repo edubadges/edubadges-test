@@ -21,21 +21,16 @@ test('Make edubadge public', async ({
     
     await backpackPage.OpenBackpack();
     await backpackPage.reloadPage();
+    await backpackPage.OpenBadge(course);
   
     // test
-    await backpackPage.page
-    .locator('.card.badge')
-    .getByText(course)
-    .first()
-    .click();
     await expect(backpackPage.page
       .getByRole('link', { name: 'Share' }))
       // disabled is an attribute, not a property. locator.isDisabled() returns false
       .toHaveAttribute('disabled', 'true');
     await expect(backpackPage.page.locator('.slider')).toBeChecked();
     
-    await backpackPage.page.goto('');
-    await backpackPage.MakeEdubadgePublicFromBackpack(course);
+    await backpackPage.MakeEdubadgePublic(course);
 
     await expect(backpackPage.page
       .getByRole('link', { name: 'Share' }))
@@ -66,10 +61,11 @@ test('Make edubadge public', async ({
     
     await backpackPage.OpenBackpack();
     await backpackPage.reloadPage();
-    await backpackPage.page
-      .locator(`.card.badge > ${course}`)
-      .first()
-    await backpackPage.MakeEdubadgePublicFromBackpack(course);
+    await backpackPage.MakeEdubadgePublic(course);
+    await expect(backpackPage.page
+      .getByRole('link', { name: 'Share' }))
+      .toHaveAttribute('disabled', 'false');
+    await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
   
     // test
     const url = await backpackPage.getShareLink();
