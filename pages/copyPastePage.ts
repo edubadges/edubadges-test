@@ -8,7 +8,7 @@ export class CopyPastePage extends BasePage {
   }
 
   async retreiveValueFromClipboard(): Promise<string> {
-    await this.page.waitForTimeout(5000);
+    await this.page.goto('/catalog');
     await this.page.getByPlaceholder('Search...').click();
     await this.page.keyboard.press('ControlOrMeta+v');
     const url: string = await this.page
