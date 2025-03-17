@@ -113,7 +113,7 @@ export class IssuerPortalPage extends BasePage {
     );
   }
 
-  private async login(username: string, password: string) {
+  async login(username: string, password: string) {
     await this.searchFieldLocator.fill('test idp');
     await this.page.waitForTimeout(1000);
     await expect(this.surfConextLocator).toBeVisible();
