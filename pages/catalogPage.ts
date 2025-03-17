@@ -81,13 +81,13 @@ export class CatalogPage extends BasePage {
       .getByPlaceholder('Password')
       .fill(password);
     await this.page.getByRole('link', { name: 'Login', exact: true }).click();
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForTimeout(2000);
     const termsAndConditionsPageShown = await this.page
       .getByRole('link', { name: 'I agree' })
       .isVisible();
     if (termsAndConditionsPageShown) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForTimeout(2000);
   }
 }

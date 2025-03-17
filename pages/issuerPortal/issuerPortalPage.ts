@@ -126,7 +126,7 @@ export class IssuerPortalPage extends BasePage {
     await this.page.waitForTimeout(1000);
     await this.loginButtonLocator.click();
 
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForTimeout(500);
     const proceedToEdubadgesFound = await this.page
       .getByRole('button', { name: 'Proceed to Edubadges [' })
       .isVisible();
@@ -135,7 +135,7 @@ export class IssuerPortalPage extends BasePage {
         .getByRole('button', { name: 'Proceed to Edubadges [' })
         .click();
     }
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForTimeout(500);
   }
 
   private async awardBadgeToStudent(studentEmail: string, studentNumber: string) {

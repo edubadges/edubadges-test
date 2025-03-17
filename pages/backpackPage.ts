@@ -37,14 +37,14 @@ export class BackpackPage extends BasePage {
       .getByPlaceholder('Password')
       .fill(this.testdata.accounts.studentPassword);
     await this.page.getByRole('link', { name: 'Login', exact: true }).click();
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForTimeout(2000);
     const termsAndConditionsPageShown = await this.page
       .getByRole('link', { name: 'I agree' })
       .isVisible();
     if (termsAndConditionsPageShown) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
-    await this.page.waitForTimeout(5000);
+    await this.page.waitForTimeout(2000);
 
     await expect(this.page.locator('.expand-menu')).toBeVisible();
   }
@@ -62,6 +62,16 @@ export class BackpackPage extends BasePage {
     await this.page.getByRole('link', { name : 'Account' }).click();
   }
 
+  async OpenBadge(badgeName: string){
+    await this.page
+    .locator('.card.badge')
+    .getByText(badgeName)
+    .first()
+    .click();
+  }
+
+  //#endregion
+
   async AcceptBadge(badgeName: string) {
     await this.page.getByText(badgeName).click();
     await this.page
@@ -75,20 +85,22 @@ export class BackpackPage extends BasePage {
     await this.page.getByRole('link', { name: 'Confirm' }).click();
   }
 
-  //#endregion
 
 //#region Share badge
 
-  async MakeEdubadgePublicFromBackpack(courseName : string){
+  async MakeEdubadgePublic(courseName : string){
     const eduBadgeCard = this.page
         .locator('.card.badge')
         .getByText(courseName)
         .first();
 
     // open badge
+    await this.page.goto('');
     await expect(eduBadgeCard).toBeVisible();
     await eduBadgeCard.click();  
     await expect(eduBadgeCard).toBeVisible();
+    await this.page.waitForTimeout(500); 
+    // if the badge is loaded the first time the buttons need time to load correctly
 
     // make public
     await this.page.locator('.slider').click({ force: true });
@@ -98,7 +110,9 @@ export class BackpackPage extends BasePage {
     await expect(
       this.page.getByText('This edubadge has been made publicly visible. You can share this edubadge now')
     ).toBeVisible();
-    await this.page.waitForLoadState();
+    await expect(
+      this.page.getByRole('link', { name: 'Share' }))
+      .toHaveAttribute('disabled', 'false');
   }
 
   async getShareLink(): Promise<string>{
