@@ -41,6 +41,7 @@ test.skip('Login with issuerAdmin for uni in the issuer portal', async ({
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
+/* Replaced by Student -> Backpack -> BasicsBackpack
 test('Login with student in the issuer portal', async ({
   homePage,
   issuerPortalPage,
@@ -50,6 +51,7 @@ test('Login with student in the issuer portal', async ({
   await issuerPortalPage.loginWithStudent();
   await issuerPortalPage.validateLoginFailed();
 });
+*/
 
 test('Login with institution admin for MBO in the issuer portal', async ({
   homePage,
