@@ -1,10 +1,10 @@
 import { test as base } from '@playwright/test';
 import { HomePage } from '../../pages/homePage';
-import { StaffControlPage } from '../../pages/staffPages/staffControlPage';
+import { StaffMainPage } from '../../pages/staffPages/staffMainPage';
 import { Testdata } from '../../util/testdata';
 
 type EdubadgeFixture = {
-  mboPage: StaffControlPage;
+  mboPage: StaffMainPage;
   testdata: Testdata;
 };
 
@@ -29,7 +29,7 @@ export const test = base.extend<EdubadgeFixture>({
     await homePage.navigateToHomePage();
     await homePage.openIssuerPortal();
 
-    const mboPage = new StaffControlPage(page, testdata);
+    const mboPage = new StaffMainPage(page, testdata);
     await mboPage.loginWithMBOInstitutionAdmin();
 
     // Use the fixture value in the test.

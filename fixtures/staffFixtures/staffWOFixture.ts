@@ -1,11 +1,11 @@
 import { test as base } from '@playwright/test';
 import { HomePage } from '../../pages/homePage';
-import { StaffControlPage } from '../../pages/staffPages/staffControlPage';
+import { StaffMainPage } from '../../pages/staffPages/staffMainPage';
 import { Testdata } from '../../util/testdata';
 import { CatalogPage } from '../../pages/catalogPage';
 
 type EdubadgeFixture = {
-  woPage: StaffControlPage;
+  woPage: StaffMainPage;
   catalogPage: CatalogPage;
   testdata: Testdata;
 };
@@ -31,7 +31,7 @@ export const test = base.extend<EdubadgeFixture>({
     await homePage.navigateToHomePage();
     await homePage.openIssuerPortal();
 
-    const woPage = new StaffControlPage(page, testdata);
+    const woPage = new StaffMainPage(page, testdata);
     await woPage.loginWithWoInstitutionAdmin();
 
     // Use the fixture value in the test.

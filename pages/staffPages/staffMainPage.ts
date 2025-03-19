@@ -5,7 +5,7 @@ import { staffInsightsPage } from './staffInsightsPage';
 import { staffManagePage } from './staffManagePage';
 import { staffUsersPage } from './staffUsersPage';
 
-export class StaffControlPage extends BasePage {
+export class StaffMainPage extends BasePage {
   private searchFieldLocator: Locator = this.page.getByPlaceholder('Search...');
   private surfConextLocator: Locator = this.page.getByRole('heading', {
     name: 'Login with SURFconext Test IdP',

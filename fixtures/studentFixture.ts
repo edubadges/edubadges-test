@@ -2,15 +2,15 @@ import { test as base } from '@playwright/test';
 import { HomePage } from '../pages/homePage';
 import { Testdata } from '../util/testdata';
 import { CatalogPage } from '../pages/catalogPage';
-import { StaffControlPage } from '../pages/staffPages/staffControlPage';
+import { StaffMainPage } from '../pages/staffPages/staffMainPage';
 import { BackpackPage } from '../pages/backpackPage';
 
 type CatalogFixture = {
   catalogPage: CatalogPage;
   backpackPage: BackpackPage;
-  woTeacherPage: StaffControlPage;
-  hboTeacherPage: StaffControlPage;
-  mboTeacherPage: StaffControlPage;
+  woTeacherPage: StaffMainPage;
+  hboTeacherPage: StaffMainPage;
+  mboTeacherPage: StaffMainPage;
   testdata: Testdata;
 };
 
@@ -66,7 +66,7 @@ export const test = base.extend<CatalogFixture>({
     await homePage.navigateToHomePage();
     await homePage.openIssuerPortal();
 
-    const woPage = new StaffControlPage(page, testdata);
+    const woPage = new StaffMainPage(page, testdata);
     await woPage.loginWithWoInstitutionAdmin();
 
     // Use the fixture value in the test.
@@ -80,7 +80,7 @@ export const test = base.extend<CatalogFixture>({
     await homePage.navigateToHomePage();
     await homePage.openIssuerPortal();
 
-    const mboPage = new StaffControlPage(page, testdata);
+    const mboPage = new StaffMainPage(page, testdata);
     await mboPage.loginWithMBOInstitutionAdmin();
 
     // Use the fixture value in the test.
@@ -94,7 +94,7 @@ export const test = base.extend<CatalogFixture>({
     await homePage.navigateToHomePage();
     await homePage.openIssuerPortal();
 
-    const hboPage = new StaffControlPage(page, testdata);
+    const hboPage = new StaffMainPage(page, testdata);
     await hboPage.loginWithHBOInstitutionAdmin();
 
     // Use the fixture value in the test.

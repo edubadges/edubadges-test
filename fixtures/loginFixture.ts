@@ -1,11 +1,11 @@
 import { test as base } from '@playwright/test';
 import { HomePage } from '../pages/homePage';
-import { StaffControlPage } from '../pages/staffPages/staffControlPage';
+import { StaffMainPage } from '../pages/staffPages/staffMainPage';
 import { Testdata } from '../util/testdata';
 
 type LoginFixture = {
   homePage: HomePage;
-  issuerPortalPage: StaffControlPage;
+  issuerPortalPage: StaffMainPage;
   testdata: Testdata;
 };
 
@@ -37,7 +37,7 @@ export const test = base.extend<LoginFixture>({
 
   issuerPortalPage: async ({ page, testdata }, use) => {
     // Set up the fixture.
-    const issuerPortalPage = new StaffControlPage(page, testdata);
+    const issuerPortalPage = new StaffMainPage(page, testdata);
 
     // Use the fixture value in the test.
     await use(issuerPortalPage);
