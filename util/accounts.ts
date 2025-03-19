@@ -22,6 +22,7 @@ export class Accounts {
   //  // Students
   // WO
   readonly studentName: string = '';
+  readonly studentUsername: string = '';
   readonly studentPassword: string = '';
   readonly studentEmail: string = '';
   readonly studentEPPN: string = '';
@@ -43,7 +44,9 @@ export class Accounts {
       process.env.BADGE_CLASS_ADMIN_USERNAME || '';
     this.badgeClassAdminPassword =
       process.env.BADGE_CLASS_ADMIN_PASSWORD || '';
-    this.studentName = process.env.STUDENT_USERNAME || '';
+    
+    this.studentName = process.env.STUDENT_NAME || '';
+    this.studentUsername = process.env.STUDENT_USERNAME || '';
     this.studentPassword = process.env.STUDENT_PASSWORD || '';
     this.studentEmail = process.env.STUDENT_EMAIL || '';
     this.studentEPPN = process.env.STUDENT_EPPN || '';

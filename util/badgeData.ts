@@ -1,8 +1,8 @@
 export class BadgeData {
   title: string = '';
-  description: string = 'Microcredential description';
-  learningOutcomes: string = 'Microcredential learning outcomes';
-  criteria: string = 'Microcredential criteria';
+  description: string = 'test description';
+  learningOutcomes: string = 'test outcome';
+  criteria: string = 'test criterium';
   eqfLevel: string = 'EQF 1';
   programIdentifiers: string = '11112222';
   formOfParticipation: string = 'On-site';
@@ -10,8 +10,8 @@ export class BadgeData {
   frameworkName: string = 'Framework name';
   frameworkFramework: string = 'Framework esco';
   frameworkUrl: string = 'wwww.surf.nl';
-  frameworkCode: string = 'wut';
-  frameworkDescription: string = 'iugaiuegfigaef';
+  frameworkCode: string = 'Does not exist';
+  frameworkDescription: string = 'No description';
   hours: string = '0';
 
   constructor() {}
