@@ -1,18 +1,24 @@
-import { expect, test } from '../../../fixtures/catalogFixture';
+import { expect, test } from '../../../fixtures/studentFixture';
 
 // TODO: Make public, Share, Make private
 
 test('Reject accepted badge', async ({
     backpackPage,
-    issuerPortalPage,
+    woTeacherPage
 }) => {
     // var
     const course = "Circulation and Breathing";
 
     //setup
-    await issuerPortalPage.directAwardBadgeToStudent(course);
+    await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(course);
+
+    await backpackPage.reloadPage();
     await backpackPage.OpenBackpack();
-    await backpackPage.page.getByText('View details to claim this edubadge').click();
+    await backpackPage.page
+        .getByText(course)
+        .locator('../../..')
+        .getByText('View details to claim this edubadge')
+        .click();
     await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
     // TODO: first time accepting fix, maybe function it away
     await backpackPage.page.waitForTimeout(1000);

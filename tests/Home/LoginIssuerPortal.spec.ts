@@ -7,37 +7,37 @@ test('Login with institution admin for uni in the issuer portal', async ({
 }) => {
   await homePage.expectHomePageOpened();
   await homePage.openIssuerPortal();
-  await issuerPortalPage.loginWithInstitutionAdmin();
+  await issuerPortalPage.loginWithWoInstitutionAdmin();
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with issuer group admin for uni in the issuer portal', async ({
+test('Login with issuer group admin for uni in the issuer portal', async ({
   homePage,
   issuerPortalPage,
 }) => {
   await homePage.expectHomePageOpened();
   await homePage.openIssuerPortal();
-  await issuerPortalPage.loginWithIssuerGroupAdmin();
+  await issuerPortalPage.loginWithWoIssuerGroupAdmin();
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with badge class admin for uni in the issuer portal', async ({
+test('Login with badge class admin for uni in the issuer portal', async ({
   homePage,
   issuerPortalPage,
 }) => {
   await homePage.expectHomePageOpened();
   await homePage.openIssuerPortal();
-  await issuerPortalPage.loginWithBadgeClassAdmin();
+  await issuerPortalPage.loginWithWoBadgeClassAdmin();
   await issuerPortalPage.validateLoginSuccesfull();
 });
 
-test.skip('Login with issuerAdmin for uni in the issuer portal', async ({
+test('Login with issuerAdmin for uni in the issuer portal', async ({
   homePage,
   issuerPortalPage,
 }) => {
   await homePage.expectHomePageOpened();
   await homePage.openIssuerPortal();
-  await issuerPortalPage.loginWithIssuerAdmin();
+  await issuerPortalPage.loginWithWoIssuerAdmin();
   await issuerPortalPage.validateLoginSuccesfull();
 });
 

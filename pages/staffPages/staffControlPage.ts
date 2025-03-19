@@ -1,7 +1,11 @@
 import { expect, Locator } from '@playwright/test';
 import { BasePage } from '../basePage';
+import { staffBadgeClassesPage } from './staffBadgeClassesPage';
+import { staffInsightsPage } from './staffInsightsPage';
+import { staffManagePage } from './staffManagePage';
+import { staffUsersPage } from './staffUsersPage';
 
-export class IssuerPortalPage extends BasePage {
+export class StaffControlPage extends BasePage {
   private searchFieldLocator: Locator = this.page.getByPlaceholder('Search...');
   private surfConextLocator: Locator = this.page.getByRole('heading', {
     name: 'Login with SURFconext Test IdP',
@@ -15,17 +19,19 @@ export class IssuerPortalPage extends BasePage {
   switchToDutch() {
     this.page.getByRole('link', { name: 'NL' }).click();
   }
+  
+  //#region sub pages
+  badgeClassPage: staffBadgeClassesPage = new staffBadgeClassesPage(this.page, this.testdata);
+  managePage: staffManagePage = new staffManagePage(this.page, this.testdata);
+  usersPage: staffUsersPage = new staffUsersPage(this.page, this.testdata);
+  insightsPage: staffInsightsPage = new staffInsightsPage(this.page, this.testdata);
+  //#endregion
+
+  //#region login
 
   async validateLoginSuccesfull() {
     await expect(
       this.page.getByRole('link', { name: 'Badge classes' }),
-    ).toBeVisible();
-  }
-
-  async goToManage() {
-    await this.page.getByRole('link', { name: 'Manage' }).click();
-    await expect(
-      this.page.getByRole('link', { name: 'Edit educational institution' }),
     ).toBeVisible();
   }
 
@@ -35,57 +41,28 @@ export class IssuerPortalPage extends BasePage {
       .isVisible();
   }
 
-  async SearchForClass(name: string) {
-    await this.page.getByPlaceholder('Search...').fill(name);
-  }
-
-  async openBadgeClassWithNameFromMainPage(name: string) {
-    await this.page.getByText(name).click();
-  }
-
-  // TODO: refactor, rewardBadge(badgename, studentname) so that it can be used more freely. 
-  // IssuerPortalManage heeft de functionaliteit al
-  // TODO: issuerportal structuur verbeteren (base inheriten, extended functionality)
-  async rewardRequestedBadgeToStudent(
-    studentName: string = 'Petra Penttilä',
-  ) {
-    await this.page.getByRole('link', { name: 'Open requests ' }).click();
-    await this.page
-      .getByRole('row', { name:  studentName })
-      .locator('label span')
-      .click();
-    await this.page.getByRole('link', { name: 'Award', exact: true }).click();
-    await expect(this.page.getByText('Are you sure you want to')).toBeVisible();
-    await this.page
-      .getByText('Cancel Award')
-      .getByRole('link', { name: 'Award', exact: true })
-      .click();
-
-    await this.page.waitForTimeout(1000);
-  }
-
-  async loginWithInstitutionAdmin() {
+  async loginWithWoInstitutionAdmin() {
     await this.login(
       this.testdata.accounts.institutionAdminUsername,
       this.testdata.accounts.institutionAdminPassword,
     );
   }
 
-  async loginWithIssuerGroupAdmin() {
+  async loginWithWoIssuerGroupAdmin() {
     await this.login(
       this.testdata.accounts.issuerGroupAdminUsername,
       this.testdata.accounts.issuerGroupAdminPassword,
     );
   }
 
-  async loginWithIssuerAdmin() {
+  async loginWithWoIssuerAdmin() {
     await this.login(
       this.testdata.accounts.issuerAdminUsername,
       this.testdata.accounts.issuerAdminPassword,
     );
   }
 
-  async loginWithBadgeClassAdmin() {
+  async loginWithWoBadgeClassAdmin() {
     await this.login(
       this.testdata.accounts.badgeClassAdminUsername,
       this.testdata.accounts.badgeClassAdminPassword,
@@ -138,20 +115,6 @@ export class IssuerPortalPage extends BasePage {
     await this.page.waitForTimeout(500);
   }
 
-  private async awardBadgeToStudent(studentEmail: string, studentNumber: string) {
-    await this.page.getByRole('link', { name: 'Award edubadge(s)' }).click();
-    await this.page.getByRole('textbox').first().fill(studentEmail);
-    await this.page.getByRole('textbox').nth(1).fill(studentNumber);
-    await this.page.getByRole('link', { name: 'Award' }).click();
-  }
+  //#endregion
 
-  async directAwardBadgeToStudent(courseName: string,
-     studentEmail: string = this.testdata.accounts.studentEmail,
-     studentNumber: string = this.testdata.accounts.studentEPPN,){
-    await this.SearchForClass(courseName);
-    await this.openBadgeClassWithNameFromMainPage(courseName);
-    await this.awardBadgeToStudent(studentEmail, studentNumber,
-    );
-    await expect(this.page.getByText("Direct awards have been sent")).toBeVisible();
-  }
 }

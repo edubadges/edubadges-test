@@ -1,12 +1,9 @@
-import { expect, Page } from '@playwright/test';
+import test, { expect, Page } from '@playwright/test';
 import { Testdata } from '../../util/testdata';
 import { BasePage } from '../basePage';
 import path from 'path';
 
 export class IssuerPortalPageManage extends BasePage {
-  constructor(page: Page, testdata: Testdata) {
-    super(page, testdata);
-  }
 
   //#region access badge
 

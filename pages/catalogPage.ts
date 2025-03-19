@@ -3,9 +3,6 @@ import { Testdata } from '../util/testdata';
 import { BasePage } from './basePage';
 
 export class CatalogPage extends BasePage {
-  constructor(page: Page, testdata: Testdata) {
-    super(page, testdata);
-  }
 
   async SearchForClass(name: string) {
     await this.page.getByPlaceholder('Search...').fill(name);

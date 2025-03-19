@@ -1,67 +1,80 @@
-import { expect, test } from '../../../../fixtures/eduBadges/eduBadgesWOFixture';
+import { expect, test } from '../../../../fixtures/staffFixtures/staffWOFixture';
 
 // TODO: institution admin folder -> create badges
 test('Validate error messages empty microcredential form', async ({
-  issuerPortalPageManage,
+  woPage,
 }) => {
-  await issuerPortalPageManage.searchForBadgeClass('Medicine');
-  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await issuerPortalPageManage.createNewBadgeClass();
-  await issuerPortalPageManage.createNewMicroCredential();
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  // setup
+  await woPage.managePage.goToManage();
+  await woPage.managePage.searchWithText('Medicine');
+  await woPage.managePage.openIssuerGroup('Medicine');
+  await woPage.managePage.clickNewBadgeClass();
+  await woPage.managePage.clickMicroCredential();
+
+  // test
+  await expect(woPage.page).toHaveScreenshot(
     'emptyMicrocredentialForm.png',
     {
       fullPage: true,
     },
   );
-  await issuerPortalPageManage.page
+  await woPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  await expect(woPage.page).toHaveScreenshot(
     'emptyMicrocredentialFormWithValidationErrors.png',
     { fullPage: true },
   );
 });
 
 test('Validate error messages empty regular badge form', async ({
-  issuerPortalPageManage,
+  woPage,
 }) => {
-  await issuerPortalPageManage.searchForBadgeClass('Medicine');
-  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await issuerPortalPageManage.createNewBadgeClass();
-  await issuerPortalPageManage.createRegularEduBadge();
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  // setup
+  await woPage.managePage.goToManage();
+  await woPage.managePage.searchWithText('Medicine');
+  await woPage.managePage.openIssuerGroup('Medicine');
+  await woPage.managePage.clickNewBadgeClass();
+  await woPage.managePage.clickRegularBadge();
+
+  // test
+  await expect(woPage.page).toHaveScreenshot(
     'emptyRegularEdubadgeForm.png',
     {
       fullPage: true,
     },
   );
-  await issuerPortalPageManage.page
+  await woPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  await expect(woPage.page).toHaveScreenshot(
     'emptyRegularFormWithValidationErrors.png',
-    { fullPage: true },
+    { 
+      fullPage: true 
+    },
   );
 });
 
 test('Validate error messages empty extra curricular badge form', async ({
-  issuerPortalPageManage,
+  woPage,
 }) => {
-  await issuerPortalPageManage.searchForBadgeClass('Medicine');
-  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await issuerPortalPageManage.createNewBadgeClass();
-  await issuerPortalPageManage.createExtraCurricularEduBadge();
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  await woPage.managePage.goToManage();
+  await woPage.managePage.searchWithText('Medicine');
+  await woPage.managePage.openIssuerGroup('Medicine');
+  await woPage.managePage.clickNewBadgeClass();
+  await woPage.managePage.clickExtraCurricularEduBadge();
+
+  // test
+  await expect(woPage.page).toHaveScreenshot(
     'emptyExtraCurricularEdubadgeForm.png',
     {
       fullPage: true,
     },
   );
-  await issuerPortalPageManage.page
+  await woPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  await expect(woPage.page).toHaveScreenshot(
     'emptyExtraCurricularFormWithValidationErrors.png',
     { fullPage: true },
   );
@@ -69,29 +82,33 @@ test('Validate error messages empty extra curricular badge form', async ({
 
 
 // following tests are skipped because of a known issue in publishing badges
-test.skip('Validate microcredention badge class creation', async ({
-  issuerPortalPageManage,
+test('Validate microcredention badge class creation', async ({
+  woPage,
   testdata,
 }) => {
+  // setup
   testdata.badgeData.title = 'Microcredential Test automation';
-  testdata.badgeData.criteria = 'hffgcgvf';
-  await issuerPortalPageManage.searchForBadgeClass('Medicine');
-  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await issuerPortalPageManage.createNewBadgeClass();
-  await issuerPortalPageManage.createNewMicroCredential();
-  await issuerPortalPageManage.fillInMicrocredentialForm();
-  await issuerPortalPageManage.publishBadge();
+  await woPage.managePage.goToManage();
+  await woPage.managePage.searchWithText('Medicine');
+  await woPage.managePage.openIssuerGroup('Medicine');
+  await woPage.managePage.clickNewBadgeClass();
+  await woPage.managePage.clickMicroCredential();
 
-  await expect(
-    issuerPortalPageManage.page.getByRole('link', { name: 'Edit badge class' }),
-  ).toBeVisible();
+  // test
+  await woPage.managePage.fillInMicrocredentialForm();
+  await woPage.managePage.publishBadge();
+
+  await woPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+    
   var maskedLocators = [
-    await issuerPortalPageManage.page
+    woPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  await expect(woPage.page).toHaveScreenshot(
     'microBadgeCreated.png',
     {
       mask: maskedLocators,
@@ -99,28 +116,33 @@ test.skip('Validate microcredention badge class creation', async ({
   );
 });
 
-test.skip('Validate regular edu badge creation', async ({
-  issuerPortalPageManage,
+test('Validate regular edu badge creation', async ({
+  woPage,
   testdata,
 }) => {
+  // setup
   testdata.badgeData.title = 'Regular edu badge';
-  await issuerPortalPageManage.searchForBadgeClass('Medicine');
-  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await issuerPortalPageManage.createNewBadgeClass();
-  await issuerPortalPageManage.createRegularEduBadge();
-  await issuerPortalPageManage.fillInRegularForm();
-  await issuerPortalPageManage.publishBadge();
+  await woPage.managePage.goToManage();
+  await woPage.managePage.searchWithText('Medicine');
+  await woPage.managePage.openIssuerGroup('Medicine');
+  await woPage.managePage.clickNewBadgeClass();
+  await woPage.managePage.clickRegularBadge();
 
-  await expect(
-    issuerPortalPageManage.page.getByRole('link', { name: 'Edit badge class' }),
-  ).toBeVisible();
+  // test
+  await woPage.managePage.fillInRegularForm();
+  await woPage.managePage.publishBadge();
+
+  await woPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+    
   var maskedLocators = [
-    await issuerPortalPageManage.page
+    woPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  await expect(woPage.page).toHaveScreenshot(
     'regularBadgeCreated.png',
     {
       mask: maskedLocators,
@@ -128,28 +150,33 @@ test.skip('Validate regular edu badge creation', async ({
   );
 });
 
-test.skip('Validate extra curricular edu badge creation', async ({
-  issuerPortalPageManage,
+test('Validate extra curricular edu badge creation', async ({
+  woPage,
   testdata,
 }) => {
+  // setup
   testdata.badgeData.title = 'Extra curricular badge';
-  await issuerPortalPageManage.searchForBadgeClass('Medicine');
-  await issuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await issuerPortalPageManage.createNewBadgeClass();
-  await issuerPortalPageManage.createExtraCurricularEduBadge();
-  await issuerPortalPageManage.fillInExtraCurricularForm();
-  await issuerPortalPageManage.publishBadge();
+  await woPage.managePage.goToManage();
+  await woPage.managePage.searchWithText('Medicine');
+  await woPage.managePage.openIssuerGroup('Medicine');
+  await woPage.managePage.clickNewBadgeClass();
+  await woPage.managePage.clickExtraCurricularEduBadge();
 
-  await expect(
-    issuerPortalPageManage.page.getByRole('link', { name: 'Edit badge class' }),
-  ).toBeVisible();
+  // test
+  await woPage.managePage.fillInExtraCurricularForm();
+  await woPage.managePage.publishBadge();
+
+  await woPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+    
   var maskedLocators = [
-    await issuerPortalPageManage.page
+    woPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(issuerPortalPageManage.page).toHaveScreenshot(
+  await expect(woPage.page).toHaveScreenshot(
     'extraCurricularBadgeCreated.png',
     {
       mask: maskedLocators,

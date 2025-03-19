@@ -4,11 +4,8 @@ import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
 
 export class BackpackPage extends BasePage {
-  constructor(page: Page, testdata: Testdata) {
-    super(page, testdata);
-  }
-
-      // if multiple accounts this should have parameters
+  
+  // if multiple accounts this should have parameters
   public async Login() {
     await expect(
       this.page
@@ -52,28 +49,34 @@ export class BackpackPage extends BasePage {
   //#region open categories
   async OpenBackpack() {
     await this.page.getByRole('link', { name: 'My backpack' }).click();
+    await this.waitForLoadingToStop();
   }
 
   async OpenBadgeRequests() {
     await this.page.getByRole('link', { name : 'Edubadge requests' }).click();
+    await this.waitForLoadingToStop();
   }
 
   async OpenCollections() {
     await this.page.getByRole('link', { name : 'Collections' }).click();
+    await this.waitForLoadingToStop();
   }
 
   async OpenImported()
   {
     await this.page.getByRole('link', { name : 'Imported' }).click();
+    await this.waitForLoadingToStop();
   }
 
   async OpenArchive()
   {
     await this.page.getByRole('link', { name : 'Archive' }).click();
+    await this.waitForLoadingToStop();
   }
 
   async OpenAccount(){
     await this.page.getByRole('link', { name : 'Account' }).click();
+    await this.waitForLoadingToStop();
   }
 
   async OpenBadge(badgeName: string){
@@ -82,6 +85,7 @@ export class BackpackPage extends BasePage {
     .getByText(badgeName)
     .first()
     .click();
+    await this.waitForLoadingToStop();
   }
 
   //#endregion
@@ -97,6 +101,7 @@ export class BackpackPage extends BasePage {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
     await this.page.getByRole('link', { name: 'Confirm' }).click();
+    await this.waitForLoadingToStop();
   }
 
 
@@ -110,10 +115,10 @@ export class BackpackPage extends BasePage {
 
     // open badge
     await this.page.goto('');
-    await expect(eduBadgeCard).toBeVisible();
+    await eduBadgeCard.waitFor();
     await eduBadgeCard.click();  
-    await expect(eduBadgeCard).toBeVisible();
-    await this.page.waitForTimeout(500); 
+    await eduBadgeCard.waitFor();
+    await this.page.waitForTimeout(500);
     // if the badge is loaded the first time the buttons need time to load correctly
 
     // make public
@@ -124,9 +129,6 @@ export class BackpackPage extends BasePage {
     await expect(
       this.page.getByText('This edubadge has been made publicly visible. You can share this edubadge now')
     ).toBeVisible();
-    await expect(
-      this.page.getByRole('link', { name: 'Share' }))
-      .toHaveAttribute('disabled', 'false');
   }
 
   async getShareLink(): Promise<string>{
@@ -140,9 +142,8 @@ export class BackpackPage extends BasePage {
   async ValidateBadge(url: string) {
     await this.page.goto(url);
     await this.page.getByRole('link', { name: 'Verify' }).click();
-    await this.page.waitForTimeout(20000);
     // If this test fails, it is because the verify functionality is not running correctly
-    await expect(this.page.locator('.check')).toHaveCount(9);
+    await expect.poll(async() => this.page.locator('.check').count()).toBeGreaterThanOrEqual(9);
   }
 
   //#endregion

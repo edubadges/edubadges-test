@@ -13,4 +13,8 @@ export abstract class BasePage {
   async reloadPage() {
     await this.page.reload();
   }
+
+  async waitForLoadingToStop(){
+    await this.page.locator('.lds-roller').waitFor({ state: 'hidden' });
+  }
 }

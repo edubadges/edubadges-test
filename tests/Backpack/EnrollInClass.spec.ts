@@ -1,4 +1,4 @@
-import { expect, test } from '../../fixtures/catalogFixture';
+import { expect, test } from '../../fixtures/studentFixture';
 
 /* Replaced by Student -> Backpack -> ShareBadge
 test.skip('Make edubadge public', async ({

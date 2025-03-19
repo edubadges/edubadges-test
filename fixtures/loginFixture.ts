@@ -1,14 +1,18 @@
 import { test as base } from '@playwright/test';
 import { HomePage } from '../pages/homePage';
-import { IssuerPortalPage } from '../pages/issuerPortal/issuerPortalPage';
+import { StaffControlPage } from '../pages/staffPages/staffControlPage';
 import { Testdata } from '../util/testdata';
 
 type LoginFixture = {
   homePage: HomePage;
-  issuerPortalPage: IssuerPortalPage;
+  issuerPortalPage: StaffControlPage;
   testdata: Testdata;
 };
 
+/**
+ * NOTE: this is a helper fixture that should only be used when:
+ * Testing login directly
+ */
 export const test = base.extend<LoginFixture>({
   testdata: async ({}, use, testInfo) => {
     var testdata = new Testdata();
@@ -33,7 +37,7 @@ export const test = base.extend<LoginFixture>({
 
   issuerPortalPage: async ({ page, testdata }, use) => {
     // Set up the fixture.
-    const issuerPortalPage = new IssuerPortalPage(page, testdata);
+    const issuerPortalPage = new StaffControlPage(page, testdata);
 
     // Use the fixture value in the test.
     await use(issuerPortalPage);

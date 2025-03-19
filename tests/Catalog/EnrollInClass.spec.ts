@@ -1,4 +1,4 @@
-import { expect, test } from '../../fixtures/catalogFixture';
+import { expect, test } from '../../fixtures/studentFixture';
 
 /* replaced by Student -> Catalog -> Request badge
 test('Student can enroll in batch class', async ({ catalogPage }) => {

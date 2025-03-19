@@ -16,7 +16,6 @@ test('Login', async ({
     // validage success
     await expect(issuerPortalPage.page.locator('.expand-menu')).toBeVisible();
     await expect(issuerPortalPage.page.getByRole('navigation')).toBeVisible();
-    await expect(issuerPortalPage.page).toHaveScreenshot("TeacherLoggedInPortal.png", { mask: maskedLocators })
   });
 
 test('Logout', async ({

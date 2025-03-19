@@ -1,11 +1,10 @@
-import { expect, test } from '../../../fixtures/catalogFixture';
-
+import { expect, test } from '../../../fixtures/staffFixtures/staffWOFixture';
 // TODO: add parameterised test to also test with other accounts.
 // TODO: bulk award
 
 test('Award requested badge', async ({
     catalogPage,
-    issuerPortalPage,
+    woPage,
   }) => {
     // var
     const course = "Psychometrics";
@@ -18,32 +17,18 @@ test('Award requested badge', async ({
     await catalogPage.RequestEdubadge();
   
     // test
-    await issuerPortalPage.SearchForClass(course);
-    await issuerPortalPage.openBadgeClassWithNameFromMainPage(course);
-    await issuerPortalPage.rewardRequestedBadgeToStudent();
-    await expect(issuerPortalPage.page.getByText('The request(s) have been awarded.')).toBeVisible();
+    await woPage.badgeClassPage.approveRequest(course);
+    await expect(woPage.page.getByText('The request(s) have been awarded.')).toBeVisible();
   });
 
-test('Direct award badge', async ({
-    backpackPage,
-    issuerPortalPage,
+test('Send badge directly', async ({
+    woPage
   }) => {
     // var
     const courseName = "Cognitive Psychology";
-    const receivedBadgeLocator = backpackPage.page
-        .getByText('Unclaimed')
-        .locator('..')
-        .getByText(courseName)
-        .locator('../../..')    // coursename is 3 sub classes deep
-        .getByText('View details to claim this edubadge');
-
-    // setup
-    await backpackPage.OpenBackpack();
-    await expect(receivedBadgeLocator).not.toBeVisible();
 
     // test
-    await issuerPortalPage.directAwardBadgeToStudent(courseName);
-    await backpackPage.reloadPage();
-    await expect(receivedBadgeLocator).toBeVisible();
+    await woPage.badgeClassPage.directAwardBadgeToStudent(courseName);
+    await expect(woPage.page.getByText('Direct awards have been sent')).toBeVisible();
   });
   

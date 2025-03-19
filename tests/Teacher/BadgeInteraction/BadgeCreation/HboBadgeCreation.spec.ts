@@ -1,158 +1,186 @@
-import { expect, test } from '../../../../fixtures/eduBadges/eduBadgesHboFixture';
+import { expect, test } from '../../../../fixtures/staffFixtures/staffHboFixture';
 
 test('Validate error messages empty microcredential form', async ({
-  hboIssuerPortalPageManage,
+  hboPage,
 }) => {
-  await hboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await hboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await hboIssuerPortalPageManage.createNewBadgeClass();
-  await hboIssuerPortalPageManage.createNewMicroCredential();
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
+  // setup
+  await hboPage.managePage.goToManage();
+  await hboPage.managePage.searchWithText('Medicine');
+  await hboPage.managePage.openIssuerGroup('Medicine');
+
+  // test
+  await hboPage.managePage.clickNewBadgeClass();
+  await hboPage.managePage.clickMicroCredential();
+  await expect(hboPage.page).toHaveScreenshot(
     'emptyMicrocredentialForm.png',
     {
       fullPage: true,
     },
   );
-  await hboIssuerPortalPageManage.page
+  await hboPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
+  await expect(hboPage.page).toHaveScreenshot(
     'emptyMicrocredentialFormWithValidationErrors.png',
-    { fullPage: true },
+    { 
+      fullPage: true 
+    },
   );
 });
 
 test('Validate error messages empty regular badge form', async ({
-  hboIssuerPortalPageManage,
+  hboPage,
 }) => {
-  await hboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await hboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await hboIssuerPortalPageManage.createNewBadgeClass();
-  await hboIssuerPortalPageManage.createRegularEduBadge();
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
+  // setup
+  await hboPage.managePage.goToManage();
+  await hboPage.managePage.searchWithText('Medicine');
+  await hboPage.managePage.openIssuerGroup('Medicine');
+
+  // test
+  await hboPage.managePage.clickNewBadgeClass();
+  await hboPage.managePage.clickRegularBadge();
+  await expect(hboPage.page).toHaveScreenshot(
     'emptyRegularEdubadgeForm.png',
     {
       fullPage: true,
     },
   );
-  await hboIssuerPortalPageManage.page
+  await hboPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
+  await expect(hboPage.page).toHaveScreenshot(
     'emptyRegularFormWithValidationErrors.png',
-    { fullPage: true },
+    { 
+      fullPage: true 
+    },
   );
 });
 
 test('Validate error messages empty extra curricular badge form', async ({
-  hboIssuerPortalPageManage,
+  hboPage,
 }) => {
-  await hboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await hboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await hboIssuerPortalPageManage.createNewBadgeClass();
-  await hboIssuerPortalPageManage.createExtraCurricularEduBadge();
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
+  // setup
+  await hboPage.managePage.goToManage();
+  await hboPage.managePage.searchWithText('Medicine');
+  await hboPage.managePage.openIssuerGroup('Medicine');
+
+  // test
+  await hboPage.managePage.clickNewBadgeClass();
+  await hboPage.managePage.clickExtraCurricularEduBadge();
+  await expect(hboPage.page).toHaveScreenshot(
     'emptyExtraCurricularEdubadgeForm.png',
     {
       fullPage: true,
     },
   );
-  await hboIssuerPortalPageManage.page
+  await hboPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
+  await expect(hboPage.page).toHaveScreenshot(
     'emptyExtraCurricularFormWithValidationErrors.png',
-    { fullPage: true },
+    { 
+      fullPage: true 
+    },
   );
 });
 
-test.skip('Validate regular HBO edu badge creation', async ({
-  hboIssuerPortalPageManage,
+test('Validate regular HBO edu badge creation', async ({
+  hboPage,
   testdata,
 }) => {
-  testdata.badgeData.title = 'HBO regular curricular badge';
-  await hboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await hboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await hboIssuerPortalPageManage.createNewBadgeClass();
-  await hboIssuerPortalPageManage.createRegularEduBadge();
-  await hboIssuerPortalPageManage.fillInExtraCurricularForm();
-  await hboIssuerPortalPageManage.publishBadge();
+  // setup
+  testdata.badgeData.title = 'Regular Test automation HBO';
+  const manage = hboPage.managePage;
+  await manage.goToManage();
+  await manage.searchWithText('Medicine');
+  await manage.openIssuerGroup('Medicine');
 
-  await expect(
-    hboIssuerPortalPageManage.page.getByRole('link', {
-      name: 'Edit badge class',
-    }),
-  ).toBeVisible();
+  // test
+  await manage.clickNewBadgeClass();
+  await manage.clickRegularBadge();
+  await manage.fillInExtraCurricularForm();
+  await manage.publishBadge();
+
+  await hboPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+
   var maskedLocators = [
-    await hboIssuerPortalPageManage.page
+    hboPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
-    'regularMBOCurricularBadgeCreated.png',
+  await expect(hboPage.page).toHaveScreenshot(
+    'regularHBOBadgeCreated.png',
     {
       mask: maskedLocators,
     },
   );
 });
 
-test.skip('Validate micro credential HBO edu badge creation', async ({
-  hboIssuerPortalPageManage,
+test('Validate micro credential HBO edu badge creation', async ({
+  hboPage,
   testdata,
 }) => {
-  testdata.badgeData.title = 'HBO micro curricular badge';
-  await hboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await hboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await hboIssuerPortalPageManage.createNewBadgeClass();
-  await hboIssuerPortalPageManage.createNewMicroCredential();
-  await hboIssuerPortalPageManage.fillInExtraCurricularForm();
-  await hboIssuerPortalPageManage.publishBadge();
+  // setup
+  testdata.badgeData.title = 'Micro Test automation HBO';
+  await hboPage.managePage.goToManage();
+  await hboPage.managePage.searchWithText('Medicine');
+  await hboPage.managePage.openIssuerGroup('Medicine');
+  await hboPage.managePage.clickNewBadgeClass();
+  await hboPage.managePage.clickMicroCredential();
 
-  await expect(
-    hboIssuerPortalPageManage.page.getByRole('link', {
-      name: 'Edit badge class',
-    }),
-  ).toBeVisible();
+  // test
+  await hboPage.managePage.fillInExtraCurricularForm();
+  await hboPage.managePage.publishBadge();
+
+  await hboPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+    
   var maskedLocators = [
-    await hboIssuerPortalPageManage.page
+    hboPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
-    'microMBOCurricularBadgeCreated.png',
+  await expect(hboPage.page).toHaveScreenshot(
+    'microHBOBadgeCreated.png',
     {
       mask: maskedLocators,
     },
   );
 });
 
-test.skip('Validate extra curricular HBO edu badge creation', async ({
-  hboIssuerPortalPageManage,
+test('Validate extra curricular HBO edu badge creation', async ({
+  hboPage,
   testdata,
 }) => {
-  testdata.badgeData.title = 'HBO extra curricular badge';
-  await hboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await hboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await hboIssuerPortalPageManage.createNewBadgeClass();
-  await hboIssuerPortalPageManage.createExtraCurricularEduBadge();
-  await hboIssuerPortalPageManage.fillInExtraCurricularForm();
-  await hboIssuerPortalPageManage.publishBadge();
+  // setup
+  testdata.badgeData.title = 'Extra Test automation HBO';
+  await hboPage.managePage.goToManage();
+  await hboPage.managePage.searchWithText('Medicine');
+  await hboPage.managePage.openIssuerGroup('Medicine');
+  await hboPage.managePage.clickNewBadgeClass();
+  await hboPage.managePage.clickExtraCurricularEduBadge();
 
-  await expect(
-    hboIssuerPortalPageManage.page.getByRole('link', {
-      name: 'Edit badge class',
-    }),
-  ).toBeVisible();
+  // test
+  await hboPage.managePage.fillInExtraCurricularForm();
+  await hboPage.managePage.publishBadge();
+
+  await hboPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+    
   var maskedLocators = [
-    await hboIssuerPortalPageManage.page
+    hboPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(hboIssuerPortalPageManage.page).toHaveScreenshot(
-    'extraMBOCurricularBadgeCreated.png',
+  await expect(hboPage.page).toHaveScreenshot(
+    'extraCurricularHBOBadgeCreated.png',
     {
       mask: maskedLocators,
     },

@@ -1,158 +1,181 @@
-import { expect, test } from '../../../../fixtures/eduBadges/eduBadgesMboFixture';
+import { expect, test } from '../../../../fixtures/staffFixtures/staffMboFixture';
 
 test('Validate error messages empty microcredential form', async ({
-  mboIssuerPortalPageManage,
+  mboPage,
 }) => {
-  await mboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await mboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await mboIssuerPortalPageManage.createNewBadgeClass();
-  await mboIssuerPortalPageManage.createNewMicroCredential();
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
+  // setup
+  await mboPage.managePage.goToManage();
+  await mboPage.managePage.searchWithText('Medicine');
+  await mboPage.managePage.openIssuerGroup('Medicine');
+  await mboPage.managePage.clickNewBadgeClass();
+  await mboPage.managePage.clickMicroCredential();
+
+  // test
+  await expect(mboPage.page).toHaveScreenshot(
     'emptyMicrocredentialForm.png',
     {
       fullPage: true,
     },
   );
-  await mboIssuerPortalPageManage.page
+  await mboPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
+  await expect(mboPage.page).toHaveScreenshot(
     'emptyMicrocredentialFormWithValidationErrors.png',
     { fullPage: true },
   );
 });
 
 test('Validate error messages empty regular badge form', async ({
-  mboIssuerPortalPageManage,
+  mboPage,
 }) => {
-  await mboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await mboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await mboIssuerPortalPageManage.createNewBadgeClass();
-  await mboIssuerPortalPageManage.createRegularEduBadge();
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
+  // setup
+  await mboPage.managePage.goToManage();
+  await mboPage.managePage.searchWithText('Medicine');
+  await mboPage.managePage.openIssuerGroup('Medicine');
+  await mboPage.managePage.clickNewBadgeClass();
+  await mboPage.managePage.clickRegularBadge();
+
+  // test
+  await expect(mboPage.page).toHaveScreenshot(
     'emptyRegularEdubadgeForm.png',
     {
       fullPage: true,
     },
   );
-  await mboIssuerPortalPageManage.page
+  await mboPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
+  await expect(mboPage.page).toHaveScreenshot(
     'emptyRegularFormWithValidationErrors.png',
     { fullPage: true },
   );
 });
 
 test('Validate error messages empty extra curricular badge form', async ({
-  mboIssuerPortalPageManage,
+  mboPage,
 }) => {
-  await mboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await mboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await mboIssuerPortalPageManage.createNewBadgeClass();
-  await mboIssuerPortalPageManage.createExtraCurricularEduBadge();
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
+  // setup
+  await mboPage.managePage.goToManage();
+  await mboPage.managePage.searchWithText('Medicine');
+  await mboPage.managePage.openIssuerGroup('Medicine');
+  await mboPage.managePage.clickNewBadgeClass();
+  await mboPage.managePage.clickExtraCurricularEduBadge();
+
+  // test
+  await expect(mboPage.page).toHaveScreenshot(
     'emptyExtraCurricularEdubadgeForm.png',
     {
       fullPage: true,
     },
   );
-  await mboIssuerPortalPageManage.page
+  await mboPage.page
     .getByRole('link', { name: 'Publish' })
     .click();
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
+  await expect(mboPage.page).toHaveScreenshot(
     'emptyExtraCurricularFormWithValidationErrors.png',
     { fullPage: true },
   );
 });
 
-test.skip('Validate regular MBO edu badge creation', async ({
-  mboIssuerPortalPageManage,
+test('Validate regular MBO edu badge creation', async ({
+  mboPage,
   testdata,
 }) => {
-  testdata.badgeData.title = 'MBO regular curricular badge';
-  await mboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await mboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await mboIssuerPortalPageManage.createNewBadgeClass();
-  await mboIssuerPortalPageManage.createRegularEduBadge();
-  await mboIssuerPortalPageManage.fillInMBOExtraCurricularForm();
-  await mboIssuerPortalPageManage.publishBadge();
+  // setup
+  testdata.badgeData.title = "test regular MBO badge";
+  await mboPage.managePage.goToManage();
+  await mboPage.managePage.searchWithText('Medicine');
+  await mboPage.managePage.openIssuerGroup('Medicine');
+  await mboPage.managePage.clickNewBadgeClass();
 
-  await expect(
-    mboIssuerPortalPageManage.page.getByRole('link', {
-      name: 'Edit badge class',
-    }),
-  ).toBeVisible();
+  // test
+  await mboPage.managePage.clickRegularBadge();
+  await mboPage.managePage.fillInMBOExtraCurricularForm();
+  await mboPage.managePage.publishBadge();
+
+  // validate
+  await  mboPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+
   var maskedLocators = [
-    await mboIssuerPortalPageManage.page
+    mboPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
-    'regularMBOCurricularBadgeCreated.png',
+  await expect(mboPage.page).toHaveScreenshot(
+    'regularMBOBadgeCreated.png',
     {
       mask: maskedLocators,
     },
   );
 });
 
-test.skip('Validate micro credential MBO edu badge creation', async ({
-  mboIssuerPortalPageManage,
-  testdata,
+test('Validate micro credential MBO edu badge creation', async ({
+  mboPage,
+  testdata
 }) => {
-  testdata.badgeData.title = 'MBO micro curricular badge';
-  await mboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await mboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await mboIssuerPortalPageManage.createNewBadgeClass();
-  await mboIssuerPortalPageManage.createNewMicroCredential();
-  await mboIssuerPortalPageManage.fillInMBOExtraCurricularForm();
-  await mboIssuerPortalPageManage.publishBadge();
+  // setup
+  testdata.badgeData.title = "test micro MBO badge";
+  await mboPage.managePage.goToManage();
+  await mboPage.managePage.searchWithText('Medicine');
+  await mboPage.managePage.openIssuerGroup('Medicine');
+  await mboPage.managePage.clickNewBadgeClass();
 
-  await expect(
-    mboIssuerPortalPageManage.page.getByRole('link', {
-      name: 'Edit badge class',
-    }),
-  ).toBeVisible();
+  // test
+  await mboPage.managePage.clickMicroCredential();
+  await mboPage.managePage.fillInMBOExtraCurricularForm();
+  await mboPage.managePage.publishBadge();
+
+  // validate
+  await  mboPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+
   var maskedLocators = [
-    await mboIssuerPortalPageManage.page
+    mboPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
-    'microMBOCurricularBadgeCreated.png',
+  await expect(mboPage.page).toHaveScreenshot(
+    'microMBOBadgeCreated.png',
     {
       mask: maskedLocators,
     },
   );
 });
 
-test.skip('Validate extra curricular MBO edu badge creation', async ({
-  mboIssuerPortalPageManage,
+test('Validate extra curricular MBO edu badge creation', async ({
+  mboPage,
   testdata,
 }) => {
-  testdata.badgeData.title = 'MBO extra curricular badge';
-  await mboIssuerPortalPageManage.searchForBadgeClass('Medicine');
-  await mboIssuerPortalPageManage.openBadgeClassWithName('Medicine');
-  await mboIssuerPortalPageManage.createNewBadgeClass();
-  await mboIssuerPortalPageManage.createExtraCurricularEduBadge();
-  await mboIssuerPortalPageManage.fillInMBOExtraCurricularForm();
-  await mboIssuerPortalPageManage.publishBadge();
+  // setup
+  testdata.badgeData.title = "test extra curricular MBO badge";
+  await mboPage.managePage.goToManage();
+  await mboPage.managePage.searchWithText('Medicine');
+  await mboPage.managePage.openIssuerGroup('Medicine');
+  await mboPage.managePage.clickNewBadgeClass();
 
-  await expect(
-    mboIssuerPortalPageManage.page.getByRole('link', {
-      name: 'Edit badge class',
-    }),
-  ).toBeVisible();
+  // test
+  await mboPage.managePage.clickExtraCurricularEduBadge();
+  await mboPage.managePage.fillInMBOExtraCurricularForm();
+  await mboPage.managePage.publishBadge();
+
+  await  mboPage.page
+    .getByRole('link', { name: 'Edit badge class' })
+    .waitFor();
+    
   var maskedLocators = [
-    await mboIssuerPortalPageManage.page
+    mboPage.page
       .getByText('Created ')
       .locator('..')
       .locator('..'),
   ];
-  await expect(mboIssuerPortalPageManage.page).toHaveScreenshot(
-    'extraMBOCurricularBadgeCreated.png',
+  await expect(mboPage.page).toHaveScreenshot(
+    'extraCurricularBMBOadgeCreated.png',
     {
       mask: maskedLocators,
     },

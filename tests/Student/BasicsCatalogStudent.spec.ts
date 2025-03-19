@@ -1,4 +1,4 @@
-import { expect, test } from '../../fixtures/catalogFixture';
+import { expect, test } from '../../fixtures/studentFixture';
 
 test('See existing badge logged in', async ({
     catalogPage,

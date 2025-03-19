@@ -1,12 +1,10 @@
 import { test as base } from '@playwright/test';
 import { HomePage } from '../../pages/homePage';
-import { IssuerPortalPage } from '../../pages/issuerPortal/issuerPortalPage';
+import { StaffControlPage } from '../../pages/staffPages/staffControlPage';
 import { Testdata } from '../../util/testdata';
-import { IssuerPortalPageManage } from '../../pages/issuerPortal/issuerPortalPageManage';
 
 type EdubadgeFixture = {
-  issuerPortalPageManage: IssuerPortalPageManage;
-  mboIssuerPortalPageManage: IssuerPortalPageManage;
+  mboPage: StaffControlPage;
   testdata: Testdata;
 };
 
@@ -20,20 +18,22 @@ export const test = base.extend<EdubadgeFixture>({
 
     // Clean up the fixture.
   },
-  issuerPortalPageManage: async ({ page, testdata }, use) => {
+  /**
+   * The page that logs in to the linked account.
+   * This page should be used for assertions and expects.
+   * The other pages should be used for their functions.
+   */
+  mboPage: async ({ page, testdata }, use) => {
     // Set up the fixture.
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
     await homePage.openIssuerPortal();
 
-    const issuerPortalPage = new IssuerPortalPage(page, testdata);
-    await issuerPortalPage.loginWithInstitutionAdmin();
-    await issuerPortalPage.goToManage();
-
-    const issuerPortalPageManage = new IssuerPortalPageManage(page, testdata);
+    const mboPage = new StaffControlPage(page, testdata);
+    await mboPage.loginWithMBOInstitutionAdmin();
 
     // Use the fixture value in the test.
-    await use(issuerPortalPageManage);
+    await use(mboPage);
 
     // Clean up the fixture.
   },

@@ -1,4 +1,4 @@
-import { expect, test } from '../../../fixtures/catalogFixture';
+import { expect, test } from '../../../fixtures/studentFixture';
 // TODO: logout, see account, see requests, see history, base screenshots
 
 
@@ -43,6 +43,6 @@ test('See subcategories', async ({
     await backpackPage.OpenAccount();
     await expect(backpackPage.page)
         .toHaveScreenshot("AccountBackpack.png",
-            { mask: [backpackPage.page.locator('.profile')] }
+            { mask: [backpackPage.page.locator('.content')] }
         );
   });

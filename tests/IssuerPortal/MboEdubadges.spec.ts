@@ -1,4 +1,4 @@
-import { expect, test } from '../../fixtures/eduBadges/eduBadgesMboFixture';
+import { expect, test } from '../../fixtures/staffFixtures/staffMboFixture';
 
 /* replaced by Teacher -> BadgeInteraction -> MboBadgeCreation
 test('Validate error messages empty microcredential form', async ({

@@ -1,4 +1,4 @@
-import { expect, test } from '../../fixtures/eduBadges/eduBadgesWOFixture';
+import { expect, test } from '../../fixtures/staffFixtures/staffWOFixture';
 
 /* replaced by Teacher -> BadgeInteraction -> BadgeCreation
 
