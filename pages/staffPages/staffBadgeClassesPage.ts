@@ -20,6 +20,7 @@ export class staffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByRole('link', { name: 'Award' }).click();
   }
 
+  /**Opens a badge by name if it is currently on screen. */
   async openBadge(badgeName: string){
     await this.page.locator('.content')
       .getByText(badgeName)
