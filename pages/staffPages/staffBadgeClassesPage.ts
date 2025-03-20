@@ -25,6 +25,7 @@ export class staffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.locator('.content')
       .getByText(badgeName)
       .click();
+    await this.waitForLoadingToStop();
   }
 
   /**Defaults to Petra Pentila */

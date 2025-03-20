@@ -12,5 +12,8 @@ test('See badge in MBO staff page', async ({
     await mboPage.badgeClassPage.openBadge(course);
     
     // test
-    await expect(mboPage.page).toHaveScreenshot( { mask: [mask] } );
+    await expect(mboPage.page).toHaveScreenshot(
+        'SeeBadgeAsTeacher.png', 
+        { fullPage: true, mask: [mask] } 
+    );
   });
