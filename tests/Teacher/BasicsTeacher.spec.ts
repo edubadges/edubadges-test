@@ -13,7 +13,7 @@ test('Login', async ({
       testdata.WOAccounts.badgeClassAdminLogin.password
     )
 
-    // validage success
+    // validate success
     await expect(issuerPortalPage.page.locator('.expand-menu')).toBeVisible();
     await expect(issuerPortalPage.page.getByRole('navigation')).toBeVisible();
   });

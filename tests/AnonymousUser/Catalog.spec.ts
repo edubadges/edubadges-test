@@ -1,5 +1,23 @@
 import { expect, test } from '../../fixtures/studentFixture';
 
+test('See homepage', async({
+    catalogPage,
+}) => {
+    catalogPage.page.goto('');
+    var maskedLocators= [];
+    maskedLocators.push(
+        catalogPage.page
+        .getByText(' Badge Classes')
+        .first()
+        .locator('..')
+        .locator('..')
+        .locator('..'),
+        );
+    await expect(catalogPage.page).toHaveScreenshot("expectedHomePageOpened-eng.png", {
+        fullPage: true,
+        mask: maskedLocators,
+    });
+});
 test('Search for non existing badge', async ({
     catalogPage,
 }) => {

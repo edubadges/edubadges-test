@@ -1,6 +1,6 @@
 import { expect, test } from '../../fixtures/loginFixture';
 
-test('Login WO institution admin', async ({
+test('Login WO issuer group admin', async ({
     homePage,
     issuerPortalPage,
     testdata,
@@ -8,8 +8,8 @@ test('Login WO institution admin', async ({
     // login
     await homePage.openIssuerPortal();
     await issuerPortalPage.login(
-      testdata.WOAccounts.institutionAdminLogin.username,
-      testdata.WOAccounts.institutionAdminLogin.password
+      testdata.WOAccounts.issuerGroupAdmin.username,
+      testdata.WOAccounts.issuerGroupAdmin.password
     )
 
     // validate success
@@ -17,7 +17,7 @@ test('Login WO institution admin', async ({
     await expect(issuerPortalPage.page.getByRole('navigation')).toBeVisible();
   });
 
-test('Logout WO institution admin', async ({
+test('Logout WO issuer group admin', async ({
     homePage,
     issuerPortalPage,
     testdata,
@@ -28,8 +28,8 @@ test('Logout WO institution admin', async ({
     // setup
     await homePage.openIssuerPortal();
     await issuerPortalPage.login(
-      testdata.WOAccounts.institutionAdminLogin.username,
-      testdata.WOAccounts.institutionAdminLogin.password
+      testdata.WOAccounts.issuerGroupAdmin.username,
+      testdata.WOAccounts.issuerGroupAdmin.password
     )
     await expect(loggedInMenu).toBeVisible();
     await expect(issuerPortalPage.page.getByRole('navigation')).toBeVisible();
