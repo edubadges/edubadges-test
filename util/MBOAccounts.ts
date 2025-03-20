@@ -10,15 +10,15 @@ export class MBOAccounts extends AccountsBase{
         super();
         this.institutionAdminLogin = new staffDetails(
             process.env.MBO_INSTITUTION_ADMIN_USERNAME || '',
-            process.env.MBO_INSTITUTION_ADMIN_PASSOWRD || '',
+            process.env.MBO_INSTITUTION_ADMIN_PASSWORD || '',
         )
         this.issuerGroupAdmin = new staffDetails(
             process.env.MBO_ISSUERGROUP_ADMIN_USERNAME || '',
-            process.env.MBO_ISSUERGROUP_ADMIN_PASSOWRD || '',
+            process.env.MBO_ISSUERGROUP_ADMIN_PASSWORD || '',
         )
         this.badgeClassAdminLogin = new staffDetails(
             process.env.MBO_BADGECLASS_ADMIN_USERNAME || '',
-            process.env.MBO_BADGECLASS_ADMIN_PASSOWRD || '',
+            process.env.MBO_BADGECLASS_ADMIN_PASSWORD || '',
         )
 
         this.student= [

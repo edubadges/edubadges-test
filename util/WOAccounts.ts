@@ -10,15 +10,15 @@ export class WOAccounts extends AccountsBase{
         super();
         this.institutionAdminLogin = new staffDetails(
             process.env.WO_INSTITUTION_ADMIN_USERNAME || '',
-            process.env.WO_INSTITUTION_ADMIN_PASSOWRD || '',
+            process.env.WO_INSTITUTION_ADMIN_PASSWORD || '',
         )
         this.issuerGroupAdmin = new staffDetails(
             process.env.WO_ISSUERGROUP_ADMIN_USERNAME || '',
-            process.env.WO_ISSUERGROUP_ADMIN_PASSOWRD || '',
+            process.env.WO_ISSUERGROUP_ADMIN_PASSWORD || '',
         )
         this.badgeClassAdminLogin = new staffDetails(
             process.env.WO_BADGECLASS_ADMIN_USERNAME || '',
-            process.env.WO_BADGECLASS_ADMIN_PASSOWRD || '',
+            process.env.WO_BADGECLASS_ADMIN_PASSWORD || '',
         )
 
         this.student= [

@@ -48,7 +48,7 @@ export class HomePage extends BasePageMultiLanguage {
     var snapshotName = '';
     var maskedLocators: Locator[] = [];
     maskedLocators.push(
-      await this.page
+      this.page
         .getByText(' Badge Classes')
         .first()
         .locator('..')
