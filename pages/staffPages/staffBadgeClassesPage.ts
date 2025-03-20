@@ -9,8 +9,8 @@ export class staffBadgeClassesPage extends BaseStaffSubPage {
     studentNumber: string = this.testdata.accounts.studentEPPN,){
     await this.searchWithText(courseName);
     await this.openBadge(courseName);
-    await this.sendDirectBadge(studentEmail, studentNumber,
-    );
+    await this.sendDirectBadge(studentEmail, studentNumber);
+    await this.page.getByText('Direct awards have been sent').waitFor();
   }
   
   private async sendDirectBadge(studentEmail: string, studentNumber: string) {
