@@ -16,6 +16,7 @@ test('See WO issuer group', async ({
     await woPage.managePage.goToIssuerGroups();
     await issuerGroup.searchWithText(existingGroupName);
     await issuerGroup.page.locator('td').getByText(existingGroupName, { exact: true }).click();
+    await woPage.waitForLoadingToStop();
 
     await expect(woPage.page).toHaveScreenshot('See existing issuer group.png', { mask: [maskDate] });
   });
