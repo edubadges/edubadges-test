@@ -1,6 +1,6 @@
 import { expect, test } from '../../../../fixtures/staffFixtures/staffWOFixture';
 
-test('Delete WO issuer group', async ({
+test('See WO issuer group', async ({
     woPage,
   }) => {
     // var
@@ -17,5 +17,5 @@ test('Delete WO issuer group', async ({
     await issuerGroup.searchWithText(existingGroupName);
     await issuerGroup.page.locator('td').getByText(existingGroupName, { exact: true }).click();
 
-    await expect(woPage.page).toHaveScreenshot('See existing group', { mask: [maskDate] });
+    await expect(woPage.page).toHaveScreenshot('See existing issuer group.png', { mask: [maskDate] });
   });
