@@ -1,10 +1,11 @@
 import { expect, test } from '../../../../fixtures/staffFixtures/staffWOFixture';
 
-test('Validate error messages empty microcredential form', async ({
+test('Create new WO issuer group', async ({
     woPage,
   }) => {
     // var
     const newIssuerGroupName = 'NewWOIssuerGroup';
+    const descriptionText = "Test WO Issuergroup";
     const issuerGroup = woPage.managePage.issuerGroupPage;
 
     // setup
@@ -12,8 +13,14 @@ test('Validate error messages empty microcredential form', async ({
     await woPage.managePage.goToIssuerGroups();
 
     // test
-    await issuerGroup.AddNewIssuerGroup(newIssuerGroupName);
+    await issuerGroup.AddNewIssuerGroup(newIssuerGroupName, descriptionText);
 
     // validate
-    await expect(woPage.page.getByRole('link', { name: 'Edit issuer group' })).toBeVisible();
+    const editButtonLocator = woPage.page.getByRole('link', { name: 'Edit issuer group' });
+    const groupTitleLocator = woPage.page.locator('.entity.title').locator('h2');
+    const descriptionLocator = woPage.page.locator('.info').locator('p');
+
+    await expect(editButtonLocator).toBeVisible();
+    await expect(groupTitleLocator).toHaveText(newIssuerGroupName);
+    await expect(descriptionLocator).toHaveText(descriptionText)
   });
