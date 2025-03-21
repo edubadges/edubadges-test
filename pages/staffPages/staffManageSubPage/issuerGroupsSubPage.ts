@@ -3,6 +3,7 @@ import { BaseStaffSubPage } from '../baseStaffSubPage';
 import path from 'path';
 
 export class IssuerGroupSubPage extends BaseStaffSubPage {
+    /**Expects to be on the main issuergroups page */
     async AddNewIssuerGroup(
             groupName: string,
             groupDesc: string = 'Test issuer group description',
@@ -18,6 +19,41 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
         
         // validate
         await this.page.getByRole('link', { name: 'Edit issuer group' }).waitFor();   
+    }
+
+    /**Expects to be on the main issuergroups page */
+    async EditExistingIssuerGroup(
+        oldGroupName: string,
+        newGroupName: string,
+        newGroupDesc: string = 'Test issuer group description',
+        isEnglish: boolean = false,
+        issueOnBehalf: boolean= false,
+        organisationURL: string = '',
+        linkedInURL: string = '',){
+            await this.OpenIssuerGroup(oldGroupName);
+            await this.ClickEditGroup();
+
+            await this.FillIssuerGroupForm(newGroupName, newGroupDesc, isEnglish, issueOnBehalf, organisationURL, linkedInURL);
+            await this.page.getByRole('link', { name: 'Save changes' }).click();
+
+            await this.page.getByRole('link', { name: 'Edit issuer group' }).waitFor();
+        }
+    
+    async DeleteExistingIssuerGroup(groupName: string){
+        await this.OpenIssuerGroup(groupName)
+        await this.ClickEditGroup();
+        await this.page.getByRole('link', { name: 'Delete' }).click();
+        await this.page.getByRole('link', { name: 'Confirm' }).click();
+        await this.page.getByText('Successfully deleted issuer group').waitFor();
+    }
+
+    private async ClickEditGroup(){
+        await this.page.getByRole('link', { name:  'Edit issuer group' }).click();
+    }
+    
+    private async OpenIssuerGroup(issuerGroupName: string){
+        await this.searchWithText(issuerGroupName);
+        await this.page.locator('td').getByText(issuerGroupName, { exact: true }).click();
     }
 
     private async FillIssuerGroupForm(
