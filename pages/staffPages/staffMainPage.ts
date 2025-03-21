@@ -1,9 +1,9 @@
 import { expect, Locator } from '@playwright/test';
 import { BasePage } from '../basePage';
-import { staffBadgeClassesPage } from './staffBadgeClassesPage';
+import { StaffBadgeClassesPage } from './staffBadgeClassesPage';
 import { staffInsightsPage } from './staffInsightsPage';
-import { staffManagePage } from './staffManagePage';
-import { staffUsersPage } from './staffUsersPage';
+import { StaffManagePage } from './staffManagePage';
+import { StaffUsersPage } from './staffUsersPage';
 
 export class StaffMainPage extends BasePage {
   private searchFieldLocator: Locator = this.page.getByPlaceholder('Search...');
@@ -20,12 +20,10 @@ export class StaffMainPage extends BasePage {
     this.page.getByRole('link', { name: 'NL' }).click();
   }
   
-  //#region sub pages
-  badgeClassPage: staffBadgeClassesPage = new staffBadgeClassesPage(this.page, this.testdata);
-  managePage: staffManagePage = new staffManagePage(this.page, this.testdata);
-  usersPage: staffUsersPage = new staffUsersPage(this.page, this.testdata);
+  badgeClassPage: StaffBadgeClassesPage = new StaffBadgeClassesPage(this.page, this.testdata);
+  managePage: StaffManagePage = new StaffManagePage(this.page, this.testdata);
+  usersPage: StaffUsersPage = new StaffUsersPage(this.page, this.testdata);
   insightsPage: staffInsightsPage = new staffInsightsPage(this.page, this.testdata);
-  //#endregion
 
   //#region login
 
@@ -117,4 +115,30 @@ export class StaffMainPage extends BasePage {
 
   //#endregion
 
+  //#region Go to categories
+  async goToBadgeClasses (){
+    await this.page.getByRole('link', { name: 'Badge classes' }).click();
+    await this.waitForLoadingToStop();
+  }
+
+  async goToManage (){
+    await this.page.getByRole('link', { name: 'Manage' }).click();
+    await this.waitForLoadingToStop();
+  }
+
+  async goToUsers (){
+    await this.page.getByRole('link', { name: 'Users' }).click();
+    await this.waitForLoadingToStop();
+  }
+
+  async goToCatalog (){
+    await this.page.getByRole('link', { name: 'Catalog' }).click();
+    await this.waitForLoadingToStop();
+  }
+
+  async goToInsights (){
+    await this.page.getByRole('link', { name: 'Insights' }).click();
+    await this.waitForLoadingToStop();
+  }
+  //#endregion
 }

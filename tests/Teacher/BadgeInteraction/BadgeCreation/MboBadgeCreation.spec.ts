@@ -4,7 +4,7 @@ test('Validate error messages empty microcredential form', async ({
   mboPage,
 }) => {
   // setup
-  await mboPage.managePage.goToManage();
+  await mboPage.goToManage();
   await mboPage.managePage.searchWithText('Medicine');
   await mboPage.managePage.openIssuerGroup('Medicine');
   await mboPage.managePage.clickNewBadgeClass();
@@ -30,7 +30,7 @@ test('Validate error messages empty regular badge form', async ({
   mboPage,
 }) => {
   // setup
-  await mboPage.managePage.goToManage();
+  await mboPage.goToManage();
   await mboPage.managePage.searchWithText('Medicine');
   await mboPage.managePage.openIssuerGroup('Medicine');
   await mboPage.managePage.clickNewBadgeClass();
@@ -56,7 +56,7 @@ test('Validate error messages empty extra curricular badge form', async ({
   mboPage,
 }) => {
   // setup
-  await mboPage.managePage.goToManage();
+  await mboPage.goToManage();
   await mboPage.managePage.searchWithText('Medicine');
   await mboPage.managePage.openIssuerGroup('Medicine');
   await mboPage.managePage.clickNewBadgeClass();
@@ -84,7 +84,7 @@ test('Validate regular MBO edu badge creation', async ({
 }) => {
   // setup
   testdata.badgeData.title = "test regular MBO badge";
-  await mboPage.managePage.goToManage();
+  await mboPage.goToManage();
   await mboPage.managePage.searchWithText('Medicine');
   await mboPage.managePage.openIssuerGroup('Medicine');
   await mboPage.managePage.clickNewBadgeClass();
@@ -119,7 +119,7 @@ test('Validate micro credential MBO edu badge creation', async ({
 }) => {
   // setup
   testdata.badgeData.title = "test micro MBO badge";
-  await mboPage.managePage.goToManage();
+  await mboPage.goToManage();
   await mboPage.managePage.searchWithText('Medicine');
   await mboPage.managePage.openIssuerGroup('Medicine');
   await mboPage.managePage.clickNewBadgeClass();
@@ -154,7 +154,7 @@ test('Validate extra curricular MBO edu badge creation', async ({
 }) => {
   // setup
   testdata.badgeData.title = "test extra curricular MBO badge";
-  await mboPage.managePage.goToManage();
+  await mboPage.goToManage();
   await mboPage.managePage.searchWithText('Medicine');
   await mboPage.managePage.openIssuerGroup('Medicine');
   await mboPage.managePage.clickNewBadgeClass();

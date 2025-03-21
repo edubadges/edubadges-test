@@ -5,7 +5,7 @@ test('Validate error messages empty microcredential form', async ({
   woPage,
 }) => {
   // setup
-  await woPage.managePage.goToManage();
+  await woPage.goToManage();
   await woPage.managePage.searchWithText('Medicine');
   await woPage.managePage.openIssuerGroup('Medicine');
   await woPage.managePage.clickNewBadgeClass();
@@ -31,7 +31,7 @@ test('Validate error messages empty regular badge form', async ({
   woPage,
 }) => {
   // setup
-  await woPage.managePage.goToManage();
+  await woPage.goToManage();
   await woPage.managePage.searchWithText('Medicine');
   await woPage.managePage.openIssuerGroup('Medicine');
   await woPage.managePage.clickNewBadgeClass();
@@ -58,7 +58,7 @@ test('Validate error messages empty regular badge form', async ({
 test('Validate error messages empty extra curricular badge form', async ({
   woPage,
 }) => {
-  await woPage.managePage.goToManage();
+  await woPage.goToManage();
   await woPage.managePage.searchWithText('Medicine');
   await woPage.managePage.openIssuerGroup('Medicine');
   await woPage.managePage.clickNewBadgeClass();
@@ -88,7 +88,7 @@ test('Validate microcredention badge class creation', async ({
 }) => {
   // setup
   testdata.badgeData.title = 'Microcredential Test automation';
-  await woPage.managePage.goToManage();
+  await woPage.goToManage();
   await woPage.managePage.searchWithText('Medicine');
   await woPage.managePage.openIssuerGroup('Medicine');
   await woPage.managePage.clickNewBadgeClass();
@@ -122,7 +122,7 @@ test('Validate regular edu badge creation', async ({
 }) => {
   // setup
   testdata.badgeData.title = 'Regular edu badge';
-  await woPage.managePage.goToManage();
+  await woPage.goToManage();
   await woPage.managePage.searchWithText('Medicine');
   await woPage.managePage.openIssuerGroup('Medicine');
   await woPage.managePage.clickNewBadgeClass();
@@ -156,7 +156,7 @@ test('Validate extra curricular edu badge creation', async ({
 }) => {
   // setup
   testdata.badgeData.title = 'Extra curricular badge';
-  await woPage.managePage.goToManage();
+  await woPage.goToManage();
   await woPage.managePage.searchWithText('Medicine');
   await woPage.managePage.openIssuerGroup('Medicine');
   await woPage.managePage.clickNewBadgeClass();

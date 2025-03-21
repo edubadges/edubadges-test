@@ -4,7 +4,7 @@ test('Validate error messages empty microcredential form', async ({
   hboPage,
 }) => {
   // setup
-  await hboPage.managePage.goToManage();
+  await hboPage.goToManage();
   await hboPage.managePage.searchWithText('Medicine');
   await hboPage.managePage.openIssuerGroup('Medicine');
 
@@ -32,7 +32,7 @@ test('Validate error messages empty regular badge form', async ({
   hboPage,
 }) => {
   // setup
-  await hboPage.managePage.goToManage();
+  await hboPage.goToManage();
   await hboPage.managePage.searchWithText('Medicine');
   await hboPage.managePage.openIssuerGroup('Medicine');
 
@@ -60,7 +60,7 @@ test('Validate error messages empty extra curricular badge form', async ({
   hboPage,
 }) => {
   // setup
-  await hboPage.managePage.goToManage();
+  await hboPage.goToManage();
   await hboPage.managePage.searchWithText('Medicine');
   await hboPage.managePage.openIssuerGroup('Medicine');
 
@@ -88,10 +88,12 @@ test('Validate regular HBO edu badge creation', async ({
   hboPage,
   testdata,
 }) => {
-  // setup
+  // var
   testdata.badgeData.title = 'Regular Test automation HBO';
   const manage = hboPage.managePage;
-  await manage.goToManage();
+
+  // setup
+  await hboPage.goToManage();
   await manage.searchWithText('Medicine');
   await manage.openIssuerGroup('Medicine');
 
@@ -125,7 +127,7 @@ test('Validate micro credential HBO edu badge creation', async ({
 }) => {
   // setup
   testdata.badgeData.title = 'Micro Test automation HBO';
-  await hboPage.managePage.goToManage();
+  await hboPage.goToManage();
   await hboPage.managePage.searchWithText('Medicine');
   await hboPage.managePage.openIssuerGroup('Medicine');
   await hboPage.managePage.clickNewBadgeClass();
@@ -159,7 +161,7 @@ test('Validate extra curricular HBO edu badge creation', async ({
 }) => {
   // setup
   testdata.badgeData.title = 'Extra Test automation HBO';
-  await hboPage.managePage.goToManage();
+  await hboPage.goToManage();
   await hboPage.managePage.searchWithText('Medicine');
   await hboPage.managePage.openIssuerGroup('Medicine');
   await hboPage.managePage.clickNewBadgeClass();
