@@ -16,6 +16,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
 
         await this.FillIssuerGroupForm(groupName, groupDesc, isEnglish, issueOnBehalf, organisationURL, linkedInURL);
         await this.page.getByRole('link', { name: 'Save' }).click();
+        await this.waitForLoadingToStop();
         
         // validate
         await this.page.getByRole('link', { name: 'Edit issuer group' }).waitFor();   
