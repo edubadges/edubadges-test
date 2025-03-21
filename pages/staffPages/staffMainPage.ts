@@ -117,27 +117,27 @@ export class StaffMainPage extends BasePage {
 
   //#region Go to categories
   async goToBadgeClasses (){
-    await this.page.getByRole('link', { name: 'Badge classes' }).click();
+    await this.page.getByRole('link', { name: 'Badge classes', exact: true  }).click();
     await this.waitForLoadingToStop();
   }
 
   async goToManage (){
-    await this.page.getByRole('link', { name: 'Manage' }).click();
+    await this.page.getByRole('link', { name: 'Manage', exact: true }).click();
     await this.waitForLoadingToStop();
   }
 
   async goToUsers (){
-    await this.page.getByRole('link', { name: 'Users' }).click();
+    await this.page.getByRole('link', { name: 'Users', exact: true  }).click();
     await this.waitForLoadingToStop();
   }
 
   async goToCatalog (){
-    await this.page.getByRole('link', { name: 'Catalog' }).click();
+    await this.page.getByRole('link', { name: 'Catalog', exact: true  }).click();
     await this.waitForLoadingToStop();
   }
 
   async goToInsights (){
-    await this.page.getByRole('link', { name: 'Insights' }).click();
+    await this.page.getByRole('link', { name: 'Insights', exact: true  }).click();
     await this.waitForLoadingToStop();
   }
   //#endregion
