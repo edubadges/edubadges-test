@@ -17,8 +17,8 @@ test('Create new WO issuer group', async ({
 
     // validate
     const editButtonLocator = woPage.page.getByRole('link', { name: 'Edit issuer group' });
-    const groupTitleLocator = woPage.page.locator('.entity.title').locator('h2');
-    const descriptionLocator = woPage.page.locator('.info').locator('p');
+    const groupTitleLocator = woPage.page.locator('.title').getByRole('heading');
+    const descriptionLocator = woPage.page.locator('.info').locator('p').first();
 
     await expect(editButtonLocator).toBeVisible();
     await expect(groupTitleLocator).toHaveText(newIssuerGroupName);
