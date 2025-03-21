@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { BaseStaffSubPage } from './baseStaffSubPage';
 
-export class staffBadgeClassesPage extends BaseStaffSubPage {
+export class StaffBadgeClassesPage extends BaseStaffSubPage {
   // TODO: implement funcitons like awardRequestedbadge
 
   async directAwardBadgeToStudent(courseName: string,

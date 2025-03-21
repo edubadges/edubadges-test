@@ -1,5 +1,5 @@
 import { BaseStaffSubPage } from './baseStaffSubPage';
 
-export class staffUsersPage extends BaseStaffSubPage {
+export class StaffUsersPage extends BaseStaffSubPage {
   // TODO: implement funcitons like confirmUser?
 }
