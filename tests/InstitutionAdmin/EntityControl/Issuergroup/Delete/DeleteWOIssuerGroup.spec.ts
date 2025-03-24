@@ -1,4 +1,4 @@
-import { expect, test } from '../../../../fixtures/staffFixtures/staffWOFixture';
+import { expect, test } from '../../../../../fixtures/staffFixtures/staffWOFixture';
 
 test('Delete WO issuer group', async ({
     woPage,
