@@ -2,24 +2,19 @@ import { BaseStaffSubPage } from "../baseStaffSubPage";
 
 export class UserManagementSubPage extends BaseStaffSubPage {
 
-    async addNewUser(emailAdress: string, role: string = "Institution admin"
-    ){
+    async addNewUser(emailAdress: string)
+    {
         await this.page.getByRole('link', { name: 'Invite new user' }).click();
-        await this.fillNewUserForm(emailAdress, role);
+        await this.fillNewUserForm(emailAdress);
         await this.page.getByRole('link', { name: 'Add', exact: true}).click();
         await this.page.getByText(`Successfully invited ${emailAdress}`).waitFor();
     }
 
     async fillNewUserForm(emailAdress: string,
-        role: string,
         inputNumber: number = 0 ){
             const emailAdressForm = this.page.getByPlaceholder("e.g. john.doe@example.com").nth(inputNumber);
             
             await emailAdressForm.fill(emailAdress);
-
-            if(role != "Institution admin"){
-                // WHEN DOES THIS HAPPEN
-            }
     }
 
     async removeExistingPermissions(nameOrEmail: string){
