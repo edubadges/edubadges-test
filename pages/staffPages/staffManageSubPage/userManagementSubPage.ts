@@ -4,8 +4,9 @@ export class UserManagementSubPage extends BaseStaffSubPage {
 
     async addNewUser(emailAdress: string, role: string = "Institution admin"
     ){
+        await this.page.getByRole('link', { name: 'Invite new user' }).click();
         await this.fillNewUserForm(emailAdress, role);
-        await this.page.getByRole('link', { name: "Add"}).click();
+        await this.page.getByRole('link', { name: 'Add', exact: true}).click();
         await this.page.getByText(`Successfully invited ${emailAdress}`).waitFor();
     }
 
@@ -22,10 +23,10 @@ export class UserManagementSubPage extends BaseStaffSubPage {
     }
 
     async removeExistingPermissions(nameOrEmail: string){
-        const rowLocator = this.page.getByText(nameOrEmail).locator('../..');
+        const rowLocator = this.page.getByRole('row', { name: nameOrEmail });
         const removeButton = this.page.getByText('Remove permissions');
 
-        await rowLocator.locator('.checkboxed').click();
+        await rowLocator.locator('.checkmarked').click();
         await removeButton.waitFor();
         await removeButton.click();
         await this.page.getByRole('link', { name: 'Confirm' }).click();
