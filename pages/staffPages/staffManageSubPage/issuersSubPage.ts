@@ -42,6 +42,15 @@ export class IssuersSubPage extends BaseStaffSubPage {
       await this.editBadgeButton.waitFor();
   }
 
+  /**Expects the badge to be removed to be opened */
+  async removeExistingBadge(){
+    await this.page.getByRole('link', { name: 'Edit badge class' }).click();
+    await this.waitForLoadingToStop();
+    await this.page.getByRole('link', { name: 'Delete' , exact: true }).click();
+    await this.page.getByRole('link', { name: 'Confirm', exact: true }).click();
+    await this.page.getByText('Successfully deleted Badge class').waitFor();
+  }
+
   private async emptyAllForms(){
       const mirrorForms = await this.page.locator('.CodeMirror-scroll').all();
       const removableItems = await this.page.locator('.multiSelectItem_clear').all();
@@ -64,8 +73,9 @@ export class IssuersSubPage extends BaseStaffSubPage {
 
   //#region create badge
   async clickNewBadgeClass() {
-      await this.editBadgeButton.click();
+      await this.page.getByRole('link', { name: 'Add new badge class' }).click();
     }
+
   async createRegularBadge(
       issuerGroupName: string,
       badgeTitle: string,
