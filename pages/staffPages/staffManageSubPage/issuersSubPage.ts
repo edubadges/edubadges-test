@@ -3,19 +3,96 @@ import { BaseStaffSubPage } from "../baseStaffSubPage";
 import { expect } from '@playwright/test';
 
 export class IssuersSubPage extends BaseStaffSubPage {
+    
     async openIssuerGroup(name: string) {
       await this.page.getByRole('cell', { name: name }).click();
       await expect(
         this.page.getByRole('link', { name: 'Add new badge class' }),
       ).toBeVisible();
     }
-    async clickNewBadgeClass() {
-      await this.page.getByRole('link', { name: 'Add new badge class' }).click();
+
+    /**Expects the badge to edit to be opened */
+    async editExistingBadge(
+        badgeTitle: string = this.testdata.badgeData.title,
+        badgeDesc: string = this.testdata.badgeData.description,
+        learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
+        criterium : string = this.testdata.badgeData.criteria,
+        eqfLevel: string = this.testdata.badgeData.eqfLevel,
+        programIdentifiers: string = this.testdata.badgeData.programIdentifiers,
+        formOfParticipation: string = this.testdata.badgeData.formOfParticipation,
+        assesment: string = this.testdata.badgeData.assessment,
+        frameworkName : string = this.testdata.badgeData.frameworkName,
+        frameworkTitle : string = this.testdata.badgeData.frameworkName,
+        frameworkURL: string = this.testdata.badgeData.frameworkUrl,
+        frameworkCode: string = this.testdata.badgeData.frameworkCode,
+        frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
+      ) {
+        const editBadgeButton = this.page.getByRole('link', { name: 'Edit badge class', exact:true });
+
+        await editBadgeButton.click();
+        await this.waitForLoadingToStop();
+        await this.emptyAllForms();
+        await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes,
+            criterium, eqfLevel, programIdentifiers, formOfParticipation,
+            assesment, frameworkName, frameworkTitle, frameworkURL,
+            frameworkCode, frameworkDesc,
+        )
+        await this.page.getByRole('link', { name: 'Save changes' }).click();
+        await editBadgeButton.waitFor();
     }
 
+    private async emptyAllForms(){
+        const mirrorForms = await this.page.locator('.CodeMirror-scroll').all();
+        const removableItems = await this.page.locator('.multiSelectItem_clear').all();
+
+        for (let i = 0; i < mirrorForms.length; i++) {
+            let form = mirrorForms[i];
+            await form.click();
+            await this.emptyMirrorForm();
+        }
+        for (let i = 1; i <= removableItems.length; i++){
+            let item = removableItems[removableItems.length - i];
+            await item.click();
+        }
+    }
+
+    private async emptyMirrorForm(){
+        await this.page.keyboard.press('ControlOrMeta+A');
+        await this.page.keyboard.press('Backspace');
+    }
 
     //#region create badge
-  
+    async clickNewBadgeClass() {
+        await this.page.getByRole('link', { name: 'Add new badge class' }).click();
+      }
+    async createRegularBadge(
+        issuerGroupName: string,
+        badgeTitle: string,
+        badgeDesc: string = this.testdata.badgeData.description,
+        learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
+        criterium : string = this.testdata.badgeData.criteria,
+        eqfLevel: string = this.testdata.badgeData.eqfLevel,
+        programIdentifiers: string = this.testdata.badgeData.programIdentifiers,
+        formOfParticipation: string = this.testdata.badgeData.formOfParticipation,
+        assesment: string = this.testdata.badgeData.assessment,
+        frameworkName : string = this.testdata.badgeData.frameworkName,
+        frameworkTitle : string = this.testdata.badgeData.frameworkName,
+        frameworkURL: string = this.testdata.badgeData.frameworkUrl,
+        frameworkCode: string = this.testdata.badgeData.frameworkCode,
+        frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
+      ) {
+        await this.searchWithText(issuerGroupName);
+        await this.openIssuerGroup(issuerGroupName);
+        await this.clickNewBadgeClass();
+        await this.clickRegularBadge();
+        await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
+            criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
+            frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
+        );
+        await this.publishBadge();
+        await this.page.getByRole('link', { name: 'Edit badge class', exact: true}).waitFor();
+      }
+
     async clickMicroCredential() {
         await this.page
           .getByText('Microcredential A badge class')
@@ -37,7 +114,8 @@ export class IssuersSubPage extends BaseStaffSubPage {
           .click();
       }
     
-      async fillInMicrocredentialForm() {
+      async fillInMicrocredentialForm(
+      ) {
         await this.fillInBadgeForm();
       }
     
@@ -54,66 +132,98 @@ export class IssuersSubPage extends BaseStaffSubPage {
         await this.fillInBadgeHoursForm();
       }
     
-      private async fillInBadgeForm() {
-        await this.page
-          .getByPlaceholder('(Required field) e.g.')
-          .fill(this.testdata.badgeData.title);
+      private async fillInBadgeForm(
+        badgeTitle: string = this.testdata.badgeData.title,
+        badgeDesc: string = this.testdata.badgeData.description,
+        learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
+        criterium : string = this.testdata.badgeData.criteria,
+        eqfLevel: string = this.testdata.badgeData.eqfLevel,
+        programIdentifiers: string = this.testdata.badgeData.programIdentifiers,
+        formOfParticipation: string = this.testdata.badgeData.formOfParticipation,
+        assessment: string = this.testdata.badgeData.assessment,
+        frameworkName : string = this.testdata.badgeData.frameworkName,
+        frameworkTitle : string = this.testdata.badgeData.frameworkName,
+        frameworkURL: string = this.testdata.badgeData.frameworkUrl,
+        frameworkCode: string = this.testdata.badgeData.frameworkCode,
+        frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
+      ) {
+        const pageForm = this.page.getByText('Basic information').locator('..');
+        await this.waitForLoadingToStop();
+        await this.page.waitForTimeout(500);
+        await pageForm.getByText('Name').first()
+            .locator('../../..')
+            .getByRole('textbox')
+            .fill(badgeTitle);
     
-        await this.page.locator('.CodeMirror-scroll').first().click();
-        await this.page.keyboard.type(this.testdata.badgeData.description);
+        await pageForm.locator('.CodeMirror-scroll').first().click();
+        await this.page.keyboard.type(badgeDesc);
     
-        await this.page.locator('.CodeMirror-scroll').nth(1).click();
-        await this.page.keyboard.type(this.testdata.badgeData.learningOutcomes);
+        await pageForm.locator('.CodeMirror-scroll').nth(1).click();
+        await this.page.keyboard.type(learningOutcomes);
     
-        await this.page.locator('.CodeMirror-scroll').nth(2).click();
-        await this.page.keyboard.type(this.testdata.badgeData.criteria);
+        await pageForm.locator('.CodeMirror-scroll').nth(2).click();
+        await this.page.keyboard.type(criterium);
     
-        await this.page.getByPlaceholder('Please select...').first().click();
-        await this.page.getByText(this.testdata.badgeData.eqfLevel).click();
+        await pageForm.getByText('(Indicative) EQF/NLQF level')
+            .locator('..')
+            .locator('.indicator')
+            .click();
+        await pageForm.getByText(eqfLevel).click();
     
-        await this.page
-          .getByPlaceholder('e.g. 12111990')
-          .first()
-          .fill(this.testdata.badgeData.programIdentifiers);
+        await pageForm.getByText('Programme Identifiers')
+            .locator('..')
+            .getByRole('textbox')
+            .fill(programIdentifiers);
     
-        await this.page.getByPlaceholder('Please select...').first().click();
-        await this.page
-          .getByText(this.testdata.badgeData.formOfParticipation)
-          .click();
+        await pageForm.getByText('Form of participation')
+            .locator('..')
+            .locator('.indicator')
+            .click();
+        await pageForm.getByText(formOfParticipation).click();
     
-        await this.page.getByPlaceholder('Please select...').click();
-        await this.page.getByText(this.testdata.badgeData.assessment).click();
+        await pageForm.getByText('Type of assessment')
+            .locator('..')
+            .locator('.indicator')
+            .click();
+        await pageForm.getByText(assessment).click();
     
-        await this.page
-          .getByPlaceholder('e.g. history')
-          .fill(this.testdata.badgeData.frameworkName);
+        await pageForm.getByText('Name').nth(2)
+            .locator('..')
+            .getByRole('textbox')
+            .fill(frameworkName);
     
-        await this.page
-          .getByPlaceholder('e.g. ESCO')
-          .fill(this.testdata.badgeData.frameworkFramework);
+        await pageForm.getByText('Framework', { exact: true })
+        .locator('..')
+            .getByRole('textbox')
+            .fill(frameworkTitle);
     
-        await this.page
-          .getByPlaceholder('e.g. http://data.europa.eu/')
-          .fill(this.testdata.badgeData.frameworkUrl);
-        await this.page
-          .getByPlaceholder('e.g. 2b22f3b1-5de4-43f9-b6d1-')
-          .fill(this.testdata.badgeData.frameworkCode);
+        await pageForm.getByText('URL', { exact: true }).nth(1)
+            .locator('..')
+            .getByRole('textbox')
+            .fill(frameworkURL);
+        
+        await pageForm.getByText('Code', { exact: true })
+            .locator('..')
+            .getByRole('textbox')
+            .fill(frameworkCode);
     
-        await this.page.locator('.CodeMirror-scroll').nth(3).click();
-        await this.page.keyboard.type(this.testdata.badgeData.frameworkDescription);
+        await pageForm.locator('.CodeMirror-scroll').nth(3).click();
+        await this.page.keyboard.type(frameworkDesc);
     
         const fileChooserPromise = this.page.waitForEvent('filechooser');
-        await this.page.getByText('Upload image').click();
+        await pageForm.getByText('Upload image').click();
         const fileChooser = await fileChooserPromise;
         await fileChooser.setFiles(
           path.join(__dirname + '../../images/', 'edubadge.png'),
         );
       }
     
-      private async fillInBadgeHoursForm() {
+      private async fillInBadgeHoursForm(
+        badgeHours: string = this.testdata.badgeData.hours,
+    ) {
         await this.page
           .getByPlaceholder('e.g. 24')
-          .fill(this.testdata.badgeData.hours);
+          .fill(badgeHours);
       }
     
       async publishBadge() {
