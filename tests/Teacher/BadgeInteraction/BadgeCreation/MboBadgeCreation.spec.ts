@@ -3,12 +3,15 @@ import { expect, test } from '../../../../fixtures/staffFixtures/staffMboFixture
 test('Validate error messages empty microcredential form', async ({
   mboPage,
 }) => {
+  // var
+  const issuers = mboPage.managePage.issuersPage;
+
   // setup
   await mboPage.goToManage();
-  await mboPage.managePage.searchWithText('Medicine');
-  await mboPage.managePage.openIssuerGroup('Medicine');
-  await mboPage.managePage.clickNewBadgeClass();
-  await mboPage.managePage.clickMicroCredential();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickMicroCredential();
 
   // test
   await expect(mboPage.page).toHaveScreenshot(
@@ -29,12 +32,15 @@ test('Validate error messages empty microcredential form', async ({
 test('Validate error messages empty regular badge form', async ({
   mboPage,
 }) => {
+  // var
+  const issuers = mboPage.managePage.issuersPage;
+
   // setup
   await mboPage.goToManage();
-  await mboPage.managePage.searchWithText('Medicine');
-  await mboPage.managePage.openIssuerGroup('Medicine');
-  await mboPage.managePage.clickNewBadgeClass();
-  await mboPage.managePage.clickRegularBadge();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickRegularBadge();
 
   // test
   await expect(mboPage.page).toHaveScreenshot(
@@ -55,12 +61,15 @@ test('Validate error messages empty regular badge form', async ({
 test('Validate error messages empty extra curricular badge form', async ({
   mboPage,
 }) => {
+  // var
+  const issuers = mboPage.managePage.issuersPage;
+
   // setup
   await mboPage.goToManage();
-  await mboPage.managePage.searchWithText('Medicine');
-  await mboPage.managePage.openIssuerGroup('Medicine');
-  await mboPage.managePage.clickNewBadgeClass();
-  await mboPage.managePage.clickExtraCurricularEduBadge();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickExtraCurricularEduBadge();
 
   // test
   await expect(mboPage.page).toHaveScreenshot(
@@ -82,17 +91,20 @@ test('Validate regular MBO edu badge creation', async ({
   mboPage,
   testdata,
 }) => {
+  // var
+  const issuers = mboPage.managePage.issuersPage;
+
   // setup
   testdata.badgeData.title = "test regular MBO badge";
   await mboPage.goToManage();
-  await mboPage.managePage.searchWithText('Medicine');
-  await mboPage.managePage.openIssuerGroup('Medicine');
-  await mboPage.managePage.clickNewBadgeClass();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
 
   // test
-  await mboPage.managePage.clickRegularBadge();
-  await mboPage.managePage.fillInMBOExtraCurricularForm();
-  await mboPage.managePage.publishBadge();
+  await issuers.clickRegularBadge();
+  await issuers.fillInMBOExtraCurricularForm();
+  await issuers.publishBadge();
 
   // validate
   await  mboPage.page
@@ -117,17 +129,20 @@ test('Validate micro credential MBO edu badge creation', async ({
   mboPage,
   testdata
 }) => {
+  // var
+  const issuers = mboPage.managePage.issuersPage;
+
   // setup
   testdata.badgeData.title = "test micro MBO badge";
   await mboPage.goToManage();
-  await mboPage.managePage.searchWithText('Medicine');
-  await mboPage.managePage.openIssuerGroup('Medicine');
-  await mboPage.managePage.clickNewBadgeClass();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
 
   // test
-  await mboPage.managePage.clickMicroCredential();
-  await mboPage.managePage.fillInMBOExtraCurricularForm();
-  await mboPage.managePage.publishBadge();
+  await issuers.clickMicroCredential();
+  await issuers.fillInMBOExtraCurricularForm();
+  await issuers.publishBadge();
 
   // validate
   await  mboPage.page
@@ -152,17 +167,20 @@ test('Validate extra curricular MBO edu badge creation', async ({
   mboPage,
   testdata,
 }) => {
+  // var
+  const issuers = mboPage.managePage.issuersPage;
+
   // setup
   testdata.badgeData.title = "test extra curricular MBO badge";
   await mboPage.goToManage();
-  await mboPage.managePage.searchWithText('Medicine');
-  await mboPage.managePage.openIssuerGroup('Medicine');
-  await mboPage.managePage.clickNewBadgeClass();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
 
   // test
-  await mboPage.managePage.clickExtraCurricularEduBadge();
-  await mboPage.managePage.fillInMBOExtraCurricularForm();
-  await mboPage.managePage.publishBadge();
+  await issuers.clickExtraCurricularEduBadge();
+  await issuers.fillInMBOExtraCurricularForm();
+  await issuers.publishBadge();
 
   await  mboPage.page
     .getByRole('link', { name: 'Edit badge class' })
