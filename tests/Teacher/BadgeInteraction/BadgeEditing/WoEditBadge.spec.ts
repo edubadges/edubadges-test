@@ -6,7 +6,7 @@ test('Edit existing edubadge', async ({
   }) => {
     // var
     const issuerGroupName = "Medicine";
-    const initialBadgeName = "3FirstNameEditBadge";
+    const initialBadgeName = "FirstNameEditBadge";
     const editedBadgeName = "SecondNameEditBadge";
     const editedBadgeDesc = "newDescription";
     const editedBadgeOutcome = "The new outcome";
