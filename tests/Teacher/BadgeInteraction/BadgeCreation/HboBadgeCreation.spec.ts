@@ -3,14 +3,17 @@ import { expect, test } from '../../../../fixtures/staffFixtures/staffHboFixture
 test('Validate error messages empty microcredential form', async ({
   hboPage,
 }) => {
+  // var
+  const issuers = hboPage.managePage.issuersPage;
+
   // setup
   await hboPage.goToManage();
-  await hboPage.managePage.searchWithText('Medicine');
-  await hboPage.managePage.openIssuerGroup('Medicine');
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
 
   // test
-  await hboPage.managePage.clickNewBadgeClass();
-  await hboPage.managePage.clickMicroCredential();
+  await issuers.clickNewBadgeClass();
+  await issuers.clickMicroCredential();
   await expect(hboPage.page).toHaveScreenshot(
     'emptyMicrocredentialForm.png',
     {
@@ -31,14 +34,17 @@ test('Validate error messages empty microcredential form', async ({
 test('Validate error messages empty regular badge form', async ({
   hboPage,
 }) => {
+  // var
+  const issuers = hboPage.managePage.issuersPage;
+
   // setup
   await hboPage.goToManage();
-  await hboPage.managePage.searchWithText('Medicine');
-  await hboPage.managePage.openIssuerGroup('Medicine');
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
 
   // test
-  await hboPage.managePage.clickNewBadgeClass();
-  await hboPage.managePage.clickRegularBadge();
+  await issuers.clickNewBadgeClass();
+  await issuers.clickRegularBadge();
   await expect(hboPage.page).toHaveScreenshot(
     'emptyRegularEdubadgeForm.png',
     {
@@ -59,14 +65,17 @@ test('Validate error messages empty regular badge form', async ({
 test('Validate error messages empty extra curricular badge form', async ({
   hboPage,
 }) => {
+  // var
+  const issuers = hboPage.managePage.issuersPage;
+
   // setup
   await hboPage.goToManage();
-  await hboPage.managePage.searchWithText('Medicine');
-  await hboPage.managePage.openIssuerGroup('Medicine');
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
 
   // test
-  await hboPage.managePage.clickNewBadgeClass();
-  await hboPage.managePage.clickExtraCurricularEduBadge();
+  await issuers.clickNewBadgeClass();
+  await issuers.clickExtraCurricularEduBadge();
   await expect(hboPage.page).toHaveScreenshot(
     'emptyExtraCurricularEdubadgeForm.png',
     {
@@ -89,8 +98,11 @@ test('Validate regular HBO edu badge creation', async ({
   testdata,
 }) => {
   // var
+  const issuers = hboPage.managePage.issuersPage;
+
+  // var
   testdata.badgeData.title = 'Regular Test automation HBO';
-  const manage = hboPage.managePage;
+  const manage = issuers;
 
   // setup
   await hboPage.goToManage();
@@ -125,17 +137,20 @@ test('Validate micro credential HBO edu badge creation', async ({
   hboPage,
   testdata,
 }) => {
+  // var
+  const issuers = hboPage.managePage.issuersPage;
+
   // setup
   testdata.badgeData.title = 'Micro Test automation HBO';
   await hboPage.goToManage();
-  await hboPage.managePage.searchWithText('Medicine');
-  await hboPage.managePage.openIssuerGroup('Medicine');
-  await hboPage.managePage.clickNewBadgeClass();
-  await hboPage.managePage.clickMicroCredential();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickMicroCredential();
 
   // test
-  await hboPage.managePage.fillInExtraCurricularForm();
-  await hboPage.managePage.publishBadge();
+  await issuers.fillInExtraCurricularForm();
+  await issuers.publishBadge();
 
   await hboPage.page
     .getByRole('link', { name: 'Edit badge class' })
@@ -159,17 +174,20 @@ test('Validate extra curricular HBO edu badge creation', async ({
   hboPage,
   testdata,
 }) => {
+  // var
+  const issuers = hboPage.managePage.issuersPage;
+
   // setup
   testdata.badgeData.title = 'Extra Test automation HBO';
   await hboPage.goToManage();
-  await hboPage.managePage.searchWithText('Medicine');
-  await hboPage.managePage.openIssuerGroup('Medicine');
-  await hboPage.managePage.clickNewBadgeClass();
-  await hboPage.managePage.clickExtraCurricularEduBadge();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickExtraCurricularEduBadge();
 
   // test
-  await hboPage.managePage.fillInExtraCurricularForm();
-  await hboPage.managePage.publishBadge();
+  await issuers.fillInExtraCurricularForm();
+  await issuers.publishBadge();
 
   await hboPage.page
     .getByRole('link', { name: 'Edit badge class' })

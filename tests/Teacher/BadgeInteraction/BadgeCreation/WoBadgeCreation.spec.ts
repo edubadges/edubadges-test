@@ -1,15 +1,17 @@
 import { expect, test } from '../../../../fixtures/staffFixtures/staffWOFixture';
 
-// TODO: institution admin folder -> create badges
 test('Validate error messages empty microcredential form', async ({
   woPage,
 }) => {
+  // var
+  const issuers = woPage.managePage.issuersPage;
+
   // setup
   await woPage.goToManage();
-  await woPage.managePage.searchWithText('Medicine');
-  await woPage.managePage.openIssuerGroup('Medicine');
-  await woPage.managePage.clickNewBadgeClass();
-  await woPage.managePage.clickMicroCredential();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickMicroCredential();
 
   // test
   await expect(woPage.page).toHaveScreenshot(
@@ -30,12 +32,15 @@ test('Validate error messages empty microcredential form', async ({
 test('Validate error messages empty regular badge form', async ({
   woPage,
 }) => {
+  // var
+  const issuers = woPage.managePage.issuersPage;
+
   // setup
   await woPage.goToManage();
-  await woPage.managePage.searchWithText('Medicine');
-  await woPage.managePage.openIssuerGroup('Medicine');
-  await woPage.managePage.clickNewBadgeClass();
-  await woPage.managePage.clickRegularBadge();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickRegularBadge();
 
   // test
   await expect(woPage.page).toHaveScreenshot(
@@ -58,11 +63,14 @@ test('Validate error messages empty regular badge form', async ({
 test('Validate error messages empty extra curricular badge form', async ({
   woPage,
 }) => {
+  // var
+  const issuers = woPage.managePage.issuersPage;
+
   await woPage.goToManage();
-  await woPage.managePage.searchWithText('Medicine');
-  await woPage.managePage.openIssuerGroup('Medicine');
-  await woPage.managePage.clickNewBadgeClass();
-  await woPage.managePage.clickExtraCurricularEduBadge();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickExtraCurricularEduBadge();
 
   // test
   await expect(woPage.page).toHaveScreenshot(
@@ -86,17 +94,20 @@ test('Validate microcredention badge class creation', async ({
   woPage,
   testdata,
 }) => {
+  // var
+  const issuers = woPage.managePage.issuersPage;
+
   // setup
   testdata.badgeData.title = 'Microcredential Test automation';
   await woPage.goToManage();
-  await woPage.managePage.searchWithText('Medicine');
-  await woPage.managePage.openIssuerGroup('Medicine');
-  await woPage.managePage.clickNewBadgeClass();
-  await woPage.managePage.clickMicroCredential();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickMicroCredential();
 
   // test
-  await woPage.managePage.fillInMicrocredentialForm();
-  await woPage.managePage.publishBadge();
+  await issuers.fillInMicrocredentialForm();
+  await issuers.publishBadge();
 
   await woPage.page
     .getByRole('link', { name: 'Edit badge class' })
@@ -120,17 +131,20 @@ test('Validate regular edu badge creation', async ({
   woPage,
   testdata,
 }) => {
+  // var
+  const issuers = woPage.managePage.issuersPage;
+
   // setup
   testdata.badgeData.title = 'Regular edu badge';
   await woPage.goToManage();
-  await woPage.managePage.searchWithText('Medicine');
-  await woPage.managePage.openIssuerGroup('Medicine');
-  await woPage.managePage.clickNewBadgeClass();
-  await woPage.managePage.clickRegularBadge();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickRegularBadge();
 
   // test
-  await woPage.managePage.fillInRegularForm();
-  await woPage.managePage.publishBadge();
+  await issuers.fillInRegularForm();
+  await issuers.publishBadge();
 
   await woPage.page
     .getByRole('link', { name: 'Edit badge class' })
@@ -154,17 +168,20 @@ test('Validate extra curricular edu badge creation', async ({
   woPage,
   testdata,
 }) => {
+  // var
+  const issuers = woPage.managePage.issuersPage;
+
   // setup
   testdata.badgeData.title = 'Extra curricular badge';
   await woPage.goToManage();
-  await woPage.managePage.searchWithText('Medicine');
-  await woPage.managePage.openIssuerGroup('Medicine');
-  await woPage.managePage.clickNewBadgeClass();
-  await woPage.managePage.clickExtraCurricularEduBadge();
+  await issuers.searchWithText('Medicine');
+  await issuers.openIssuerGroup('Medicine');
+  await issuers.clickNewBadgeClass();
+  await issuers.clickExtraCurricularEduBadge();
 
   // test
-  await woPage.managePage.fillInExtraCurricularForm();
-  await woPage.managePage.publishBadge();
+  await issuers.fillInExtraCurricularForm();
+  await issuers.publishBadge();
 
   await woPage.page
     .getByRole('link', { name: 'Edit badge class' })
