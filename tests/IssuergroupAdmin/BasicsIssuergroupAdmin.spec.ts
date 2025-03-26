@@ -7,7 +7,7 @@ test('Login WO issuer group admin', async ({
   }) => {
     // login
     await homePage.openIssuerPortal();
-    await issuerPortalPage.login(
+    await issuerPortalPage.loginTestIdp(
       testdata.WOAccounts.issuerGroupAdmin.username,
       testdata.WOAccounts.issuerGroupAdmin.password
     )
@@ -27,7 +27,7 @@ test('Logout WO issuer group admin', async ({
 
     // setup
     await homePage.openIssuerPortal();
-    await issuerPortalPage.login(
+    await issuerPortalPage.loginTestIdp(
       testdata.WOAccounts.issuerGroupAdmin.username,
       testdata.WOAccounts.issuerGroupAdmin.password
     )

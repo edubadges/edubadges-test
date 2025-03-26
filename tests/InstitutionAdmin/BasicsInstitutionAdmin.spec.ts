@@ -7,7 +7,7 @@ test('Login WO institution admin', async ({
   }) => {
     // login
     await homePage.openIssuerPortal();
-    await issuerPortalPage.login(
+    await issuerPortalPage.loginTestIdp(
       testdata.WOAccounts.institutionAdminLogin.username,
       testdata.WOAccounts.institutionAdminLogin.password
     )
@@ -27,7 +27,7 @@ test('Logout WO institution admin', async ({
 
     // setup
     await homePage.openIssuerPortal();
-    await issuerPortalPage.login(
+    await issuerPortalPage.loginTestIdp(
       testdata.WOAccounts.institutionAdminLogin.username,
       testdata.WOAccounts.institutionAdminLogin.password
     )

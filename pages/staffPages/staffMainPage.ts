@@ -40,55 +40,55 @@ export class StaffMainPage extends BasePage {
   }
 
   async loginWithWoInstitutionAdmin() {
-    await this.login(
+    await this.loginTestIdp(
       this.testdata.accounts.institutionAdminUsername,
       this.testdata.accounts.institutionAdminPassword,
     );
   }
 
   async loginWithWoIssuerGroupAdmin() {
-    await this.login(
+    await this.loginTestIdp(
       this.testdata.accounts.issuerGroupAdminUsername,
       this.testdata.accounts.issuerGroupAdminPassword,
     );
   }
 
   async loginWithWoIssuerAdmin() {
-    await this.login(
+    await this.loginTestIdp(
       this.testdata.accounts.issuerAdminUsername,
       this.testdata.accounts.issuerAdminPassword,
     );
   }
 
   async loginWithWoBadgeClassAdmin() {
-    await this.login(
+    await this.loginTestIdp(
       this.testdata.accounts.badgeClassAdminUsername,
       this.testdata.accounts.badgeClassAdminPassword,
     );
   }
 
   async loginWithStudent() {
-    await this.login(
+    await this.loginTestIdp(
       this.testdata.accounts.studentName,
       this.testdata.accounts.studentPassword,
     );
   }
 
   async loginWithMBOInstitutionAdmin() {
-    await this.login(
+    await this.loginTestIdp(
       this.testdata.accounts.mboInstitutionAdminUsername,
       this.testdata.accounts.mboInstitutionAdminPassword,
     );
   }
 
   async loginWithHBOInstitutionAdmin() {
-    await this.login(
+    await this.loginTestIdp(
       this.testdata.accounts.hboInstitutionAdminUsername,
       this.testdata.accounts.hboInstitutionAdminPassword,
     );
   }
 
-  async login(username: string, password: string) {
+  async loginTestIdp(username: string, password: string) {
     await this.searchFieldLocator.fill('test idp');
     await this.page.waitForTimeout(1000);
     await expect(this.surfConextLocator).toBeVisible();

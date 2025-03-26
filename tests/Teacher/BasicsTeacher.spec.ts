@@ -8,7 +8,7 @@ test('Login', async ({
     // login
     const maskedLocators = [issuerPortalPage.page.locator('.content'), issuerPortalPage.page.locator('.link')];
     await homePage.openIssuerPortal();
-    await issuerPortalPage.login(
+    await issuerPortalPage.loginTestIdp(
       testdata.WOAccounts.badgeClassAdminLogin.username,
       testdata.WOAccounts.badgeClassAdminLogin.password
     )
@@ -28,7 +28,7 @@ test('Logout', async ({
 
     // setup
     await homePage.openIssuerPortal();
-    await issuerPortalPage.login(
+    await issuerPortalPage.loginTestIdp(
       testdata.WOAccounts.badgeClassAdminLogin.username,
       testdata.WOAccounts.badgeClassAdminLogin.password
     )
