@@ -28,21 +28,20 @@ test('Logout', async ({
 test('See subcategories', async ({
     backpackPage,
   }) => {
+    const maskedLocators = [ backpackPage.page.locator('.content'), ]
     await backpackPage.OpenBadgeRequests();
-    await expect(backpackPage.page).toHaveScreenshot("RequestsBackpack.png");
+    await expect(backpackPage.page).toHaveScreenshot("RequestsBackpack.png", { mask:maskedLocators });
     
     await backpackPage.OpenCollections();
-    await expect(backpackPage.page).toHaveScreenshot("CollectionsBackpack.png");
+    await expect(backpackPage.page).toHaveScreenshot("CollectionsBackpack.png", { mask:maskedLocators });
 
     await backpackPage.OpenImported();
-    await expect(backpackPage.page).toHaveScreenshot("ImportedBackpack.png");
+    await expect(backpackPage.page).toHaveScreenshot("ImportedBackpack.png", { mask:maskedLocators });
 
     await backpackPage.OpenArchive();
-    await expect(backpackPage.page).toHaveScreenshot("ArchiveBackpack.png");
+    await expect(backpackPage.page).toHaveScreenshot("ArchiveBackpack.png", { mask:maskedLocators });
 
     await backpackPage.OpenAccount();
-    await expect(backpackPage.page)
-        .toHaveScreenshot("AccountBackpack.png",
-            { mask: [backpackPage.page.locator('.content')] }
+    await expect(backpackPage.page).toHaveScreenshot("AccountBackpack.png",{ mask: maskedLocators }
         );
   });
