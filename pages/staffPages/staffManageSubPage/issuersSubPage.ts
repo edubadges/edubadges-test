@@ -204,13 +204,14 @@ export class IssuersSubPage extends BaseStaffSubPage {
           .fill(frameworkName);
   
       await pageForm.getByText('Framework', { exact: true })
-      .locator('..')
+          .locator('..')
           .getByRole('textbox')
           .fill(frameworkTitle);
   
-      await pageForm.getByText('URL', { exact: true }).nth(1)
+      await pageForm.getByText('URL')
           .locator('..')
           .getByRole('textbox')
+          .nth(1)
           .fill(frameworkURL);
       
       await pageForm.getByText('Code', { exact: true })
