@@ -4,7 +4,7 @@ test('Invite WO user', async ({
     woPage,
   }) => {
     // var
-    const newUserMail = "FirstTestMailAdress@testMailAdress.test";
+    const newUserMail = "TestNewFirstTestMailAdress@testMailAdress.test";
     const userManagement = woPage.managePage.userManagePage;
 
     // setup
