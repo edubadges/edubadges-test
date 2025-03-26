@@ -1,5 +1,4 @@
 import { BaseStaffSubPage } from './baseStaffSubPage';
-import path from 'path';
 import { IssuerGroupSubPage } from './staffManageSubPage/issuerGroupsSubPage';
 import { IssuersSubPage } from './staffManageSubPage/issuersSubPage';
 import { UserManagementSubPage } from './staffManageSubPage/userManagementSubPage';
