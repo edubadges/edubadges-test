@@ -7,7 +7,7 @@ test('Login', async ({
   }) => {
     const maskedLocators = [backpackPage.page.locator('.content')];
     await expect(backpackPage.page.locator('.expand-menu')).toBeVisible();
-    await expect(backpackPage.page).toHaveScreenshot("BackpackLoggedIn.png", { mask: maskedLocators })
+    await expect(backpackPage.page).toHaveScreenshot("BackpackLoggedIn.png", { fullPage: true, mask: maskedLocators })
   });
 
 test('Logout', async ({
@@ -29,19 +29,20 @@ test('See subcategories', async ({
     backpackPage,
   }) => {
     const maskedLocators = [ backpackPage.page.locator('.content'), ]
+    
     await backpackPage.OpenBadgeRequests();
-    await expect(backpackPage.page).toHaveScreenshot("RequestsBackpack.png", { mask:maskedLocators });
+    await expect(backpackPage.page).toHaveScreenshot("RequestsBackpack.png", { fullPage: true, mask:maskedLocators });
     
     await backpackPage.OpenCollections();
-    await expect(backpackPage.page).toHaveScreenshot("CollectionsBackpack.png", { mask:maskedLocators });
+    await expect(backpackPage.page).toHaveScreenshot("CollectionsBackpack.png", { fullPage: true, mask:maskedLocators });
 
     await backpackPage.OpenImported();
-    await expect(backpackPage.page).toHaveScreenshot("ImportedBackpack.png", { mask:maskedLocators });
+    await expect(backpackPage.page).toHaveScreenshot("ImportedBackpack.png", { fullPage: true, mask:maskedLocators });
 
     await backpackPage.OpenArchive();
-    await expect(backpackPage.page).toHaveScreenshot("ArchiveBackpack.png", { mask:maskedLocators });
+    await expect(backpackPage.page).toHaveScreenshot("ArchiveBackpack.png", { fullPage: true, mask:maskedLocators });
 
     await backpackPage.OpenAccount();
-    await expect(backpackPage.page).toHaveScreenshot("AccountBackpack.png",{ mask: maskedLocators }
+    await expect(backpackPage.page).toHaveScreenshot("AccountBackpack.png",{ fullPage: true, mask: maskedLocators }
         );
   });
