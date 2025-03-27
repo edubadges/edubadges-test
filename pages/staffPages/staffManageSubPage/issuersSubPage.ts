@@ -240,7 +240,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
   
     async publishBadge() {
       await this.page.getByRole('link', { name: 'Publish' }).click();
-      await this.page.waitForTimeout(6000);
+      await this.editBadgeButton.waitFor();
     }
     //#endregion
 }
