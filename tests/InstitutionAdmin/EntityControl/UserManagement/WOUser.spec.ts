@@ -4,7 +4,7 @@ test('Invite WO user', async ({
     woPage,
   }) => {
     // var
-    const newUserMail = "TestNewFirstTestMailAdress@testMailAdress.test";
+    const newUserMail = "TestNewFirstTestMailAdress@university.org";
     const userManagement = woPage.managePage.userManagePage;
 
     // setup
@@ -22,7 +22,7 @@ test('Invite WO user', async ({
     woPage,
   }) => {
     // var
-    const newUserMail = "SecondTestMailAre@testMailAdress.test";
+    const newUserMail = "SecondTestMailAre@university.org";
     const userManagement = woPage.managePage.userManagePage;
 
     // setup
@@ -36,4 +36,25 @@ test('Invite WO user', async ({
     // validate
     await expect(woPage.page.getByText('Successfully removed invite')).toBeVisible();
     await expect(woPage.page.getByText(newUserMail)).not.toBeVisible();
+  });
+
+  test('Accept WO invite', async ({
+    woPage,
+    newStaffLoginPage,
+  }) => {
+    // var
+    const newUsername = "AcceptInviteInstitutionAdmin";
+    const newUserMail = "ThirdTestMailAdress@university.org";
+    const userManagement = woPage.managePage.userManagePage;
+
+    // setup
+    await woPage.goToManage();
+    await woPage.managePage.goToUserManagement();
+
+    // test
+    await userManagement.addNewUser(newUserMail);
+
+    // validate
+    await newStaffLoginPage.loginDummyIdp(newUsername, newUserMail);
+    await expect(newStaffLoginPage.page.locator('.expand-menu')).toBeVisible()
   });

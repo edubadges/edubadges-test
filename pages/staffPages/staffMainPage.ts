@@ -113,6 +113,41 @@ export class StaffMainPage extends BasePage {
     await this.page.locator('.expand-menu').waitFor();
   }
 
+  async loginDummyIdp(username: string, email: string, orgName: string = "university-example.org"){
+    const dummyName = "SURFconext Dummy IdP";
+    const dummyLocator = this.page.getByText(dummyName + ' (previously SURFconext Mujina IdP)').first();
+
+    await this.searchFieldLocator.fill(dummyName);
+    await dummyLocator.waitFor();
+    await dummyLocator.click();
+
+    await this.page.getByText('Mujina Identity Provider').waitFor();
+    await this.page.getByPlaceholder('Username').fill(username);
+    await this.page.selectOption('select#authn-context-class-ref', 'https://eduid.nl/trust/linked-institution');
+
+    const attributeAddlocator = this.page.locator('select#add-attribute');
+    const mailTitle = "urn:mace:dir:attribute-def:mail";
+    const orgTitle = "urn:mace:terena.org:attribute-def:schacHomeOrganization";
+
+    await attributeAddlocator.selectOption(mailTitle);
+    await this.page.getByText(mailTitle).locator('..').getByRole('textbox').fill(email)
+
+    await attributeAddlocator.selectOption(orgTitle);
+    await this.page.getByText(orgTitle).locator('..').getByRole('textbox').fill(orgName)
+
+    await this.page.getByText('Log in').click();
+
+    const consentButtonLocator = this.page.getByRole('button', { name: 'Proceed to Edubadges' });
+    const loggedInMenuLocator = this.page.locator('.expand-menu');
+    
+    await consentButtonLocator.or(loggedInMenuLocator).waitFor();
+
+    if(await consentButtonLocator.isVisible()){
+      await consentButtonLocator.click();
+      await loggedInMenuLocator.waitFor();
+    }
+  }
+
   //#endregion
 
   //#region Go to categories

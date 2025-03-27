@@ -8,18 +8,10 @@ type EdubadgeFixture = {
   woPage: StaffMainPage;
   catalogPage: CatalogPage;
   testdata: Testdata;
+  newStaffLoginPage: StaffMainPage;
 };
 
 export const test = base.extend<EdubadgeFixture>({
-  testdata: async ({}, use, testInfo) => {
-    var testdata = new Testdata();
-    testdata.testCaseName = testInfo.title;
-
-    // Use the fixture value in the test.
-    await use(testdata);
-
-    // Clean up the fixture.
-  },
   /**
    * The page that logs in to the linked account.
    * This page should be used for assertions and expects.
@@ -39,21 +31,41 @@ export const test = base.extend<EdubadgeFixture>({
 
     // Clean up the fixture.
   },
+  testdata: async ({}, use, testInfo) => {
+    var testdata = new Testdata();
+    testdata.testCaseName = testInfo.title;
 
-    catalogPage: async ({ browser, testdata }, use) => {
-      // Set up the fixture.
-      var catalogContext = await browser.newContext();
-      var page = await catalogContext.newPage();
-  
-      const homePage = new HomePage(page, testdata);
-      await homePage.navigateToHomePage();
-      await homePage.OpenCatalog();
-      const catalogPage = new CatalogPage(page, testdata);
-  
-      // Use the fixture value in the test.
-      await use(catalogPage);
-  
-      // Clean up the fixture.
-    },
+    // Use the fixture value in the test.
+    await use(testdata);
+
+    // Clean up the fixture.
+  },
+  catalogPage: async ({ browser, testdata }, use) => {
+    // Set up the fixture.
+    var catalogContext = await browser.newContext();
+    var page = await catalogContext.newPage();
+
+    const homePage = new HomePage(page, testdata);
+    await homePage.navigateToHomePage();
+    await homePage.OpenCatalog();
+    const catalogPage = new CatalogPage(page, testdata);
+
+    // Use the fixture value in the test.
+    await use(catalogPage);
+
+    // Clean up the fixture.
+  },
+  newStaffLoginPage: async ({ browser, testdata }, use) => {
+    // Set up the fixture.
+    const newStaffContext = await browser.newContext();
+    const page = await  newStaffContext.newPage();
+    const homePage = new HomePage(page, testdata);
+    await homePage.navigateToHomePage();
+    await homePage.openIssuerPortal();
+
+    const newStaffPage = new StaffMainPage(page, testdata);
+    
+    await use(newStaffPage);
+  },
 });
 export { expect, BrowserContext } from '@playwright/test';
