@@ -33,7 +33,6 @@ export class StaffManagePage extends BaseStaffSubPage {
   ){
     this.selectRequest(courseName, studentName);
     this.page.getByRole('link', { name: 'Award' }).click();
-    this.page.waitForTimeout(500);
     this.page.locator('.options')
       .getByRole('link', { name: 'Award' })
       .click();

@@ -1,49 +1,41 @@
-import { expect, Page } from '@playwright/test';
-import { Testdata } from '../util/testdata';
+import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
 
 export class BackpackPage extends BasePage {
-  
-  // if multiple accounts this should have parameters
-  public async Login() {
-    await expect(
-      this.page
-        .getByPlaceholder('Search...')
-        .or(this.page.getByPlaceholder('e.g. user@gmail.com')),
-    ).toBeVisible();
+  public async Login(email: string = this.testdata.accounts.studentEmail,
+    password: string = this.testdata.accounts.studentPassword,
+  ) {
+    const searchFieldLocator = this.page.getByPlaceholder('Search...');
+    const usernameFieldLocator = this.page.getByPlaceholder('e.g. user@gmail.com');
+    const passwordFielLocator = this.page.getByPlaceholder('Password');
+    const eduIdButtonLocator = this.page.getByRole('heading', { name: 'Login with eduID (NL) test' });
+    const nextButton = this.page.locator('[href*="/next"]');
+    const termsAndConditions = this.page.getByRole('link', { name: 'I agree' });
+    const loggedInMenu = this.page.locator('.expand-menu');
 
-    if ((await this.page.getByPlaceholder('Search...').isVisible())) {
-      await this.page.getByPlaceholder('Search...').fill('test idp');
-      await expect(
-        this.page.getByRole('heading', { name: 'Login with eduID (NL) test' }),
-      ).toBeVisible();
-      await this.page
-        .getByRole('heading', { name: 'Login with eduID (NL) test' })
-        .click();
-      await this.page.waitForTimeout(2000);
+    await searchFieldLocator.or(usernameFieldLocator).waitFor();
+
+    if ((await searchFieldLocator.isVisible())) {
+      await searchFieldLocator.fill('test idp');
+      await eduIdButtonLocator.waitFor();
+      await eduIdButtonLocator.click();
+      await usernameFieldLocator.waitFor();
     }
 
-    await this.page
-      .getByPlaceholder('e.g. user@gmail.com')
-      .fill(this.testdata.accounts.studentEmail);
-    await this.page.waitForTimeout(2000);
-    await this.page.getByRole('link', { name: 'Next' }).click();
+    await usernameFieldLocator.fill(email);
+    await nextButton.click();
 
-    await this.page
-      .getByPlaceholder('Password')
-      .fill(this.testdata.accounts.studentPassword);
-    await this.page.getByRole('link', { name: 'Login', exact: true }).click();
-    await this.page.waitForTimeout(2000);
-    const termsAndConditionsPageShown = await this.page
-      .getByRole('link', { name: 'I agree' })
-      .isVisible();
-    if (termsAndConditionsPageShown) {
+    await passwordFielLocator.waitFor();
+    await passwordFielLocator.fill(password);
+    await nextButton.click();
+    
+    await termsAndConditions.or(loggedInMenu).waitFor();
+    if (await termsAndConditions.isVisible()) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
-    await this.page.waitForTimeout(2000);
 
-    await expect(this.page.locator('.expand-menu')).toBeVisible();
+    await loggedInMenu.waitFor();
   }
 
   //#region open categories
@@ -96,7 +88,8 @@ export class BackpackPage extends BasePage {
       .getByRole('link', { name: 'Claim & Add to your backpack' })
       .click();
 
-    await this.page.waitForTimeout(2000);
+    await this.waitForLoadingToStop();
+    
     if ((await this.page.getByRole('link', { name: 'I agree' }).isVisible())) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }

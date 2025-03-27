@@ -18,7 +18,7 @@ test('See existing badge logged in', async ({
         .getByRole('link', { name: 'Login to request this edubadge' })
         .click();
     await catalogPage.Login();
-    await catalogPage.page.waitForTimeout(1000);
+    await catalogPage.waitForLoadingToStop();
     await expect(catalogPage.page).toHaveScreenshot('NotYetRequestedBadge.png');
 });
 
@@ -36,7 +36,7 @@ test('Request badge', async ({
 
     // test
     await catalogPage.RequestEdubadge();
-    await catalogPage.page.waitForTimeout(1000);
+    await catalogPage.waitForLoadingToStop();
     await expect(catalogPage.page.getByText(`successfully requested edubadge ${course}`)).toBeVisible();
     await expect(catalogPage.page).toHaveScreenshot('eduBadgeRequested.png');
 });
@@ -58,13 +58,13 @@ test('Log out from catalog', async ({
         .getByRole('link', { name: 'Login to request this edubadge' })
         .click();
     await catalogPage.Login();
-    await catalogPage.page.waitForTimeout(1000);
+    await catalogPage.waitForLoadingToStop();
     await expect(catalogPage.page).toHaveScreenshot('NotYetRequestedBadge.png');
     await catalogPage.page.goto('/catalog');
 
     // test
     await catalogPage.page.locator('.expand-menu').click();
     await catalogPage.page.getByText('Logout').click();
-    await catalogPage.page.waitForTimeout(1000);
+    await catalogPage.waitForLoadingToStop();
     await expect(catalogPage.page.locator('.expand-menu')).not.toBeVisible();
 });

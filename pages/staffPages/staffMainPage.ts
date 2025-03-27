@@ -7,14 +7,15 @@ import { StaffUsersPage } from './staffUsersPage';
 
 export class StaffMainPage extends BasePage {
   private searchFieldLocator: Locator = this.page.getByPlaceholder('Search...');
-  private surfConextLocator: Locator = this.page.getByRole('heading', {
-    name: 'Login with SURFconext Test IdP',
-  });
   private usernameLocator: Locator = this.page.getByLabel('Username');
   private passwordLocator: Locator = this.page.getByLabel('Password');
   private loginButtonLocator: Locator = this.page.getByRole('button', {
     name: 'Login',
   });
+  private idpButtonLocator(idpName: string): Locator{
+    let idpButtons = this.page.locator('.idp__content').locator('..');
+    return idpButtons.getByText(idpName).locator('../../..')
+  } 
 
   switchToDutch() {
     this.page.getByRole('link', { name: 'NL' }).click();
@@ -89,19 +90,17 @@ export class StaffMainPage extends BasePage {
   }
 
   async loginTestIdp(username: string, password: string) {
-    await this.searchFieldLocator.fill('test idp');
-    await this.page.waitForTimeout(1000);
-    await expect(this.surfConextLocator).toBeVisible();
-    await this.page.waitForTimeout(1000);
-    await this.surfConextLocator.click();
-    await this.page.waitForTimeout(1000);
+    const testIdpName = "test idp";
+    await this.searchFieldLocator.fill(testIdpName);
+    await this.idpButtonLocator(testIdpName).locator('img').waitFor();
+    await this.page.waitForTimeout(100);
+    await this.idpButtonLocator(testIdpName).click();
 
+    await this.usernameLocator.waitFor();
     await this.usernameLocator.fill(username);
     await this.passwordLocator.fill(password);
-    await this.page.waitForTimeout(1000);
     await this.loginButtonLocator.click();
 
-    await this.page.waitForTimeout(500);
     const proceedToEdubadgesFound = await this.page
       .getByRole('button', { name: 'Proceed to Edubadges [' })
       .isVisible();
@@ -110,7 +109,8 @@ export class StaffMainPage extends BasePage {
         .getByRole('button', { name: 'Proceed to Edubadges [' })
         .click();
     }
-    await this.page.waitForTimeout(500);
+
+    await this.page.locator('.expand-menu').waitFor();
   }
 
   //#endregion
