@@ -20,71 +20,59 @@ export class CatalogPage extends BasePage {
   }
 
   async RequestEdubadge() {
-    const isLoginButtonVisible = await this.page
-      .getByRole('link', { name: 'Login to request this edubadge' })
-      .isVisible();
-    if (isLoginButtonVisible) {
-      await this.page
-        .getByRole('link', { name: 'Login to request this edubadge' })
-        .click();
+
+
+    const LoginButton = this.page.getByRole('link', { name: 'Login to request this edubadge' });
+    if (await LoginButton.isVisible()) {
+      await LoginButton.click();
       await this.Login();
     }
+
     await this.page.getByRole('link', { name: 'Request', exact: true }).click();
-    await this.page.waitForTimeout(2000);
 
-    const termsAndConditionsPageShown = await this.page
-      .getByRole('link', { name: 'I agree' })
-      .isVisible();
-    if (termsAndConditionsPageShown) {
-      await this.page.getByRole('link', { name: 'I agree' }).click();
+    const termsAndConditionsPage = this.page.getByRole('link', { name: 'I agree' });
+    if (await termsAndConditionsPage.isVisible()) {
+      await termsAndConditionsPage.click();
     }
 
-    const confirm = await this.page
-      .getByRole('link', { name: 'Confirm' })
-      .isVisible();
-    if (confirm) {
-      await this.page.getByRole('link', { name: 'Confirm' }).click();
+    const confirm = this.page.getByRole('link', { name: 'Confirm' });
+    if (await confirm.isVisible()) {
+      await confirm.click();
     }
+
+    await this.page.getByText('Successfully requested').waitFor();
   }
 
-  async Login(
-    username: string = this.testdata.accounts.studentEmail,
+  public async Login(email: string = this.testdata.accounts.studentEmail,
     password: string = this.testdata.accounts.studentPassword,
   ) {
-    await expect(
-      this.page
-        .getByPlaceholder('Search...')
-        .or(this.page.getByPlaceholder('e.g. user@gmail.com')),
-    ).toBeVisible();
+    const searchFieldLocator = this.page.getByPlaceholder('Search...');
+    const usernameFieldLocator = this.page.getByPlaceholder('e.g. user@gmail.com');
+    const eduIdButtonLocator = this.page.getByRole('heading', { name: 'Login with eduID (NL) test' });
+    const nextButton = this.page.locator('[href*="/next"]');
+    const termsAndConditions = this.page.getByRole('link', { name: 'I agree' });
+    const loggedInMenu = this.page.locator('.expand-menu');
 
-    if ((await this.page.getByPlaceholder('Search...').isVisible())) {
-      await this.page.getByPlaceholder('Search...').fill('test idp');
-      await expect(
-        this.page.getByRole('heading', { name: 'Login with eduID (NL) test' }),
-      ).toBeVisible();
-      await this.page
-        .getByRole('heading', { name: 'Login with eduID (NL) test' })
-        .click();
-      await this.page.waitForTimeout(2000);
+    await searchFieldLocator.or(usernameFieldLocator).waitFor();
+
+    if ((await searchFieldLocator.isVisible())) {
+      await searchFieldLocator.fill('test idp');
+      await eduIdButtonLocator.waitFor();
+      await eduIdButtonLocator.click();
+      await usernameFieldLocator.waitFor();
     }
 
-    await this.page
-      .getByPlaceholder('e.g. user@gmail.com')
-      .fill(username);
-    await this.page.waitForTimeout(2000);
-    await this.page.getByRole('link', { name: 'Next' }).click();
+    await usernameFieldLocator.fill(email);
+    await nextButton.click();
 
-    await this.page
-      .getByPlaceholder('Password')
-      .fill(password);
-    await this.page.getByRole('link', { name: 'Login', exact: true }).click();
-    await this.page.waitForTimeout(2000);
-    const termsAndConditionsPageShown = await this.page
-      .getByRole('link', { name: 'I agree' })
-      .isVisible();
-    if (termsAndConditionsPageShown) {
+    await this.page.getByPlaceholder('Password').fill(password);
+    await nextButton.click();
+    
+    await termsAndConditions.or(loggedInMenu).waitFor();
+    if (await termsAndConditions.isVisible()) {
       await this.page.getByRole('link', { name: 'I agree' }).click();
     }
-    await this.page.waitForTimeout(2000);
+
+    await loggedInMenu.waitFor();
   }
 }
