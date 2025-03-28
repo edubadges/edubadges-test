@@ -53,8 +53,33 @@ test('Invite WO user', async ({
 
     // test
     await userManagement.addNewUser(newUserMail);
+    await newStaffLoginPage.loginDummyIdp(newUsername, newUserMail);
 
     // validate
-    await newStaffLoginPage.loginDummyIdp(newUsername, newUserMail);
     await expect(newStaffLoginPage.page.locator('.expand-menu')).toBeVisible()
+  });
+
+  test('Delete WO permission', async ({
+    woPage,
+    newStaffLoginPage,
+  }) => {
+    // var
+    const newUsername = "AcceptInviteInstitutionAdmin";
+    const newUserMail = "ThirdTestMailAdress@university.org";
+    const userManagement = woPage.managePage.userManagePage;
+
+    // setup
+    await woPage.goToManage();
+    await woPage.managePage.goToUserManagement();
+    await userManagement.addNewUser(newUserMail);
+    await newStaffLoginPage.loginDummyIdp(newUsername, newUserMail);
+
+    // test
+    await woPage.reloadPage();
+    await userManagement.removeExistingPermissions(newUserMail);
+
+    // validate
+    await expect(woPage.page.getByText('Successfully removed rights')).toBeVisible();
+    await expect(woPage.page.getByText(newUsername)).not.toBeVisible();
+
   });
