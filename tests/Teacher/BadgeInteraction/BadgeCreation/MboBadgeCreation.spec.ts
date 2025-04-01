@@ -93,6 +93,7 @@ test('Validate regular MBO edu badge creation', async ({
 }) => {
   // var
   const issuers = mboPage.managePage.issuersPage;
+  const creationInformation = mboPage.page.locator('div.list');
 
   // setup
   testdata.badgeData.title = "test regular MBO badge";
@@ -111,16 +112,10 @@ test('Validate regular MBO edu badge creation', async ({
     .getByRole('link', { name: 'Edit badge class' })
     .waitFor();
 
-  var maskedLocators = [
-    mboPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
   await expect(mboPage.page).toHaveScreenshot(
     'regularMBOBadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });
@@ -131,6 +126,7 @@ test('Validate micro credential MBO edu badge creation', async ({
 }) => {
   // var
   const issuers = mboPage.managePage.issuersPage;
+  const creationInformation = mboPage.page.locator('div.list');
 
   // setup
   testdata.badgeData.title = "test micro MBO badge";
@@ -149,16 +145,10 @@ test('Validate micro credential MBO edu badge creation', async ({
     .getByRole('link', { name: 'Edit badge class' })
     .waitFor();
 
-  var maskedLocators = [
-    mboPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
   await expect(mboPage.page).toHaveScreenshot(
     'microMBOBadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });
@@ -169,6 +159,7 @@ test('Validate extra curricular MBO edu badge creation', async ({
 }) => {
   // var
   const issuers = mboPage.managePage.issuersPage;
+  const creationInformation = mboPage.page.locator('div.list');
 
   // setup
   testdata.badgeData.title = "test extra curricular MBO badge";
@@ -186,16 +177,10 @@ test('Validate extra curricular MBO edu badge creation', async ({
     .getByRole('link', { name: 'Edit badge class' })
     .waitFor();
     
-  var maskedLocators = [
-    mboPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
   await expect(mboPage.page).toHaveScreenshot(
     'extraCurricularBMBOadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });

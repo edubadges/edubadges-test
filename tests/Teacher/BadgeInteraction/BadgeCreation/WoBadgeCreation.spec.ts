@@ -96,6 +96,7 @@ test('Validate microcredention badge class creation', async ({
 }) => {
   // var
   const issuers = woPage.managePage.issuersPage;
+  const creationInformation = woPage.page.locator('div.list');
 
   // setup
   testdata.badgeData.title = 'Microcredential Test automation';
@@ -113,16 +114,10 @@ test('Validate microcredention badge class creation', async ({
     .getByRole('link', { name: 'Edit badge class' })
     .waitFor();
     
-  var maskedLocators = [
-    woPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
   await expect(woPage.page).toHaveScreenshot(
     'microBadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });
@@ -133,6 +128,7 @@ test('Validate regular edu badge creation', async ({
 }) => {
   // var
   const issuers = woPage.managePage.issuersPage;
+  const creationInformation = woPage.page.locator('div.list');
 
   // setup
   testdata.badgeData.title = 'Regular edu badge';
@@ -150,16 +146,10 @@ test('Validate regular edu badge creation', async ({
     .getByRole('link', { name: 'Edit badge class' })
     .waitFor();
     
-  var maskedLocators = [
-    woPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
   await expect(woPage.page).toHaveScreenshot(
     'regularBadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });
@@ -170,6 +160,7 @@ test('Validate extra curricular edu badge creation', async ({
 }) => {
   // var
   const issuers = woPage.managePage.issuersPage;
+  const creationInformation = woPage.page.locator('div.list');
 
   // setup
   testdata.badgeData.title = 'Extra curricular badge';
@@ -186,17 +177,11 @@ test('Validate extra curricular edu badge creation', async ({
   await woPage.page
     .getByRole('link', { name: 'Edit badge class' })
     .waitFor();
-    
-  var maskedLocators = [
-    woPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
+
   await expect(woPage.page).toHaveScreenshot(
     'extraCurricularBadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });

@@ -29,10 +29,7 @@ test('Edit existing edubadge', async ({
     );
     
     // validation
-  let maskedLocators = [
-    woPage.page
-      .getByText('Created ')
-      .locator('..'),
-  ];
-    await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', { fullPage: true, mask: maskedLocators });
+    const creationInformation = woPage.page.locator('div.list');
+    await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', 
+      { fullPage: true, mask: [creationInformation] });
   });

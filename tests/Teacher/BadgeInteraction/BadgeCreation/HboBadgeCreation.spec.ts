@@ -99,6 +99,7 @@ test('Validate regular HBO edu badge creation', async ({
 }) => {
   // var
   const issuers = hboPage.managePage.issuersPage;
+  const creationInformation = hboPage.page.locator('div.list');
 
   // var
   testdata.badgeData.title = 'Regular Test automation HBO';
@@ -128,7 +129,7 @@ test('Validate regular HBO edu badge creation', async ({
   await expect(hboPage.page).toHaveScreenshot(
     'regularHBOBadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });
@@ -139,6 +140,7 @@ test('Validate micro credential HBO edu badge creation', async ({
 }) => {
   // var
   const issuers = hboPage.managePage.issuersPage;
+  const creationInformation = hboPage.page.locator('div.list');
 
   // setup
   testdata.badgeData.title = 'Micro Test automation HBO';
@@ -156,16 +158,10 @@ test('Validate micro credential HBO edu badge creation', async ({
     .getByRole('link', { name: 'Edit badge class' })
     .waitFor();
     
-  var maskedLocators = [
-    hboPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
   await expect(hboPage.page).toHaveScreenshot(
     'microHBOBadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });
@@ -176,6 +172,7 @@ test('Validate extra curricular HBO edu badge creation', async ({
 }) => {
   // var
   const issuers = hboPage.managePage.issuersPage;
+  const creationInformation = hboPage.page.locator('div.list');
 
   // setup
   testdata.badgeData.title = 'Extra Test automation HBO';
@@ -193,16 +190,10 @@ test('Validate extra curricular HBO edu badge creation', async ({
     .getByRole('link', { name: 'Edit badge class' })
     .waitFor();
     
-  var maskedLocators = [
-    hboPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
   await expect(hboPage.page).toHaveScreenshot(
     'extraCurricularHBOBadgeCreated.png',
     {
-      mask: maskedLocators,
+      mask: [creationInformation],
     },
   );
 });
