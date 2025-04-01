@@ -66,18 +66,24 @@ export class IssuersSubPage extends BaseStaffSubPage {
   }
 
   private async emptyAllForms(){
-      const mirrorForms = await this.page.locator('.CodeMirror-scroll').all();
-      const removableItems = await this.page.locator('.multiSelectItem_clear').all();
+    const mirrorForms = await this.page.locator('.CodeMirror-scroll').all();
+    for (let i = 0; i < mirrorForms.length; i++) {
+        let form = mirrorForms[i];
+        await form.click();
+        await this.emptyMirrorForm();
+    }
 
-      for (let i = 0; i < mirrorForms.length; i++) {
-          let form = mirrorForms[i];
-          await form.click();
-          await this.emptyMirrorForm();
-      }
-      for (let i = 1; i <= removableItems.length; i++){
-          let item = removableItems[removableItems.length - i];
-          await item.click();
-      }
+    const removableItems = await this.page.locator('.multiSelectItem_clear').all();
+    for (let i = 1; i <= removableItems.length; i++){
+        let item = removableItems[removableItems.length - i];
+        await item.click();
+    }
+
+    const removeInputButtons = await this.page.locator('div.clearSelect').all();
+    for (let i = 1; i <= removeInputButtons.length; i++){
+      let button = removeInputButtons[removeInputButtons.length - i];
+      await button.click();
+    }
   }
 
   private async emptyMirrorForm(){
