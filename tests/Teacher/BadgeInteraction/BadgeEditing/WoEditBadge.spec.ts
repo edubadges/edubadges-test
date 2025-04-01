@@ -30,7 +30,7 @@ test('Edit existing Regular WO edubadge', async ({
     );
     
     // validation
-    await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', 
+    await expect(woPage.page).toHaveScreenshot('EditedWORegularBadgeclass.png', 
       { fullPage: true, mask: [creationInformation] });
 });
 
@@ -41,7 +41,7 @@ test('Edit existing WO micro credential', async ({
   const issuerGroupName = "Medicine";
   const initialBadgeName = "Original name micro credential badge";
   const editedBadgeName = "SecondName micro credential EditBadge";
-  const editedBadgeDesc = "new regular description";
+  const editedBadgeDesc = "new micro credential description";
   const editedBadgeOutcome = "The new outcome";
   const editedBadgeCriterium = "The new criterium";
   const editedBadgeEQF = "EQF 7";
@@ -53,7 +53,7 @@ test('Edit existing WO micro credential', async ({
 
   // setup
   await woPage.goToManage();
-  await issuers.createRegularBadge(issuerGroupName, initialBadgeName);
+  await issuers.createMicroBadge(issuerGroupName, initialBadgeName);
 
   // test
   await issuers.editExistingBadge(editedBadgeName, editedBadgeDesc,
@@ -63,7 +63,7 @@ test('Edit existing WO micro credential', async ({
   );
   
   // validation
-  await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', 
+  await expect(woPage.page).toHaveScreenshot('EditedWOMicrocredentialBadgeclass.png', 
     { fullPage: true, mask: [creationInformation] });
 });
 
@@ -86,7 +86,7 @@ test('Edit existing extra curricular WO edubadge', async ({
   
     // setup
     await woPage.goToManage();
-    await issuers.createRegularBadge(issuerGroupName, initialBadgeName);
+    await issuers.createExtracurricularBadge(issuerGroupName, initialBadgeName);
   
     // test
     await issuers.editExistingBadge(editedBadgeName, editedBadgeDesc,
@@ -96,6 +96,6 @@ test('Edit existing extra curricular WO edubadge', async ({
     );
     
     // validation
-    await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', 
+    await expect(woPage.page).toHaveScreenshot('EditedWOExtraCurricularBadgeclass.png', 
       { fullPage: true, mask: [creationInformation] });
   });
