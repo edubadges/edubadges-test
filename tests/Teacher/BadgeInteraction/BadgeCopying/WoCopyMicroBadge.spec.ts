@@ -1,27 +1,27 @@
 import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
 
 
-test('Copy existing regular edubadge', async ({
+test('Copy existing micro edubadge', async ({
     woInstitutionAdminPage: woPage,
   }) => {
     // var
     const issuerGroupName = "Medicine";
-    const initialBadgeName = "A new Medicine regular badge";
+    const initialBadgeName = "A new Medicine micro credential";
     const badgeDesc = "The original description";
     const badgeOutcome = "The original outcome";
     const badgeCriterium = "The original criterium";
     const badgeEQF = "EQF 7";
-    const badgeIdentifier = "1931";
+    const badgeIdentifier = "1930";
     const badgeFormOfPart = "Blended";
     const badgeAssesment = "Behavioural assessment";
 
-    const copiedBadgeName = "A copied Medicine regular badge";
+    const copiedBadgeName = "A copied Medicine micro credential";
     const issuers = woPage.managePage.issuersPage;
     const badgeInfo = woPage.page.locator('.info').or(woPage.page.locator('.group_items'));
   
     // setup
     await woPage.goToManage();
-    await issuers.createRegularBadge(
+    await issuers.createMicroBadge(
         issuerGroupName, initialBadgeName, badgeDesc,
         badgeOutcome, badgeCriterium, badgeEQF,
         badgeIdentifier, badgeFormOfPart, badgeAssesment

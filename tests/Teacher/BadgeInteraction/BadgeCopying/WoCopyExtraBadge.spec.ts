@@ -1,30 +1,33 @@
 import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
 
 
-test('Copy existing regular edubadge', async ({
+test('Copy existing extracurricular edubadge', async ({
     woInstitutionAdminPage: woPage,
   }) => {
     // var
     const issuerGroupName = "Medicine";
-    const initialBadgeName = "A new Medicine regular badge";
+    const initialBadgeName = "A new Medicine extra curricular badge";
     const badgeDesc = "The original description";
     const badgeOutcome = "The original outcome";
     const badgeCriterium = "The original criterium";
     const badgeEQF = "EQF 7";
-    const badgeIdentifier = "1931";
+    const badgeIdentifier = "1929";
     const badgeFormOfPart = "Blended";
     const badgeAssesment = "Behavioural assessment";
+    const badgeHours = "210";
 
-    const copiedBadgeName = "A copied Medicine regular badge";
+    const copiedBadgeName = "A copied Medicine extra curricular badge";
     const issuers = woPage.managePage.issuersPage;
     const badgeInfo = woPage.page.locator('.info').or(woPage.page.locator('.group_items'));
   
     // setup
     await woPage.goToManage();
-    await issuers.createRegularBadge(
+    await issuers.createExtracurricularBadge(
         issuerGroupName, initialBadgeName, badgeDesc,
         badgeOutcome, badgeCriterium, badgeEQF,
-        badgeIdentifier, badgeFormOfPart, badgeAssesment
+        badgeIdentifier, badgeFormOfPart, badgeAssesment,
+        undefined,undefined,undefined,undefined,undefined,  // skip framework arguments
+        badgeHours
     );
 
     // test
@@ -41,4 +44,5 @@ test('Copy existing regular edubadge', async ({
     await expect(badgeInfo.getByText(badgeIdentifier)).toBeVisible();
     await expect(badgeInfo.getByText(badgeFormOfPart)).toBeVisible();
     await expect(badgeInfo.getByText(badgeAssesment)).toBeVisible();
+    await expect(badgeInfo.getByText(badgeHours)).toBeVisible();
 });
