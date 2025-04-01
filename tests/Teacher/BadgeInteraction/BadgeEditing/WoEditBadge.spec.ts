@@ -16,6 +16,7 @@ test('Edit existing Regular WO edubadge', async ({
     const editedBadgeFormOfPart = "On-site";
     const editedBadgeAssesment = "Development report / reflection report";
     const issuers = woPage.managePage.issuersPage;
+    const creationInformation = woPage.page.locator('div.list');
   
     // setup
     await woPage.goToManage();
@@ -29,7 +30,6 @@ test('Edit existing Regular WO edubadge', async ({
     );
     
     // validation
-    const creationInformation = woPage.page.locator('div.list');
     await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', 
       { fullPage: true, mask: [creationInformation] });
 });
@@ -49,6 +49,7 @@ test('Edit existing WO micro credential', async ({
   const editedBadgeFormOfPart = "Online";
   const editedBadgeAssesment = "Personalized type of assessment";
   const issuers = woPage.managePage.issuersPage;
+  const creationInformation = woPage.page.locator('div.list');
 
   // setup
   await woPage.goToManage();
@@ -62,7 +63,6 @@ test('Edit existing WO micro credential', async ({
   );
   
   // validation
-  const creationInformation = woPage.page.locator('div.list');
   await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', 
     { fullPage: true, mask: [creationInformation] });
 });
@@ -82,6 +82,7 @@ test('Edit existing extra curricular WO edubadge', async ({
     const editedBadgeFormOfPart = "Work experience";
     const editedBadgeAssesment = "Portfolio / portfolio assessment";
     const issuers = woPage.managePage.issuersPage;
+    const creationInformation = woPage.page.locator('div.list');
   
     // setup
     await woPage.goToManage();
@@ -95,10 +96,6 @@ test('Edit existing extra curricular WO edubadge', async ({
     );
     
     // validation
-  let maskedLocators = [
-    woPage.page
-      .getByText('Created ')
-      .locator('..'),
-  ];
-    await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', { fullPage: true, mask: maskedLocators });
+    await expect(woPage.page).toHaveScreenshot('EditedWOBadgeclass.png', 
+      { fullPage: true, mask: [creationInformation] });
   });
