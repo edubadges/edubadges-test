@@ -18,13 +18,13 @@ export class IssuersSubPage extends BaseStaffSubPage {
       badgeTitle: string = this.testdata.badgeData.title,
       badgeDesc: string = this.testdata.badgeData.description,
       learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
-      criterium : string = this.testdata.badgeData.criteria,
+      criterium: string = this.testdata.badgeData.criteria,
       eqfLevel: string = this.testdata.badgeData.eqfLevel,
       programIdentifiers: string = this.testdata.badgeData.programIdentifiers,
       formOfParticipation: string = this.testdata.badgeData.formOfParticipation,
       assesment: string = this.testdata.badgeData.assessment,
-      frameworkName : string = this.testdata.badgeData.frameworkName,
-      frameworkTitle : string = this.testdata.badgeData.frameworkName,
+      frameworkName: string = this.testdata.badgeData.frameworkName,
+      frameworkTitle: string = this.testdata.badgeData.frameworkName,
       frameworkURL: string = this.testdata.badgeData.frameworkUrl,
       frameworkCode: string = this.testdata.badgeData.frameworkCode,
       frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
@@ -57,13 +57,12 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await copyBadgeButton.click();
 
     const pageForm = this.page.getByText('Basic information').locator('..');
-    const titleFormLocator = await pageForm.getByText('Name').first()
+    const titleFormLocator = pageForm.getByText('Name').first()
       .locator('../../..')
       .getByRole('textbox');
     await titleFormLocator.fill(badgeTitle);
 
     await this.publishBadge();
-    
   }
 
   private async emptyAllForms(){
@@ -92,17 +91,44 @@ export class IssuersSubPage extends BaseStaffSubPage {
     }
 
   async createRegularBadge(
+    issuerGroupName: string,
+    badgeTitle: string,
+    badgeDesc: string = this.testdata.badgeData.description,
+    learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
+    criterium: string = this.testdata.badgeData.criteria,
+    eqfLevel: string = this.testdata.badgeData.eqfLevel,
+    programIdentifiers: string = this.testdata.badgeData.programIdentifiers,
+    formOfParticipation: string = this.testdata.badgeData.formOfParticipation,
+    assesment: string = this.testdata.badgeData.assessment,
+    frameworkName: string = this.testdata.badgeData.frameworkName,
+    frameworkTitle: string = this.testdata.badgeData.frameworkName,
+    frameworkURL: string = this.testdata.badgeData.frameworkUrl,
+    frameworkCode: string = this.testdata.badgeData.frameworkCode,
+    frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
+  ) {
+    await this.searchWithText(issuerGroupName);
+    await this.openIssuerGroup(issuerGroupName);
+    await this.clickNewBadgeClass();
+    await this.clickRegularBadge();
+    await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
+        criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
+        frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
+    );
+    await this.publishBadge();
+  }
+
+  async createMicroBadge(
       issuerGroupName: string,
       badgeTitle: string,
       badgeDesc: string = this.testdata.badgeData.description,
       learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
-      criterium : string = this.testdata.badgeData.criteria,
+      criterium: string = this.testdata.badgeData.criteria,
       eqfLevel: string = this.testdata.badgeData.eqfLevel,
       programIdentifiers: string = this.testdata.badgeData.programIdentifiers,
       formOfParticipation: string = this.testdata.badgeData.formOfParticipation,
       assesment: string = this.testdata.badgeData.assessment,
-      frameworkName : string = this.testdata.badgeData.frameworkName,
-      frameworkTitle : string = this.testdata.badgeData.frameworkName,
+      frameworkName: string = this.testdata.badgeData.frameworkName,
+      frameworkTitle: string = this.testdata.badgeData.frameworkName,
       frameworkURL: string = this.testdata.badgeData.frameworkUrl,
       frameworkCode: string = this.testdata.badgeData.frameworkCode,
       frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
@@ -110,13 +136,44 @@ export class IssuersSubPage extends BaseStaffSubPage {
       await this.searchWithText(issuerGroupName);
       await this.openIssuerGroup(issuerGroupName);
       await this.clickNewBadgeClass();
-      await this.clickRegularBadge();
+      await this.clickMicroCredential();
       await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
           criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
           frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
       );
       await this.publishBadge();
     }
+
+  async createExtracurricularBadge(
+    issuerGroupName: string,
+    badgeTitle: string,
+    badgeDesc: string = this.testdata.badgeData.description,
+    learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
+    criterium: string = this.testdata.badgeData.criteria,
+    eqfLevel: string = this.testdata.badgeData.eqfLevel,
+    programIdentifiers: string = this.testdata.badgeData.programIdentifiers,
+    formOfParticipation: string = this.testdata.badgeData.formOfParticipation,
+    assesment: string = this.testdata.badgeData.assessment,
+    frameworkName: string = this.testdata.badgeData.frameworkName,
+    frameworkTitle: string = this.testdata.badgeData.frameworkName,
+    frameworkURL: string = this.testdata.badgeData.frameworkUrl,
+    frameworkCode: string = this.testdata.badgeData.frameworkCode,
+    frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
+    hoursNeeded: string = this.testdata.badgeData.hours,
+  ) {
+    await this.searchWithText(issuerGroupName);
+    await this.openIssuerGroup(issuerGroupName);
+    await this.clickNewBadgeClass();
+    await this.clickExtraCurricularEduBadge();
+    await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
+        criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
+        frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
+    );
+
+    await this.fillInBadgeHoursForm(hoursNeeded);
+
+    await this.publishBadge();
+  }
 
   async clickMicroCredential() {
       await this.page
@@ -161,13 +218,13 @@ export class IssuersSubPage extends BaseStaffSubPage {
       badgeTitle: string = this.testdata.badgeData.title,
       badgeDesc: string = this.testdata.badgeData.description,
       learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
-      criterium : string = this.testdata.badgeData.criteria,
+      criterium: string = this.testdata.badgeData.criteria,
       eqfLevel: string = this.testdata.badgeData.eqfLevel,
       programIdentifiers: string = this.testdata.badgeData.programIdentifiers,
       formOfParticipation: string = this.testdata.badgeData.formOfParticipation,
       assessment: string = this.testdata.badgeData.assessment,
-      frameworkName : string = this.testdata.badgeData.frameworkName,
-      frameworkTitle : string = this.testdata.badgeData.frameworkName,
+      frameworkName: string = this.testdata.badgeData.frameworkName,
+      frameworkTitle: string = this.testdata.badgeData.frameworkName,
       frameworkURL: string = this.testdata.badgeData.frameworkUrl,
       frameworkCode: string = this.testdata.badgeData.frameworkCode,
       frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
@@ -247,8 +304,8 @@ export class IssuersSubPage extends BaseStaffSubPage {
     private async fillInBadgeHoursForm(
       badgeHours: string = this.testdata.badgeData.hours,
   ) {
-      await this.page
-        .getByPlaceholder('e.g. 24')
+      this.page.getByRole('spinbutton')
+        .first()
         .fill(badgeHours);
     }
   
