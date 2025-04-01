@@ -1,23 +1,18 @@
 import { test as base } from '@playwright/test';
-import { HomePage } from '../../pages/homePage';
-import { StaffMainPage } from '../../pages/staffPages/staffMainPage';
-import { Testdata } from '../../util/testdata';
-import { CatalogPage } from '../../pages/catalogPage';
+import { HomePage } from '../../../pages/homePage';
+import { StaffMainPage } from '../../../pages/staffPages/staffMainPage';
+import { Testdata } from '../../../util/testdata';
+import { CatalogPage } from '../../../pages/catalogPage';
 
 type EdubadgeFixture = {
-  woPage: StaffMainPage;
+  woInstitutionAdminPage: StaffMainPage;
   catalogPage: CatalogPage;
   testdata: Testdata;
   newStaffLoginPage: StaffMainPage;
 };
 
 export const test = base.extend<EdubadgeFixture>({
-  /**
-   * The page that logs in to the linked account.
-   * This page should be used for assertions and expects.
-   * The other pages should be used for their functions.
-   */
-  woPage: async ({ page, testdata }, use) => {
+  woInstitutionAdminPage: async ({ page, testdata }, use) => {
     // Set up the fixture.
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
