@@ -4,7 +4,7 @@ import { expect } from '@playwright/test';
 
 export class IssuersSubPage extends BaseStaffSubPage {
     
-  editBadgeButton = this.page.getByRole('link', { name: 'Edit badge class', exact: true });
+  private editBadgeButton = this.page.getByRole('link', { name: 'Edit badge class', exact: true });
   
   async openIssuerGroup(name: string) {
     await this.page.getByRole('cell', { name: name }).click();
@@ -49,6 +49,21 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.page.getByRole('link', { name: 'Delete' , exact: true }).click();
     await this.page.getByRole('link', { name: 'Confirm', exact: true }).click();
     await this.page.getByText('Successfully deleted Badge class').waitFor();
+  }
+
+  /**Expects the badge to be copied to be opened */
+  async copyExistingBadge(badgeTitle: string){
+    const copyBadgeButton = this.page.getByRole('link', { name: 'Copy badge class' });
+    await copyBadgeButton.click();
+
+    const pageForm = this.page.getByText('Basic information').locator('..');
+    const titleFormLocator = await pageForm.getByText('Name').first()
+      .locator('../../..')
+      .getByRole('textbox');
+    await titleFormLocator.fill(badgeTitle);
+
+    await this.publishBadge();
+    
   }
 
   private async emptyAllForms(){
@@ -101,7 +116,6 @@ export class IssuersSubPage extends BaseStaffSubPage {
           frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
       );
       await this.publishBadge();
-      await this.editBadgeButton.waitFor();
     }
 
   async clickMicroCredential() {
