@@ -1,7 +1,7 @@
-import { expect, test } from '../../../../fixtures/staffFixtures/staffWOFixture';
+import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
 
 test('Validate error messages empty microcredential form', async ({
-  woPage,
+  woInstitutionAdminPage: woPage,
 }) => {
   // var
   const issuers = woPage.managePage.issuersPage;
@@ -30,7 +30,7 @@ test('Validate error messages empty microcredential form', async ({
 });
 
 test('Validate error messages empty regular badge form', async ({
-  woPage,
+  woInstitutionAdminPage: woPage,
 }) => {
   // var
   const issuers = woPage.managePage.issuersPage;
@@ -61,7 +61,7 @@ test('Validate error messages empty regular badge form', async ({
 });
 
 test('Validate error messages empty extra curricular badge form', async ({
-  woPage,
+  woInstitutionAdminPage: woPage,
 }) => {
   // var
   const issuers = woPage.managePage.issuersPage;
@@ -91,7 +91,7 @@ test('Validate error messages empty extra curricular badge form', async ({
 
 // following tests are skipped because of a known issue in publishing badges
 test('Validate microcredention badge class creation', async ({
-  woPage,
+  woInstitutionAdminPage: woPage,
   testdata,
 }) => {
   // var
@@ -128,7 +128,7 @@ test('Validate microcredention badge class creation', async ({
 });
 
 test('Validate regular edu badge creation', async ({
-  woPage,
+  woInstitutionAdminPage: woPage,
   testdata,
 }) => {
   // var
@@ -165,7 +165,7 @@ test('Validate regular edu badge creation', async ({
 });
 
 test('Validate extra curricular edu badge creation', async ({
-  woPage,
+  woInstitutionAdminPage: woPage,
   testdata,
 }) => {
   // var

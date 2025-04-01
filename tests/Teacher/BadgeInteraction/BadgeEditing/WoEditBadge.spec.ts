@@ -1,8 +1,8 @@
-import { expect, test } from '../../../../fixtures/staffFixtures/staffWOFixture';
+import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
 
 
 test('Edit existing edubadge', async ({
-    woPage,
+    woInstitutionAdminPage: woPage,
   }) => {
     // var
     const issuerGroupName = "Medicine";

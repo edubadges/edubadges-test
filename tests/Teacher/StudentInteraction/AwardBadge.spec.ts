@@ -1,10 +1,10 @@
-import { expect, test } from '../../../fixtures/staffFixtures/staffWOFixture';
+import { expect, test } from '../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
 // TODO: add parameterised test to also test with other accounts.
 // TODO: bulk award
 
 test('Award requested badge', async ({
     catalogPage,
-    woPage,
+    woInstitutionAdminPage: woPage,
   }) => {
     // var
     const course = "Psychometrics";
@@ -22,7 +22,7 @@ test('Award requested badge', async ({
   });
 
 test('Send badge directly', async ({
-    woPage
+    woInstitutionAdminPage: woPage
   }) => {
     // var
     const courseName = "Cognitive Psychology";

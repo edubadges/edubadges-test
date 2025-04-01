@@ -1,7 +1,7 @@
-import { expect, test } from '../../../../fixtures/staffFixtures/staffWOFixture';
+import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
 
 test('Invite WO user', async ({
-    woPage,
+    woInstitutionAdminPage: woPage,
   }) => {
     // var
     const newUserMail = "TestNewFirstTestMailAdress@university.org";
@@ -19,10 +19,10 @@ test('Invite WO user', async ({
   });
 
   test('Revoke WO user invite', async ({
-    woPage,
+    woInstitutionAdminPage: woPage,
   }) => {
     // var
-    const newUserMail = "SecondTestMailAre@university.org";
+    const newUserMail = "SecondTestMailAdress@university.org";
     const userManagement = woPage.managePage.userManagePage;
 
     // setup
@@ -39,7 +39,7 @@ test('Invite WO user', async ({
   });
 
   test('Accept WO invite', async ({
-    woPage,
+    woInstitutionAdminPage: woPage,
     newStaffLoginPage,
   }) => {
     // var
@@ -60,12 +60,12 @@ test('Invite WO user', async ({
   });
 
   test('Delete WO permission', async ({
-    woPage,
+    woInstitutionAdminPage: woPage,
     newStaffLoginPage,
   }) => {
     // var
-    const newUsername = "AcceptInviteInstitutionAdmin";
-    const newUserMail = "ThirdTestMailAdress@university.org";
+    const newUsername = "GetRemovedRightsInstitutionAdmin";
+    const newUserMail = "FourthTestMailAdress@university.org";
     const userManagement = woPage.managePage.userManagePage;
 
     // setup

@@ -1,7 +1,7 @@
-import { expect, test } from '../../../../../fixtures/staffFixtures/staffWOFixture';
+import { expect, test } from '../../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
 
 test('Delete WO issuer group', async ({
-    woPage,
+    woInstitutionAdminPage: woPage,
   }) => {
     // var
     const issuerGroupName = "GroupToRemove";
