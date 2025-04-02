@@ -150,7 +150,7 @@ export class StaffMainPage extends BasePage {
 
   //#endregion
 
-  //#region Go to categories
+  //#region Categories
   async goToBadgeClasses (){
     await this.page.getByRole('link', { name: 'Badge classes', exact: true  }).click();
     await this.waitForLoadingToStop();
