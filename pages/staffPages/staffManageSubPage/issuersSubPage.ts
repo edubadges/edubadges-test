@@ -46,6 +46,37 @@ export class IssuersSubPage extends BaseStaffSubPage {
       await this.waitForLoadingToStop();
     }
 
+  async editExistingIssuer(
+    oldIssuerName: string,
+    issuerName: string,
+    issuerDescription?: string,
+    issuerLink?: string,
+    issuerContactMail?: string,
+    issuerGroupName? : string,){
+      await this.openIssuer(oldIssuerName)
+      await this.clickEditIssuer();
+      
+      await this.emptyAllForms();
+      await this.fillIssuerForm(
+        issuerName,
+        issuerDescription || 'Default description',
+        issuerLink || 'https://example.com',
+        issuerContactMail || 'default@mailaddress.com',
+        issuerGroupName
+      );
+
+      await this.page.getByRole('link', { name: 'Save changes' }).click();
+      await this.waitForLoadingToStop();
+  }
+
+  async deleteExistingIssuer(issuerName: string){
+    await this.openIssuer(issuerName);
+    await this.clickEditIssuer();
+    await this.page.getByRole('link', { name: 'Delete' }).click();
+    await this.page.getByRole('link', { name: 'Confirm' }).click();
+    await this.page.getByText('Successfully deleted issuer').waitFor();
+  }
+
   private async clickAddNewIssuer(){
     await this.page.getByRole('link', { name: 'Add new issuer' }).click();
     await this.waitForLoadingToStop();
