@@ -13,7 +13,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     ).toBeVisible();
   }
 
-  /**Expects the badge to edit to be opened */
+  /**Expects the badge to be edited to be opened */
   async editExistingBadge(
       badgeTitle: string = this.testdata.badgeData.title,
       badgeDesc: string = this.testdata.badgeData.description,
