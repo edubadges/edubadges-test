@@ -9,7 +9,7 @@ test('Validate error messages empty microcredential form', async ({
   // setup
   await woPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuerGroup('Medicine');
+  await issuers.openIssuers('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickMicroCredential();
 
@@ -38,7 +38,7 @@ test('Validate error messages empty regular badge form', async ({
   // setup
   await woPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuerGroup('Medicine');
+  await issuers.openIssuers('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickRegularBadge();
 
@@ -68,7 +68,7 @@ test('Validate error messages empty extra curricular badge form', async ({
 
   await woPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuerGroup('Medicine');
+  await issuers.openIssuers('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickExtraCurricularEduBadge();
 
@@ -102,7 +102,7 @@ test('Validate microcredention badge class creation', async ({
   testdata.badgeData.title = 'Microcredential Test automation';
   await woPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuerGroup('Medicine');
+  await issuers.openIssuers('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickMicroCredential();
 
@@ -134,7 +134,7 @@ test('Validate regular edu badge creation', async ({
   testdata.badgeData.title = 'Regular edu badge';
   await woPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuerGroup('Medicine');
+  await issuers.openIssuers('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickRegularBadge();
 
@@ -166,7 +166,7 @@ test('Validate extra curricular edu badge creation', async ({
   testdata.badgeData.title = 'Extra curricular badge';
   await woPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuerGroup('Medicine');
+  await issuers.openIssuers('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickExtraCurricularEduBadge();
 
