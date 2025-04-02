@@ -6,8 +6,8 @@ export class IssuersSubPage extends BaseStaffSubPage {
     
   private editBadgeButton = this.page.getByRole('link', { name: 'Edit badge class', exact: true });
   
-  async openIssuers(name: string) {
-    await this.page.getByRole('cell', { name: name }).click();
+  async openIssuer(issuerName: string) {
+    await this.page.getByRole('cell', { name: issuerName }).click();
     await expect(
       this.page.getByRole('link', { name: 'Add new badge class' }),
     ).toBeVisible();
@@ -180,7 +180,7 @@ private async emptyMirrorForm(){
     frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
   ) {
     await this.searchWithText(issuerGroupName);
-    await this.openIssuers(issuerGroupName);
+    await this.openIssuer(issuerGroupName);
     await this.clickNewBadgeClass();
     await this.clickRegularBadge();
     await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
@@ -207,7 +207,7 @@ private async emptyMirrorForm(){
       frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
     ) {
       await this.searchWithText(issuerGroupName);
-      await this.openIssuers(issuerGroupName);
+      await this.openIssuer(issuerGroupName);
       await this.clickNewBadgeClass();
       await this.clickMicroCredential();
       await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
@@ -235,7 +235,7 @@ private async emptyMirrorForm(){
     hoursNeeded: string = this.testdata.badgeData.hours,
   ) {
     await this.searchWithText(issuerGroupName);
-    await this.openIssuers(issuerGroupName);
+    await this.openIssuer(issuerGroupName);
     await this.clickNewBadgeClass();
     await this.clickExtraCurricularEduBadge();
     await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 

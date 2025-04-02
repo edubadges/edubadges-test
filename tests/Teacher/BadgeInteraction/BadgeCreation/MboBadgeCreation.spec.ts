@@ -9,7 +9,7 @@ test('Validate error messages empty microcredential form', async ({
   // setup
   await mboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickMicroCredential();
 
@@ -38,7 +38,7 @@ test('Validate error messages empty regular badge form', async ({
   // setup
   await mboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickRegularBadge();
 
@@ -67,7 +67,7 @@ test('Validate error messages empty extra curricular badge form', async ({
   // setup
   await mboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickExtraCurricularEduBadge();
 
@@ -99,7 +99,7 @@ test('Validate regular MBO edu badge creation', async ({
   testdata.badgeData.title = "test regular MBO badge";
   await mboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
   await issuers.clickNewBadgeClass();
 
   // test
@@ -132,7 +132,7 @@ test('Validate micro credential MBO edu badge creation', async ({
   testdata.badgeData.title = "test micro MBO badge";
   await mboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
   await issuers.clickNewBadgeClass();
 
   // test
@@ -165,7 +165,7 @@ test('Validate extra curricular MBO edu badge creation', async ({
   testdata.badgeData.title = "test extra curricular MBO badge";
   await mboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
   await issuers.clickNewBadgeClass();
 
   // test

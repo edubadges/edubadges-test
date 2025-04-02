@@ -9,7 +9,7 @@ test('Validate error messages empty microcredential form', async ({
   // setup
   await hboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
 
   // test
   await issuers.clickNewBadgeClass();
@@ -40,7 +40,7 @@ test('Validate error messages empty regular badge form', async ({
   // setup
   await hboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
 
   // test
   await issuers.clickNewBadgeClass();
@@ -71,7 +71,7 @@ test('Validate error messages empty extra curricular badge form', async ({
   // setup
   await hboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
 
   // test
   await issuers.clickNewBadgeClass();
@@ -108,7 +108,7 @@ test('Validate regular HBO edu badge creation', async ({
   // setup
   await hboPage.goToManage();
   await manage.searchWithText('Medicine');
-  await manage.openIssuers('Medicine');
+  await manage.openIssuer('Medicine');
 
   // test
   await manage.clickNewBadgeClass();
@@ -146,7 +146,7 @@ test('Validate micro credential HBO edu badge creation', async ({
   testdata.badgeData.title = 'Micro Test automation HBO';
   await hboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickMicroCredential();
 
@@ -178,7 +178,7 @@ test('Validate extra curricular HBO edu badge creation', async ({
   testdata.badgeData.title = 'Extra Test automation HBO';
   await hboPage.goToManage();
   await issuers.searchWithText('Medicine');
-  await issuers.openIssuers('Medicine');
+  await issuers.openIssuer('Medicine');
   await issuers.clickNewBadgeClass();
   await issuers.clickExtraCurricularEduBadge();
 
