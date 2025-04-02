@@ -17,8 +17,6 @@ test('Delete WO issuer group', async ({
     await woPage.waitForLoadingToStop();
 
     // test
-    await woPage.goToManage();
-    await woPage.managePage.goToIssuerGroups();
     await issuerGroup.DeleteExistingIssuerGroup(issuerGroupName);
 
     // validate
