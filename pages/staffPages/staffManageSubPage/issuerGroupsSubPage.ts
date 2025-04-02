@@ -50,6 +50,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
 
     private async ClickEditGroup(){
         await this.page.getByRole('link', { name:  'Edit issuer group' }).click();
+        await this.waitForLoadingToStop();
     }
     
     private async OpenIssuerGroup(issuerGroupName: string){
