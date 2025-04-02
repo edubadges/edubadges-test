@@ -6,12 +6,6 @@ export class IssuersSubPage extends BaseStaffSubPage {
     
   private editBadgeButton = this.page.getByRole('link', { name: 'Edit badge class', exact: true });
   
-  async openIssuer(issuerName: string) {
-    await this.page.getByRole('cell', { name: issuerName }).click();
-    await expect(
-      this.page.getByRole('link', { name: 'Add new badge class' }),
-    ).toBeVisible();
-  }
 
   private async uploadImage(imagePath: string = 'edubadge.png'){
     const fileChooserPromise = this.page.waitForEvent('filechooser');
@@ -23,6 +17,14 @@ export class IssuersSubPage extends BaseStaffSubPage {
   }
 
   //#region issuer
+
+  async openIssuer(issuerName: string) {
+    await this.searchWithText(issuerName);
+    await this.page.getByRole('cell', { name: issuerName }).click();
+    await expect(
+      this.page.getByRole('link', { name: 'Add new badge class' }),
+    ).toBeVisible();
+  }
 
   async createNewIssuer(
     issuerName: string,
@@ -49,6 +51,11 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.waitForLoadingToStop();
   }
 
+  private async clickEditIssuer(){
+    await this.page.getByRole('link', { name: 'Edit issuer' }).click();
+    await this.waitForLoadingToStop();
+  }
+
   private async fillIssuerForm(
     issuerName: string,
     issuerDescription: string,
@@ -56,7 +63,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     issuerContactMail: string,
     issuerGroupName? : string,
   ){
-    const pageForm = this.page.getByText('Add new issuer').locator('..');
+    const pageForm = this.page.locator('.main-content-margin');
     const nameLocator = pageForm.getByText('Name in ').locator('..').getByRole('textbox');
     const descLocator = pageForm.getByText('Description in ').locator('..').getByRole('textbox');
     const urlLocator = pageForm.getByText('Website URL for ').locator('..').getByRole('textbox');
