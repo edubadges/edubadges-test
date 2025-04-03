@@ -10,7 +10,7 @@ test('Edit WO issuer', async ({
     const editedIssuerDesc = "Second description";
 
     const issuers = woPage.managePage.issuersPage;
-    const editButtonLocator = woPage.page.getByRole('link', { name: 'Edit issuer' });
+    const editButton = woPage.page.getByRole('link', { name: 'Edit issuer' });
 
     // setup
     await woPage.goToManage();
@@ -25,10 +25,10 @@ test('Edit WO issuer', async ({
     await issuers.editExistingIssuer(initialIssuerName, editedIssuerName, editedIssuerDesc);
     
     // validate
-    const groupTitleLocator = woPage.page.locator('.title').getByRole('heading');
-    const descriptionLocator = woPage.page.locator('.info').locator('p').first();
+    const groupTitle = woPage.page.locator('.title').getByRole('heading');
+    const description = woPage.page.locator('.info').locator('p').first();
 
-    await expect(editButtonLocator).toBeVisible();
-    await expect(groupTitleLocator).toHaveText(editedIssuerName);
-    await expect(descriptionLocator).toHaveText(editedIssuerDesc);
+    await expect(editButton).toBeVisible();
+    await expect(groupTitle).toHaveText(editedIssuerName);
+    await expect(description).toHaveText(editedIssuerDesc);
   });

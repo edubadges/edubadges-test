@@ -3,6 +3,13 @@ import { Testdata, Language } from '../util/testdata';
 import { BasePageMultiLanguage } from './basePageMultiLanguage';
 
 export class HomePage extends BasePageMultiLanguage {
+  // Navigation locators
+  private readonly catalogLink = this.page.getByRole('link', { name: 'Open the catalog' });
+  private readonly backpackLink = this.page.getByRole('link', { name: 'Open your backpack' });
+  private readonly dutchLink = this.page.getByRole('link', { name: 'NL' });
+  private readonly englishLink = this.page.getByRole('link', { name: 'EN' });
+
+  // Language-specific locators
   private openIssuerPortalLocator: Locator = this.page.getByRole('link', {
     name: 'Open the issuer portal',
   });
@@ -37,30 +44,27 @@ export class HomePage extends BasePageMultiLanguage {
   }
 
   async OpenCatalog() {
-    await this.page.getByRole('link', { name: 'Open the catalog' }).click();
+    await this.catalogLink.click();
   }
 
   async OpenBackpack() {
-    await this.page.getByRole('link', { name: 'Open your backpack' }).click();
+    await this.backpackLink.click();
   }
 
   async expectHomePageOpened() {
-    var snapshotName = '';
-    var maskedLocators: Locator[] = [];
-    maskedLocators.push(
+    const snapshotName = this.testdata.language === Language.en
+      ? 'expectedLoginPageOpened-eng.png'
+      : 'expectedLoginPageOpened-nl.png';
+
+    const maskedLocators = [
       this.page
         .getByText(' Badge Classes')
         .first()
         .locator('..')
         .locator('..')
-        .locator('..'),
-    );
+        .locator('..')
+    ];
 
-    if (this.testdata.language === Language.en) {
-      snapshotName = `expectedLoginPageOpened-eng.png`;
-    } else {
-      snapshotName = `expectedLoginPageOpened-nl.png`;
-    }
     await expect(this.page).toHaveScreenshot(snapshotName, {
       fullPage: true,
       mask: maskedLocators,
@@ -72,12 +76,12 @@ export class HomePage extends BasePageMultiLanguage {
   }
 
   async switchToDutch() {
-    await this.page.getByRole('link', { name: 'NL' }).click();
+    await this.dutchLink.click();
     this.testdata.language = Language.nl;
   }
 
   async switchToEnglish() {
-    await this.page.getByRole('link', { name: 'EN' }).click();
-    this.testdata.language = Language.nl;
+    await this.englishLink.click();
+    this.testdata.language = Language.en;
   }
 }

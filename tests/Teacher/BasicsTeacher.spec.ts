@@ -5,15 +5,17 @@ test('Login', async ({
     issuerPortalPage,
     testdata,
   }) => {
-    // login
+    // var
     const maskedLocators = [issuerPortalPage.page.locator('.content'), issuerPortalPage.page.locator('.link')];
+
+    // test
     await homePage.openIssuerPortal();
     await issuerPortalPage.loginTestIdp(
       testdata.WOAccounts.badgeClassAdminLogin.username,
       testdata.WOAccounts.badgeClassAdminLogin.password
-    )
+    );
 
-    // validate success
+    // validate
     await expect(issuerPortalPage.page.locator('.expand-menu')).toBeVisible();
     await expect(issuerPortalPage.page.getByRole('navigation')).toBeVisible();
   });
@@ -31,13 +33,15 @@ test('Logout', async ({
     await issuerPortalPage.loginTestIdp(
       testdata.WOAccounts.badgeClassAdminLogin.username,
       testdata.WOAccounts.badgeClassAdminLogin.password
-    )
+    );
     await expect(loggedInMenu).toBeVisible();
     await expect(issuerPortalPage.page.getByRole('navigation')).toBeVisible();
 
     // test
     await loggedInMenu.click();
     await loggedInMenu.getByText('Logout').click();
+
+    // validate
     await expect(loggedInMenu).not.toBeVisible();
     await expect(issuerPortalPage.page.getByRole('navigation')).not.toBeVisible();
   });

@@ -2,59 +2,66 @@ import { expect } from '@playwright/test';
 import { BaseStaffSubPage } from './baseStaffSubPage';
 
 export class StaffBadgeClassesPage extends BaseStaffSubPage {
-  // TODO: implement funcitons like awardRequestedbadge
+  // Action locators
+  private readonly awardEdubadgeLink = this.page.getByRole('link', { name: 'Award edubadge(s)' });
+  private readonly awardLink = this.page.getByRole('link', { name: 'Award' });
+  private readonly openRequestsLink = this.page.getByRole('link', { name: 'Open requests' });
+  private readonly contentLocator = this.page.locator('.content');
+  private readonly optionsLocator = this.page.locator('.options');
 
-  async directAwardBadgeToStudent(courseName: string,
+  async directAwardBadgeToStudent(
+    courseName: string,
     studentEmail: string = this.testdata.accounts.studentEmail,
-    studentNumber: string = this.testdata.accounts.studentEPPN,){
+    studentNumber: string = this.testdata.accounts.studentEPPN,
+  ) {
     await this.searchWithText(courseName);
     await this.openBadge(courseName);
     await this.sendDirectBadge(studentEmail, studentNumber);
     await this.page.getByText('Direct awards have been sent').waitFor();
   }
-  
+
   private async sendDirectBadge(studentEmail: string, studentNumber: string) {
-    await this.page.getByRole('link', { name: 'Award edubadge(s)' }).click();
+    await this.awardEdubadgeLink.click();
     await this.page.getByRole('textbox').first().fill(studentEmail);
     await this.page.getByRole('textbox').nth(1).fill(studentNumber);
-    await this.page.getByRole('link', { name: 'Award' }).click();
+    await this.awardLink.click();
   }
 
-  /**Opens a badge by name if it is currently on screen. */
-  async openBadge(badgeName: string){
-    await this.page.locator('.content')
-      .getByText(badgeName)
-      .click();
+  /**
+   * Opens a badge by name if it is currently on screen.
+   */
+  async openBadge(badgeName: string) {
+    await this.contentLocator.getByText(badgeName).click();
     await this.waitForLoadingToStop();
   }
 
-  /**Defaults to Petra Pentila */
-  async approveRequest(courseName: string,
-    studentName: string = this.testdata.accounts.studentName,)
-    {
+  /**
+   * Approves a badge request for a student.
+   * Defaults to Petra Pentila if no student name is provided.
+   */
+  async approveRequest(
+    courseName: string,
+    studentName: string = this.testdata.accounts.studentName,
+  ) {
     await this.searchWithText(courseName);
     await this.openBadge(courseName);
     await this.openRequests();
     await this.selectRequest(studentName);
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
     await this.page.waitForTimeout(500);
-    await this.page.locator('.options')
-      .getByRole('link', { name: 'Award' })
-      .click();
+    await this.optionsLocator.getByRole('link', { name: 'Award' }).click();
     await this.page.getByText('The request(s) have been awarded.').waitFor();
-
-  }
-  
-  private async openRequests(){
-    await this.page.getByRole('link', { name: 'Open requests'}).click()
   }
 
-  private async selectRequest(studentName: string)
-  {
-    //await this.searchWithText(studentName);
-    await this.page.getByText(studentName)
-          .locator('../../..')
-          .locator('.checkmarked')
-          .click();
+  private async openRequests() {
+    await this.openRequestsLink.click();
+  }
+
+  private async selectRequest(studentName: string) {
+    await this.page
+      .getByText(studentName)
+      .locator('../../..')
+      .locator('.checkmarked')
+      .click();
   }
 }

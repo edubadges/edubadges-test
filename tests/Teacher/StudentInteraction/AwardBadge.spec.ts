@@ -18,6 +18,8 @@ test('Award requested badge', async ({
   
     // test
     await woPage.badgeClassPage.approveRequest(course);
+
+    // validate
     await expect(woPage.page.getByText('The request(s) have been awarded.')).toBeVisible();
   });
 
@@ -29,6 +31,8 @@ test('Send badge directly', async ({
 
     // test
     await woPage.badgeClassPage.directAwardBadgeToStudent(courseName);
+
+    // validate
     await expect(woPage.page.getByText('Direct awards have been sent')).toBeVisible();
   });
   

@@ -6,8 +6,8 @@ test('See WO issuer', async ({
     // var
     const existingGroupName = "Computer Science";
     const issuer = woPage.managePage.issuersPage;
-    const maskBadgeClass = woPage.page.locator('th').getByText('Badge Classes');
-    const maskDate = woPage.page.getByText('Created ').locator('../..');
+    const badgeclassMask = woPage.page.locator('th').getByText('Badge Classes');
+    const dateMask = woPage.page.getByText('Created ').locator('../..');
 
     // test
     await woPage.goToManage();
@@ -15,5 +15,5 @@ test('See WO issuer', async ({
     await issuer.openIssuer(existingGroupName);
     await woPage.waitForLoadingToStop();
 
-    await expect(woPage.page).toHaveScreenshot('SeeExistingWOIssuer.png', { mask: [maskDate, maskBadgeClass] });
+    await expect(woPage.page).toHaveScreenshot('SeeExistingWOIssuer.png', { mask: [dateMask, badgeclassMask] });
   });

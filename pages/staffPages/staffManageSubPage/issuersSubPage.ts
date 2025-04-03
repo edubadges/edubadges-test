@@ -4,12 +4,29 @@ import { expect } from '@playwright/test';
 
 export class IssuersSubPage extends BaseStaffSubPage {
     
-  private editBadgeButton = this.page.getByRole('link', { name: 'Edit badge class', exact: true });
-  
+  // Action locators
+  private readonly editBadgeButton = this.page.getByRole('link', { name: 'Edit badge class', exact: true });
+  private readonly addNewIssuerButton = this.page.getByRole('link', { name: 'Add new issuer' });
+  private readonly editIssuerButton = this.page.getByRole('link', { name: 'Edit issuer' });
+  private readonly saveButton = this.page.getByRole('link', { name: 'Save' });
+  private readonly saveChangesButton = this.page.getByRole('link', { name: 'Save changes' });
+  private readonly deleteButton = this.page.getByRole('link', { name: 'Delete' });
+  private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
+  private readonly uploadImageButton = this.page.getByText('Upload image');
+  private readonly addNewBadgeClassButton = this.page.getByRole('link', { name: 'Add new badge class' });
+  private readonly copyBadgeButton = this.page.getByRole('link', { name: 'Copy badge class' });
+
+  // Form locators
+  private readonly mainContent = this.page.locator('.main-content-margin');
+  private readonly nameField = this.mainContent.getByText('Name in ').locator('..').getByRole('textbox');
+  private readonly descriptionField = this.mainContent.getByText('Description in ').locator('..').getByRole('textbox');
+  private readonly urlField = this.mainContent.getByText('Website URL for ').locator('..').getByRole('textbox');
+  private readonly contactField = this.mainContent.getByText('Contact email address').locator('..').getByRole('textbox');
+  private readonly issuerGroupField = this.page.getByText('Issuer group').locator('..');
 
   private async uploadImage(imagePath: string = 'edubadge.png'){
     const fileChooserPromise = this.page.waitForEvent('filechooser');
-    await this.page.getByText('Upload image').click();
+    await this.uploadImageButton.click();
     const fileChooser = await fileChooserPromise;
     await fileChooser.setFiles(
       path.join(__dirname + '../../images/', imagePath),
@@ -21,9 +38,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
   async openIssuer(issuerName: string) {
     await this.searchWithText(issuerName);
     await this.page.getByRole('cell', { name: issuerName }).click();
-    await expect(
-      this.page.getByRole('link', { name: 'Add new badge class' }),
-    ).toBeVisible();
+    await expect(this.addNewBadgeClassButton).toBeVisible();
   }
 
   async createNewIssuer(
@@ -41,7 +56,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
         issuerGroupName
       );
 
-      await this.page.getByRole('link', { name: 'Save' }).click();
+      await this.saveButton.click();
 
       await this.waitForLoadingToStop();
     }
@@ -65,25 +80,25 @@ export class IssuersSubPage extends BaseStaffSubPage {
         issuerGroupName
       );
 
-      await this.page.getByRole('link', { name: 'Save changes' }).click();
+      await this.saveChangesButton.click();
       await this.waitForLoadingToStop();
   }
 
   async deleteExistingIssuer(issuerName: string){
     await this.openIssuer(issuerName);
     await this.clickEditIssuer();
-    await this.page.getByRole('link', { name: 'Delete' }).click();
-    await this.page.getByRole('link', { name: 'Confirm' }).click();
+    await this.deleteButton.click();
+    await this.confirmButton.click();
     await this.page.getByText('Successfully deleted issuer').waitFor();
   }
 
   private async clickAddNewIssuer(){
-    await this.page.getByRole('link', { name: 'Add new issuer' }).click();
+    await this.addNewIssuerButton.click();
     await this.waitForLoadingToStop();
   }
 
   private async clickEditIssuer(){
-    await this.page.getByRole('link', { name: 'Edit issuer' }).click();
+    await this.editIssuerButton.click();
     await this.waitForLoadingToStop();
   }
 
@@ -94,22 +109,15 @@ export class IssuersSubPage extends BaseStaffSubPage {
     issuerContactMail: string,
     issuerGroupName? : string,
   ){
-    const pageForm = this.page.locator('.main-content-margin');
-    const nameLocator = pageForm.getByText('Name in ').locator('..').getByRole('textbox');
-    const descLocator = pageForm.getByText('Description in ').locator('..').getByRole('textbox');
-    const urlLocator = pageForm.getByText('Website URL for ').locator('..').getByRole('textbox');
-    const contactLocator = pageForm.getByText('Contact email address').locator('..').getByRole('textbox');
-
     if(issuerGroupName != undefined){
-      const nameLocator = this.page.getByText('Issuer group').locator('..');
-      await nameLocator.locator('.indicator').click();
-      await nameLocator.locator('.listItem').getByText(issuerGroupName).click();
+      await this.issuerGroupField.locator('.indicator').click();
+      await this.issuerGroupField.locator('.listItem').getByText(issuerGroupName).click();
     }
 
-    await nameLocator.fill(issuerName);
-    await descLocator.fill(issuerDescription);
-    await urlLocator.fill(issuerLink);
-    await contactLocator.fill(issuerContactMail);
+    await this.nameField.fill(issuerName);
+    await this.descriptionField.fill(issuerDescription);
+    await this.urlField.fill(issuerLink);
+    await this.contactField.fill(issuerContactMail);
     await this.uploadImage();
   }
 
@@ -143,23 +151,22 @@ export class IssuersSubPage extends BaseStaffSubPage {
         assesment, frameworkName, frameworkTitle, frameworkURL,
         frameworkCode, frameworkDesc,
     )
-    await this.page.getByRole('link', { name: 'Save changes' }).click();
+    await this.saveChangesButton.click();
     await this.editBadgeButton.waitFor();
 }
 
 /**Expects the badge to be removed to be opened */
 async removeExistingBadge(){
-  await this.page.getByRole('link', { name: 'Edit badge class' }).click();
+  await this.editBadgeButton.click();
   await this.waitForLoadingToStop();
-  await this.page.getByRole('link', { name: 'Delete' , exact: true }).click();
-  await this.page.getByRole('link', { name: 'Confirm', exact: true }).click();
+  await this.deleteButton.click();
+  await this.confirmButton.click();
   await this.page.getByText('Successfully deleted Badge class').waitFor();
 }
 
 /**Expects the badge to be copied to be opened */
 async copyExistingBadge(badgeTitle: string){
-  const copyBadgeButton = this.page.getByRole('link', { name: 'Copy badge class' });
-  await copyBadgeButton.click();
+  await this.copyBadgeButton.click();
 
   const pageForm = this.page.getByText('Basic information').locator('..');
   const titleFormLocator = pageForm.getByText('Name').first()
@@ -197,7 +204,7 @@ private async emptyMirrorForm(){
 }
 
   async clickNewBadgeClass() {
-      await this.page.getByRole('link', { name: 'Add new badge class' }).click();
+      await this.addNewBadgeClassButton.click();
       await this.waitForLoadingToStop();
     }
 

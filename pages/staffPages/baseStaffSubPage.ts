@@ -6,16 +6,19 @@ import { BasePage } from '../basePage';
  * To use needed functionalities, import the inherited staff{functionality}Page pages
  */
 export class BaseStaffSubPage extends BasePage {
+  private readonly dutchLink = this.page.getByRole('link', { name: 'NL' });
+  private readonly searchField = this.page.getByPlaceholder('Search...');
+  private readonly expandMenu = this.page.locator('.expand-menu');
 
   async switchToDutch() {
-    await this.page.getByRole('link', { name: 'NL' }).click();
+    await this.dutchLink.click();
   }
 
-  async searchWithText(TextToSearch: string){
-    await this.page.getByPlaceholder('Search...').fill(TextToSearch);
+  async searchWithText(textToSearch: string) {
+    await this.searchField.fill(textToSearch);
   }
   
-  async expectLoggedIn(){
-    await expect(this.page.locator('.expand-menu')).toBeVisible();
+  async expectLoggedIn() {
+    await expect(this.expandMenu).toBeVisible();
   }
 }

@@ -23,7 +23,9 @@ test('Reject received badge', async ({
     await backpackPage.page.waitForTimeout(500);
     await backpackPage.page.getByRole('link', { name: 'Reject' }).click();
     await backpackPage.page.waitForTimeout(500);
-    await backpackPage.page.getByRole('link', {name: 'Confirm'}).click();
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+
+    // validate
     await expect(backpackPage.page.getByText('Edubadge is rejected')).toBeVisible();
 });
 
@@ -48,6 +50,8 @@ test('Accept received badge', async ({
     await backpackPage.page.waitForTimeout(500);
     await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
     await backpackPage.page.waitForTimeout(500);
-    await backpackPage.page.getByRole('link', {name: 'Confirm'}).click();
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+
+    // validate
     await expect(backpackPage.page.getByText('Successfully claimed edubadge')).toBeVisible();
 });

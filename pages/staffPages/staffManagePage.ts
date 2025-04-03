@@ -7,61 +7,76 @@ import { UnclaimedDirectAwardsSubPage } from './staffManageSubPage/unclaimedDire
 import { DeletedDirectAwardsSubPage } from './staffManageSubPage/deletedDirectAwardsSubPage';
 
 export class StaffManagePage extends BaseStaffSubPage {
-  // TODO: implement funcitons like directReward & revoke
+  // Navigation locators
+  private readonly issuerGroupsLink = this.page.getByRole('link', { name: 'Issuer groups' });
+  private readonly issuersLink = this.page.getByRole('link', { name: 'Issuers' });
+  private readonly userManagementLink = this.page.getByRole('link', { name: 'User management' });
+  private readonly requestedEdubadgesLink = this.page.getByRole('link', { name: 'Requested edubadges' });
+  private readonly unclaimedDirectAwardsLink = this.page.getByRole('link', { name: 'Unclaimed direct awards' });
+  private readonly deletedDirectAwardsLink = this.page.getByRole('link', { name: 'Requested edubadges' });
 
-    issuerGroupPage = new IssuerGroupSubPage(this.page, this.testdata);
-    issuersPage = new IssuersSubPage(this.page, this.testdata);
-    userManagePage = new UserManagementSubPage(this.page, this.testdata);
-    requestedBadgesPage = new RequestedEdubadgesSubPage(this.page, this.testdata);
-    unclaimedAwardsPage = new UnclaimedDirectAwardsSubPage(this.page, this.testdata);
-    deletedAwardsPage = new DeletedDirectAwardsSubPage(this.page, this.testdata);
-    
-  /** Clicks the according checkbox once. 
+  // Page instances
+  readonly issuerGroupPage = new IssuerGroupSubPage(this.page, this.testdata);
+  readonly issuersPage = new IssuersSubPage(this.page, this.testdata);
+  readonly userManagePage = new UserManagementSubPage(this.page, this.testdata);
+  readonly requestedBadgesPage = new RequestedEdubadgesSubPage(this.page, this.testdata);
+  readonly unclaimedAwardsPage = new UnclaimedDirectAwardsSubPage(this.page, this.testdata);
+  readonly deletedAwardsPage = new DeletedDirectAwardsSubPage(this.page, this.testdata);
+
+  /**
+   * Clicks the according checkbox once.
    * Finds the tr by finding the courseName and selecting the parent's parent.
    * Finds the checkbox by searching within the tr
    */
-  private async selectRequest(courseName: string, studentName: string
-  ){
-    this.searchWithText(studentName);
-    await this.page.getByRole('link', { name: courseName })
-          .locator('../..')
-          .getByRole('checkbox')
-          .click();
+  private async selectRequest(courseName: string, studentName: string) {
+    await this.searchWithText(studentName);
+    await this.page
+      .getByRole('link', { name: courseName })
+      .locator('../..')
+      .getByRole('checkbox')
+      .click();
   }
-  async approveRequest(courseName: string,
+
+  async approveRequest(
+    courseName: string,
     studentName: string = this.testdata.accounts.studentName,
-  ){
-    this.selectRequest(courseName, studentName);
-    this.page.getByRole('link', { name: 'Award' }).click();
-    this.page.locator('.options')
+  ) {
+    await this.selectRequest(courseName, studentName);
+    await this.page.getByRole('link', { name: 'Award' }).click();
+    await this.page
+      .locator('.options')
       .getByRole('link', { name: 'Award' })
       .click();
   }
 
-    //#region subcategories
-    async goToIssuerGroups(){
-      await this.page.getByRole('link', { name: 'Issuer groups' }).click();
-      await this.page.getByText('Add new issuer group').waitFor();
-    }
-    async goToIssuers(){
-      await this.page.getByRole('link', { name: 'Issuers' }).click();
-      await this.page.getByText('Add new issuer').waitFor();
-    }
-    async goToUserManagement(){
-      await this.page.getByRole('link', { name: 'User management' }).click();
-      await this.page.getByText('Users with permissions').waitFor();
-    }
-    async goToRequested(){
-      await this.page.getByRole('link', { name: 'Requested edubadges' }).click();
-      await this.page.getByText('Persons with open edubadge requests').waitFor();
-    }
-    async goToUnclaimed(){
-      await this.page.getByRole('link', { name: 'Unclaimed direct awards' }).click();
-      await this.page.getByText('Filter direct awards').waitFor();
-    }
-    async goToDeleted(){
-      await this.page.getByRole('link', { name: 'Requested edubadges' }).click();
-      await this.page.getByText('Filter direct awards').waitFor();
-    }
-    //#endregion
+  // Navigation methods
+  async goToIssuerGroups() {
+    await this.issuerGroupsLink.click();
+    await this.page.getByText('Add new issuer group').waitFor();
+  }
+
+  async goToIssuers() {
+    await this.issuersLink.click();
+    await this.page.getByText('Add new issuer').waitFor();
+  }
+
+  async goToUserManagement() {
+    await this.userManagementLink.click();
+    await this.page.getByText('Users with permissions').waitFor();
+  }
+
+  async goToRequested() {
+    await this.requestedEdubadgesLink.click();
+    await this.page.getByText('Persons with open edubadge requests').waitFor();
+  }
+
+  async goToUnclaimed() {
+    await this.unclaimedDirectAwardsLink.click();
+    await this.page.getByText('Filter direct awards').waitFor();
+  }
+
+  async goToDeleted() {
+    await this.deletedDirectAwardsLink.click();
+    await this.page.getByText('Filter direct awards').waitFor();
+  }
 }

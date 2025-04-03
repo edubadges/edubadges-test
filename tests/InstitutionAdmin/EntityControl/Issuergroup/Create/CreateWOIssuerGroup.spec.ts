@@ -16,11 +16,11 @@ test('Create new WO issuer group', async ({
     await issuerGroup.AddNewIssuerGroup(newIssuerGroupName, descriptionText);
 
     // validate
-    const editButtonLocator = woPage.page.getByRole('link', { name: 'Edit issuer group' });
-    const groupTitleLocator = woPage.page.locator('.title').getByRole('heading');
-    const descriptionLocator = woPage.page.locator('.info').locator('p').first();
+    const editButton = woPage.page.getByRole('link', { name: 'Edit issuer group' });
+    const groupTitle = woPage.page.locator('.title').getByRole('heading');
+    const description = woPage.page.locator('.info').locator('p').first();
 
-    await expect(editButtonLocator).toBeVisible();
-    await expect(groupTitleLocator).toHaveText(newIssuerGroupName);
-    await expect(descriptionLocator).toHaveText(descriptionText)
+    await expect(editButton).toBeVisible();
+    await expect(groupTitle).toHaveText(newIssuerGroupName);
+    await expect(description).toHaveText(descriptionText);
   });

@@ -1,23 +1,28 @@
 import { expect, test } from '../../fixtures/studentFixture';
 
-test('See homepage', async({
+test('See homepage', async ({
     catalogPage,
 }) => {
-    catalogPage.page.goto('');
-    var maskedLocators= [];
-    maskedLocators.push(
+    // var
+    const maskedLocators = [
         catalogPage.page
-        .getByText(' Badge Classes')
-        .first()
-        .locator('..')
-        .locator('..')
-        .locator('..'),
-        );
+            .getByText(' Badge Classes')
+            .first()
+            .locator('..')
+            .locator('..')
+            .locator('..'),
+    ];
+
+    // test
+    await catalogPage.page.goto('');
+
+    // validate
     await expect(catalogPage.page).toHaveScreenshot("expectedHomePageOpened-eng.png", {
         fullPage: true,
         mask: maskedLocators,
     });
 });
+
 test('Search for non existing badge', async ({
     catalogPage,
 }) => {
@@ -26,6 +31,8 @@ test('Search for non existing badge', async ({
 
     // test
     await catalogPage.SearchForClass(course);
+
+    // validate
     await expect(catalogPage.page).toHaveScreenshot("emptyCatalogPage.png");
 });
 
@@ -40,5 +47,7 @@ test('Look at existing badge', async ({
     await catalogPage.SearchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
+
+    // validate
     await expect(catalogPage.page).toHaveScreenshot('edubadgeAnonymous.png');
 });

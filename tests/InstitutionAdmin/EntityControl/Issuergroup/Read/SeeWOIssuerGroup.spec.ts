@@ -6,8 +6,8 @@ test('See WO issuer group', async ({
     // var
     const existingGroupName = "Science";
     const issuerGroup = woPage.managePage.issuerGroupPage;
-    const maskBadgeClass = woPage.page.locator('th').getByText('Badge Classes');
-    const maskDate = woPage.page.getByText('Created ').locator('../..');
+    const badgeclassMask = woPage.page.locator('th').getByText('Badge Classes');
+    const dateMask = woPage.page.getByText('Created ').locator('../..');
 
     // test
     await woPage.goToManage();
@@ -16,5 +16,5 @@ test('See WO issuer group', async ({
     await issuerGroup.page.locator('td').getByText(existingGroupName, { exact: true }).click();
     await woPage.waitForLoadingToStop();
 
-    await expect(woPage.page).toHaveScreenshot('See existing issuer group.png', { mask: [maskDate, maskBadgeClass] });
+    await expect(woPage.page).toHaveScreenshot('See existing issuer group.png', { mask: [dateMask, badgeclassMask] });
   });
