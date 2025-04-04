@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test';
+import { expect, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
 
@@ -10,6 +10,8 @@ export class BackpackPage extends BasePage {
   private readonly importedLink = this.page.getByRole('link', { name: 'Imported' });
   private readonly archiveLink = this.page.getByRole('link', { name: 'Archive' });
   private readonly accountLink = this.page.getByRole('link', { name: 'Account' });
+  private readonly claimLink = this.page.getByRole('link', { name: 'Claim & Add to your backpack' });
+  private readonly rejectLink = this.page.getByRole('link', { name: 'Reject' })
 
   // Login locators
   private readonly searchField = this.page.getByPlaceholder('Search...');
@@ -17,10 +19,12 @@ export class BackpackPage extends BasePage {
   private readonly passwordField = this.page.getByPlaceholder('Password');
   private readonly eduIdButton = this.page.getByRole('heading', { name: 'Login with eduID (NL) test' });
   private readonly nextButton = this.page.locator('[href*="/next"]');
-  private readonly termsAndConditions = this.page.getByRole('link', { name: 'I agree' });
   private readonly loggedInMenu = this.page.locator('.expand-menu');
 
-  public async Login(
+  // misc
+  private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
+
+  public async login(
     email: string = this.testdata.accounts.studentEmail,
     password: string = this.testdata.accounts.studentPassword
   ) {
@@ -34,84 +38,93 @@ export class BackpackPage extends BasePage {
 
     await this.usernameField.fill(email);
     await this.nextButton.click();
+    await this.passwordField.waitFor();
     await this.passwordField.fill(password);
     await this.nextButton.click();
     
-    await this.termsAndConditions.or(this.loggedInMenu).waitFor();
-    if (await this.termsAndConditions.isVisible()) {
-      await this.termsAndConditions.click();
-    }
+    await this.handleTermsAndConditions(this.loggedInMenu);
+  }
 
-    await this.loggedInMenu.waitFor();
+  public async claimReceivedBadge(badgeName: string){
+    const badgeLocator = this.page.locator('.name').getByText(badgeName).locator('../../..');
+
+    await this.page.goto('');
+    await badgeLocator.getByText('View details to claim this edubadge').waitFor();
+    await badgeLocator.click();
+    
+    await this.claimLink.click();
+    await this.handleTermsAndConditions(this.confirmButton);
+    
+    await this.confirmButton.click();
+    await this.waitForLoadingToStop();
+  }
+
+  public async rejectReceivedBadge(badgeName: string){
+    const badgeLocator = this.page.locator('.name').getByText(badgeName).locator('../../..');
+
+    await this.page.goto('');
+    await badgeLocator.getByText('View details to claim this edubadge').waitFor();
+    await badgeLocator.click();
+
+    await this.rejectLink.click();
+    await this.confirmButton.click();
+    await this.waitForLoadingToStop();
+
+    await this.page.getByText('Edubadge is rejected').waitFor();
   }
 
   //#region open categories
-  async OpenBackpack() {
+  async openBackpack() {
     await this.backpackLink.click();
     await this.waitForLoadingToStop();
   }
 
-  async OpenBadgeRequests() {
+  async openBadgeRequests() {
     await this.requestsLink.click();
     await this.waitForLoadingToStop();
   }
 
-  async OpenCollections() {
+  async openCollections() {
     await this.collectionsLink.click();
     await this.waitForLoadingToStop();
   }
 
-  async OpenImported() {
+  async openImported() {
     await this.importedLink.click();
     await this.waitForLoadingToStop();
   }
 
-  async OpenArchive() {
+  async openArchive() {
     await this.archiveLink.click();
     await this.waitForLoadingToStop();
   }
 
-  async OpenAccount() {
+  async openAccount() {
     await this.accountLink.click();
     await this.waitForLoadingToStop();
   }
 
-  async OpenBadge(badgeName: string) {
+  async openBadge(badgeName: string) {
     await this.page.locator('.card.badge').getByText(badgeName).first().click();
     await this.waitForLoadingToStop();
   }
   //#endregion
 
-  async AcceptBadge(badgeName: string) {
-    await this.page.getByText(badgeName).click();
-    await this.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
-    await this.waitForLoadingToStop();
-    
-    if (await this.page.getByRole('link', { name: 'I agree' }).isVisible()) {
-      await this.page.getByRole('link', { name: 'I agree' }).click();
-    }
-    await this.page.getByRole('link', { name: 'Confirm' }).click();
-    await this.waitForLoadingToStop();
-  }
-
-  //#region Share badge
-  async MakeEdubadgePublic(courseName: string) {
-    const eduBadgeCard = this.page.locator('.card.badge').getByText(courseName).first();
-
+  async makeEdubadgePublic(badgeName: string) {
+    // navigate
     await this.page.goto('');
-    await eduBadgeCard.waitFor();
-    await eduBadgeCard.click();  
-    await this.page.waitForTimeout(500);
-    // if the badge is loaded the first time the buttons need time to load correctly
+    await this.waitForLoadingToStop();
+    await this.openBadge(badgeName);
+    await this.waitForLoadingToStop();
 
     // make public
     await this.page.locator('.slider').click({ force: true });
     await this.page.getByText('Confirm').click();
+    await this.waitForLoadingToStop();
 
     // validate
-    await expect(
-      this.page.getByText('This edubadge has been made publicly visible. You can share this edubadge now')
-    ).toBeVisible();
+    this.page.getByText('This edubadge has been made publicly visible. You can share this edubadge now')
+      .waitFor();
   }
 
   async getShareLink(): Promise<string> {
@@ -119,14 +132,13 @@ export class BackpackPage extends BasePage {
     await this.page.getByRole('link', { name: 'Share' }).click();
     await this.page.getByRole('link', { name: 'Copy the link' }).click();
     
-    return copyPastePage.retreiveValueFromClipboard();
+    return copyPastePage.retrieveValueFromClipboard();
   }
 
-  async ValidateBadge(url: string) {
+  async validateBadge(url: string) {
     await this.page.goto(url);
     await this.page.getByRole('link', { name: 'Verify' }).click();
     // If this test fails, it is because the verify functionality is not running correctly
     await expect.poll(async() => this.page.locator('.check').count()).toBeGreaterThanOrEqual(9);
   }
-  //#endregion
 }
