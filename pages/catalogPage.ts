@@ -11,7 +11,6 @@ export class CatalogPage extends BasePage {
   private readonly eduIdButton = this.page.getByRole('heading', { name: 'Login with eduID (NL) test' });
   private readonly nextButton = this.page.locator('[href*="/next"]');
   private readonly passwordField = this.page.getByPlaceholder('Password');
-  private readonly termsAndConditions = this.page.getByRole('link', { name: 'I agree' });
   private readonly loggedInMenu = this.page.locator('.expand-menu');
 
   // Request badge locators
@@ -19,7 +18,7 @@ export class CatalogPage extends BasePage {
   private readonly requestButton = this.page.getByRole('link', { name: 'Request', exact: true });
   private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
 
-  async SearchForClass(name: string) {
+  async searchForClass(name: string) {
     await this.searchField.fill(name);
   }
 
@@ -32,26 +31,23 @@ export class CatalogPage extends BasePage {
     await expect(this.page.getByRole('heading', { name: 'The programme' })).toBeVisible();
   }
 
-  async RequestEdubadge() {
+  async requestEdubadge() {
     if (await this.loginButton.isVisible()) {
       await this.loginButton.click();
-      await this.Login();
+      await this.loginStudentIdp();
     }
 
     await this.requestButton.click();
+    await this.waitForLoadingToStop();
 
-    if (await this.termsAndConditions.isVisible()) {
-      await this.termsAndConditions.click();
-    }
+    this.handleTermsAndConditions(this.confirmButton);
 
-    if (await this.confirmButton.isVisible()) {
-      await this.confirmButton.click();
-    }
+    await this.confirmButton.click();
 
     await this.page.getByText('Successfully requested').waitFor();
   }
 
-  public async Login(
+  public async loginStudentIdp(
     email: string = this.testdata.accounts.studentEmail,
     password: string = this.testdata.accounts.studentPassword
   ) {
@@ -65,14 +61,11 @@ export class CatalogPage extends BasePage {
 
     await this.usernameField.fill(email);
     await this.nextButton.click();
+
+    await this.passwordField.waitFor();
     await this.passwordField.fill(password);
     await this.nextButton.click();
     
-    await this.termsAndConditions.or(this.loggedInMenu).waitFor();
-    if (await this.termsAndConditions.isVisible()) {
-      await this.termsAndConditions.click();
-    }
-
-    await this.loggedInMenu.waitFor();
+    this.handleTermsAndConditions(this.loggedInMenu);
   }
 }

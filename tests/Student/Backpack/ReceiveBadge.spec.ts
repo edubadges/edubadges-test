@@ -7,23 +7,17 @@ test('Reject received badge', async ({
     woTeacherPage,
 }) => {
     // var
-    const course = "Law and Politics";
+    const badgeName = "Law and Politics";
     const unclaimedBadgeLocator = backpackPage.page
-        .getByText(course)
+        .getByText(badgeName)
         .locator('../../..')
         .getByText('View details to claim this edubadge');
 
     // setup
-    await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(course);
+    await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
     
     // test
-    await backpackPage.reloadPage();
-    await backpackPage.OpenBackpack();
-    await unclaimedBadgeLocator.click();
-    await backpackPage.page.waitForTimeout(500);
-    await backpackPage.page.getByRole('link', { name: 'Reject' }).click();
-    await backpackPage.page.waitForTimeout(500);
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+    await backpackPage.rejectReceivedBadge(badgeName);
 
     // validate
     await expect(backpackPage.page.getByText('Edubadge is rejected')).toBeVisible();
@@ -34,18 +28,18 @@ test('Accept received badge', async ({
     woTeacherPage,
 }) => {
     // var
-    const course = "Introduction to Psychology";
+    const badgeName = "Introduction to Psychology";
     const unclaimedBadgeLocator = backpackPage.page
-        .getByText(course)
+        .getByText(badgeName)
         .locator('../../..')
         .getByText('View details to claim this edubadge');
 
     // setup
-    await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(course);
+    await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
     
     // test
     await backpackPage.reloadPage();
-    await backpackPage.OpenBackpack();
+    await backpackPage.openBackpack();
     await unclaimedBadgeLocator.click();
     await backpackPage.page.waitForTimeout(500);
     await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();

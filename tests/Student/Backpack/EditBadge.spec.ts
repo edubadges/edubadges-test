@@ -7,28 +7,15 @@ test('Reject accepted badge', async ({
     woTeacherPage
 }) => {
     // var
-    const course = "Circulation and Breathing";
-    const termsAndConditions = backpackPage.page.getByRole('link', { name: 'I agree' });
+    const badgeName = "Circulation and Breathing";
     const successBanner = backpackPage.page.getByText('Successfully claimed edubadge');
 
     //setup
-    await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(course);
+    await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
 
     await backpackPage.reloadPage();
-    await backpackPage.OpenBackpack();
-    await backpackPage.page
-        .getByText(course)
-        .locator('../../..')
-        .getByText('View details to claim this edubadge')
-        .click();
-    await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
-    // TODO: first time accepting fix, maybe function it away
-    await termsAndConditions.or(successBanner).waitFor();
-
-    if(await termsAndConditions.isVisible())
-        { termsAndConditions.click(); }
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
-    await expect(successBanner).toBeVisible();
+    await backpackPage.openBackpack();
+    await backpackPage.claimReceivedBadge(badgeName);
 
     // test
     await backpackPage.page.getByRole('link', { name: 'Reject this edubadge' }).click();
