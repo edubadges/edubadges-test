@@ -27,7 +27,7 @@ export class StaffMainPage extends BasePage {
   readonly usersPage = new StaffUsersPage(this.page, this.testdata);
   readonly insightsPage = new StaffInsightsPage(this.page, this.testdata);
 
-  private idpButtonLocator(idpName: string): Locator {
+  private async idpButtonLocator(idpName: string): Promise<Locator> {
     const idpButtons = this.page.locator('.idp__content').locator('..');
     return idpButtons.getByText(idpName).locator('../../..');
   }
@@ -96,12 +96,11 @@ export class StaffMainPage extends BasePage {
   }
 
   async loginTestIdp(username: string, password: string) {
-    const testIdpName = 'test idp';
-    await this.searchField.fill(testIdpName);
-    await this.idpButtonLocator(testIdpName).locator('img').waitFor();
-    await this.page.waitForTimeout(100);
-    await this.idpButtonLocator(testIdpName).click();
-
+    const idp = 'test idp';
+    await this.searchField.fill(idp);
+    const idpButton = await this.idpButtonLocator(idp);
+    await this.page.waitForTimeout(200);
+    await idpButton.click();
     await this.usernameField.waitFor();
     await this.usernameField.fill(username);
     await this.passwordField.fill(password);
