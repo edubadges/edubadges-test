@@ -43,18 +43,19 @@ export class HomePage extends BasePageMultiLanguage {
     await this.page.goto('');
   }
 
-  async OpenCatalog() {
+  async openCatalog() {
     await this.catalogLink.click();
+    await this.waitForLoadingToStop();
   }
 
-  async OpenBackpack() {
+  async openBackpack() {
     await this.backpackLink.click();
+    await this.waitForLoadingToStop();
   }
 
   async expectHomePageOpened() {
-    const snapshotName = this.testdata.language === Language.en
-      ? 'expectedLoginPageOpened-eng.png'
-      : 'expectedLoginPageOpened-nl.png';
+    const snapshotName = 'expectedLoginPageOpened-' + 
+      (this.testdata.language === Language.en ? 'eng' : 'nl') + '.png';
 
     const maskedLocators = [
       this.page
@@ -64,11 +65,7 @@ export class HomePage extends BasePageMultiLanguage {
         .locator('..')
         .locator('..')
     ];
-
-    await expect(this.page).toHaveScreenshot(snapshotName, {
-      fullPage: true,
-      mask: maskedLocators,
-    });
+    await expect(this.page).toHaveScreenshot(snapshotName, { mask: maskedLocators });
   }
 
   async openIssuerPortal() {
