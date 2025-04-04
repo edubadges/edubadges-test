@@ -8,7 +8,7 @@ test('See existing badge logged in', async ({
     const institution = "harvard-example.edu";
 
     // setup
-    await catalogPage.SearchForClass(course);
+    await catalogPage.searchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
     
@@ -16,7 +16,7 @@ test('See existing badge logged in', async ({
     await catalogPage.page
         .getByRole('link', { name: 'Login to request this edubadge' })
         .click();
-    await catalogPage.Login();
+    await catalogPage.loginStudentIdp();
     await catalogPage.waitForLoadingToStop();
 
     // validate
@@ -31,12 +31,12 @@ test('Request badge', async ({
     const institution = "university-example.org";
 
     // setup
-    await catalogPage.SearchForClass(course);
+    await catalogPage.searchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
 
     // test
-    await catalogPage.RequestEdubadge();
+    await catalogPage.requestEdubadge();
     await catalogPage.waitForLoadingToStop();
 
     // validate
@@ -53,13 +53,13 @@ test('Log out from catalog', async ({
     const institution = "harvard-example.edu";
 
     // setup
-    await catalogPage.SearchForClass(course);
+    await catalogPage.searchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
     await catalogPage.page
         .getByRole('link', { name: 'Login to request this edubadge' })
         .click();
-    await catalogPage.Login();
+    await catalogPage.loginStudentIdp();
     await catalogPage.waitForLoadingToStop();
     await expect(catalogPage.page).toHaveScreenshot('NotYetRequestedBadge.png');
     await catalogPage.page.goto('/catalog');

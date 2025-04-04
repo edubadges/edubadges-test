@@ -30,7 +30,7 @@ test('Search for non existing badge', async ({
     const course = "I do not exist` this course is not real?";
 
     // test
-    await catalogPage.SearchForClass(course);
+    await catalogPage.searchForClass(course);
 
     // validate
     await expect(catalogPage.page).toHaveScreenshot("emptyCatalogPage.png");
@@ -44,7 +44,7 @@ test('Look at existing badge', async ({
     const institution = "harvard-example.edu";
 
     // test
-    await catalogPage.SearchForClass(course);
+    await catalogPage.searchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
 

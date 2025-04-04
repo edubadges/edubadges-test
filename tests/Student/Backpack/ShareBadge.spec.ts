@@ -10,16 +10,16 @@ test('Make edubadge public', async ({
     const institution = "university-example.org";
 
     //setup
-    await catalogPage.SearchForClass(course);
+    await catalogPage.searchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
-    await catalogPage.RequestEdubadge();
+    await catalogPage.requestEdubadge();
 
     await woTeacherPage.badgeClassPage.approveRequest(course);
     
-    await backpackPage.OpenBackpack();
+    await backpackPage.openBackpack();
     await backpackPage.reloadPage();
-    await backpackPage.OpenBadge(course);
+    await backpackPage.openBadge(course);
   
     // test
     await expect(backpackPage.page
@@ -27,7 +27,7 @@ test('Make edubadge public', async ({
       .toHaveAttribute('disabled', 'true');
     await expect(backpackPage.page.locator('.slider')).toBeChecked();
     
-    await backpackPage.MakeEdubadgePublic(course);
+    await backpackPage.makeEdubadgePublic(course);
 
     await expect(backpackPage.page
       .getByRole('link', { name: 'Share' }))
@@ -47,16 +47,16 @@ test('Make edubadge public', async ({
     const institution = "university-example.org";
 
     //setup
-    await catalogPage.SearchForClass(course);
+    await catalogPage.searchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
-    await catalogPage.RequestEdubadge();
+    await catalogPage.requestEdubadge();
 
     await woTeacherPage.badgeClassPage.approveRequest(course);
     
-    await backpackPage.OpenBackpack();
+    await backpackPage.openBackpack();
     await backpackPage.reloadPage();
-    await backpackPage.MakeEdubadgePublic(course);
+    await backpackPage.makeEdubadgePublic(course);
 
     await backpackPage.page
       .getByRole('link', { name: 'Share' })
@@ -65,6 +65,6 @@ test('Make edubadge public', async ({
   
     // test
     const url = await backpackPage.getShareLink();
-    await backpackPage.ValidateBadge(url);
+    await backpackPage.validateBadge(url);
   });
   

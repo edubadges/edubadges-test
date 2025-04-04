@@ -15,13 +15,13 @@ test('Edit WO issuer group', async ({
     // setup
     await woPage.goToManage();
     await woPage.managePage.goToIssuerGroups();
-    await issuerGroup.AddNewIssuerGroup(initialIssuerGroupName, initialIssuerGroupDesc);
+    await issuerGroup.addNewIssuerGroup(initialIssuerGroupName, initialIssuerGroupDesc);
     await woPage.goToManage();
     await woPage.managePage.goToIssuerGroups();
     await woPage.waitForLoadingToStop();
 
     // test
-    await issuerGroup.EditExistingIssuerGroup(initialIssuerGroupName, editedIssuerGroupName, editedIssuerGroupDesc);
+    await issuerGroup.editExistingIssuerGroup(initialIssuerGroupName, editedIssuerGroupName, editedIssuerGroupDesc);
     
     // validate
     const groupTitle = woPage.page.locator('.title').getByRole('heading');

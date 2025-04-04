@@ -13,7 +13,7 @@ test('Create new WO issuer group', async ({
     await woPage.managePage.goToIssuerGroups();
 
     // test
-    await issuerGroup.AddNewIssuerGroup(newIssuerGroupName, descriptionText);
+    await issuerGroup.addNewIssuerGroup(newIssuerGroupName, descriptionText);
 
     // validate
     const editButton = woPage.page.getByRole('link', { name: 'Edit issuer group' });

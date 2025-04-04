@@ -11,10 +11,10 @@ test('Award requested badge', async ({
     const institution = "university-example.org";
     
     // setup
-    await catalogPage.SearchForClass(course);
+    await catalogPage.searchForClass(course);
     await catalogPage.filterOn(institution);
     await catalogPage.openEduClass(course);
-    await catalogPage.RequestEdubadge();
+    await catalogPage.requestEdubadge();
   
     // test
     await woPage.badgeClassPage.approveRequest(course);

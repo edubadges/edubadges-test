@@ -42,7 +42,7 @@ export const test = base.extend<EdubadgeFixture>({
 
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
-    await homePage.OpenCatalog();
+    await homePage.openCatalog();
     const catalogPage = new CatalogPage(page, testdata);
 
     // Use the fixture value in the test.

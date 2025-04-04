@@ -10,8 +10,8 @@ export class IssuersSubPage extends BaseStaffSubPage {
   private readonly editIssuerButton = this.page.getByRole('link', { name: 'Edit issuer' });
   private readonly saveButton = this.page.getByRole('link', { name: 'Save' });
   private readonly saveChangesButton = this.page.getByRole('link', { name: 'Save changes' });
-  private readonly deleteButton = this.page.getByRole('link', { name: 'Delete' });
-  private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
+  private readonly deleteButton = this.page.getByRole('link', { name: 'Delete', exact: true });
+  private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm', exact: true });
   private readonly uploadImageButton = this.page.getByText('Upload image');
   private readonly addNewBadgeClassButton = this.page.getByRole('link', { name: 'Add new badge class' });
   private readonly copyBadgeButton = this.page.getByRole('link', { name: 'Copy badge class' });

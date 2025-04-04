@@ -31,7 +31,7 @@ export const test = base.extend<CatalogFixture>({
 
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
-    await homePage.OpenCatalog();
+    await homePage.openCatalog();
     const catalogPage = new CatalogPage(page, testdata);
 
     // Use the fixture value in the test.
@@ -48,9 +48,9 @@ export const test = base.extend<CatalogFixture>({
 
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
-    await homePage.OpenBackpack();
+    await homePage.openBackpack();
     const backpackPage = new BackpackPage(page, testdata);
-    await backpackPage.Login();
+    await backpackPage.login();
 
     // Use the fixture value in the test.
     await use(backpackPage);

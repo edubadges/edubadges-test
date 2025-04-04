@@ -9,10 +9,10 @@ export class CopyPastePage extends BasePage {
     super(page, testdata);
   }
 
-  async retreiveValueFromClipboard(): Promise<string> {
+  async retrieveValueFromClipboard(): Promise<string> {
     await this.page.goto('/catalog');
     await this.searchField.click();
-    await this.page.keyboard.press('ControlOrMeta+v');
+    await this.page.keyboard.press('Control+V');
     return await this.searchField.inputValue();
   }
 }
