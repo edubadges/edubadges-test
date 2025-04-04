@@ -1,5 +1,4 @@
 import { expect, test } from '../../fixtures/loginFixture';
-import { Page, Locator } from '@playwright/test';
 
 test('Login WO institution admin', async ({
   homePage,
@@ -7,6 +6,7 @@ test('Login WO institution admin', async ({
   testdata,
 }) => {
   // login
+  await homePage.navigateToHomePage();
   await homePage.openIssuerPortal();
   await issuerPortalPage.loginTestIdp(
     testdata.WOAccounts.institutionAdminLogin.username,
