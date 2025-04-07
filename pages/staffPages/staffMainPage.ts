@@ -99,7 +99,7 @@ export class StaffMainPage extends BasePage {
     const idp = 'test idp';
     await this.searchField.fill(idp);
     const idpButton = await this.idpButtonLocator(idp);
-    await this.page.waitForTimeout(200);
+    await this.page.waitForTimeout(500);
     await idpButton.click();
     await this.usernameField.waitFor();
     await this.usernameField.fill(username);
