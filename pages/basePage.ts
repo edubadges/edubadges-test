@@ -18,6 +18,10 @@ export abstract class BasePage {
     await this.page.locator('.lds-roller').waitFor({ state: 'hidden' });
   }
 
+  /**
+   * Handles the possible popup of the terms and conditions page.
+   * @param nextLocator a locator that should be visible on the next screen
+   */
   async handleTermsAndConditions(nextLocator: Locator){
     const termsAndConditions = this.page.getByRole('link', { name: 'I agree' });
     await this.waitForLoadingToStop();
