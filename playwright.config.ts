@@ -18,7 +18,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 1,
 
   // Opt out of parallel tests on CI.
-  workers: process.env.CI ? 1 : 1,
+  workers: process.env.CI ? 1 : 2,
 
   // Reporter to use
   reporter: [
