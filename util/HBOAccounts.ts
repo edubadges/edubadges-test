@@ -3,6 +3,7 @@ import { AccountsBase, staffDetails, studentDetails } from './accountBase';
 export class HBOAccounts extends AccountsBase {
   institutionAdminLogin: staffDetails;
   issuerGroupAdmin: staffDetails;
+  issuerAdmin: staffDetails;
   badgeClassAdminLogin: staffDetails;
   student: studentDetails[];
 
@@ -16,6 +17,10 @@ export class HBOAccounts extends AccountsBase {
       process.env.HBO_ISSUERGROUP_ADMIN_USERNAME || '',
       process.env.HBO_ISSUERGROUP_ADMIN_PASSWORD || '',
     );
+    this.issuerAdmin = new staffDetails(
+        process.env.HBO_ISSUER_ADMIN_USERNAME || '',
+        process.env.HBO_ISSUER_ADMIN_PASSWORD || '',
+    )
     this.badgeClassAdminLogin = new staffDetails(
       process.env.HBO_BADGECLASS_ADMIN_USERNAME || '',
       process.env.HBO_BADGECLASS_ADMIN_PASSWORD || '',

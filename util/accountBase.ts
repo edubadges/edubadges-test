@@ -1,6 +1,7 @@
 export abstract class AccountsBase {
   abstract readonly institutionAdminLogin: staffDetails;
   abstract readonly issuerGroupAdmin: staffDetails;
+  abstract readonly issuerAdmin: staffDetails;
   abstract readonly badgeClassAdminLogin: staffDetails;
   abstract readonly student: studentDetails[];
 }
