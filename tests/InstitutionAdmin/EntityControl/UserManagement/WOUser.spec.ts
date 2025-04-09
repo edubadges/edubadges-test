@@ -1,5 +1,5 @@
 import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
-import {
+
 test('Invite WO user', async ({ woInstitutionAdminPage: woPage }) => {
   // var
   const newUserMail = 'TestNewFirstTestMailAdress@university.org';

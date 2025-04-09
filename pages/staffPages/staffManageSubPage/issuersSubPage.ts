@@ -238,10 +238,6 @@ export class IssuersSubPage extends BaseStaffSubPage {
   }
 
   async createMicroBadge(
-      await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
-          criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
-          frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
-      );
     issuerGroupName: string,
     badgeTitle: string,
     badgeDesc: string = this.testdata.badgeData.description,
@@ -261,6 +257,10 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.openIssuer(issuerGroupName);
     await this.clickNewBadgeClass();
     await this.clickMicroCredential();
+    await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
+      criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
+      frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
+  );
     await this.publishBadge();
   }
 
