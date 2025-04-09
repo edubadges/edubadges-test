@@ -1,4 +1,4 @@
-import { AccountsBase, staffDetails, studentDetails } from './accountsBase';
+import { AccountsBase, staffDetails, studentDetails } from './accountBase';
 
 export class MBOAccounts extends AccountsBase {
   institutionAdminLogin: staffDetails;
