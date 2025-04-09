@@ -1,45 +1,32 @@
-import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
+import { expect, test } from '../../../../fixtures/staffFixture';
 
-
-test('Copy existing extracurricular edubadge', async ({
-  woInstitutionAdminPage: woPage,
+test('Copy existing micro edubadge', async ({
+  adminPage,
 }) => {
   // var
   const issuerGroupName = 'Medicine';
-  const initialBadgeName = 'A new Medicine extra curricular badge';
+  const initialBadgeName = 'A new Medicine micro credential';
   const badgeDesc = 'The original description';
   const badgeOutcome = 'The original outcome';
   const badgeCriterium = 'The original criterium';
   const badgeEQF = 'EQF 7';
-  const badgeIdentifier = '1929';
+  const badgeIdentifier = '1930';
   const badgeFormOfPart = 'Blended';
   const badgeAssesment = 'Behavioural assessment';
-  const badgeHours = '210';
 
-  const copiedBadgeName = 'A copied Medicine extra curricular badge';
-  const issuers = woPage.managePage.issuersPage;
-  const badgeInfo = woPage.page
+  const copiedBadgeName = 'A copied Medicine micro credential';
+  const issuers = adminPage.managePage.issuersPage;
+  const badgeInfo = adminPage.page
     .locator('.info')
-    .or(woPage.page.locator('.group_items'));
+    .or(adminPage.page.locator('.group_items'));
 
   // setup
-  await woPage.goToManage();
-  await issuers.createExtracurricularBadge(
-    issuerGroupName,
-    initialBadgeName,
-    badgeDesc,
-    badgeOutcome,
-    badgeCriterium,
-    badgeEQF,
-    badgeIdentifier,
-    badgeFormOfPart,
-    badgeAssesment,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined, // skip framework arguments
-    badgeHours,
+  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.goToManage();
+  await issuers.createMicroBadge(
+    issuerGroupName, initialBadgeName, badgeDesc,
+    badgeOutcome, badgeCriterium, badgeEQF,
+    badgeIdentifier, badgeFormOfPart, badgeAssesment,
   );
 
   // test
@@ -56,5 +43,4 @@ test('Copy existing extracurricular edubadge', async ({
   await expect(badgeInfo.getByText(badgeIdentifier)).toBeVisible();
   await expect(badgeInfo.getByText(badgeFormOfPart)).toBeVisible();
   await expect(badgeInfo.getByText(badgeAssesment)).toBeVisible();
-  await expect(badgeInfo.getByText(badgeHours)).toBeVisible();
 });

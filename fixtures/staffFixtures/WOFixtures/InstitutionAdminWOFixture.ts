@@ -17,9 +17,7 @@ export const test = base.extend<EdubadgeFixture>({
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
     await homePage.openIssuerPortal();
-
     const woPage = new StaffMainPage(page, testdata);
-    await woPage.loginWithWoInstitutionAdmin();
 
     // Use the fixture value in the test.
     await use(woPage);

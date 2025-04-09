@@ -6,9 +6,7 @@ test('See homepage', async ({ catalogPage }) => {
     catalogPage.page
       .getByText(' Badge Classes')
       .first()
-      .locator('..')
-      .locator('..')
-      .locator('..'),
+      .locator('../../..'),
   ];
 
   // test

@@ -1,8 +1,7 @@
-import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
-
+import { expect, test } from '../../../../fixtures/staffFixture';
 
 test('Copy existing regular edubadge', async ({
-  woInstitutionAdminPage: woPage,
+  adminPage,
 }) => {
   // var
   const issuerGroupName = 'Medicine';
@@ -16,23 +15,18 @@ test('Copy existing regular edubadge', async ({
   const badgeAssesment = 'Behavioural assessment';
 
   const copiedBadgeName = 'A copied Medicine regular badge';
-  const issuers = woPage.managePage.issuersPage;
-  const badgeInfo = woPage.page
+  const issuers = adminPage.managePage.issuersPage;
+  const badgeInfo = adminPage.page
     .locator('.info')
-    .or(woPage.page.locator('.group_items'));
+    .or(adminPage.page.locator('.group_items'));
 
   // setup
-  await woPage.goToManage();
+  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.goToManage();
   await issuers.createRegularBadge(
-    issuerGroupName,
-    initialBadgeName,
-    badgeDesc,
-    badgeOutcome,
-    badgeCriterium,
-    badgeEQF,
-    badgeIdentifier,
-    badgeFormOfPart,
-    badgeAssesment,
+    issuerGroupName, initialBadgeName, badgeDesc,
+    badgeOutcome, badgeCriterium, badgeEQF,
+    badgeIdentifier, badgeFormOfPart, badgeAssesment,
   );
 
   // test
