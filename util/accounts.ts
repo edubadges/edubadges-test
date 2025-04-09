@@ -40,11 +40,9 @@ export class Accounts {
       process.env.ISSUER_GROUP_ADMIN_ISSUERGROUP || '';
     this.issuerAdminUsername = process.env.ISSUER_ADMIN_USERNAME || '';
     this.issuerAdminPassword = process.env.ISSUER_ADMIN_PASSWORD || '';
-    this.badgeClassAdminUsername =
-      process.env.BADGE_CLASS_ADMIN_USERNAME || '';
-    this.badgeClassAdminPassword =
-      process.env.BADGE_CLASS_ADMIN_PASSWORD || '';
-    
+    this.badgeClassAdminUsername = process.env.BADGE_CLASS_ADMIN_USERNAME || '';
+    this.badgeClassAdminPassword = process.env.BADGE_CLASS_ADMIN_PASSWORD || '';
+
     this.studentName = process.env.STUDENT_NAME || '';
     this.studentUsername = process.env.STUDENT_USERNAME || '';
     this.studentPassword = process.env.STUDENT_PASSWORD || '';

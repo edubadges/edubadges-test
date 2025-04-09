@@ -101,6 +101,6 @@ export const test = base.extend<CatalogFixture>({
     await use(hboPage);
 
     // Clean up the fixture.
-  }, 
+  },
 });
 export { expect, BrowserContext } from '@playwright/test';

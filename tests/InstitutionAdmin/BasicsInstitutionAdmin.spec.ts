@@ -10,13 +10,13 @@ test('Login WO institution admin', async ({
   await homePage.openIssuerPortal();
   await issuerPortalPage.loginTestIdp(
     testdata.WOAccounts.institutionAdminLogin.username,
-    testdata.WOAccounts.institutionAdminLogin.password
+    testdata.WOAccounts.institutionAdminLogin.password,
   );
 
   // validate success
   const expandMenu = issuerPortalPage.page.locator('.expand-menu');
   const navigation = issuerPortalPage.page.getByRole('navigation');
-  
+
   await expect(expandMenu).toBeVisible();
   await expect(navigation).toBeVisible();
 });
@@ -34,16 +34,16 @@ test('Logout WO institution admin', async ({
   await homePage.openIssuerPortal();
   await issuerPortalPage.loginTestIdp(
     testdata.WOAccounts.institutionAdminLogin.username,
-    testdata.WOAccounts.institutionAdminLogin.password
+    testdata.WOAccounts.institutionAdminLogin.password,
   );
-  
+
   await expect(loggedInMenu).toBeVisible();
   await expect(navigation).toBeVisible();
 
   // test
   await loggedInMenu.click();
   await loggedInMenu.getByText('Logout').click();
-  
+
   // validation
   await expect(loggedInMenu).not.toBeVisible();
   await expect(navigation).not.toBeVisible();

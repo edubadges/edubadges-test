@@ -78,7 +78,7 @@ export class StaffMainPage extends BasePage {
     await this.loginTestIdp(
       this.testdata.accounts.studentName,
       this.testdata.accounts.studentPassword,
-    ); 
+    );
   }
 
   async loginWithMBOInstitutionAdmin() {
@@ -118,7 +118,11 @@ export class StaffMainPage extends BasePage {
     await this.expandMenu.waitFor();
   }
 
-  async loginDummyIdp(username: string, email: string, orgName: string = 'university-example.org') {
+  async loginDummyIdp(
+    username: string,
+    email: string,
+    orgName: string = 'university-example.org',
+  ) {
     const dummyName = 'SURFconext Dummy IdP';
     const dummyLocator = this.page.getByText(dummyName + ' (previously SURFconext Mujina IdP)').first();
 
@@ -128,21 +132,34 @@ export class StaffMainPage extends BasePage {
 
     await this.page.getByText('Mujina Identity Provider').waitFor();
     await this.page.getByPlaceholder('Username').fill(username);
-    await this.page.selectOption('select#authn-context-class-ref', 'https://eduid.nl/trust/linked-institution');
+    await this.page.selectOption(
+      'select#authn-context-class-ref',
+      'https://eduid.nl/trust/linked-institution',
+    );
 
     const attributeAddLocator = this.page.locator('select#add-attribute');
     const mailTitle = 'urn:mace:dir:attribute-def:mail';
     const orgTitle = 'urn:mace:terena.org:attribute-def:schacHomeOrganization';
 
     await attributeAddLocator.selectOption(mailTitle);
-    await this.page.getByText(mailTitle).locator('..').getByRole('textbox').fill(email);
+    await this.page
+      .getByText(mailTitle)
+      .locator('..')
+      .getByRole('textbox')
+      .fill(email);
 
     await attributeAddLocator.selectOption(orgTitle);
-    await this.page.getByText(orgTitle).locator('..').getByRole('textbox').fill(orgName);
+    await this.page
+      .getByText(orgTitle)
+      .locator('..')
+      .getByRole('textbox')
+      .fill(orgName);
 
     await this.page.getByText('Log in').click();
 
-    const consentButtonLocator = this.page.getByRole('button', { name: 'Proceed to Edubadges' });
+    const consentButtonLocator = this.page.getByRole('button', {
+      name: 'Proceed to Edubadges',
+    });
     await consentButtonLocator.or(this.expandMenu).waitFor();
 
     if (await consentButtonLocator.isVisible()) {

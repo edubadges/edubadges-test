@@ -14,19 +14,14 @@ test('Validate error messages empty microcredential form', async ({
   // test
   await issuers.clickNewBadgeClass();
   await issuers.clickMicroCredential();
-  await expect(hboPage.page).toHaveScreenshot(
-    'emptyMicrocredentialForm.png',
-    {
-      fullPage: true,
-    },
-  );
-  await hboPage.page
-    .getByRole('link', { name: 'Publish' })
-    .click();
+  await expect(hboPage.page).toHaveScreenshot('emptyMicrocredentialForm.png', {
+    fullPage: true,
+  });
+  await hboPage.page.getByRole('link', { name: 'Publish' }).click();
   await expect(hboPage.page).toHaveScreenshot(
     'emptyMicrocredentialFormWithValidationErrors.png',
-    { 
-      fullPage: true 
+    {
+      fullPage: true,
     },
   );
 });
@@ -45,19 +40,14 @@ test('Validate error messages empty regular badge form', async ({
   // test
   await issuers.clickNewBadgeClass();
   await issuers.clickRegularBadge();
-  await expect(hboPage.page).toHaveScreenshot(
-    'emptyRegularEdubadgeForm.png',
-    {
-      fullPage: true,
-    },
-  );
-  await hboPage.page
-    .getByRole('link', { name: 'Publish' })
-    .click();
+  await expect(hboPage.page).toHaveScreenshot('emptyRegularEdubadgeForm.png', {
+    fullPage: true,
+  });
+  await hboPage.page.getByRole('link', { name: 'Publish' }).click();
   await expect(hboPage.page).toHaveScreenshot(
     'emptyRegularFormWithValidationErrors.png',
-    { 
-      fullPage: true 
+    {
+      fullPage: true,
     },
   );
 });
@@ -82,13 +72,11 @@ test('Validate error messages empty extra curricular badge form', async ({
       fullPage: true,
     },
   );
-  await hboPage.page
-    .getByRole('link', { name: 'Publish' })
-    .click();
+  await hboPage.page.getByRole('link', { name: 'Publish' }).click();
   await expect(hboPage.page).toHaveScreenshot(
     'emptyExtraCurricularFormWithValidationErrors.png',
-    { 
-      fullPage: true 
+    {
+      fullPage: true,
     },
   );
 });
@@ -116,22 +104,11 @@ test('Validate regular HBO edu badge creation', async ({
   await manage.fillInExtraCurricularForm();
   await manage.publishBadge();
 
-  await hboPage.page
-    .getByRole('link', { name: 'Edit badge class' })
-    .waitFor();
+  await hboPage.page.getByRole('link', { name: 'Edit badge class' }).waitFor();
 
-  var maskedLocators = [
-    hboPage.page
-      .getByText('Created ')
-      .locator('..')
-      .locator('..'),
-  ];
-  await expect(hboPage.page).toHaveScreenshot(
-    'regularHBOBadgeCreated.png',
-    {
-      mask: [creationInformation],
-    },
-  );
+  await expect(hboPage.page).toHaveScreenshot('regularHBOBadgeCreated.png', {
+    mask: [creationInformation],
+  });
 });
 
 test('Validate micro credential HBO edu badge creation', async ({
@@ -154,16 +131,11 @@ test('Validate micro credential HBO edu badge creation', async ({
   await issuers.fillInExtraCurricularForm();
   await issuers.publishBadge();
 
-  await hboPage.page
-    .getByRole('link', { name: 'Edit badge class' })
-    .waitFor();
-    
-  await expect(hboPage.page).toHaveScreenshot(
-    'microHBOBadgeCreated.png',
-    {
-      mask: [creationInformation],
-    },
-  );
+  await hboPage.page.getByRole('link', { name: 'Edit badge class' }).waitFor();
+
+  await expect(hboPage.page).toHaveScreenshot('microHBOBadgeCreated.png', {
+    mask: [creationInformation],
+  });
 });
 
 test('Validate extra curricular HBO edu badge creation', async ({
@@ -186,10 +158,8 @@ test('Validate extra curricular HBO edu badge creation', async ({
   await issuers.fillInExtraCurricularForm();
   await issuers.publishBadge();
 
-  await hboPage.page
-    .getByRole('link', { name: 'Edit badge class' })
-    .waitFor();
-    
+  await hboPage.page.getByRole('link', { name: 'Edit badge class' }).waitFor();
+
   await expect(hboPage.page).toHaveScreenshot(
     'extraCurricularHBOBadgeCreated.png',
     {

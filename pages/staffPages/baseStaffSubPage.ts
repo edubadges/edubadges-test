@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from '../basePage';
 
 /**
@@ -17,7 +17,7 @@ export class BaseStaffSubPage extends BasePage {
   async searchWithText(textToSearch: string) {
     await this.searchField.fill(textToSearch);
   }
-  
+
   async expectLoggedIn() {
     await expect(this.expandMenu).toBeVisible();
   }

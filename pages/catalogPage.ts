@@ -49,7 +49,7 @@ export class CatalogPage extends BasePage {
 
   public async loginStudentIdp(
     email: string = this.testdata.accounts.studentEmail,
-    password: string = this.testdata.accounts.studentPassword
+    password: string = this.testdata.accounts.studentPassword,
   ) {
     await this.searchField.or(this.usernameField).waitFor();
 
@@ -65,7 +65,7 @@ export class CatalogPage extends BasePage {
     await this.passwordField.waitFor();
     await this.passwordField.fill(password);
     await this.nextButton.click();
-    
+
     this.handleTermsAndConditions(this.loggedInMenu);
   }
 }

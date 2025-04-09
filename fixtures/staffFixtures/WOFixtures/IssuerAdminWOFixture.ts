@@ -53,13 +53,13 @@ export const test = base.extend<EdubadgeFixture>({
   newStaffLoginPage: async ({ browser, testdata }, use) => {
     // Set up the fixture.
     const newStaffContext = await browser.newContext();
-    const page = await  newStaffContext.newPage();
+    const page = await newStaffContext.newPage();
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();
     await homePage.openIssuerPortal();
 
     const newStaffPage = new StaffMainPage(page, testdata);
-    
+
     await use(newStaffPage);
   },
 });

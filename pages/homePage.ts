@@ -57,15 +57,14 @@ export class HomePage extends BasePageMultiLanguage {
     const snapshotName = 'expectedLoginPageOpened-' + 
       (this.testdata.language === Language.en ? 'eng' : 'nl') + '.png';
 
-    const maskedLocators = [
-      this.page
+    const maskBadge = this.page
         .getByText(' Badge Classes')
         .first()
-        .locator('..')
-        .locator('..')
-        .locator('..')
-    ];
-    await expect(this.page).toHaveScreenshot(snapshotName, { mask: maskedLocators });
+        .locator('../../..');
+
+    await expect(this.page).toHaveScreenshot(snapshotName, {
+      mask: [maskBadge],
+    });
   }
 
   async openIssuerPortal() {
