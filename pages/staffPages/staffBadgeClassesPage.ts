@@ -1,4 +1,3 @@
-import { expect } from '@playwright/test';
 import { BaseStaffSubPage } from './baseStaffSubPage';
 
 export class StaffBadgeClassesPage extends BaseStaffSubPage {

@@ -1,4 +1,4 @@
-import { expect, Locator } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
 
@@ -26,7 +26,7 @@ export class BackpackPage extends BasePage {
 
   public async login(
     email: string = this.testdata.accounts.studentEmail,
-    password: string = this.testdata.accounts.studentPassword
+    password: string = this.testdata.accounts.studentPassword,
   ) {
     await this.searchField.or(this.usernameField).waitFor();
 
@@ -41,26 +41,32 @@ export class BackpackPage extends BasePage {
     await this.passwordField.waitFor();
     await this.passwordField.fill(password);
     await this.nextButton.click();
-    
+
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
 
-  public async claimReceivedBadge(badgeName: string){
-    const badgeLocator = this.page.locator('.name').getByText(badgeName).locator('../../..');
+  public async claimReceivedBadge(badgeName: string) {
+    const badgeLocator = this.page
+      .locator('.name')
+      .getByText(badgeName)
+      .locator('../../..');
 
     await this.page.goto('');
     await badgeLocator.getByText('View details to claim this edubadge').waitFor();
     await badgeLocator.click();
-    
+
     await this.claimLink.click();
     await this.handleTermsAndConditions(this.confirmButton);
-    
+
     await this.confirmButton.click();
     await this.waitForLoadingToStop();
   }
 
-  public async rejectReceivedBadge(badgeName: string){
-    const badgeLocator = this.page.locator('.name').getByText(badgeName).locator('../../..');
+  public async rejectReceivedBadge(badgeName: string) {
+    const badgeLocator = this.page
+      .locator('.name')
+      .getByText(badgeName)
+      .locator('../../..');
 
     await this.page.goto('');
     await badgeLocator.getByText('View details to claim this edubadge').waitFor();
@@ -131,7 +137,7 @@ export class BackpackPage extends BasePage {
     const copyPastePage = new CopyPastePage(this.page, this.testdata);
     await this.page.getByRole('link', { name: 'Share' }).click();
     await this.page.getByRole('link', { name: 'Copy the link' }).click();
-    
+
     return copyPastePage.retrieveValueFromClipboard();
   }
 
@@ -139,6 +145,8 @@ export class BackpackPage extends BasePage {
     await this.page.goto(url);
     await this.page.getByRole('link', { name: 'Verify' }).click();
     // If this test fails, it is because the verify functionality is not running correctly
-    await expect.poll(async() => this.page.locator('.check').count()).toBeGreaterThanOrEqual(9);
+    await expect
+      .poll(async () => this.page.locator('.check').count())
+      .toBeGreaterThanOrEqual(9);
   }
 }

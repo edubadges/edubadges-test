@@ -14,15 +14,10 @@ test('Validate error messages empty microcredential form', async ({
   await issuers.clickMicroCredential();
 
   // test
-  await expect(woPage.page).toHaveScreenshot(
-    'emptyMicrocredentialForm.png',
-    {
-      fullPage: true,
-    },
-  );
-  await woPage.page
-    .getByRole('link', { name: 'Publish' })
-    .click();
+  await expect(woPage.page).toHaveScreenshot('emptyMicrocredentialForm.png', {
+    fullPage: true,
+  });
+  await woPage.page.getByRole('link', { name: 'Publish' }).click();
   await expect(woPage.page).toHaveScreenshot(
     'emptyMicrocredentialFormWithValidationErrors.png',
     { fullPage: true },
@@ -43,19 +38,14 @@ test('Validate error messages empty regular badge form', async ({
   await issuers.clickRegularBadge();
 
   // test
-  await expect(woPage.page).toHaveScreenshot(
-    'emptyRegularEdubadgeForm.png',
-    {
-      fullPage: true,
-    },
-  );
-  await woPage.page
-    .getByRole('link', { name: 'Publish' })
-    .click();
+  await expect(woPage.page).toHaveScreenshot('emptyRegularEdubadgeForm.png', {
+    fullPage: true,
+  });
+  await woPage.page.getByRole('link', { name: 'Publish' }).click();
   await expect(woPage.page).toHaveScreenshot(
     'emptyRegularFormWithValidationErrors.png',
-    { 
-      fullPage: true 
+    {
+      fullPage: true,
     },
   );
 });
@@ -79,15 +69,12 @@ test('Validate error messages empty extra curricular badge form', async ({
       fullPage: true,
     },
   );
-  await woPage.page
-    .getByRole('link', { name: 'Publish' })
-    .click();
+  await woPage.page.getByRole('link', { name: 'Publish' }).click();
   await expect(woPage.page).toHaveScreenshot(
     'emptyExtraCurricularFormWithValidationErrors.png',
     { fullPage: true },
   );
 });
-
 
 // following tests are skipped because of a known issue in publishing badges
 test('Validate microcredention badge class creation', async ({
@@ -110,16 +97,11 @@ test('Validate microcredention badge class creation', async ({
   await issuers.fillInMicrocredentialForm();
   await issuers.publishBadge();
 
-  await woPage.page
-    .getByRole('link', { name: 'Edit badge class' })
-    .waitFor();
-    
-  await expect(woPage.page).toHaveScreenshot(
-    'microBadgeCreated.png',
-    {
-      mask: [creationInformation],
-    },
-  );
+  await woPage.page.getByRole('link', { name: 'Edit badge class' }).waitFor();
+
+  await expect(woPage.page).toHaveScreenshot('microBadgeCreated.png', {
+    mask: [creationInformation],
+  });
 });
 
 test('Validate regular edu badge creation', async ({
@@ -142,16 +124,11 @@ test('Validate regular edu badge creation', async ({
   await issuers.fillInRegularForm();
   await issuers.publishBadge();
 
-  await woPage.page
-    .getByRole('link', { name: 'Edit badge class' })
-    .waitFor();
-    
-  await expect(woPage.page).toHaveScreenshot(
-    'regularBadgeCreated.png',
-    {
-      mask: [creationInformation],
-    },
-  );
+  await woPage.page.getByRole('link', { name: 'Edit badge class' }).waitFor();
+
+  await expect(woPage.page).toHaveScreenshot('regularBadgeCreated.png', {
+    mask: [creationInformation],
+  });
 });
 
 test('Validate extra curricular edu badge creation', async ({
@@ -174,9 +151,7 @@ test('Validate extra curricular edu badge creation', async ({
   await issuers.fillInExtraCurricularForm();
   await issuers.publishBadge();
 
-  await woPage.page
-    .getByRole('link', { name: 'Edit badge class' })
-    .waitFor();
+  await woPage.page.getByRole('link', { name: 'Edit badge class' }).waitFor();
 
   await expect(woPage.page).toHaveScreenshot(
     'extraCurricularBadgeCreated.png',

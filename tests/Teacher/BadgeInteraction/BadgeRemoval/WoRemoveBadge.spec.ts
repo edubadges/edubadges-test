@@ -4,8 +4,8 @@ test('Remove existing regular WO badge', async ({
   woInstitutionAdminPage: woPage,
 }) => {
   // var
-  const issuerGroupName = "Medicine";
-  const badgeName = "Regular badge to delete, should be deleted";
+  const issuerGroupName = 'Medicine';
+  const badgeName = 'Regular badge to delete, should be deleted';
   const issuers = woPage.managePage.issuersPage;
 
   // setup
@@ -24,8 +24,8 @@ test('Remove existing WO micro credential', async ({
   woInstitutionAdminPage: woPage,
 }) => {
   // var
-  const issuerGroupName = "Medicine";
-  const badgeName = "Micro credential badge to delete, should be deleted";
+  const issuerGroupName = 'Medicine';
+  const badgeName = 'Micro credential badge to delete, should be deleted';
   const issuers = woPage.managePage.issuersPage;
 
   // setup
@@ -44,8 +44,8 @@ test('Remove existing extra curricular WO badge', async ({
   woInstitutionAdminPage: woPage,
 }) => {
   // var
-  const issuerGroupName = "Medicine";
-  const badgeName = "Extra curricular badge to delete, should be deleted";
+  const issuerGroupName = 'Medicine';
+  const badgeName = 'Extra curricular badge to delete, should be deleted';
   const issuers = woPage.managePage.issuersPage;
 
   // setup

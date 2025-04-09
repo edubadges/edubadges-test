@@ -31,9 +31,9 @@ export const test = base.extend<EdubadgeFixture>({
 
     const hboPage = new StaffMainPage(page, testdata);
     await hboPage.loginWithHBOInstitutionAdmin();
-    
+
     // Use the fixture value in the test.
-    await use(hboPage)
+    await use(hboPage);
 
     // Clean up the fixture.
   },
