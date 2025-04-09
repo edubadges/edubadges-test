@@ -20,9 +20,7 @@ test('Award requested badge', async ({
   await woPage.badgeClassPage.approveRequest(course);
 
   // validate
-  await expect(
-    woPage.page.getByText('The request(s) have been awarded.'),
-  ).toBeVisible();
+  await expect(woPage.page.getByText('The request(s) have been awarded.')).toBeVisible();
 });
 
 test('Send badge directly', async ({ woInstitutionAdminPage: woPage }) => {
@@ -33,7 +31,5 @@ test('Send badge directly', async ({ woInstitutionAdminPage: woPage }) => {
   await woPage.badgeClassPage.directAwardBadgeToStudent(courseName);
 
   // validate
-  await expect(
-    woPage.page.getByText('Direct awards have been sent'),
-  ).toBeVisible();
+  await expect(woPage.page.getByText('Direct awards have been sent')).toBeVisible();
 });
