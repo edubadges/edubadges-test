@@ -1,17 +1,23 @@
-import { expect, test } from '../../../fixtures/staffFixtures/staffMboFixture';
+import { expect, test } from '../../../fixtures/staffFixture';
+import { institutions } from '../../../util/loginPossibilities';
 
-test('See badge in MBO staff page', async ({ mboPage }) => {
+institutions.forEach(institution => {
+test(`See badge in ${institution} staff page`, async ({
+    adminPage 
+  }) => {
   // var
-  const dateMask = mboPage.page.getByText('Created').locator('../..');
+  const dateMask = adminPage.page.getByText('Created').locator('../..');
   const course = 'Circulation and Breathing';
 
   // setup
-  await mboPage.badgeClassPage.searchWithText(course);
-  await mboPage.badgeClassPage.openBadge(course);
+  await adminPage.loginTestIdp(institution, 'Institution');
+  await adminPage.badgeClassPage.searchWithText(course);
+  await adminPage.badgeClassPage.openBadge(course);
 
   // validate
-  await expect(mboPage.page).toHaveScreenshot('SeeBadgeAsTeacher.png', {
+  await expect(adminPage.page).toHaveScreenshot(`SeeBadgeAs${institution}Teacher.png`, {
     fullPage: true,
     mask: [dateMask],
   });
+});
 });
