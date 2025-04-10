@@ -1,8 +1,7 @@
-import { expect, test } from '../../../../fixtures/staffFixtures/WOFixtures/InstitutionAdminWOFixture';
-
+import { expect, test } from '../../../../fixtures/staffFixture';
 
 test('Edit existing Regular WO edubadge', async ({
-  woInstitutionAdminPage: woPage,
+  adminPage,
 }) => {
   // var
   const issuerGroupName = 'Medicine';
@@ -15,34 +14,30 @@ test('Edit existing Regular WO edubadge', async ({
   const editedBadgeIdentifier = '1932';
   const editedBadgeFormOfPart = 'On-site';
   const editedBadgeAssesment = 'Development report / reflection report';
-  const issuers = woPage.managePage.issuersPage;
-  const creationInformation = woPage.page.locator('div.list');
+  const issuers = adminPage.managePage.issuersPage;
+  const creationInformation = adminPage.page.locator('div.list');
 
   // setup
-  await woPage.goToManage();
+  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.goToManage();
   await issuers.createRegularBadge(issuerGroupName, initialBadgeName);
 
   // test
   await issuers.editExistingBadge(
-    editedBadgeName,
-    editedBadgeDesc,
-    editedBadgeOutcome,
-    editedBadgeCriterium,
-    editedBadgeEQF,
-    editedBadgeIdentifier,
-    editedBadgeFormOfPart,
-    editedBadgeAssesment,
+    editedBadgeName, editedBadgeDesc, editedBadgeOutcome,
+    editedBadgeCriterium, editedBadgeEQF, editedBadgeIdentifier,
+    editedBadgeFormOfPart, editedBadgeAssesment,
   );
 
   // validation
-  await expect(woPage.page).toHaveScreenshot('EditedWORegularBadgeclass.png', {
+  await expect(adminPage.page).toHaveScreenshot('EditedWORegularBadgeclass.png', {
     fullPage: true,
     mask: [creationInformation],
   });
 });
 
 test('Edit existing WO micro credential', async ({
-  woInstitutionAdminPage: woPage,
+  adminPage,
 }) => {
   // var
   const issuerGroupName = 'Medicine';
@@ -55,34 +50,30 @@ test('Edit existing WO micro credential', async ({
   const editedBadgeIdentifier = '1933';
   const editedBadgeFormOfPart = 'Online';
   const editedBadgeAssesment = 'Personalized type of assessment';
-  const issuers = woPage.managePage.issuersPage;
-  const creationInformation = woPage.page.locator('div.list');
+  const issuers = adminPage.managePage.issuersPage;
+  const creationInformation = adminPage.page.locator('div.list');
 
   // setup
-  await woPage.goToManage();
+  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.goToManage();
   await issuers.createMicroBadge(issuerGroupName, initialBadgeName);
 
   // test
   await issuers.editExistingBadge(
-    editedBadgeName,
-    editedBadgeDesc,
-    editedBadgeOutcome,
-    editedBadgeCriterium,
-    editedBadgeEQF,
-    editedBadgeIdentifier,
-    editedBadgeFormOfPart,
-    editedBadgeAssesment,
+    editedBadgeName, editedBadgeDesc, editedBadgeOutcome,
+    editedBadgeCriterium, editedBadgeEQF, editedBadgeIdentifier,
+    editedBadgeFormOfPart, editedBadgeAssesment,
   );
 
   // validation
-  await expect(woPage.page).toHaveScreenshot(
+  await expect(adminPage.page).toHaveScreenshot(
     'EditedWOMicrocredentialBadgeclass.png',
     { fullPage: true, mask: [creationInformation] },
   );
 });
 
 test('Edit existing extra curricular WO edubadge', async ({
-  woInstitutionAdminPage: woPage,
+  adminPage,
 }) => {
   // var
   const issuerGroupName = 'Medicine';
@@ -95,27 +86,23 @@ test('Edit existing extra curricular WO edubadge', async ({
   const editedBadgeIdentifier = '1934';
   const editedBadgeFormOfPart = 'Work experience';
   const editedBadgeAssesment = 'Portfolio / portfolio assessment';
-  const issuers = woPage.managePage.issuersPage;
-  const creationInformation = woPage.page.locator('div.list');
+  const issuers = adminPage.managePage.issuersPage;
+  const creationInformation = adminPage.page.locator('div.list');
 
   // setup
-  await woPage.goToManage();
+  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.goToManage();
   await issuers.createExtracurricularBadge(issuerGroupName, initialBadgeName);
 
   // test
   await issuers.editExistingBadge(
-    editedBadgeName,
-    editedBadgeDesc,
-    editedBadgeOutcome,
-    editedBadgeCriterium,
-    editedBadgeEQF,
-    editedBadgeIdentifier,
-    editedBadgeFormOfPart,
-    editedBadgeAssesment,
+    editedBadgeName, editedBadgeDesc, editedBadgeOutcome,
+    editedBadgeCriterium, editedBadgeEQF, editedBadgeIdentifier,
+    editedBadgeFormOfPart, editedBadgeAssesment,
   );
 
   // validation
-  await expect(woPage.page).toHaveScreenshot(
+  await expect(adminPage.page).toHaveScreenshot(
     'EditedWOExtraCurricularBadgeclass.png',
     { fullPage: true, mask: [creationInformation] },
   );
