@@ -1,12 +1,14 @@
 import { expect, test } from '../../../../fixtures/staffFixture';
+import { institutions } from '../../../../util/loginPossibilities';
 
-test('Edit existing Regular WO edubadge', async ({
+institutions.forEach(institution => {
+test(`Edit existing Regular ${institution} edubadge`, async ({
   adminPage,
 }) => {
   // var
   const issuerGroupName = 'Medicine';
-  const initialBadgeName = 'Original regular WO Badge';
-  const editedBadgeName = 'Second name regular WO badge';
+  const initialBadgeName = `Original regular ${institution} badge`;
+  const editedBadgeName = `Second name regular ${institution} badge`;
   const editedBadgeDesc = 'newDescription';
   const editedBadgeOutcome = 'The new outcome';
   const editedBadgeCriterium = 'The new criterium';
@@ -18,7 +20,7 @@ test('Edit existing Regular WO edubadge', async ({
   const creationInformation = adminPage.page.locator('div.list');
 
   // setup
-  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.loginTestIdp(institution, 'Institution');
   await adminPage.goToManage();
   await issuers.createRegularBadge(issuerGroupName, initialBadgeName);
 
@@ -30,19 +32,19 @@ test('Edit existing Regular WO edubadge', async ({
   );
 
   // validation
-  await expect(adminPage.page).toHaveScreenshot('EditedWORegularBadgeclass.png', {
+  await expect(adminPage.page).toHaveScreenshot(`Edited${institution}RegularBadgeclass.png`, {
     fullPage: true,
     mask: [creationInformation],
   });
 });
 
-test('Edit existing WO micro credential', async ({
+test(`Edit existing ${institution} micro credential`, async ({
   adminPage,
 }) => {
   // var
   const issuerGroupName = 'Medicine';
   const initialBadgeName = 'Original name micro credential badge';
-  const editedBadgeName = 'SecondName micro credential EditBadge';
+  const editedBadgeName = 'SecondName micro credential Editbadge';
   const editedBadgeDesc = 'new micro credential description';
   const editedBadgeOutcome = 'The new outcome';
   const editedBadgeCriterium = 'The new criterium';
@@ -54,7 +56,7 @@ test('Edit existing WO micro credential', async ({
   const creationInformation = adminPage.page.locator('div.list');
 
   // setup
-  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.loginTestIdp(institution, 'Institution');
   await adminPage.goToManage();
   await issuers.createMicroBadge(issuerGroupName, initialBadgeName);
 
@@ -67,30 +69,30 @@ test('Edit existing WO micro credential', async ({
 
   // validation
   await expect(adminPage.page).toHaveScreenshot(
-    'EditedWOMicrocredentialBadgeclass.png',
+    `Edited${institution}MicrocredentialBadgeclass.png`,
     { fullPage: true, mask: [creationInformation] },
   );
 });
 
-test('Edit existing extra curricular WO edubadge', async ({
+test(`Edit existing extra curricular ${institution} edubadge`, async ({
   adminPage,
 }) => {
   // var
   const issuerGroupName = 'Medicine';
-  const initialBadgeName = 'Original extra curricular EditBadge';
-  const editedBadgeName = 'Second name extra curricular EditBadge';
+  const initialBadgeName = 'Original extra curricular Editbadge';
+  const editedBadgeName = 'Second name extra curricular Editbadge';
   const editedBadgeDesc = 'new extra curricular description';
   const editedBadgeOutcome = 'The new outcome';
   const editedBadgeCriterium = 'The new criterium';
   const editedBadgeEQF = 'EQF 7';
   const editedBadgeIdentifier = '1934';
-  const editedBadgeFormOfPart = 'Work experience';
+  const editedBadgeFormOfPart = 'work experience';
   const editedBadgeAssesment = 'Portfolio / portfolio assessment';
   const issuers = adminPage.managePage.issuersPage;
   const creationInformation = adminPage.page.locator('div.list');
 
   // setup
-  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.loginTestIdp(institution, 'Institution');
   await adminPage.goToManage();
   await issuers.createExtracurricularBadge(issuerGroupName, initialBadgeName);
 
@@ -103,7 +105,8 @@ test('Edit existing extra curricular WO edubadge', async ({
 
   // validation
   await expect(adminPage.page).toHaveScreenshot(
-    'EditedWOExtraCurricularBadgeclass.png',
+    `Edited${institution}ExtraCurricularBadgeclass.png`,
     { fullPage: true, mask: [creationInformation] },
   );
+});
 });
