@@ -62,12 +62,16 @@ export class StaffMainPage extends BasePage {
     switch (institution){
       case 'WO':
         instititutionAccounts = this.testdata.WOAccounts;
+        break;
       case 'HBO':
         instititutionAccounts = this.testdata.HBOAccounts;
+        break;
       case 'MBO':
         instititutionAccounts = this.testdata.MBOAccounts;
+        break;
       default:
         instititutionAccounts = this.testdata.WOAccounts;
+        break;
     }
 
     let account: staffDetails;
@@ -82,6 +86,7 @@ export class StaffMainPage extends BasePage {
         account = instititutionAccounts.badgeClassAdminLogin;
       default:
         account = instititutionAccounts.institutionAdminLogin;
+        break;
     }
     
     await this.usernameField.fill(account.username);
