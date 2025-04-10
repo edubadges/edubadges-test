@@ -105,7 +105,7 @@ test(`Validate regular ${institution} edu badge creation`, async ({
   const manage = issuers;
 
   // setup
-  testdata.badgeData.title = 'Regular Test automation HBO';
+  testdata.badgeData.title = `Regular Test automation ${institution}`;
   await adminPage.loginTestIdp(institution, 'Institution');
   await adminPage.goToManage();
   await manage.searchWithText('Medicine');
@@ -134,7 +134,7 @@ test(`Validate micro credential ${institution} edu badge creation`, async ({
   const creationInformation = adminPage.page.locator('div.list');
 
   // setup
-  testdata.badgeData.title = 'Micro Test automation HBO';
+  testdata.badgeData.title = `Micro Test automation ${institution}`;
   await adminPage.loginTestIdp(institution, 'Institution');
   await adminPage.goToManage();
   await issuers.searchWithText('Medicine');
@@ -163,7 +163,7 @@ test(`Validate extra curricular ${institution} edu badge creation`, async ({
   const creationInformation = adminPage.page.locator('div.list');
 
   // setup
-  testdata.badgeData.title = 'Extra Test automation HBO';
+  testdata.badgeData.title = `Extra Test automation ${institution}`;
   await adminPage.loginTestIdp(institution, 'Institution');
   await adminPage.goToManage();
   await issuers.searchWithText('Medicine');
