@@ -1,33 +1,30 @@
 import { expect, test } from '../../fixtures/loginFixture';
+import { institutions } from '../../util/loginPossibilities';
 
-test('Login', async ({ homePage, issuerPortalPage, testdata }) => {
+institutions.forEach(institution => {
+
+test(`Login at ${institution}`, async ({ homePage, issuerPortalPage }) => {
   // var
   const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
   const navigationHeader = issuerPortalPage.page.getByRole('navigation');
 
   // test
   await homePage.openIssuerPortal();
-  await issuerPortalPage.loginTestIdp(
-    testdata.WOAccounts.badgeClassAdminLogin.username,
-    testdata.WOAccounts.badgeClassAdminLogin.password,
-  );
+  await issuerPortalPage.loginTestIdp(institution, 'Badgeclass');
 
   // validate
   await expect(loggedInMenu).toBeVisible();
   await expect(navigationHeader).toBeVisible();
 });
 
-test('Logout', async ({ homePage, issuerPortalPage, testdata }) => {
+test(`Logout from ${institution}`, async ({ homePage, issuerPortalPage }) => {
   // var
   const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
   const navigationHeader = issuerPortalPage.page.getByRole('navigation');
 
   // setup
   await homePage.openIssuerPortal();
-  await issuerPortalPage.loginTestIdp(
-    testdata.WOAccounts.badgeClassAdminLogin.username,
-    testdata.WOAccounts.badgeClassAdminLogin.password,
-  );
+  await issuerPortalPage.loginTestIdp(institution, 'Badgeclass');
   await expect(loggedInMenu).toBeVisible();
   await expect(navigationHeader).toBeVisible();
 
@@ -38,4 +35,5 @@ test('Logout', async ({ homePage, issuerPortalPage, testdata }) => {
   // validate
   await expect(loggedInMenu).not.toBeVisible();
   await expect(navigationHeader).not.toBeVisible();
+});
 });
