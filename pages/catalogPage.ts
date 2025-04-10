@@ -40,9 +40,9 @@ export class CatalogPage extends BasePage {
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
-    this.handleTermsAndConditions(this.confirmButton);
+    this.handleTermsAndConditions(this.requestButton);
 
-    await this.confirmButton.click();
+    await this.requestButton.click();
 
     await this.page.getByText('Successfully requested').waitFor();
   }
