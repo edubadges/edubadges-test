@@ -42,7 +42,7 @@ export class CatalogPage extends BasePage {
 
     this.handleTermsAndConditions(this.requestButton);
 
-    await this.requestButton.click();
+    await this.requestButton.click({ force: true });
 
     await this.page.getByText('Successfully requested').waitFor();
   }
