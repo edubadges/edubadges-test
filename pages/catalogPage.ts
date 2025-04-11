@@ -1,5 +1,7 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
+import { adminLevel, institution } from '../util/loginPossibilities';
+import { AccountsBase, staffDetails } from '../util/accountBase';
 
 export class CatalogPage extends BasePage {
   // Search and filter locators
@@ -31,10 +33,13 @@ export class CatalogPage extends BasePage {
     await expect(this.page.getByRole('heading', { name: 'The programme' })).toBeVisible();
   }
 
-  async requestEdubadge() {
+  async requestEdubadge(
+    institution: institution = 'WO', 
+    accountNr: number = 0,
+  ){
     if (await this.loginButton.isVisible()) {
       await this.loginButton.click();
-      await this.loginStudentIdp();
+      await this.loginStudentIdp(institution);
     }
 
     await this.requestButton.click();
@@ -48,8 +53,8 @@ export class CatalogPage extends BasePage {
   }
 
   public async loginStudentIdp(
-    email: string = this.testdata.accounts.studentEmail,
-    password: string = this.testdata.accounts.studentPassword,
+    institution: institution, 
+    accountNr: number = 0,
   ) {
     await this.searchField.or(this.usernameField).waitFor();
 
@@ -59,11 +64,29 @@ export class CatalogPage extends BasePage {
       await this.usernameField.waitFor();
     }
 
-    await this.usernameField.fill(email);
+    let instititutionAccounts: AccountsBase;
+
+    switch (institution){
+      case 'WO':
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+      case 'HBO':
+        instititutionAccounts = this.testdata.HBOAccounts;
+        break;
+      case 'MBO':
+        instititutionAccounts = this.testdata.MBOAccounts;
+        break;
+      default:
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+    }
+    const account = instititutionAccounts.student[accountNr];
+
+    await this.usernameField.fill(account.email);
     await this.nextButton.click();
 
     await this.passwordField.waitFor();
-    await this.passwordField.fill(password);
+    await this.passwordField.fill(account.password);
     await this.nextButton.click();
 
     this.handleTermsAndConditions(this.loggedInMenu);

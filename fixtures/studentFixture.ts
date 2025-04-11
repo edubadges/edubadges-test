@@ -50,7 +50,6 @@ export const test = base.extend<CatalogFixture>({
     await homePage.navigateToHomePage();
     await homePage.openBackpack();
     const backpackPage = new BackpackPage(page, testdata);
-    await backpackPage.login();
 
     // Use the fixture value in the test.
     await use(backpackPage);
@@ -67,7 +66,7 @@ export const test = base.extend<CatalogFixture>({
     await homePage.openIssuerPortal();
 
     const woPage = new StaffMainPage(page, testdata);
-    await woPage.loginWithWoInstitutionAdmin();
+    await woPage.loginTestIdp('WO', 'Institution');
 
     // Use the fixture value in the test.
     await use(woPage);
@@ -81,7 +80,7 @@ export const test = base.extend<CatalogFixture>({
     await homePage.openIssuerPortal();
 
     const mboPage = new StaffMainPage(page, testdata);
-    await mboPage.loginWithMBOInstitutionAdmin();
+    await mboPage.loginTestIdp('MBO', 'Institution');
 
     // Use the fixture value in the test.
     await use(mboPage);
@@ -95,7 +94,7 @@ export const test = base.extend<CatalogFixture>({
     await homePage.openIssuerPortal();
 
     const hboPage = new StaffMainPage(page, testdata);
-    await hboPage.loginWithHBOInstitutionAdmin();
+    await hboPage.loginTestIdp('HBO', 'Institution');
 
     // Use the fixture value in the test.
     await use(hboPage);
