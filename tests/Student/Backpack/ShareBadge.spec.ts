@@ -1,13 +1,14 @@
 import { expect, test } from '../../../fixtures/studentFixture';
+import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-test('Make edubadge public', async ({
+institutionsWithoutHBO.forEach(institution => {
+test(`Make ${institution} edubadge public`, async ({
   catalogPage,
   backpackPage,
-  woTeacherPage,
+  adminPage,
 }) => {
   //var
   const course = 'Introduction to Political Science';
-  const institution = 'university-example.org';
 
   //setup
   await catalogPage.searchForClass(course);
@@ -15,7 +16,8 @@ test('Make edubadge public', async ({
   await catalogPage.openEduClass(course);
   await catalogPage.requestEdubadge();
 
-  await woTeacherPage.badgeClassPage.approveRequest(course);
+  await adminPage.loginTestIdp(institution, 'Institution');
+  await adminPage.badgeClassPage.approveRequest(course);
 
   await backpackPage.openBackpack();
   await backpackPage.reloadPage();
@@ -39,14 +41,13 @@ test('Make edubadge public', async ({
 });
 
 // known issue on the verification of the public badge
-test.skip('Share public edubadge', async ({
+test.skip(`Share public ${institution} edubadge`, async ({
   catalogPage,
   backpackPage,
-  woTeacherPage,
+  adminPage,
 }) => {
   //var
   const course = 'History of Political Thought';
-  const institution = 'university-example.org';
 
   //setup
   await catalogPage.searchForClass(course);
@@ -54,7 +55,8 @@ test.skip('Share public edubadge', async ({
   await catalogPage.openEduClass(course);
   await catalogPage.requestEdubadge();
 
-  await woTeacherPage.badgeClassPage.approveRequest(course);
+  await adminPage.loginTestIdp(institution, 'Institution');
+  await adminPage.badgeClassPage.approveRequest(course);
 
   await backpackPage.openBackpack();
   await backpackPage.reloadPage();
@@ -66,4 +68,5 @@ test.skip('Share public edubadge', async ({
   // test
   const url = await backpackPage.getShareLink();
   await backpackPage.validateBadge(url);
+});
 });
