@@ -4,6 +4,7 @@ export type adminLevel = 'Institution' | 'Issuergroup' | 'Issuer' | 'Badgeclass'
 
 // list of possible institutions
 export const institutions: institution[] = ['WO', 'HBO', 'MBO'];
+export const institutionsWithoutHBO: institution[] = ['WO', 'MBO'];
 
 // lists of accounts
 export const allAccounts: adminLevel[] = ['Institution', 'Issuergroup', 'Issuer', 'Badgeclass'];

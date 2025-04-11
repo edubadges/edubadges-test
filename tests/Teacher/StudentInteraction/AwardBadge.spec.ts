@@ -1,7 +1,7 @@
 import { expect, test } from '../../../fixtures/staffFixture';
-import { institutions } from '../../../util/loginPossibilities';
+import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-institutions.forEach(institution => {
+institutionsWithoutHBO.forEach(institution => {
 test(`Award requested badge from ${institution}`, async ({
   catalogPage,
   adminPage,
