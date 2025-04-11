@@ -24,8 +24,21 @@ export class CatalogPage extends BasePage {
     await this.searchField.fill(name);
   }
 
-  async filterOn(filterText: string = 'university-example.org') {
-    await this.page.getByText(filterText).click();
+  async filterOn(institution: institution = 'WO') {
+    let institutionName: string;
+    switch(institution){
+      case 'WO':
+        institutionName = 'university-example.org';
+        break;
+      case 'HBO':
+        institutionName = 'yale-uni-example.edu';
+        break;
+      case 'MBO':
+        institutionName = 'harvard-example.edu';
+        break;
+    }
+
+    await this.page.getByText(institutionName).click();
   }
 
   async openEduClass(name: string) {
@@ -75,9 +88,6 @@ export class CatalogPage extends BasePage {
         break;
       case 'MBO':
         instititutionAccounts = this.testdata.MBOAccounts;
-        break;
-      default:
-        instititutionAccounts = this.testdata.WOAccounts;
         break;
     }
     const account = instititutionAccounts.student[accountNr];
