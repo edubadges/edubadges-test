@@ -1,6 +1,8 @@
 import { expect, test } from '../../../../fixtures/staffFixture';
+import { institutions } from '../../../../util/loginPossibilities';
 
-test('Copy existing micro edubadge', async ({
+institutions.forEach(institution => {
+test(`Copy existing micro ${institution} edubadge`, async ({
   adminPage,
 }) => {
   // var
@@ -21,7 +23,7 @@ test('Copy existing micro edubadge', async ({
     .or(adminPage.page.locator('.group_items'));
 
   // setup
-  await adminPage.loginTestIdp('WO', 'Institution');
+  await adminPage.loginTestIdp(institution, 'Institution');
   await adminPage.goToManage();
   await issuers.createMicroBadge(
     issuerGroupName, initialBadgeName, badgeDesc,
@@ -43,4 +45,5 @@ test('Copy existing micro edubadge', async ({
   await expect(badgeInfo.getByText(badgeIdentifier)).toBeVisible();
   await expect(badgeInfo.getByText(badgeFormOfPart)).toBeVisible();
   await expect(badgeInfo.getByText(badgeAssesment)).toBeVisible();
+});
 });
