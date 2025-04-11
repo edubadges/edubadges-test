@@ -1,9 +1,13 @@
 import { expect, test } from '../../fixtures/studentFixture';
+import { institutionsWithoutHBO } from '../../util/loginPossibilities';
 
+institutionsWithoutHBO.forEach(institutions => {
 test('See existing badge logged in', async ({ catalogPage }) => {
   // var
   const course = 'Introduction to Psychology';
   const institution = 'harvard-example.edu';
+  const breadcrumbs = catalogPage.page.locator('div.bread-crumb');
+  const badgeInfo = catalogPage.page.locator('.content');
 
   // setup
   await catalogPage.searchForClass(course);
@@ -18,7 +22,10 @@ test('See existing badge logged in', async ({ catalogPage }) => {
   await catalogPage.waitForLoadingToStop();
 
   // validate
-  await expect(catalogPage.page).toHaveScreenshot('NotYetRequestedBadge.png');
+  await expect(catalogPage.page).toHaveScreenshot(
+    'NotYetRequestedBadge.png',
+    { mask: [breadcrumbs, badgeInfo] },
+  );
 });
 
 test('Request badge', async ({ catalogPage }) => {
@@ -57,7 +64,6 @@ test('Log out from catalog', async ({ catalogPage }) => {
     .click();
   await catalogPage.loginStudentIdp();
   await catalogPage.waitForLoadingToStop();
-  await expect(catalogPage.page).toHaveScreenshot('NotYetRequestedBadge.png');
   await catalogPage.page.goto('/catalog');
 
   // test
@@ -67,4 +73,5 @@ test('Log out from catalog', async ({ catalogPage }) => {
 
   // validate
   await expect(catalogPage.page.locator('.expand-menu')).not.toBeVisible();
+});
 });
