@@ -1,11 +1,10 @@
 import { expect, test } from '../../fixtures/studentFixture';
-import { institutionsWithoutHBO } from '../../util/loginPossibilities';
+import { institution, institutionsWithoutHBO } from '../../util/loginPossibilities';
 
-institutionsWithoutHBO.forEach(institutions => {
-test('See existing badge logged in', async ({ catalogPage }) => {
+institutionsWithoutHBO.forEach(institution => {
+test(`See existing ${institution} badge logged in`, async ({ catalogPage }) => {
   // var
   const course = 'Introduction to Psychology';
-  const institution = 'harvard-example.edu';
   const breadcrumbs = catalogPage.page.locator('div.bread-crumb');
   const badgeInfo = catalogPage.page.locator('.content');
 
@@ -18,7 +17,7 @@ test('See existing badge logged in', async ({ catalogPage }) => {
   await catalogPage.page
     .getByRole('link', { name: 'Login to request this edubadge' })
     .click();
-  await catalogPage.loginStudentIdp();
+  await catalogPage.loginStudentIdp(institution);
   await catalogPage.waitForLoadingToStop();
 
   // validate
@@ -28,10 +27,9 @@ test('See existing badge logged in', async ({ catalogPage }) => {
   );
 });
 
-test('Request badge', async ({ catalogPage }) => {
+test(`Request ${institution} badge`, async ({ catalogPage }) => {
   // var
   const course = 'Group Dynamics';
-  const institution = 'university-example.org';
 
   // setup
   await catalogPage.searchForClass(course);
@@ -48,12 +46,13 @@ test('Request badge', async ({ catalogPage }) => {
   ).toBeVisible();
   await expect(catalogPage.page).toHaveScreenshot('eduBadgeRequested.png');
 });
+});
 
 // extends the first test (See existing badge logged in) by logging out
 test('Log out from catalog', async ({ catalogPage }) => {
   // var
   const course = 'Introduction to Psychology';
-  const institution = 'harvard-example.edu';
+  const institution: institution = 'WO';
 
   // setup
   await catalogPage.searchForClass(course);
@@ -62,7 +61,7 @@ test('Log out from catalog', async ({ catalogPage }) => {
   await catalogPage.page
     .getByRole('link', { name: 'Login to request this edubadge' })
     .click();
-  await catalogPage.loginStudentIdp();
+  await catalogPage.loginStudentIdp(institution);
   await catalogPage.waitForLoadingToStop();
   await catalogPage.page.goto('/catalog');
 
@@ -73,5 +72,4 @@ test('Log out from catalog', async ({ catalogPage }) => {
 
   // validate
   await expect(catalogPage.page.locator('.expand-menu')).not.toBeVisible();
-});
 });
