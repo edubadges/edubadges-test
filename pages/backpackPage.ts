@@ -30,7 +30,22 @@ export class BackpackPage extends BasePage {
     institution: institution = 'WO',
     accountNr: number = 0,
   ){
-    
+    const account = await this.getStudentAccount(institution, accountNr);
+
+    await this.usernameField.fill(account.email);
+    await this.nextButton.click();
+
+    await this.passwordField.waitFor();
+    await this.passwordField.fill(account.password);
+    await this.nextButton.click();
+
+  await this.handleTermsAndConditions(this.loggedInMenu);
+  };
+
+  public async getStudentAccount(
+    institution: institution = 'WO',
+    accountNr: number = 0,
+  ){
     let instititutionAccounts: AccountsBase;
 
     switch (institution){
@@ -44,17 +59,9 @@ export class BackpackPage extends BasePage {
         instititutionAccounts = this.testdata.MBOAccounts;
         break;
     };
-    const account = instititutionAccounts.student[accountNr];
 
-    await this.usernameField.fill(account.email);
-    await this.nextButton.click();
-
-    await this.passwordField.waitFor();
-    await this.passwordField.fill(account.password);
-    await this.nextButton.click();
-
-  await this.handleTermsAndConditions(this.loggedInMenu);
-  };
+    return instititutionAccounts.student[accountNr];
+  }
 
   public async claimReceivedBadge(badgeName: string) {
     const badgeLocator = this.page
@@ -62,7 +69,6 @@ export class BackpackPage extends BasePage {
       .getByText(badgeName)
       .locator('../../..');
 
-    await this.page.goto('');
     await badgeLocator.getByText('View details to claim this edubadge').waitFor();
     await badgeLocator.click();
 
