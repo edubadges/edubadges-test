@@ -7,6 +7,9 @@ test(`Login at ${institution}`, async ({ backpackPage }) => {
   // var
   const maskedLocators = [backpackPage.page.locator('.content')];
 
+  // test
+  await backpackPage.login(institution);
+
   // validate
   await expect(backpackPage.page.locator('.expand-menu')).toBeVisible();
   await expect(backpackPage.page).toHaveScreenshot('BackpackLoggedIn.png', {
@@ -37,6 +40,7 @@ test('See subcategories', async ({ backpackPage }) => {
 
   // setup
   await backpackPage.login('WO');
+  
   // test & validate
   await backpackPage.openBadgeRequests();
   await expect(backpackPage.page).toHaveScreenshot('RequestsBackpack.png', {
