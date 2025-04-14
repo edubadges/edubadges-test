@@ -4,9 +4,8 @@ import { institution } from '../util/loginPossibilities';
 import { AccountsBase } from '../util/accountBase';
 
 export class CatalogPage extends BasePage {
-  // Search and filter locators
+  // Search locators
   private readonly searchField = this.page.getByPlaceholder('Search...');
-  private readonly filterText = this.page.getByText('university-example.org');
 
   // Login locators
   private readonly usernameField = this.page.getByPlaceholder('e.g. user@gmail.com');
@@ -19,6 +18,7 @@ export class CatalogPage extends BasePage {
   private readonly loginButton = this.page.getByRole('link', { name: 'Login to request this edubadge' });
   private readonly requestButton = this.page.getByRole('link', { name: 'Request', exact: true });
   private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
+  private readonly agreeButton = this.page.getByRole('link', { name: 'I agree' });
 
   async searchForClass(name: string) {
     await this.searchField.fill(name);
@@ -55,12 +55,12 @@ export class CatalogPage extends BasePage {
       await this.loginStudentIdp(institution, accountNr);
     }
 
+    await this.requestButton.waitFor();
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
-    this.handleTermsAndConditions(this.confirmButton);
-
-    await this.confirmButton.click({ force: true });
+    await this.handleTermsAndConditions(this.confirmButton.or(this.agreeButton));
+    await this.confirmButton.or(this.agreeButton).click();
 
     await this.page.getByText('Successfully requested').waitFor();
   }
