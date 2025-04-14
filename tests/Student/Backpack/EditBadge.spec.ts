@@ -8,11 +8,15 @@ test(`Reject accepted ${institution} badge`, async ({
 }) => {
   // var
   const badgeName = 'Circulation and Breathing';
+  const studentAccount = await backpackPage.getStudentAccount(institution);
 
   //setup
   await backpackPage.login(institution);
   await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
+  await adminPage.badgeClassPage.directAwardBadgeToStudent(
+    badgeName,
+    studentAccount.email, studentAccount.EPPN,
+  );
 
   await backpackPage.reloadPage();
   await backpackPage.openBackpack();

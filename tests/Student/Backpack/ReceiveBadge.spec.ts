@@ -8,11 +8,16 @@ test(`Reject received ${institution} badge`, async ({
 }) => {
   // var
   const badgeName = 'Law and Politics';
+  const studentAccount = await backpackPage.getStudentAccount(institution);
 
   // setup
-  await backpackPage.login(institution);
   await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
+  await adminPage.badgeClassPage.directAwardBadgeToStudent(
+    badgeName,
+    studentAccount.email, studentAccount.EPPN,
+  );
+
+  await backpackPage.login(institution);
 
   // test
   await backpackPage.rejectReceivedBadge(badgeName);
@@ -33,24 +38,28 @@ test(`Accept received ${institution} badge`, async ({
     .getByText(badgeName)
     .locator('../../..')
     .getByText('View details to claim this edubadge');
+  const claimText = backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' });
+  const succBar = backpackPage.page.getByText('Successfully claimed edubadge');
+  const studentAccount = await backpackPage.getStudentAccount(institution);
 
   // setup
-  await adminPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
+  await backpackPage.login(institution);
+  await adminPage.loginTestIdp(institution, 'Institution');
+  await adminPage.badgeClassPage.directAwardBadgeToStudent(
+    badgeName,
+    studentAccount.email, studentAccount.EPPN,
+  );
 
   // test
   await backpackPage.reloadPage();
   await backpackPage.openBackpack();
   await unclaimedBadgeLocator.click();
   await backpackPage.page.waitForTimeout(500);
-  await backpackPage.page
-    .getByRole('link', { name: 'Claim & Add to your backpack' })
-    .click();
+  await claimText.click();
   await backpackPage.page.waitForTimeout(500);
   await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
 
   // validate
-  await expect(
-    backpackPage.page.getByText('Successfully claimed edubadge'),
-  ).toBeVisible();
+  await expect(succBar).toBeVisible();
 });
 });
