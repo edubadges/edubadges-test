@@ -18,7 +18,7 @@ export class CatalogPage extends BasePage {
   private readonly loginButton = this.page.getByRole('link', { name: 'Login to request this edubadge' });
   private readonly requestButton = this.page.getByRole('link', { name: 'Request', exact: true });
   private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
-  private readonly agreeButton = this.page.getByRole('link', { name: 'I agree' });
+  private readonly successBar = this.page.getByText('Successfully requested');
 
   async searchForClass(name: string) {
     await this.searchField.fill(name);
@@ -47,7 +47,7 @@ export class CatalogPage extends BasePage {
   }
 
   async requestEdubadge(
-    institution: institution = 'WO', 
+    institution: institution, 
     accountNr: number = 0,
   ){
     if (await this.loginButton.isVisible()) {
@@ -59,10 +59,10 @@ export class CatalogPage extends BasePage {
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
-    await this.handleTermsAndConditions(this.confirmButton.or(this.agreeButton));
-    await this.confirmButton.or(this.agreeButton).click();
+    await this.handleTermsAndConditions(this.confirmButton.or(this.successBar));
+    await this.confirmButton.or(this.successBar).click();
 
-    await this.page.getByText('Successfully requested').waitFor();
+    await this.successBar.waitFor();
   }
 
   public async loginStudentIdp(
