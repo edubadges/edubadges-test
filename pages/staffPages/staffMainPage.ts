@@ -102,7 +102,7 @@ export class StaffMainPage extends BasePage {
     await this.expandMenu.waitFor();
   }
 
-  async loginDummyIdp(username: string, email: string, orgName: string = 'university-example.org') {
+  async loginDummyIdp(username: string, email: string, orgName: string) {
     const dummyName = 'SURFconext Dummy IdP';
     const dummyLocator = this.page.getByText(dummyName + ' (previously SURFconext Mujina IdP)').first();
 
