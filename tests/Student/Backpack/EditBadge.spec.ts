@@ -1,13 +1,18 @@
 import { expect, test } from '../../../fixtures/studentFixture';
+import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-// TODO: Make public, Share, Make private
-
-test('Reject accepted badge', async ({ backpackPage, woTeacherPage }) => {
+institutionsWithoutHBO.forEach(institution => {
+test(`Reject accepted ${institution} badge`, async ({ 
+  backpackPage, 
+  adminPage, 
+}) => {
   // var
   const badgeName = 'Circulation and Breathing';
 
   //setup
-  await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
+  await backpackPage.login(institution);
+  await adminPage.loginTestIdp(institution, 'Institution');
+  await adminPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
 
   await backpackPage.reloadPage();
   await backpackPage.openBackpack();
@@ -21,4 +26,5 @@ test('Reject accepted badge', async ({ backpackPage, woTeacherPage }) => {
 
   // validate
   await expect(backpackPage.page.getByText('Rejected')).toBeVisible();
+});
 });

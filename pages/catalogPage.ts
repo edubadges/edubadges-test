@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
-import { adminLevel, institution } from '../util/loginPossibilities';
-import { AccountsBase, staffDetails } from '../util/accountBase';
+import { institution } from '../util/loginPossibilities';
+import { AccountsBase } from '../util/accountBase';
 
 export class CatalogPage extends BasePage {
   // Search and filter locators
@@ -52,15 +52,15 @@ export class CatalogPage extends BasePage {
   ){
     if (await this.loginButton.isVisible()) {
       await this.loginButton.click();
-      await this.loginStudentIdp(institution);
+      await this.loginStudentIdp(institution, accountNr);
     }
 
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
-    this.handleTermsAndConditions(this.requestButton);
+    this.handleTermsAndConditions(this.confirmButton);
 
-    await this.requestButton.click({ force: true });
+    await this.confirmButton.click({ force: true });
 
     await this.page.getByText('Successfully requested').waitFor();
   }
@@ -89,7 +89,7 @@ export class CatalogPage extends BasePage {
       case 'MBO':
         instititutionAccounts = this.testdata.MBOAccounts;
         break;
-    }
+    };
     const account = instititutionAccounts.student[accountNr];
 
     await this.usernameField.fill(account.email);

@@ -1,6 +1,8 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
+import { institution } from '../util/loginPossibilities';
+import { AccountsBase } from '../util/accountBase';
 
 export class BackpackPage extends BasePage {
   // Navigation locators
@@ -25,25 +27,34 @@ export class BackpackPage extends BasePage {
   private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
 
   public async login(
-    email: string = this.testdata.accounts.studentEmail,
-    password: string = this.testdata.accounts.studentPassword,
-  ) {
-    await this.searchField.or(this.usernameField).waitFor();
+    institution: institution = 'WO',
+    accountNr: number = 0,
+  ){
+    
+    let instititutionAccounts: AccountsBase;
 
-    if (await this.searchField.isVisible()) {
-      await this.searchField.fill('test idp');
-      await this.eduIdButton.click();
-      await this.usernameField.waitFor();
-    }
+    switch (institution){
+      case 'WO':
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+      case 'HBO':
+        instititutionAccounts = this.testdata.HBOAccounts;
+        break;
+      case 'MBO':
+        instititutionAccounts = this.testdata.MBOAccounts;
+        break;
+    };
+    const account = instititutionAccounts.student[accountNr];
 
-    await this.usernameField.fill(email);
+    await this.usernameField.fill(account.email);
     await this.nextButton.click();
+
     await this.passwordField.waitFor();
-    await this.passwordField.fill(password);
+    await this.passwordField.fill(account.password);
     await this.nextButton.click();
 
-    await this.handleTermsAndConditions(this.loggedInMenu);
-  }
+  await this.handleTermsAndConditions(this.loggedInMenu);
+  };
 
   public async claimReceivedBadge(badgeName: string) {
     const badgeLocator = this.page

@@ -1,7 +1,9 @@
 import { expect, test } from '../../../fixtures/studentFixture';
-// TODO: logout, see account, see requests, see history, base screenshots
+import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-test('Login', async ({ backpackPage }) => {
+institutionsWithoutHBO.forEach(institution => {
+
+test(`Login at ${institution}`, async ({ backpackPage }) => {
   // var
   const maskedLocators = [backpackPage.page.locator('.content')];
 
@@ -12,13 +14,14 @@ test('Login', async ({ backpackPage }) => {
     mask: maskedLocators,
   });
 });
+});
 
 test('Logout', async ({ backpackPage }) => {
   // var
   const loggedInMenu = backpackPage.page.locator('.expand-menu');
 
   // setup
-  await expect(loggedInMenu).toBeVisible();
+  await backpackPage.login('WO');
 
   // test
   await loggedInMenu.click();
@@ -32,6 +35,8 @@ test('See subcategories', async ({ backpackPage }) => {
   // var
   const maskedLocators = [backpackPage.page.locator('.content')];
 
+  // setup
+  await backpackPage.login('WO');
   // test & validate
   await backpackPage.openBadgeRequests();
   await expect(backpackPage.page).toHaveScreenshot('RequestsBackpack.png', {

@@ -1,13 +1,18 @@
 import { expect, test } from '../../../fixtures/studentFixture';
+import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-// TODO: improve locator for unclaimed badge (see Teacher -> Award badge)
-
-test('Reject received badge', async ({ backpackPage, woTeacherPage }) => {
+institutionsWithoutHBO.forEach(institution => {
+test(`Reject received ${institution} badge`, async ({ 
+  backpackPage, 
+  adminPage, 
+}) => {
   // var
   const badgeName = 'Law and Politics';
 
   // setup
-  await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
+  await backpackPage.login(institution);
+  await adminPage.loginTestIdp(institution, 'Institution');
+  await adminPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
 
   // test
   await backpackPage.rejectReceivedBadge(badgeName);
@@ -18,7 +23,10 @@ test('Reject received badge', async ({ backpackPage, woTeacherPage }) => {
   ).toBeVisible();
 });
 
-test('Accept received badge', async ({ backpackPage, woTeacherPage }) => {
+test(`Accept received ${institution} badge`, async ({ 
+  backpackPage, 
+  adminPage,
+}) => {
   // var
   const badgeName = 'Introduction to Psychology';
   const unclaimedBadgeLocator = backpackPage.page
@@ -27,7 +35,7 @@ test('Accept received badge', async ({ backpackPage, woTeacherPage }) => {
     .getByText('View details to claim this edubadge');
 
   // setup
-  await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
+  await adminPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
 
   // test
   await backpackPage.reloadPage();
@@ -44,4 +52,5 @@ test('Accept received badge', async ({ backpackPage, woTeacherPage }) => {
   await expect(
     backpackPage.page.getByText('Successfully claimed edubadge'),
   ).toBeVisible();
+});
 });
