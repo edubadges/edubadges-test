@@ -75,12 +75,16 @@ export class StaffMainPage extends BasePage {
     switch (level){
       case 'Institution':
         account = instititutionAccounts.institutionAdminLogin;
+        break;
       case 'Issuergroup':
         account = instititutionAccounts.issuerGroupAdmin;
+        break;
       case 'Issuer':
         account = instititutionAccounts.issuerAdmin;
+        break;
       case 'Badgeclass':
         account = instititutionAccounts.badgeClassAdminLogin;
+        break;
     }
     
     await this.usernameField.fill(account.username);
