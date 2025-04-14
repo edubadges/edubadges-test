@@ -4,7 +4,7 @@ import { institution, institutionsWithoutHBO } from '../../util/loginPossibiliti
 institutionsWithoutHBO.forEach(institution => {
 test(`See existing ${institution} badge logged in`, async ({ catalogPage }) => {
   // var
-  const course = 'Introduction to Psychology';
+  const course = 'Research Methods';
   const breadcrumbs = catalogPage.page.locator('div.bread-crumb');
   const badgeInfo = catalogPage.page.locator('.content');
 
@@ -30,6 +30,7 @@ test(`See existing ${institution} badge logged in`, async ({ catalogPage }) => {
 test(`Request ${institution} badge`, async ({ catalogPage }) => {
   // var
   const course = 'Group Dynamics';
+  const succBar = catalogPage.page.getByText(`successfully requested edubadge ${course}`);
 
   // setup
   await catalogPage.searchForClass(course);
@@ -41,14 +42,11 @@ test(`Request ${institution} badge`, async ({ catalogPage }) => {
   await catalogPage.waitForLoadingToStop();
 
   // validate
-  await expect(
-    catalogPage.page.getByText(`successfully requested edubadge ${course}`),
-  ).toBeVisible();
-  await expect(catalogPage.page).toHaveScreenshot('eduBadgeRequested.png');
+  await expect(succBar).toBeVisible();
 });
 });
 
-// extends the first test (See existing badge logged in) by logging out
+// only runs once because logging in is tested in a previous test
 test('Log out from catalog', async ({ catalogPage }) => {
   // var
   const course = 'Introduction to Psychology';

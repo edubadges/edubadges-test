@@ -7,7 +7,7 @@ test(`See badge in ${institution} staff page`, async ({
   }) => {
   // var
   const dateMask = adminPage.page.getByText('Created').locator('../..');
-  const course = 'Circulation and Breathing';
+  const course = 'Growth and Development';
 
   // setup
   await adminPage.loginTestIdp(institution, 'Institution');
