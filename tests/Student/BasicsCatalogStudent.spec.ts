@@ -38,7 +38,7 @@ test(`Request ${institution} badge`, async ({ catalogPage }) => {
   await catalogPage.openEduClass(course);
 
   // test
-  await catalogPage.requestEdubadge();
+  await catalogPage.requestEdubadge(institution);
   await catalogPage.waitForLoadingToStop();
 
   // validate
