@@ -1,36 +1,33 @@
 import { expect, test } from '../../fixtures/loginFixture';
+import { institution, institutions } from '../../util/loginPossibilities';
 
-test('Login WO issuer group admin', async ({
+institutions.forEach(institution => {
+test(`Login ${institution} issuer group admin`, async ({
   homePage,
   issuerPortalPage,
-  testdata,
 }) => {
   // test
   await homePage.openIssuerPortal();
-  await issuerPortalPage.loginTestIdp(
-    testdata.WOAccounts.issuerGroupAdmin.username,
-    testdata.WOAccounts.issuerGroupAdmin.password,
-  );
+  await issuerPortalPage.loginTestIdp(institution, 'Issuergroup');
 
   // validate
   await expect(issuerPortalPage.page.locator('.expand-menu')).toBeVisible();
   await expect(issuerPortalPage.page.getByRole('navigation')).toBeVisible();
 });
+});
 
+// Only tested once because logging in is already tested 3 times
 test('Logout WO issuer group admin', async ({
   homePage,
   issuerPortalPage,
-  testdata,
 }) => {
   // var
   const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
+  const institution: institution = 'WO'
 
   // setup
   await homePage.openIssuerPortal();
-  await issuerPortalPage.loginTestIdp(
-    testdata.WOAccounts.issuerGroupAdmin.username,
-    testdata.WOAccounts.issuerGroupAdmin.password,
-  );
+  await issuerPortalPage.loginTestIdp(institution, 'Issuergroup');
   await expect(loggedInMenu).toBeVisible();
   await expect(issuerPortalPage.page.getByRole('navigation')).toBeVisible();
 
