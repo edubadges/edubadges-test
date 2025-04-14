@@ -1,3 +1,4 @@
+import { institution } from '../../../util/loginPossibilities';
 import { BaseStaffSubPage } from '../baseStaffSubPage';
 
 export class UserManagementSubPage extends BaseStaffSubPage {
@@ -11,6 +12,20 @@ export class UserManagementSubPage extends BaseStaffSubPage {
   private readonly emailField = this.page.getByPlaceholder(
     'e.g. john.doe@example.com',
   );
+
+  async getInstitutionServer(institution: institution)
+  {
+   let mailServer: string
+
+   switch (institution){
+    case 'WO':
+      return mailServer = 'university-example.org';
+    case 'HBO':
+      return mailServer = 'yale-uni-example.edu';
+    case 'MBO':
+      return mailServer = 'harvard-example.edu';
+   }
+  }
 
   async addNewUser(emailAddress: string) {
     await this.inviteNewUserButton.click();
