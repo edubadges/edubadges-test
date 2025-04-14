@@ -93,6 +93,8 @@ export class StaffMainPage extends BasePage {
 
     const proceedButton = this.page
       .getByRole('button', { name: 'Proceed to Edubadges [' });
+
+    await proceedButton.or(this.expandMenu).waitFor();
     if (await proceedButton.isVisible()) {
       await proceedButton.click();
     }
