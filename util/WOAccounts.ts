@@ -1,8 +1,9 @@
-import { AccountsBase, staffDetails, studentDetails } from './accountsBase';
+import { AccountsBase, staffDetails, studentDetails } from './accountBase';
 
 export class WOAccounts extends AccountsBase {
   institutionAdminLogin: staffDetails;
   issuerGroupAdmin: staffDetails;
+  issuerAdmin: staffDetails;
   badgeClassAdminLogin: staffDetails;
   student: studentDetails[];
 
@@ -15,6 +16,10 @@ export class WOAccounts extends AccountsBase {
     this.issuerGroupAdmin = new staffDetails(
       process.env.WO_ISSUERGROUP_ADMIN_USERNAME || '',
       process.env.WO_ISSUERGROUP_ADMIN_PASSWORD || '',
+    );
+    this.issuerAdmin = new staffDetails(
+      process.env.WO_ISSUER_ADMIN_USERNAME || '',
+      process.env.WO_ISSUER_ADMIN_PASSWORD || '',
     );
     this.badgeClassAdminLogin = new staffDetails(
       process.env.WO_BADGECLASS_ADMIN_USERNAME || '',

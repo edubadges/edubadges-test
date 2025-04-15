@@ -1,14 +1,10 @@
 import { expect, test } from '../../fixtures/studentFixture';
+import { institution } from '../../util/loginPossibilities';
 
 test('See homepage', async ({ catalogPage }) => {
   // var
   const maskedLocators = [
-    catalogPage.page
-      .getByText(' Badge Classes')
-      .first()
-      .locator('..')
-      .locator('..')
-      .locator('..'),
+    catalogPage.page.getByText(' Badge Classes').first().locator('../../..'),
   ];
 
   // test
@@ -38,7 +34,7 @@ test('Search for non existing badge', async ({ catalogPage }) => {
 test('Look at existing badge', async ({ catalogPage }) => {
   // var
   const course = 'Group Dynamics';
-  const institution = 'harvard-example.edu';
+  const institution: institution = 'MBO';
 
   // test
   await catalogPage.searchForClass(course);

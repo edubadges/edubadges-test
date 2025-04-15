@@ -1,55 +1,83 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
+import { institution } from '../util/loginPossibilities';
+import { AccountsBase } from '../util/accountBase';
 
 export class CatalogPage extends BasePage {
-  // Search and filter locators
+  // Search locators
   private readonly searchField = this.page.getByPlaceholder('Search...');
-  private readonly filterText = this.page.getByText('university-example.org');
 
   // Login locators
-  private readonly usernameField = this.page.getByPlaceholder('e.g. user@gmail.com');
-  private readonly eduIdButton = this.page.getByRole('heading', { name: 'Login with eduID (NL) test' });
+  private readonly usernameField = this.page.getByPlaceholder(
+    'e.g. user@gmail.com',
+  );
+  private readonly eduIdButton = this.page.getByRole('heading', {
+    name: 'Login with eduID (NL) test',
+  });
   private readonly nextButton = this.page.locator('[href*="/next"]');
   private readonly passwordField = this.page.getByPlaceholder('Password');
   private readonly loggedInMenu = this.page.locator('.expand-menu');
 
   // Request badge locators
-  private readonly loginButton = this.page.getByRole('link', { name: 'Login to request this edubadge' });
-  private readonly requestButton = this.page.getByRole('link', { name: 'Request', exact: true });
-  private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
+  private readonly loginButton = this.page.getByRole('link', {
+    name: 'Login to request this edubadge',
+  });
+  private readonly requestButton = this.page.getByRole('link', {
+    name: 'Request',
+    exact: true,
+  });
+  private readonly confirmButton = this.page.getByRole('link', {
+    name: 'Confirm',
+  });
+  private readonly successBar = this.page.getByText('Successfully requested');
 
   async searchForClass(name: string) {
     await this.searchField.fill(name);
   }
 
-  async filterOn(filterText: string = 'university-example.org') {
-    await this.page.getByText(filterText).click();
+  async filterOn(institution: institution = 'WO') {
+    let institutionName: string;
+    switch (institution) {
+      case 'WO':
+        institutionName = 'university-example.org';
+        break;
+      case 'HBO':
+        institutionName = 'yale-uni-example.edu';
+        break;
+      case 'MBO':
+        institutionName = 'harvard-example.edu';
+        break;
+    }
+
+    await this.page.getByText(institutionName).click();
   }
 
   async openEduClass(name: string) {
     await this.page.getByText(name).first().click();
-    await expect(this.page.getByRole('heading', { name: 'The programme' })).toBeVisible();
+    await expect(
+      this.page.getByRole('heading', { name: 'The programme' }),
+    ).toBeVisible();
   }
 
-  async requestEdubadge() {
+  async requestEdubadge(institution: institution, accountNr: number = 0) {
     if (await this.loginButton.isVisible()) {
       await this.loginButton.click();
-      await this.loginStudentIdp();
+      await this.loginStudentIdp(institution, accountNr);
     }
 
+    await this.requestButton.waitFor();
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
-    this.handleTermsAndConditions(this.confirmButton);
+    await this.handleTermsAndConditions(this.confirmButton.or(this.successBar));
+    await this.confirmButton.or(this.successBar).click();
 
-    await this.confirmButton.click();
-
-    await this.page.getByText('Successfully requested').waitFor();
+    await this.successBar.waitFor();
   }
 
   public async loginStudentIdp(
-    email: string = this.testdata.accounts.studentEmail,
-    password: string = this.testdata.accounts.studentPassword,
+    institution: institution,
+    accountNr: number = 0,
   ) {
     await this.searchField.or(this.usernameField).waitFor();
 
@@ -59,11 +87,26 @@ export class CatalogPage extends BasePage {
       await this.usernameField.waitFor();
     }
 
-    await this.usernameField.fill(email);
+    let instititutionAccounts: AccountsBase;
+
+    switch (institution) {
+      case 'WO':
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+      case 'HBO':
+        instititutionAccounts = this.testdata.HBOAccounts;
+        break;
+      case 'MBO':
+        instititutionAccounts = this.testdata.MBOAccounts;
+        break;
+    }
+    const account = instititutionAccounts.student[accountNr];
+
+    await this.usernameField.fill(account.email);
     await this.nextButton.click();
 
     await this.passwordField.waitFor();
-    await this.passwordField.fill(password);
+    await this.passwordField.fill(account.password);
     await this.nextButton.click();
 
     this.handleTermsAndConditions(this.loggedInMenu);

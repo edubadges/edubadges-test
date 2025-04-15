@@ -8,9 +8,7 @@ import { BackpackPage } from '../pages/backpackPage';
 type CatalogFixture = {
   catalogPage: CatalogPage;
   backpackPage: BackpackPage;
-  woTeacherPage: StaffMainPage;
-  hboTeacherPage: StaffMainPage;
-  mboTeacherPage: StaffMainPage;
+  adminPage: StaffMainPage;
   testdata: Testdata;
 };
 
@@ -50,14 +48,14 @@ export const test = base.extend<CatalogFixture>({
     await homePage.navigateToHomePage();
     await homePage.openBackpack();
     const backpackPage = new BackpackPage(page, testdata);
-    await backpackPage.login();
 
     // Use the fixture value in the test.
     await use(backpackPage);
 
     // Clean up the fixture.
   },
-  woTeacherPage: async ({ browser, testdata }, use) => {
+  /**  Used for awarding or denying badges to the student*/
+  adminPage: async ({ browser, testdata }, use) => {
     // Set up the fixture.
     var woTeacherContext = await browser.newContext();
     var page = await woTeacherContext.newPage();
@@ -67,38 +65,9 @@ export const test = base.extend<CatalogFixture>({
     await homePage.openIssuerPortal();
 
     const woPage = new StaffMainPage(page, testdata);
-    await woPage.loginWithWoInstitutionAdmin();
 
     // Use the fixture value in the test.
     await use(woPage);
-
-    // Clean up the fixture.
-  },
-  mboTeacherPage: async ({ page, testdata }, use) => {
-    // Set up the fixture.
-    const homePage = new HomePage(page, testdata);
-    await homePage.navigateToHomePage();
-    await homePage.openIssuerPortal();
-
-    const mboPage = new StaffMainPage(page, testdata);
-    await mboPage.loginWithMBOInstitutionAdmin();
-
-    // Use the fixture value in the test.
-    await use(mboPage);
-
-    // Clean up the fixture
-  },
-  hboTeacherPage: async ({ page, testdata }, use) => {
-    // Set up the fixture.
-    const homePage = new HomePage(page, testdata);
-    await homePage.navigateToHomePage();
-    await homePage.openIssuerPortal();
-
-    const hboPage = new StaffMainPage(page, testdata);
-    await hboPage.loginWithHBOInstitutionAdmin();
-
-    // Use the fixture value in the test.
-    await use(hboPage);
 
     // Clean up the fixture.
   },

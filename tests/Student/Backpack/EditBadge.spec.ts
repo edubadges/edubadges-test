@@ -1,24 +1,35 @@
 import { expect, test } from '../../../fixtures/studentFixture';
+import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-// TODO: Make public, Share, Make private
+institutionsWithoutHBO.forEach((institution) => {
+  test(`Reject accepted ${institution} badge`, async ({
+    backpackPage,
+    adminPage,
+  }) => {
+    // var
+    const badgeName = 'Circulation and Breathing';
+    const studentAccount = await backpackPage.getStudentAccount(institution);
 
-test('Reject accepted badge', async ({ backpackPage, woTeacherPage }) => {
-  // var
-  const badgeName = 'Circulation and Breathing';
+    //setup
+    await backpackPage.login(institution);
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.badgeClassPage.directAwardBadgeToStudent(
+      badgeName,
+      studentAccount.email,
+      studentAccount.EPPN,
+    );
 
-  //setup
-  await woTeacherPage.badgeClassPage.directAwardBadgeToStudent(badgeName);
+    await backpackPage.reloadPage();
+    await backpackPage.openBackpack();
+    await backpackPage.claimReceivedBadge(badgeName);
 
-  await backpackPage.reloadPage();
-  await backpackPage.openBackpack();
-  await backpackPage.claimReceivedBadge(badgeName);
+    // test
+    await backpackPage.page
+      .getByRole('link', { name: 'Reject this edubadge' })
+      .click();
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
 
-  // test
-  await backpackPage.page
-    .getByRole('link', { name: 'Reject this edubadge' })
-    .click();
-  await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
-
-  // validate
-  await expect(backpackPage.page.getByText('Rejected')).toBeVisible();
+    // validate
+    await expect(backpackPage.page.getByText('Rejected')).toBeVisible();
+  });
 });

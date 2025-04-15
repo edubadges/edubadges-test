@@ -3,22 +3,40 @@ import { BaseStaffSubPage } from '../baseStaffSubPage';
 import path from 'path';
 
 export class IssuerGroupSubPage extends BaseStaffSubPage {
-    // Action locators
-    private readonly addNewIssuerGroupButton = this.page.getByRole('link', { name: 'Add new issuer group' });
-    private readonly editIssuerGroupButton = this.page.getByRole('link', { name: 'Edit issuer group' });
-    private readonly saveButton = this.page.getByRole('link', { name: 'Save' });
-    private readonly saveChangesButton = this.page.getByRole('link', { name: 'Save changes' });
-    private readonly deleteButton = this.page.getByRole('link', { name: 'Delete' });
-    private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
-    private readonly uploadImageButton = this.page.getByText('Upload image');
+  // Action locators
+  private readonly addNewIssuerGroupButton = this.page.getByRole('link', {
+    name: 'Add new issuer group',
+  });
+  private readonly editIssuerGroupButton = this.page.getByRole('link', {
+    name: 'Edit issuer group',
+  });
+  private readonly saveButton = this.page.getByRole('link', { name: 'Save' });
+  private readonly saveChangesButton = this.page.getByRole('link', {
+    name: 'Save changes',
+  });
+  private readonly deleteButton = this.page.getByRole('link', {
+    name: 'Delete',
+  });
+  private readonly confirmButton = this.page.getByRole('link', {
+    name: 'Confirm',
+  });
+  private readonly uploadImageButton = this.page.getByText('Upload image');
 
-    // Form locators
-    private readonly titleField = this.page.getByPlaceholder('(Required field) e.g. History');
-    private readonly descriptionField = this.page.getByPlaceholder('(Required field) e.g. all History related studies');
-    private readonly issueOnBehalfButton = this.page.locator('.slider');
-    private readonly virtualOrgField = this.page.getByPlaceholder('(Optional) e.g. URL of the other organisation');
-    private readonly linkedInField = this.page.getByPlaceholder('(Optional) e.g. the linkedin identifier of the other organisation');
-    private readonly tabChoiceLocator = this.page.locator('.tab-choice');
+  // Form locators
+  private readonly titleField = this.page.getByPlaceholder(
+    '(Required field) e.g. History',
+  );
+  private readonly descriptionField = this.page.getByPlaceholder(
+    '(Required field) e.g. all History related studies',
+  );
+  private readonly issueOnBehalfButton = this.page.locator('.slider');
+  private readonly virtualOrgField = this.page.getByPlaceholder(
+    '(Optional) e.g. URL of the other organisation',
+  );
+  private readonly linkedInField = this.page.getByPlaceholder(
+    '(Optional) e.g. the linkedin identifier of the other organisation',
+  );
+  private readonly tabChoiceLocator = this.page.locator('.tab-choice');
 
   /**
    * Adds a new issuer group.

@@ -4,22 +4,41 @@ import { StaffBadgeClassesPage } from './staffBadgeClassesPage';
 import { StaffInsightsPage } from './staffInsightsPage';
 import { StaffManagePage } from './staffManagePage';
 import { StaffUsersPage } from './staffUsersPage';
+import { AccountsBase, staffDetails } from '../../util/accountBase';
+import { institution, adminLevel } from '../../util/loginPossibilities';
 
 export class StaffMainPage extends BasePage {
   // Login locators
   private readonly searchField = this.page.getByPlaceholder('Search...');
   private readonly usernameField = this.page.getByLabel('Username');
   private readonly passwordField = this.page.getByLabel('Password');
-  private readonly loginButton = this.page.getByRole('button', { name: 'Login' });
+  private readonly loginButton = this.page.getByRole('button', {
+    name: 'Login',
+  });
   private readonly dutchLink = this.page.getByRole('link', { name: 'NL' });
   private readonly expandMenu = this.page.locator('.expand-menu');
 
   // Navigation locators
-  private readonly badgeClassesLink = this.page.getByRole('link', { name: 'Badge classes', exact: true });
-  private readonly manageLink = this.page.getByRole('link', { name: 'Manage', exact: true });
-  private readonly usersLink = this.page.getByRole('link', { name: 'Users', exact: true });
-  private readonly catalogLink = this.page.getByRole('link', { name: 'Catalog', exact: true });
-  private readonly insightsLink = this.page.getByRole('link', { name: 'Insights', exact: true });
+  private readonly badgeClassesLink = this.page.getByRole('link', {
+    name: 'Badge classes',
+    exact: true,
+  });
+  private readonly manageLink = this.page.getByRole('link', {
+    name: 'Manage',
+    exact: true,
+  });
+  private readonly usersLink = this.page.getByRole('link', {
+    name: 'Users',
+    exact: true,
+  });
+  private readonly catalogLink = this.page.getByRole('link', {
+    name: 'Catalog',
+    exact: true,
+  });
+  private readonly insightsLink = this.page.getByRole('link', {
+    name: 'Insights',
+    exact: true,
+  });
 
   // Page instances
   readonly badgeClassPage = new StaffBadgeClassesPage(this.page, this.testdata);
@@ -42,89 +61,73 @@ export class StaffMainPage extends BasePage {
   }
 
   async validateLoginFailed() {
-    await expect(this.page.getByRole('heading', { name: "Sorry, you don't have access" })).toBeVisible();
+    await expect(
+      this.page.getByRole('heading', { name: "Sorry, you don't have access" }),
+    ).toBeVisible();
   }
 
   // Login methods
-  async loginWithWoInstitutionAdmin() {
-    await this.loginTestIdp(
-      this.testdata.accounts.institutionAdminUsername,
-      this.testdata.accounts.institutionAdminPassword,
-    );
-  }
 
-  async loginWithWoIssuerGroupAdmin() {
-    await this.loginTestIdp(
-      this.testdata.accounts.issuerGroupAdminUsername,
-      this.testdata.accounts.issuerGroupAdminPassword,
-    );
-  }
-
-  async loginWithWoIssuerAdmin() {
-    await this.loginTestIdp(
-      this.testdata.accounts.issuerAdminUsername,
-      this.testdata.accounts.issuerAdminPassword,
-    );
-  }
-
-  async loginWithWoBadgeClassAdmin() {
-    await this.loginTestIdp(
-      this.testdata.accounts.badgeClassAdminUsername,
-      this.testdata.accounts.badgeClassAdminPassword,
-    );
-  }
-
-  async loginWithStudent() {
-    await this.loginTestIdp(
-      this.testdata.accounts.studentName,
-      this.testdata.accounts.studentPassword,
-    );
-  }
-
-  async loginWithMBOInstitutionAdmin() {
-    await this.loginTestIdp(
-      this.testdata.accounts.mboInstitutionAdminUsername,
-      this.testdata.accounts.mboInstitutionAdminPassword,
-    );
-  }
-
-  async loginWithHBOInstitutionAdmin() {
-    await this.loginTestIdp(
-      this.testdata.accounts.hboInstitutionAdminUsername,
-      this.testdata.accounts.hboInstitutionAdminPassword,
-    );
-  }
-
-  async loginTestIdp(username: string, password: string) {
+  async loginTestIdp(institution: institution, level: adminLevel) {
     const idp = 'test idp';
     await this.searchField.fill(idp);
     const idpButton = await this.idpButtonLocator(idp);
     await this.page.waitForTimeout(500);
     await idpButton.click();
     await this.usernameField.waitFor();
-    await this.usernameField.fill(username);
-    await this.passwordField.fill(password);
+
+    let instititutionAccounts: AccountsBase;
+
+    switch (institution) {
+      case 'WO':
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+      case 'HBO':
+        instititutionAccounts = this.testdata.HBOAccounts;
+        break;
+      case 'MBO':
+        instititutionAccounts = this.testdata.MBOAccounts;
+        break;
+    }
+
+    let account: staffDetails;
+    switch (level) {
+      case 'Institution':
+        account = instititutionAccounts.institutionAdminLogin;
+        break;
+      case 'Issuergroup':
+        account = instititutionAccounts.issuerGroupAdmin;
+        break;
+      case 'Issuer':
+        account = instititutionAccounts.issuerAdmin;
+        break;
+      case 'Badgeclass':
+        account = instititutionAccounts.badgeClassAdminLogin;
+        break;
+    }
+
+    await this.usernameField.fill(account.username);
+    await this.passwordField.fill(account.password);
     await this.loginButton.click();
 
-    const proceedToEdubadgesFound = await this.page
-      .getByRole('button', { name: 'Proceed to Edubadges [' })
-      .isVisible();
-    if (proceedToEdubadgesFound) {
-      await this.page
-        .getByRole('button', { name: 'Proceed to Edubadges [' })
-        .click();
+    const proceedButton = this.page.getByRole('button', {
+      name: 'Proceed to Edubadges [',
+    });
+
+    await proceedButton.or(this.expandMenu).waitFor();
+    if (await proceedButton.isVisible()) {
+      await proceedButton.click();
     }
 
     await this.expandMenu.waitFor();
+    await this.waitForLoadingToStop();
   }
 
-  async loginDummyIdp(
-    username: string,
-    email: string,
-    orgName: string = 'university-example.org',
-  ) {
+  async loginDummyIdp(username: string, email: string, orgName: string) {
     const dummyName = 'SURFconext Dummy IdP';
-    const dummyLocator = this.page.getByText(dummyName + ' (previously SURFconext Mujina IdP)').first();
+    const dummyLocator = this.page
+      .getByText(dummyName + ' (previously SURFconext Mujina IdP)')
+      .first();
 
     await this.searchField.fill(dummyName);
     await dummyLocator.waitFor();

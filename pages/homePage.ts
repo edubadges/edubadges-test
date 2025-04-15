@@ -4,8 +4,12 @@ import { BasePageMultiLanguage } from './basePageMultiLanguage';
 
 export class HomePage extends BasePageMultiLanguage {
   // Navigation locators
-  private readonly catalogLink = this.page.getByRole('link', { name: 'Open the catalog' });
-  private readonly backpackLink = this.page.getByRole('link', { name: 'Open your backpack' });
+  private readonly catalogLink = this.page.getByRole('link', {
+    name: 'Open the catalog',
+  });
+  private readonly backpackLink = this.page.getByRole('link', {
+    name: 'Open your backpack',
+  });
   private readonly dutchLink = this.page.getByRole('link', { name: 'NL' });
   private readonly englishLink = this.page.getByRole('link', { name: 'EN' });
 
@@ -54,13 +58,15 @@ export class HomePage extends BasePageMultiLanguage {
   }
 
   async expectHomePageOpened() {
-    const snapshotName = 'expectedLoginPageOpened-' + 
-      (this.testdata.language === Language.en ? 'eng' : 'nl') + '.png';
+    const snapshotName =
+      'expectedLoginPageOpened-' +
+      (this.testdata.language === Language.en ? 'eng' : 'nl') +
+      '.png';
 
     const maskBadge = this.page
-        .getByText(' Badge Classes')
-        .first()
-        .locator('../../..');
+      .getByText(' Badge Classes')
+      .first()
+      .locator('../../..');
 
     await expect(this.page).toHaveScreenshot(snapshotName, {
       mask: [maskBadge],
