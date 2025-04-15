@@ -15,15 +15,13 @@ export class UserManagementSubPage extends BaseStaffSubPage {
 
   async getInstitutionServer(institution: institution)
   {
-   let mailServer: string
-
    switch (institution){
     case 'WO':
-      return mailServer = 'university-example.org';
+      return 'university-example.org';
     case 'HBO':
-      return mailServer = 'yale-uni-example.edu';
+      return 'yale-uni-example.edu';
     case 'MBO':
-      return mailServer = 'harvard-example.edu';
+      return 'harvard-example.edu';
    }
   }
 
