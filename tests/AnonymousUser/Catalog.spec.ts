@@ -1,4 +1,5 @@
 import { expect, test } from '../../fixtures/studentFixture';
+import { institution } from '../../util/loginPossibilities';
 
 test('See homepage', async ({ catalogPage }) => {
   // var
@@ -36,7 +37,7 @@ test('Search for non existing badge', async ({ catalogPage }) => {
 test('Look at existing badge', async ({ catalogPage }) => {
   // var
   const course = 'Group Dynamics';
-  const institution = 'harvard-example.edu';
+  const institution: institution = 'MBO';
 
   // test
   await catalogPage.searchForClass(course);
