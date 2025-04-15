@@ -5,6 +5,7 @@ institutionsWithoutHBO.forEach(institution => {
 test(`Award requested badge from ${institution}`, async ({
   catalogPage,
   adminPage,
+  
 }) => {
   // var
   const course = 'Psychometrics';
@@ -14,10 +15,10 @@ test(`Award requested badge from ${institution}`, async ({
   await catalogPage.searchForClass(course);
   await catalogPage.filterOn(institution);
   await catalogPage.openEduClass(course);
-  await catalogPage.requestEdubadge();
+  await catalogPage.requestEdubadge(institution);
 
   // test
-  await adminPage.badgeClassPage.approveRequest(course);
+  await adminPage.badgeClassPage.approveRequest(course, institution);
 
   // validate
   await expect(adminPage.page.getByText('The request(s) have been awarded.')).toBeVisible();

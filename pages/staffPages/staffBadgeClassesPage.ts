@@ -1,3 +1,5 @@
+import { AccountsBase } from '../../util/accountBase';
+import { institution } from '../../util/loginPossibilities';
 import { BaseStaffSubPage } from './baseStaffSubPage';
 
 export class StaffBadgeClassesPage extends BaseStaffSubPage {
@@ -40,12 +42,29 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
    */
   async approveRequest(
     courseName: string,
-    studentName: string = this.testdata.accounts.studentName,
+    institution: institution,
+    studentNumber: number = 0,
   ) {
+    let instititutionAccounts: AccountsBase;
+
+    switch (institution){
+      case 'WO':
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+      case 'HBO':
+        instititutionAccounts = this.testdata.HBOAccounts;
+        break;
+      case 'MBO':
+        instititutionAccounts = this.testdata.MBOAccounts;
+        break;
+    };
+
+    const studentAccount = instititutionAccounts.student[studentNumber];
+
     await this.searchWithText(courseName);
     await this.openBadge(courseName);
     await this.openRequests();
-    await this.selectRequest(studentName);
+    await this.selectRequest(studentAccount.name);
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
     await this.page.waitForTimeout(500);
     await this.optionsLocator.getByRole('link', { name: 'Award' }).click();

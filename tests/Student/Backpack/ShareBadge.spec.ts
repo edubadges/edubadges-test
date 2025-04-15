@@ -9,7 +9,6 @@ test(`Make ${institution} edubadge public`, async ({
 }) => {
   //var
   const course = 'Introduction to Political Science';
-  const studentAccount = await backpackPage.getStudentAccount(institution);
 
   //setup
   await catalogPage.searchForClass(course);
@@ -18,7 +17,7 @@ test(`Make ${institution} edubadge public`, async ({
   await catalogPage.requestEdubadge(institution);
 
   await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.badgeClassPage.approveRequest(course, studentAccount.name);
+  await adminPage.badgeClassPage.approveRequest(course, institution);
 
   await backpackPage.login(institution);
   await backpackPage.openBackpack();
@@ -54,10 +53,10 @@ test.skip(`Share public ${institution} edubadge`, async ({
   await catalogPage.searchForClass(course);
   await catalogPage.filterOn(institution);
   await catalogPage.openEduClass(course);
-  await catalogPage.requestEdubadge();
+  await catalogPage.requestEdubadge(institution);
 
   await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.badgeClassPage.approveRequest(course);
+  await adminPage.badgeClassPage.approveRequest(course, institution);
 
   await backpackPage.openBackpack();
   await backpackPage.reloadPage();
