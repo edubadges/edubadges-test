@@ -58,10 +58,7 @@ export class StaffManagePage extends BaseStaffSubPage {
       .click();
   }
 
-  async approveRequest(
-    courseName: string,
-    studentName: string,
-  ) {
+  async approveRequest(courseName: string, studentName: string) {
     await this.selectRequest(courseName, studentName);
     await this.page.getByRole('link', { name: 'Award' }).click();
     await this.page

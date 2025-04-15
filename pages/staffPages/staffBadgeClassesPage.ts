@@ -41,10 +41,7 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
   /**
    * Approves a badge request for a student.
    */
-  async approveRequest(
-    courseName: string,
-    studentName: string,
-  ) {
+  async approveRequest(courseName: string, studentName: string) {
     await this.searchWithText(courseName);
     await this.openBadge(courseName);
     await this.openRequests();

@@ -28,7 +28,7 @@ institutionsWithoutHBO.forEach((institution) => {
   test(`Send badge directly from ${institution}`, async ({ adminPage }) => {
     // var
     const courseName = 'Cognitive Psychology';
-    const studentInfo = await adminPage.getStudentAccount(institution)
+    const studentInfo = await adminPage.getStudentAccount(institution);
 
     // test
     await adminPage.loginTestIdp(institution, 'Institution');

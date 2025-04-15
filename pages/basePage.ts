@@ -35,9 +35,7 @@ export abstract class BasePage {
     await nextLocator.waitFor();
   }
 
-  async getStudentAccount(institution: institution, 
-    studentNumber: number = 0){
-
+  async getStudentAccount(institution: institution, studentNumber: number = 0) {
     let instititutionAccounts: AccountsBase;
 
     switch (institution) {
@@ -55,8 +53,7 @@ export abstract class BasePage {
     return instititutionAccounts.student[studentNumber];
   }
 
-  async getStaffAccount(institution: institution, level: adminLevel)
-  {
+  async getStaffAccount(institution: institution, level: adminLevel) {
     let instititutionAccounts: AccountsBase;
 
     switch (institution) {
