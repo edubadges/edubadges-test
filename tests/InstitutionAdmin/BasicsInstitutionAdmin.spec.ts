@@ -24,7 +24,6 @@ test(`Login ${institution} institution admin`, async ({
 test('Logout WO institution admin', async ({
   homePage,
   issuerPortalPage,
-  testdata,
 }) => {
   // var
   const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
