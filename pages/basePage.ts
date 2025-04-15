@@ -1,5 +1,7 @@
 import { Locator, Page } from 'playwright/test';
 import { Testdata } from '../util/testdata';
+import { adminLevel, institution } from '../util/loginPossibilities';
+import { AccountsBase, staffDetails } from '../util/accountBase';
 
 export abstract class BasePage {
   public page: Page;
@@ -31,5 +33,60 @@ export abstract class BasePage {
     }
     await this.waitForLoadingToStop();
     await nextLocator.waitFor();
+  }
+
+  async getStudentAccount(institution: institution, 
+    studentNumber: number = 0){
+
+    let instititutionAccounts: AccountsBase;
+
+    switch (institution) {
+      case 'WO':
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+      case 'HBO':
+        instititutionAccounts = this.testdata.HBOAccounts;
+        break;
+      case 'MBO':
+        instititutionAccounts = this.testdata.MBOAccounts;
+        break;
+    }
+
+    return instititutionAccounts.student[studentNumber];
+  }
+
+  async getStaffAccount(institution: institution, level: adminLevel)
+  {
+    let instititutionAccounts: AccountsBase;
+
+    switch (institution) {
+      case 'WO':
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+      case 'HBO':
+        instititutionAccounts = this.testdata.HBOAccounts;
+        break;
+      case 'MBO':
+        instititutionAccounts = this.testdata.MBOAccounts;
+        break;
+    }
+
+    let account: staffDetails;
+    switch (level) {
+      case 'Institution':
+        account = instititutionAccounts.institutionAdminLogin;
+        break;
+      case 'Issuergroup':
+        account = instititutionAccounts.issuerGroupAdmin;
+        break;
+      case 'Issuer':
+        account = instititutionAccounts.issuerAdmin;
+        break;
+      case 'Badgeclass':
+        account = instititutionAccounts.badgeClassAdminLogin;
+        break;
+    }
+
+    return account;
   }
 }

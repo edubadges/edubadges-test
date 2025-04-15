@@ -58,27 +58,6 @@ export class BackpackPage extends BasePage {
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
 
-  public async getStudentAccount(
-    institution: institution = 'WO',
-    accountNr: number = 0,
-  ) {
-    let instititutionAccounts: AccountsBase;
-
-    switch (institution) {
-      case 'WO':
-        instititutionAccounts = this.testdata.WOAccounts;
-        break;
-      case 'HBO':
-        instititutionAccounts = this.testdata.HBOAccounts;
-        break;
-      case 'MBO':
-        instititutionAccounts = this.testdata.MBOAccounts;
-        break;
-    }
-
-    return instititutionAccounts.student[accountNr];
-  }
-
   public async claimReceivedBadge(badgeName: string) {
     const badgeLocator = this.page
       .locator('.name')
