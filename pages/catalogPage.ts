@@ -1,7 +1,6 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
 import { institution } from '../util/loginPossibilities';
-import { AccountsBase } from '../util/accountBase';
 
 export class CatalogPage extends BasePage {
   // Search locators
@@ -87,20 +86,7 @@ export class CatalogPage extends BasePage {
       await this.usernameField.waitFor();
     }
 
-    let instititutionAccounts: AccountsBase;
-
-    switch (institution) {
-      case 'WO':
-        instititutionAccounts = this.testdata.WOAccounts;
-        break;
-      case 'HBO':
-        instititutionAccounts = this.testdata.HBOAccounts;
-        break;
-      case 'MBO':
-        instititutionAccounts = this.testdata.MBOAccounts;
-        break;
-    }
-    const account = instititutionAccounts.student[accountNr];
+    const account = await this.getStudentAccount(institution, accountNr);
 
     await this.usernameField.fill(account.email);
     await this.nextButton.click();

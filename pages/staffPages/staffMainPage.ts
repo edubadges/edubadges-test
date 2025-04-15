@@ -4,7 +4,6 @@ import { StaffBadgeClassesPage } from './staffBadgeClassesPage';
 import { StaffInsightsPage } from './staffInsightsPage';
 import { StaffManagePage } from './staffManagePage';
 import { StaffUsersPage } from './staffUsersPage';
-import { AccountsBase, staffDetails } from '../../util/accountBase';
 import { institution, adminLevel } from '../../util/loginPossibilities';
 
 export class StaffMainPage extends BasePage {
@@ -76,35 +75,7 @@ export class StaffMainPage extends BasePage {
     await idpButton.click();
     await this.usernameField.waitFor();
 
-    let instititutionAccounts: AccountsBase;
-
-    switch (institution) {
-      case 'WO':
-        instititutionAccounts = this.testdata.WOAccounts;
-        break;
-      case 'HBO':
-        instititutionAccounts = this.testdata.HBOAccounts;
-        break;
-      case 'MBO':
-        instititutionAccounts = this.testdata.MBOAccounts;
-        break;
-    }
-
-    let account: staffDetails;
-    switch (level) {
-      case 'Institution':
-        account = instititutionAccounts.institutionAdminLogin;
-        break;
-      case 'Issuergroup':
-        account = instititutionAccounts.issuerGroupAdmin;
-        break;
-      case 'Issuer':
-        account = instititutionAccounts.issuerAdmin;
-        break;
-      case 'Badgeclass':
-        account = instititutionAccounts.badgeClassAdminLogin;
-        break;
-    }
+    const account = await this.getStaffAccount(institution, level);
 
     await this.usernameField.fill(account.username);
     await this.passwordField.fill(account.password);

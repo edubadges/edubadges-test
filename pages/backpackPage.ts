@@ -2,7 +2,6 @@ import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
 import { institution } from '../util/loginPossibilities';
-import { AccountsBase } from '../util/accountBase';
 
 export class BackpackPage extends BasePage {
   // Navigation locators
@@ -57,27 +56,6 @@ export class BackpackPage extends BasePage {
     await this.nextButton.click();
 
     await this.handleTermsAndConditions(this.loggedInMenu);
-  }
-
-  public async getStudentAccount(
-    institution: institution = 'WO',
-    accountNr: number = 0,
-  ) {
-    let instititutionAccounts: AccountsBase;
-
-    switch (institution) {
-      case 'WO':
-        instititutionAccounts = this.testdata.WOAccounts;
-        break;
-      case 'HBO':
-        instititutionAccounts = this.testdata.HBOAccounts;
-        break;
-      case 'MBO':
-        instititutionAccounts = this.testdata.MBOAccounts;
-        break;
-    }
-
-    return instititutionAccounts.student[accountNr];
   }
 
   public async claimReceivedBadge(badgeName: string) {
