@@ -1,48 +1,83 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
+import { institution } from '../util/loginPossibilities';
+import { AccountsBase } from '../util/accountBase';
 
 export class BackpackPage extends BasePage {
   // Navigation locators
-  private readonly backpackLink = this.page.getByRole('link', { name: 'My backpack' });
-  private readonly requestsLink = this.page.getByRole('link', { name: 'Edubadge requests' });
-  private readonly collectionsLink = this.page.getByRole('link', { name: 'Collections' });
-  private readonly importedLink = this.page.getByRole('link', { name: 'Imported' });
-  private readonly archiveLink = this.page.getByRole('link', { name: 'Archive' });
-  private readonly accountLink = this.page.getByRole('link', { name: 'Account' });
-  private readonly claimLink = this.page.getByRole('link', { name: 'Claim & Add to your backpack' });
-  private readonly rejectLink = this.page.getByRole('link', { name: 'Reject' })
+  private readonly backpackLink = this.page.getByRole('link', {
+    name: 'My backpack',
+  });
+  private readonly requestsLink = this.page.getByRole('link', {
+    name: 'Edubadge requests',
+  });
+  private readonly collectionsLink = this.page.getByRole('link', {
+    name: 'Collections',
+  });
+  private readonly importedLink = this.page.getByRole('link', {
+    name: 'Imported',
+  });
+  private readonly archiveLink = this.page.getByRole('link', {
+    name: 'Archive',
+  });
+  private readonly accountLink = this.page.getByRole('link', {
+    name: 'Account',
+  });
+  private readonly claimLink = this.page.getByRole('link', {
+    name: 'Claim & Add to your backpack',
+  });
+  private readonly rejectLink = this.page.getByRole('link', { name: 'Reject' });
 
   // Login locators
   private readonly searchField = this.page.getByPlaceholder('Search...');
-  private readonly usernameField = this.page.getByPlaceholder('e.g. user@gmail.com');
+  private readonly usernameField = this.page.getByPlaceholder(
+    'e.g. user@gmail.com',
+  );
   private readonly passwordField = this.page.getByPlaceholder('Password');
-  private readonly eduIdButton = this.page.getByRole('heading', { name: 'Login with eduID (NL) test' });
+  private readonly eduIdButton = this.page.getByRole('heading', {
+    name: 'Login with eduID (NL) test',
+  });
   private readonly nextButton = this.page.locator('[href*="/next"]');
   private readonly loggedInMenu = this.page.locator('.expand-menu');
 
   // misc
-  private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
+  private readonly confirmButton = this.page.getByRole('link', {
+    name: 'Confirm',
+  });
 
-  public async login(
-    email: string = this.testdata.accounts.studentEmail,
-    password: string = this.testdata.accounts.studentPassword,
-  ) {
-    await this.searchField.or(this.usernameField).waitFor();
+  public async login(institution: institution = 'WO', accountNr: number = 0) {
+    const account = await this.getStudentAccount(institution, accountNr);
 
-    if (await this.searchField.isVisible()) {
-      await this.searchField.fill('test idp');
-      await this.eduIdButton.click();
-      await this.usernameField.waitFor();
-    }
-
-    await this.usernameField.fill(email);
+    await this.usernameField.fill(account.email);
     await this.nextButton.click();
+
     await this.passwordField.waitFor();
-    await this.passwordField.fill(password);
+    await this.passwordField.fill(account.password);
     await this.nextButton.click();
 
     await this.handleTermsAndConditions(this.loggedInMenu);
+  }
+
+  public async getStudentAccount(
+    institution: institution = 'WO',
+    accountNr: number = 0,
+  ) {
+    let instititutionAccounts: AccountsBase;
+
+    switch (institution) {
+      case 'WO':
+        instititutionAccounts = this.testdata.WOAccounts;
+        break;
+      case 'HBO':
+        instititutionAccounts = this.testdata.HBOAccounts;
+        break;
+      case 'MBO':
+        instititutionAccounts = this.testdata.MBOAccounts;
+        break;
+    }
+
+    return instititutionAccounts.student[accountNr];
   }
 
   public async claimReceivedBadge(badgeName: string) {
@@ -51,8 +86,9 @@ export class BackpackPage extends BasePage {
       .getByText(badgeName)
       .locator('../../..');
 
-    await this.page.goto('');
-    await badgeLocator.getByText('View details to claim this edubadge').waitFor();
+    await badgeLocator
+      .getByText('View details to claim this edubadge')
+      .waitFor();
     await badgeLocator.click();
 
     await this.claimLink.click();
@@ -69,7 +105,9 @@ export class BackpackPage extends BasePage {
       .locator('../../..');
 
     await this.page.goto('');
-    await badgeLocator.getByText('View details to claim this edubadge').waitFor();
+    await badgeLocator
+      .getByText('View details to claim this edubadge')
+      .waitFor();
     await badgeLocator.click();
 
     await this.rejectLink.click();
@@ -129,7 +167,10 @@ export class BackpackPage extends BasePage {
     await this.waitForLoadingToStop();
 
     // validate
-    this.page.getByText('This edubadge has been made publicly visible. You can share this edubadge now')
+    this.page
+      .getByText(
+        'This edubadge has been made publicly visible. You can share this edubadge now',
+      )
       .waitFor();
   }
 

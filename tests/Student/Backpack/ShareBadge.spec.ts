@@ -1,69 +1,72 @@
 import { expect, test } from '../../../fixtures/studentFixture';
+import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-test('Make edubadge public', async ({
-  catalogPage,
-  backpackPage,
-  woTeacherPage,
-}) => {
-  //var
-  const course = 'Introduction to Political Science';
-  const institution = 'university-example.org';
+institutionsWithoutHBO.forEach((institution) => {
+  test(`Make ${institution} edubadge public`, async ({
+    catalogPage,
+    backpackPage,
+    adminPage,
+  }) => {
+    //var
+    const course = 'Introduction to Political Science';
 
-  //setup
-  await catalogPage.searchForClass(course);
-  await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
-  await catalogPage.requestEdubadge();
+    //setup
+    await catalogPage.searchForClass(course);
+    await catalogPage.filterOn(institution);
+    await catalogPage.openEduClass(course);
+    await catalogPage.requestEdubadge(institution);
 
-  await woTeacherPage.badgeClassPage.approveRequest(course);
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.badgeClassPage.approveRequest(course, institution);
 
-  await backpackPage.openBackpack();
-  await backpackPage.reloadPage();
-  await backpackPage.openBadge(course);
+    await backpackPage.login(institution);
+    await backpackPage.openBackpack();
+    await backpackPage.openBadge(course);
 
-  // test
-  await expect(
-    backpackPage.page.getByRole('link', { name: 'Share' }),
-  ).toHaveAttribute('disabled', 'true');
-  await expect(backpackPage.page.locator('.slider')).toBeChecked();
+    // test
+    await expect(
+      backpackPage.page.getByRole('link', { name: 'Share' }),
+    ).toHaveAttribute('disabled', 'true');
+    await expect(backpackPage.page.locator('.slider')).toBeChecked();
 
-  await backpackPage.makeEdubadgePublic(course);
+    await backpackPage.makeEdubadgePublic(course);
 
-  await expect(
-    backpackPage.page.getByRole('link', { name: 'Share' }),
-  ).toHaveAttribute('disabled', 'false');
-  await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
-  await expect(backpackPage.page).toHaveScreenshot(
-    'Successfully made badge public.png',
-  );
-});
+    await expect(
+      backpackPage.page.getByRole('link', { name: 'Share' }),
+    ).toHaveAttribute('disabled', 'false');
+    await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
+    await expect(backpackPage.page).toHaveScreenshot(
+      'Successfully made badge public.png',
+    );
+  });
 
-// known issue on the verification of the public badge
-test.skip('Share public edubadge', async ({
-  catalogPage,
-  backpackPage,
-  woTeacherPage,
-}) => {
-  //var
-  const course = 'History of Political Thought';
-  const institution = 'university-example.org';
+  // known issue on the verification of the public badge
+  test.skip(`Share public ${institution} edubadge`, async ({
+    catalogPage,
+    backpackPage,
+    adminPage,
+  }) => {
+    //var
+    const course = 'History of Political Thought';
 
-  //setup
-  await catalogPage.searchForClass(course);
-  await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
-  await catalogPage.requestEdubadge();
+    //setup
+    await catalogPage.searchForClass(course);
+    await catalogPage.filterOn(institution);
+    await catalogPage.openEduClass(course);
+    await catalogPage.requestEdubadge(institution);
 
-  await woTeacherPage.badgeClassPage.approveRequest(course);
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.badgeClassPage.approveRequest(course, institution);
 
-  await backpackPage.openBackpack();
-  await backpackPage.reloadPage();
-  await backpackPage.makeEdubadgePublic(course);
+    await backpackPage.openBackpack();
+    await backpackPage.reloadPage();
+    await backpackPage.makeEdubadgePublic(course);
 
-  await backpackPage.page.getByRole('link', { name: 'Share' }).waitFor();
-  await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
+    await backpackPage.page.getByRole('link', { name: 'Share' }).waitFor();
+    await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
 
-  // test
-  const url = await backpackPage.getShareLink();
-  await backpackPage.validateBadge(url);
+    // test
+    const url = await backpackPage.getShareLink();
+    await backpackPage.validateBadge(url);
+  });
 });

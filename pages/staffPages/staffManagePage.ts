@@ -8,20 +8,41 @@ import { DeletedDirectAwardsSubPage } from './staffManageSubPage/deletedDirectAw
 
 export class StaffManagePage extends BaseStaffSubPage {
   // Navigation locators
-  private readonly issuerGroupsLink = this.page.getByRole('link', { name: 'Issuer groups' });
-  private readonly issuersLink = this.page.getByRole('link', { name: 'Issuers' });
-  private readonly userManagementLink = this.page.getByRole('link', { name: 'User management' });
-  private readonly requestedEdubadgesLink = this.page.getByRole('link', { name: 'Requested edubadges' });
-  private readonly unclaimedDirectAwardsLink = this.page.getByRole('link', { name: 'Unclaimed direct awards' });
-  private readonly deletedDirectAwardsLink = this.page.getByRole('link', { name: 'Requested edubadges' });
+  private readonly issuerGroupsLink = this.page.getByRole('link', {
+    name: 'Issuer groups',
+  });
+  private readonly issuersLink = this.page.getByRole('link', {
+    name: 'Issuers',
+  });
+  private readonly userManagementLink = this.page.getByRole('link', {
+    name: 'User management',
+  });
+  private readonly requestedEdubadgesLink = this.page.getByRole('link', {
+    name: 'Requested edubadges',
+  });
+  private readonly unclaimedDirectAwardsLink = this.page.getByRole('link', {
+    name: 'Unclaimed direct awards',
+  });
+  private readonly deletedDirectAwardsLink = this.page.getByRole('link', {
+    name: 'Requested edubadges',
+  });
 
   // Page instances
   readonly issuerGroupPage = new IssuerGroupSubPage(this.page, this.testdata);
   readonly issuersPage = new IssuersSubPage(this.page, this.testdata);
   readonly userManagePage = new UserManagementSubPage(this.page, this.testdata);
-  readonly requestedBadgesPage = new RequestedEdubadgesSubPage(this.page, this.testdata);
-  readonly unclaimedAwardsPage = new UnclaimedDirectAwardsSubPage(this.page, this.testdata);
-  readonly deletedAwardsPage = new DeletedDirectAwardsSubPage(this.page, this.testdata);
+  readonly requestedBadgesPage = new RequestedEdubadgesSubPage(
+    this.page,
+    this.testdata,
+  );
+  readonly unclaimedAwardsPage = new UnclaimedDirectAwardsSubPage(
+    this.page,
+    this.testdata,
+  );
+  readonly deletedAwardsPage = new DeletedDirectAwardsSubPage(
+    this.page,
+    this.testdata,
+  );
 
   /**
    * Clicks the according checkbox once.
