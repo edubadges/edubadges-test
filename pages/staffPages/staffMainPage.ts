@@ -100,6 +100,7 @@ export class StaffMainPage extends BasePage {
     }
 
     await this.expandMenu.waitFor();
+    await this.waitForLoadingToStop();
   }
 
   async loginDummyIdp(username: string, email: string, orgName: string) {
