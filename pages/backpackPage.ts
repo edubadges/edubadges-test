@@ -2,7 +2,6 @@ import { expect } from '@playwright/test';
 import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
 import { institution } from '../util/loginPossibilities';
-import { AccountsBase } from '../util/accountBase';
 
 export class BackpackPage extends BasePage {
   // Navigation locators

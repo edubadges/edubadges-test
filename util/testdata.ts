@@ -1,38 +1,18 @@
 import { BasePageMultiLanguage } from '../pages/basePageMultiLanguage';
-import { Accounts } from './accounts';
 import { BadgeData } from './badgeData';
 import { WOAccounts } from './WOAccounts';
 import { HBOAccounts } from './HBOAccounts';
 import { MBOAccounts } from './MBOAccounts';
 
 export class Testdata {
-  private _testCaseName: string = '';
+  public testCaseName: string = '';
   private _language: Language = Language.en;
   private _pagesForLanguageChangeNotification: BasePageMultiLanguage[] = [];
-  private _badgeData: BadgeData = new BadgeData();
-  private _accounts: Accounts = new Accounts();
+  readonly badgeData: BadgeData = new BadgeData();
 
   readonly WOAccounts = new WOAccounts();
   readonly HBOAccounts = new HBOAccounts();
   readonly MBOAccounts = new MBOAccounts();
-
-  constructor() {}
-
-  get testCaseName(): string {
-    return this._testCaseName;
-  }
-
-  set testCaseName(name: string) {
-    this._testCaseName = name;
-  }
-
-  get badgeData(): BadgeData {
-    return this._badgeData;
-  }
-
-  get accounts(): Accounts {
-    return this._accounts;
-  }
 
   get language(): Language {
     return this._language;
