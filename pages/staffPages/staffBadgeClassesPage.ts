@@ -4,9 +4,13 @@ import { BaseStaffSubPage } from './baseStaffSubPage';
 
 export class StaffBadgeClassesPage extends BaseStaffSubPage {
   // Action locators
-  private readonly awardEdubadgeLink = this.page.getByRole('link', { name: 'Award edubadge(s)' });
+  private readonly awardEdubadgeLink = this.page.getByRole('link', {
+    name: 'Award edubadge(s)',
+  });
   private readonly awardLink = this.page.getByRole('link', { name: 'Award' });
-  private readonly openRequestsLink = this.page.getByRole('link', { name: 'Open requests' });
+  private readonly openRequestsLink = this.page.getByRole('link', {
+    name: 'Open requests',
+  });
   private readonly contentLocator = this.page.locator('.content');
   private readonly optionsLocator = this.page.locator('.options');
 
@@ -47,7 +51,7 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
   ) {
     let instititutionAccounts: AccountsBase;
 
-    switch (institution){
+    switch (institution) {
       case 'WO':
         instititutionAccounts = this.testdata.WOAccounts;
         break;
@@ -57,7 +61,7 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
       case 'MBO':
         instititutionAccounts = this.testdata.MBOAccounts;
         break;
-    };
+    }
 
     const studentAccount = instititutionAccounts.student[studentNumber];
 

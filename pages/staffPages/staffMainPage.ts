@@ -12,16 +12,33 @@ export class StaffMainPage extends BasePage {
   private readonly searchField = this.page.getByPlaceholder('Search...');
   private readonly usernameField = this.page.getByLabel('Username');
   private readonly passwordField = this.page.getByLabel('Password');
-  private readonly loginButton = this.page.getByRole('button', { name: 'Login' });
+  private readonly loginButton = this.page.getByRole('button', {
+    name: 'Login',
+  });
   private readonly dutchLink = this.page.getByRole('link', { name: 'NL' });
   private readonly expandMenu = this.page.locator('.expand-menu');
 
   // Navigation locators
-  private readonly badgeClassesLink = this.page.getByRole('link', { name: 'Badge classes', exact: true });
-  private readonly manageLink = this.page.getByRole('link', { name: 'Manage', exact: true });
-  private readonly usersLink = this.page.getByRole('link', { name: 'Users', exact: true });
-  private readonly catalogLink = this.page.getByRole('link', { name: 'Catalog', exact: true });
-  private readonly insightsLink = this.page.getByRole('link', { name: 'Insights', exact: true });
+  private readonly badgeClassesLink = this.page.getByRole('link', {
+    name: 'Badge classes',
+    exact: true,
+  });
+  private readonly manageLink = this.page.getByRole('link', {
+    name: 'Manage',
+    exact: true,
+  });
+  private readonly usersLink = this.page.getByRole('link', {
+    name: 'Users',
+    exact: true,
+  });
+  private readonly catalogLink = this.page.getByRole('link', {
+    name: 'Catalog',
+    exact: true,
+  });
+  private readonly insightsLink = this.page.getByRole('link', {
+    name: 'Insights',
+    exact: true,
+  });
 
   // Page instances
   readonly badgeClassPage = new StaffBadgeClassesPage(this.page, this.testdata);
@@ -44,7 +61,9 @@ export class StaffMainPage extends BasePage {
   }
 
   async validateLoginFailed() {
-    await expect(this.page.getByRole('heading', { name: "Sorry, you don't have access" })).toBeVisible();
+    await expect(
+      this.page.getByRole('heading', { name: "Sorry, you don't have access" }),
+    ).toBeVisible();
   }
 
   // Login methods
@@ -59,7 +78,7 @@ export class StaffMainPage extends BasePage {
 
     let instititutionAccounts: AccountsBase;
 
-    switch (institution){
+    switch (institution) {
       case 'WO':
         instititutionAccounts = this.testdata.WOAccounts;
         break;
@@ -72,7 +91,7 @@ export class StaffMainPage extends BasePage {
     }
 
     let account: staffDetails;
-    switch (level){
+    switch (level) {
       case 'Institution':
         account = instititutionAccounts.institutionAdminLogin;
         break;
@@ -86,13 +105,14 @@ export class StaffMainPage extends BasePage {
         account = instititutionAccounts.badgeClassAdminLogin;
         break;
     }
-    
+
     await this.usernameField.fill(account.username);
     await this.passwordField.fill(account.password);
     await this.loginButton.click();
 
-    const proceedButton = this.page
-      .getByRole('button', { name: 'Proceed to Edubadges [' });
+    const proceedButton = this.page.getByRole('button', {
+      name: 'Proceed to Edubadges [',
+    });
 
     await proceedButton.or(this.expandMenu).waitFor();
     if (await proceedButton.isVisible()) {
@@ -105,7 +125,9 @@ export class StaffMainPage extends BasePage {
 
   async loginDummyIdp(username: string, email: string, orgName: string) {
     const dummyName = 'SURFconext Dummy IdP';
-    const dummyLocator = this.page.getByText(dummyName + ' (previously SURFconext Mujina IdP)').first();
+    const dummyLocator = this.page
+      .getByText(dummyName + ' (previously SURFconext Mujina IdP)')
+      .first();
 
     await this.searchField.fill(dummyName);
     await dummyLocator.waitFor();
@@ -113,21 +135,34 @@ export class StaffMainPage extends BasePage {
 
     await this.page.getByText('Mujina Identity Provider').waitFor();
     await this.page.getByPlaceholder('Username').fill(username);
-    await this.page.selectOption('select#authn-context-class-ref', 'https://eduid.nl/trust/linked-institution');
+    await this.page.selectOption(
+      'select#authn-context-class-ref',
+      'https://eduid.nl/trust/linked-institution',
+    );
 
     const attributeAddLocator = this.page.locator('select#add-attribute');
     const mailTitle = 'urn:mace:dir:attribute-def:mail';
     const orgTitle = 'urn:mace:terena.org:attribute-def:schacHomeOrganization';
 
     await attributeAddLocator.selectOption(mailTitle);
-    await this.page.getByText(mailTitle).locator('..').getByRole('textbox').fill(email);
+    await this.page
+      .getByText(mailTitle)
+      .locator('..')
+      .getByRole('textbox')
+      .fill(email);
 
     await attributeAddLocator.selectOption(orgTitle);
-    await this.page.getByText(orgTitle).locator('..').getByRole('textbox').fill(orgName);
+    await this.page
+      .getByText(orgTitle)
+      .locator('..')
+      .getByRole('textbox')
+      .fill(orgName);
 
     await this.page.getByText('Log in').click();
 
-    const consentButtonLocator = this.page.getByRole('button', { name: 'Proceed to Edubadges' });
+    const consentButtonLocator = this.page.getByRole('button', {
+      name: 'Proceed to Edubadges',
+    });
     await consentButtonLocator.or(this.expandMenu).waitFor();
 
     if (await consentButtonLocator.isVisible()) {

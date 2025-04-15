@@ -8,16 +8,27 @@ export class CatalogPage extends BasePage {
   private readonly searchField = this.page.getByPlaceholder('Search...');
 
   // Login locators
-  private readonly usernameField = this.page.getByPlaceholder('e.g. user@gmail.com');
-  private readonly eduIdButton = this.page.getByRole('heading', { name: 'Login with eduID (NL) test' });
+  private readonly usernameField = this.page.getByPlaceholder(
+    'e.g. user@gmail.com',
+  );
+  private readonly eduIdButton = this.page.getByRole('heading', {
+    name: 'Login with eduID (NL) test',
+  });
   private readonly nextButton = this.page.locator('[href*="/next"]');
   private readonly passwordField = this.page.getByPlaceholder('Password');
   private readonly loggedInMenu = this.page.locator('.expand-menu');
 
   // Request badge locators
-  private readonly loginButton = this.page.getByRole('link', { name: 'Login to request this edubadge' });
-  private readonly requestButton = this.page.getByRole('link', { name: 'Request', exact: true });
-  private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm' });
+  private readonly loginButton = this.page.getByRole('link', {
+    name: 'Login to request this edubadge',
+  });
+  private readonly requestButton = this.page.getByRole('link', {
+    name: 'Request',
+    exact: true,
+  });
+  private readonly confirmButton = this.page.getByRole('link', {
+    name: 'Confirm',
+  });
   private readonly successBar = this.page.getByText('Successfully requested');
 
   async searchForClass(name: string) {
@@ -26,7 +37,7 @@ export class CatalogPage extends BasePage {
 
   async filterOn(institution: institution = 'WO') {
     let institutionName: string;
-    switch(institution){
+    switch (institution) {
       case 'WO':
         institutionName = 'university-example.org';
         break;
@@ -43,13 +54,12 @@ export class CatalogPage extends BasePage {
 
   async openEduClass(name: string) {
     await this.page.getByText(name).first().click();
-    await expect(this.page.getByRole('heading', { name: 'The programme' })).toBeVisible();
+    await expect(
+      this.page.getByRole('heading', { name: 'The programme' }),
+    ).toBeVisible();
   }
 
-  async requestEdubadge(
-    institution: institution, 
-    accountNr: number = 0,
-  ){
+  async requestEdubadge(institution: institution, accountNr: number = 0) {
     if (await this.loginButton.isVisible()) {
       await this.loginButton.click();
       await this.loginStudentIdp(institution, accountNr);
@@ -66,7 +76,7 @@ export class CatalogPage extends BasePage {
   }
 
   public async loginStudentIdp(
-    institution: institution, 
+    institution: institution,
     accountNr: number = 0,
   ) {
     await this.searchField.or(this.usernameField).waitFor();
@@ -79,7 +89,7 @@ export class CatalogPage extends BasePage {
 
     let instititutionAccounts: AccountsBase;
 
-    switch (institution){
+    switch (institution) {
       case 'WO':
         instititutionAccounts = this.testdata.WOAccounts;
         break;
@@ -89,7 +99,7 @@ export class CatalogPage extends BasePage {
       case 'MBO':
         instititutionAccounts = this.testdata.MBOAccounts;
         break;
-    };
+    }
     const account = instititutionAccounts.student[accountNr];
 
     await this.usernameField.fill(account.email);

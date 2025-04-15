@@ -12,7 +12,7 @@ type EdubadgeFixture = {
 };
 
 export const test = base.extend<EdubadgeFixture>({
-    /** The main page, should login first */
+  /** The main page, should login first */
   adminPage: async ({ page, testdata }, use) => {
     // Set up the fixture.
     const homePage = new HomePage(page, testdata);

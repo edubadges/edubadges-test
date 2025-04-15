@@ -1,40 +1,41 @@
 import { expect, test } from '../../../fixtures/staffFixture';
 import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-institutionsWithoutHBO.forEach(institution => {
-test(`Award requested badge from ${institution}`, async ({
-  catalogPage,
-  adminPage,
-  
-}) => {
-  // var
-  const course = 'Psychometrics';
+institutionsWithoutHBO.forEach((institution) => {
+  test(`Award requested badge from ${institution}`, async ({
+    catalogPage,
+    adminPage,
+  }) => {
+    // var
+    const course = 'Psychometrics';
 
-  // setup
-  await adminPage.loginTestIdp(institution, 'Institution');
-  await catalogPage.searchForClass(course);
-  await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
-  await catalogPage.requestEdubadge(institution);
+    // setup
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await catalogPage.searchForClass(course);
+    await catalogPage.filterOn(institution);
+    await catalogPage.openEduClass(course);
+    await catalogPage.requestEdubadge(institution);
 
-  // test
-  await adminPage.badgeClassPage.approveRequest(course, institution);
+    // test
+    await adminPage.badgeClassPage.approveRequest(course, institution);
 
-  // validate
-  await expect(adminPage.page.getByText('The request(s) have been awarded.')).toBeVisible();
-});
+    // validate
+    await expect(
+      adminPage.page.getByText('The request(s) have been awarded.'),
+    ).toBeVisible();
+  });
 
-test(`Send badge directly from ${institution}`, async ({ 
-  adminPage 
-}) => {
-  // var
-  const courseName = 'Cognitive Psychology';
+  test(`Send badge directly from ${institution}`, async ({ adminPage }) => {
+    // var
+    const courseName = 'Cognitive Psychology';
 
-  // test
-  await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.badgeClassPage.directAwardBadgeToStudent(courseName);
+    // test
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.badgeClassPage.directAwardBadgeToStudent(courseName);
 
-  // validate
-  await expect(adminPage.page.getByText('Direct awards have been sent')).toBeVisible();
-});
+    // validate
+    await expect(
+      adminPage.page.getByText('Direct awards have been sent'),
+    ).toBeVisible();
+  });
 });

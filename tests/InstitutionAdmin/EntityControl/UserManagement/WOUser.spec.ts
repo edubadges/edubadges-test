@@ -1,96 +1,107 @@
 import { expect, test } from '../../../../fixtures/staffFixture';
 import { institutions } from '..//../../../util/loginPossibilities';
 
-institutions.forEach(institution => {
+institutions.forEach((institution) => {
+  test(`Invite ${institution} user`, async ({ adminPage }) => {
+    // var
+    const userManagement = adminPage.managePage.userManagePage;
+    const newUserMail = `userToInvite@${institution}mail.edu`;
 
-test(`Invite ${institution} user`, async ({ adminPage }) => {
-  // var
-  const userManagement = adminPage.managePage.userManagePage;
-  const newUserMail = `userToInvite@${institution}mail.edu`;
+    // setup
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.goToManage();
+    await adminPage.managePage.goToUserManagement();
 
-  // setup
-  await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.goToManage();
-  await adminPage.managePage.goToUserManagement();
+    // test
+    await userManagement.addNewUser(newUserMail);
 
-  // test
-  await userManagement.addNewUser(newUserMail);
+    // validate
+    await expect(
+      adminPage.page.getByText(`Successfully invited ${newUserMail}`),
+    ).toBeVisible();
+  });
 
-  // validate
-  await expect(
-    adminPage.page.getByText(`Successfully invited ${newUserMail}`),
-  ).toBeVisible();
-});
+  test(`Revoke ${institution} user invite`, async ({ adminPage }) => {
+    // var
+    const userManagement = adminPage.managePage.userManagePage;
+    const newUserMail = `userToRevoke@${institution}mail.edu`;
 
-test(`Revoke ${institution} user invite`, async ({ adminPage }) => {
-  // var
-  const userManagement = adminPage.managePage.userManagePage;
-  const newUserMail = `userToRevoke@${institution}mail.edu`;
+    // setup
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.goToManage();
+    await adminPage.managePage.goToUserManagement();
+    await userManagement.addNewUser(newUserMail);
 
-  // setup
-  await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.goToManage();
-  await adminPage.managePage.goToUserManagement();
-  await userManagement.addNewUser(newUserMail);
+    // test
+    await userManagement.removeExistingPermissions(newUserMail);
 
-  // test
-  await userManagement.removeExistingPermissions(newUserMail);
+    // validate
+    await expect(
+      adminPage.page.getByText('Successfully removed invite'),
+    ).toBeVisible();
+    await expect(adminPage.page.getByText(newUserMail)).not.toBeVisible();
+  });
 
-  // validate
-  await expect(
-    adminPage.page.getByText('Successfully removed invite'),
-  ).toBeVisible();
-  await expect(adminPage.page.getByText(newUserMail)).not.toBeVisible();
-});
+  test(`Accept ${institution} invite`, async ({
+    adminPage,
+    extraStaffLoginPage,
+  }) => {
+    // var
+    const userManagement = adminPage.managePage.userManagePage;
+    const newUsername = `Accept${institution}InviteInstitutionAdmin`;
+    const institutionServer =
+      await userManagement.getInstitutionServer(institution);
+    const newUserMail = newUsername + '@' + institutionServer;
 
-test(`Accept ${institution} invite`, async ({
-  adminPage,
-  extraStaffLoginPage,
-}) => {
-  // var
-  const userManagement = adminPage.managePage.userManagePage;
-  const newUsername = `Accept${institution}InviteInstitutionAdmin`;
-  const institutionServer = await userManagement.getInstitutionServer(institution);
-  const newUserMail = newUsername + '@' + institutionServer;
+    // setup
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.goToManage();
+    await adminPage.managePage.goToUserManagement();
 
-  // setup
-  await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.goToManage();
-  await adminPage.managePage.goToUserManagement();
+    // test
+    await userManagement.addNewUser(newUserMail);
+    await extraStaffLoginPage.loginDummyIdp(
+      newUsername,
+      newUserMail,
+      institutionServer,
+    );
 
-  // test
-  await userManagement.addNewUser(newUserMail);
-  await extraStaffLoginPage.loginDummyIdp(newUsername, newUserMail, institutionServer);
+    // validate
+    await expect(
+      extraStaffLoginPage.page.locator('.expand-menu'),
+    ).toBeVisible();
+  });
 
-  // validate
-  await expect(extraStaffLoginPage.page.locator('.expand-menu')).toBeVisible();
-});
+  test(`Delete ${institution} permission`, async ({
+    adminPage,
+    extraStaffLoginPage,
+  }) => {
+    // var
+    const userManagement = adminPage.managePage.userManagePage;
+    const newUsername = `GetRightsRemoved${institution}InstitutionAdmin`;
+    const institutionServer =
+      await userManagement.getInstitutionServer(institution);
+    const newUserMail = newUsername + '@' + institutionServer;
 
-test(`Delete ${institution} permission`, async ({
-  adminPage,
-  extraStaffLoginPage,
-}) => {
-  // var
-  const userManagement = adminPage.managePage.userManagePage;
-  const newUsername = `GetRightsRemoved${institution}InstitutionAdmin`;
-  const institutionServer = await userManagement.getInstitutionServer(institution);
-  const newUserMail = newUsername + '@' + institutionServer;
+    // setup
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.goToManage();
+    await adminPage.managePage.goToUserManagement();
+    await userManagement.addNewUser(newUserMail);
+    await extraStaffLoginPage.loginDummyIdp(
+      newUsername,
+      newUserMail,
+      institutionServer,
+    );
 
-  // setup
-  await adminPage.loginTestIdp(institution, 'Institution');
-  await adminPage.goToManage();
-  await adminPage.managePage.goToUserManagement();
-  await userManagement.addNewUser(newUserMail);
-  await extraStaffLoginPage.loginDummyIdp(newUsername, newUserMail, institutionServer);
+    // test
+    await adminPage.reloadPage();
+    await userManagement.removeExistingPermissions(newUserMail);
 
-  // test
-  await adminPage.reloadPage();
-  await userManagement.removeExistingPermissions(newUserMail);
-
-  // validate
-  await expect(
-    adminPage.page.getByText('Successfully removed rights'),
-  ).toBeVisible();
-  await expect(adminPage.page.getByText(newUsername)).not.toBeVisible();
-});
+    // validate
+    await expect(
+      adminPage.page.getByText('Successfully removed rights'),
+    ).toBeVisible();
+    await expect(adminPage.page.getByText(newUsername)).not.toBeVisible();
+  });
 });

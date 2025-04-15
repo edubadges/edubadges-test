@@ -4,24 +4,57 @@ import { expect } from '@playwright/test';
 
 export class IssuersSubPage extends BaseStaffSubPage {
   // Action locators
-  private readonly editBadgeButton = this.page.getByRole('link', { name: 'Edit badge class', exact: true });
-  private readonly addNewIssuerButton = this.page.getByRole('link', { name: 'Add new issuer' });
-  private readonly editIssuerButton = this.page.getByRole('link', { name: 'Edit issuer' });
+  private readonly editBadgeButton = this.page.getByRole('link', {
+    name: 'Edit badge class',
+    exact: true,
+  });
+  private readonly addNewIssuerButton = this.page.getByRole('link', {
+    name: 'Add new issuer',
+  });
+  private readonly editIssuerButton = this.page.getByRole('link', {
+    name: 'Edit issuer',
+  });
   private readonly saveButton = this.page.getByRole('link', { name: 'Save' });
-  private readonly saveChangesButton = this.page.getByRole('link', { name: 'Save changes' });
-  private readonly deleteButton = this.page.getByRole('link', { name: 'Delete', exact: true });
-  private readonly confirmButton = this.page.getByRole('link', { name: 'Confirm', exact: true });
+  private readonly saveChangesButton = this.page.getByRole('link', {
+    name: 'Save changes',
+  });
+  private readonly deleteButton = this.page.getByRole('link', {
+    name: 'Delete',
+    exact: true,
+  });
+  private readonly confirmButton = this.page.getByRole('link', {
+    name: 'Confirm',
+    exact: true,
+  });
   private readonly uploadImageButton = this.page.getByText('Upload image');
-  private readonly addNewBadgeClassButton = this.page.getByRole('link', { name: 'Add new badge class' });
-  private readonly copyBadgeButton = this.page.getByRole('link', { name: 'Copy badge class' });
+  private readonly addNewBadgeClassButton = this.page.getByRole('link', {
+    name: 'Add new badge class',
+  });
+  private readonly copyBadgeButton = this.page.getByRole('link', {
+    name: 'Copy badge class',
+  });
 
   // Form locators
   private readonly mainContent = this.page.locator('.main-content-margin');
-  private readonly nameField = this.mainContent.getByText('Name in ').locator('..').getByRole('textbox');
-  private readonly descriptionField = this.mainContent.getByText('Description in ').locator('..').getByRole('textbox');
-  private readonly urlField = this.mainContent.getByText('Website URL for ').locator('..').getByRole('textbox');
-  private readonly contactField = this.mainContent.getByText('Contact email address').locator('..').getByRole('textbox');
-  private readonly issuerGroupField = this.page.getByText('Issuer group').locator('..');
+  private readonly nameField = this.mainContent
+    .getByText('Name in ')
+    .locator('..')
+    .getByRole('textbox');
+  private readonly descriptionField = this.mainContent
+    .getByText('Description in ')
+    .locator('..')
+    .getByRole('textbox');
+  private readonly urlField = this.mainContent
+    .getByText('Website URL for ')
+    .locator('..')
+    .getByRole('textbox');
+  private readonly contactField = this.mainContent
+    .getByText('Contact email address')
+    .locator('..')
+    .getByRole('textbox');
+  private readonly issuerGroupField = this.page
+    .getByText('Issuer group')
+    .locator('..');
 
   private async uploadImage(imagePath: string = 'edubadge.png') {
     const fileChooserPromise = this.page.waitForEvent('filechooser');
@@ -148,11 +181,21 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.editBadgeButton.click();
     await this.waitForLoadingToStop();
     await this.emptyAllForms();
-    await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes,
-        criterium, eqfLevel, programIdentifiers, formOfParticipation,
-        assesment, frameworkName, frameworkTitle, frameworkURL,
-        frameworkCode, frameworkDesc,
-    )
+    await this.fillInBadgeForm(
+      badgeTitle,
+      badgeDesc,
+      learningOutcomes,
+      criterium,
+      eqfLevel,
+      programIdentifiers,
+      formOfParticipation,
+      assesment,
+      frameworkName,
+      frameworkTitle,
+      frameworkURL,
+      frameworkCode,
+      frameworkDesc,
+    );
     await this.saveChangesButton.click();
     await this.editBadgeButton.waitFor();
   }
@@ -170,11 +213,13 @@ export class IssuersSubPage extends BaseStaffSubPage {
   async copyExistingBadge(badgeTitle: string) {
     await this.copyBadgeButton.click();
 
-  const pageForm = this.page.getByText('Basic information').locator('..');
-  const titleFormLocator = pageForm.getByText('Name').first()
-    .locator('../../..')
-    .getByRole('textbox');
-  await titleFormLocator.fill(badgeTitle);
+    const pageForm = this.page.getByText('Basic information').locator('..');
+    const titleFormLocator = pageForm
+      .getByText('Name')
+      .first()
+      .locator('../../..')
+      .getByRole('textbox');
+    await titleFormLocator.fill(badgeTitle);
 
     await this.publishBadge();
   }
@@ -187,8 +232,10 @@ export class IssuersSubPage extends BaseStaffSubPage {
       await this.emptyMirrorForm();
     }
 
-  const removableItems = await this.page.locator('.multiSelectItem_clear').all();
-  for (let i = 1; i <= removableItems.length; i++){
+    const removableItems = await this.page
+      .locator('.multiSelectItem_clear')
+      .all();
+    for (let i = 1; i <= removableItems.length; i++) {
       let item = removableItems[removableItems.length - i];
       await item.click();
     }
@@ -230,9 +277,20 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.openIssuer(issuerGroupName);
     await this.clickNewBadgeClass();
     await this.clickRegularBadge();
-    await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
-        criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
-        frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
+    await this.fillInBadgeForm(
+      badgeTitle,
+      badgeDesc,
+      learningOutcomes,
+      criterium,
+      eqfLevel,
+      programIdentifiers,
+      formOfParticipation,
+      assesment,
+      frameworkName,
+      frameworkTitle,
+      frameworkURL,
+      frameworkCode,
+      frameworkDesc,
     );
     await this.publishBadge();
   }
@@ -257,10 +315,21 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.openIssuer(issuerGroupName);
     await this.clickNewBadgeClass();
     await this.clickMicroCredential();
-    await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
-      criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
-      frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
-  );
+    await this.fillInBadgeForm(
+      badgeTitle,
+      badgeDesc,
+      learningOutcomes,
+      criterium,
+      eqfLevel,
+      programIdentifiers,
+      formOfParticipation,
+      assesment,
+      frameworkName,
+      frameworkTitle,
+      frameworkURL,
+      frameworkCode,
+      frameworkDesc,
+    );
     await this.publishBadge();
   }
 
@@ -285,9 +354,20 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.openIssuer(issuerGroupName);
     await this.clickNewBadgeClass();
     await this.clickExtraCurricularEduBadge();
-    await this.fillInBadgeForm(badgeTitle, badgeDesc, learningOutcomes, 
-        criterium, eqfLevel, programIdentifiers, formOfParticipation, assesment, 
-        frameworkName, frameworkTitle, frameworkURL, frameworkCode, frameworkDesc
+    await this.fillInBadgeForm(
+      badgeTitle,
+      badgeDesc,
+      learningOutcomes,
+      criterium,
+      eqfLevel,
+      programIdentifiers,
+      formOfParticipation,
+      assesment,
+      frameworkName,
+      frameworkTitle,
+      frameworkURL,
+      frameworkCode,
+      frameworkDesc,
     );
 
     await this.fillInBadgeHoursForm(hoursNeeded);

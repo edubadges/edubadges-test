@@ -18,9 +18,9 @@ export class HBOAccounts extends AccountsBase {
       process.env.HBO_ISSUERGROUP_ADMIN_PASSWORD || '',
     );
     this.issuerAdmin = new staffDetails(
-        process.env.HBO_ISSUER_ADMIN_USERNAME || '',
-        process.env.HBO_ISSUER_ADMIN_PASSWORD || '',
-    )
+      process.env.HBO_ISSUER_ADMIN_USERNAME || '',
+      process.env.HBO_ISSUER_ADMIN_PASSWORD || '',
+    );
     this.badgeClassAdminLogin = new staffDetails(
       process.env.HBO_BADGECLASS_ADMIN_USERNAME || '',
       process.env.HBO_BADGECLASS_ADMIN_PASSWORD || '',

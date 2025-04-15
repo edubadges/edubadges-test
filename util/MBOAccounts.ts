@@ -18,9 +18,9 @@ export class MBOAccounts extends AccountsBase {
       process.env.MBO_ISSUERGROUP_ADMIN_PASSWORD || '',
     );
     this.issuerAdmin = new staffDetails(
-        process.env.MBO_ISSUER_ADMIN_USERNAME || '',
-        process.env.MBO_ISSUER_ADMIN_PASSWORD || '',
-    )
+      process.env.MBO_ISSUER_ADMIN_USERNAME || '',
+      process.env.MBO_ISSUER_ADMIN_PASSWORD || '',
+    );
     this.badgeClassAdminLogin = new staffDetails(
       process.env.MBO_BADGECLASS_ADMIN_USERNAME || '',
       process.env.MBO_BADGECLASS_ADMIN_PASSWORD || '',

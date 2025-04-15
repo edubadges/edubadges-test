@@ -4,10 +4,7 @@ import { institution } from '../../util/loginPossibilities';
 test('See homepage', async ({ catalogPage }) => {
   // var
   const maskedLocators = [
-    catalogPage.page
-      .getByText(' Badge Classes')
-      .first()
-      .locator('../../..'),
+    catalogPage.page.getByText(' Badge Classes').first().locator('../../..'),
   ];
 
   // test
