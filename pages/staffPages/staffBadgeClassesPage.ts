@@ -5,17 +5,24 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
   private readonly awardEdubadgeLink = this.page.getByRole('link', {
     name: 'Award edubadge(s)',
   });
-  private readonly awardLink = this.page.getByRole('link', { name: 'Award' });
+  private readonly awardButton = this.page.getByRole('link', { name: 'Award' });
   private readonly openRequestsLink = this.page.getByRole('link', {
     name: 'Open requests',
   });
   private readonly contentLocator = this.page.locator('.content');
   private readonly optionsLocator = this.page.locator('.options');
+  private readonly mailOnlyCheckbox = this.page
+    .getByText('Enable awarding based on private email')
+    .locator('..')
+    .locator('.checkmarked');
 
-  async directAwardBadgeToStudent(
+    /**
+     * Direct award a badge to a student. Omit EPPN to award through private mail.
+     */
+  async directAwardBadge(
     courseName: string,
     studentEmail: string,
-    studentEPPN: string,
+    studentEPPN?: string,
   ) {
     await this.searchWithText(courseName);
     await this.openBadge(courseName);
@@ -23,11 +30,18 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByText('Direct awards have been sent').waitFor();
   }
 
-  private async sendDirectBadge(studentEmail: string, studentNumber: string) {
+  private async sendDirectBadge(studentEmail: string, studentEPPN?: string) {
     await this.awardEdubadgeLink.click();
     await this.page.getByRole('textbox').first().fill(studentEmail);
-    await this.page.getByRole('textbox').nth(1).fill(studentNumber);
-    await this.awardLink.click();
+
+    if(studentEPPN){
+      await this.page.getByRole('textbox').nth(1).fill(studentEPPN);
+    }
+    else{
+      await this.mailOnlyCheckbox.click();
+    }
+
+    await this.awardButton.click();
   }
 
   /**
