@@ -30,9 +30,11 @@ institutionsWithoutHBO.forEach((institution) => {
     const courseName = 'Cognitive Psychology';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
-    // test
+    // setup
     await adminPage.loginTestIdp(institution, 'Institution');
-    await adminPage.badgeClassPage.directAwardBadgeToStudent(
+
+    // test
+    await adminPage.badgeClassPage.directAwardBadge(
       courseName,
       studentInfo.email,
       studentInfo.EPPN,
@@ -42,5 +44,26 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(
       adminPage.page.getByText('Direct awards have been sent'),
     ).toBeVisible();
+  });
+
+  test(`Send badge directly from ${institution} through mail`, async ({ adminPage }) =>{
+    // var
+    const courseName = 'Regulation and Integration';
+    const studentInfo = await adminPage.getStudentAccount(institution);
+
+    // setup
+    await adminPage.loginTestIdp(institution, 'Institution');
+
+    // test
+    await adminPage.badgeClassPage.directAwardBadge(
+      courseName,
+      studentInfo.email,
+    );
+
+    // validate
+    await expect(
+      adminPage.page.getByText('Direct awards have been sent'),
+    ).toBeVisible();
+
   });
 });
