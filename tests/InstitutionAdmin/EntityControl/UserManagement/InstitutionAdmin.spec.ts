@@ -1,8 +1,8 @@
 import { expect, test } from '../../../../fixtures/staffFixture';
-import { institutions } from '..//../../../util/loginPossibilities';
+import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Invite ${institution} user`, async ({ adminPage }) => {
+  test(`Invite ${institution} user as institution admin`, async ({ adminPage }) => {
     // var
     const userManagement = adminPage.managePage.userManagePage;
     const newUserMail = `userToInvite@${institution}mail.edu`;
@@ -21,7 +21,7 @@ institutions.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`Revoke ${institution} user invite`, async ({ adminPage }) => {
+  test(`Revoke ${institution} user institution admin invite`, async ({ adminPage }) => {
     // var
     const userManagement = adminPage.managePage.userManagePage;
     const newUserMail = `userToRevoke@${institution}mail.edu`;
@@ -42,7 +42,7 @@ institutions.forEach((institution) => {
     await expect(adminPage.page.getByText(newUserMail)).not.toBeVisible();
   });
 
-  test(`Accept ${institution} invite`, async ({
+  test(`Accept ${institution} institution admin invite`, async ({
     adminPage,
     extraStaffLoginPage,
   }) => {
@@ -72,7 +72,7 @@ institutions.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`Delete ${institution} permission`, async ({
+  test(`Delete ${institution} institution admin permission`, async ({
     adminPage,
     extraStaffLoginPage,
   }) => {
