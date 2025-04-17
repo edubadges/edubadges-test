@@ -1,7 +1,7 @@
 import { BaseStaffSubPage } from './baseStaffSubPage';
 import { IssuerGroupSubPage } from './staffManageSubPage/issuerGroupsSubPage';
 import { IssuersSubPage } from './staffManageSubPage/issuersSubPage';
-import { UserManagementSubPage } from './staffManageSubPage/userManagementSubPage';
+import { UserManagement } from './staffManageSubPage/userManagement';
 import { RequestedEdubadgesSubPage } from './staffManageSubPage/requestedEdubadgesSubPage';
 import { UnclaimedDirectAwardsSubPage } from './staffManageSubPage/unclaimedDirectAwardsSubPage';
 import { DeletedDirectAwardsSubPage } from './staffManageSubPage/deletedDirectAwardsSubPage';
@@ -30,7 +30,6 @@ export class StaffManagePage extends BaseStaffSubPage {
   // Page instances
   readonly issuerGroupPage = new IssuerGroupSubPage(this.page, this.testdata);
   readonly issuersPage = new IssuersSubPage(this.page, this.testdata);
-  readonly userManagePage = new UserManagementSubPage(this.page, this.testdata);
   readonly requestedBadgesPage = new RequestedEdubadgesSubPage(
     this.page,
     this.testdata,
@@ -43,6 +42,7 @@ export class StaffManagePage extends BaseStaffSubPage {
     this.page,
     this.testdata,
   );
+  readonly userManagement = new UserManagement(this.page, this.testdata);
 
   /**
    * Clicks the according checkbox once.

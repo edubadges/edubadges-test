@@ -66,6 +66,12 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByText('The request(s) have been awarded.').waitFor();
   }
 
+  public async goToAdminView(){
+    await this.page.getByText('Go to admin view').click();
+    await this.waitForLoadingToStop();
+  }
+
+
   private async openRequests() {
     await this.openRequestsLink.click();
   }
