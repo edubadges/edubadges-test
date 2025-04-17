@@ -67,9 +67,7 @@ institutions.forEach((institution) => {
     );
 
     // validate
-    await expect(
-      extraStaffLoginPage.page.locator('.expand-menu'),
-    ).toBeVisible();
+    await extraStaffLoginPage.validateLoginSuccessful();
   });
 
   test(`Delete ${institution} institution admin permission`, async ({
