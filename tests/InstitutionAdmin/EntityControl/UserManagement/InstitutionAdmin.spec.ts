@@ -4,7 +4,7 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Invite ${institution} user as institution admin`, async ({ adminPage }) => {
     // var
-    const userManagement = adminPage.managePage.userManagePage;
+    const userManagement = adminPage.managePage.userManagement;
     const newUserMail = `userToInvite@${institution}mail.edu`;
 
     // setup
@@ -13,7 +13,7 @@ institutions.forEach((institution) => {
     await adminPage.managePage.goToUserManagement();
 
     // test
-    await userManagement.addNewUser(newUserMail);
+    await userManagement.inviteUser(newUserMail);
 
     // validate
     await expect(
@@ -23,14 +23,14 @@ institutions.forEach((institution) => {
 
   test(`Revoke ${institution} user institution admin invite`, async ({ adminPage }) => {
     // var
-    const userManagement = adminPage.managePage.userManagePage;
+    const userManagement = adminPage.managePage.userManagement;
     const newUserMail = `userToRevoke@${institution}mail.edu`;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();
     await adminPage.managePage.goToUserManagement();
-    await userManagement.addNewUser(newUserMail);
+    await userManagement.inviteUser(newUserMail);
 
     // test
     await userManagement.removeExistingPermissions(newUserMail);
@@ -47,7 +47,7 @@ institutions.forEach((institution) => {
     extraStaffLoginPage,
   }) => {
     // var
-    const userManagement = adminPage.managePage.userManagePage;
+    const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteInstitutionAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
@@ -59,7 +59,7 @@ institutions.forEach((institution) => {
     await adminPage.managePage.goToUserManagement();
 
     // test
-    await userManagement.addNewUser(newUserMail);
+    await userManagement.inviteUser(newUserMail);
     await extraStaffLoginPage.loginDummyIdp(
       newUsername,
       newUserMail,
@@ -67,9 +67,7 @@ institutions.forEach((institution) => {
     );
 
     // validate
-    await expect(
-      extraStaffLoginPage.page.locator('.expand-menu'),
-    ).toBeVisible();
+    await extraStaffLoginPage.validateLoginSuccessful();
   });
 
   test(`Delete ${institution} institution admin permission`, async ({
@@ -77,7 +75,7 @@ institutions.forEach((institution) => {
     extraStaffLoginPage,
   }) => {
     // var
-    const userManagement = adminPage.managePage.userManagePage;
+    const userManagement = adminPage.managePage.userManagement;
     const newUsername = `GetRightsRemoved${institution}InstitutionAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
@@ -87,7 +85,7 @@ institutions.forEach((institution) => {
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();
     await adminPage.managePage.goToUserManagement();
-    await userManagement.addNewUser(newUserMail);
+    await userManagement.inviteUser(newUserMail);
     await extraStaffLoginPage.loginDummyIdp(
       newUsername,
       newUserMail,
