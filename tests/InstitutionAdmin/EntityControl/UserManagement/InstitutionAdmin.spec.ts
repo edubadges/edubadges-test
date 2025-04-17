@@ -4,7 +4,7 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Invite ${institution} user as institution admin`, async ({ adminPage }) => {
     // var
-    const userManagement = adminPage.managePage.userManagePage;
+    const userManagement = adminPage.managePage.userManagement;
     const newUserMail = `userToInvite@${institution}mail.edu`;
 
     // setup
@@ -23,7 +23,7 @@ institutions.forEach((institution) => {
 
   test(`Revoke ${institution} user institution admin invite`, async ({ adminPage }) => {
     // var
-    const userManagement = adminPage.managePage.userManagePage;
+    const userManagement = adminPage.managePage.userManagement;
     const newUserMail = `userToRevoke@${institution}mail.edu`;
 
     // setup
@@ -47,7 +47,7 @@ institutions.forEach((institution) => {
     extraStaffLoginPage,
   }) => {
     // var
-    const userManagement = adminPage.managePage.userManagePage;
+    const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteInstitutionAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
@@ -75,7 +75,7 @@ institutions.forEach((institution) => {
     extraStaffLoginPage,
   }) => {
     // var
-    const userManagement = adminPage.managePage.userManagePage;
+    const userManagement = adminPage.managePage.userManagement;
     const newUsername = `GetRightsRemoved${institution}InstitutionAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);

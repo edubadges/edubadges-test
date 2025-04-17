@@ -1,7 +1,7 @@
 import { institution } from '../../../util/loginPossibilities';
 import { BaseStaffSubPage } from '../baseStaffSubPage';
 
-export class UserManagementSubPage extends BaseStaffSubPage {
+export class UserManagement extends BaseStaffSubPage {
   // Action locators
   private readonly inviteNewUserButton = this.page.getByRole('link', {
     name: 'Invite new user',
