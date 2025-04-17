@@ -20,12 +20,12 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
      * Direct award a badge to a student. Omit EPPN to award through private mail.
      */
   async directAwardBadge(
-    courseName: string,
+    badgeName: string,
     studentEmail: string,
     studentEPPN?: string,
   ) {
-    await this.searchWithText(courseName);
-    await this.openBadge(courseName);
+    await this.searchWithText(badgeName);
+    await this.openBadge(badgeName);
     await this.sendDirectBadge(studentEmail, studentEPPN);
     await this.page.getByText('Direct awards have been sent').waitFor();
   }
