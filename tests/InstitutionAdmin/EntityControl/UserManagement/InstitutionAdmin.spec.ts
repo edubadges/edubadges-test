@@ -13,7 +13,7 @@ institutions.forEach((institution) => {
     await adminPage.managePage.goToUserManagement();
 
     // test
-    await userManagement.addNewUser(newUserMail);
+    await userManagement.inviteUser(newUserMail);
 
     // validate
     await expect(
@@ -30,7 +30,7 @@ institutions.forEach((institution) => {
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();
     await adminPage.managePage.goToUserManagement();
-    await userManagement.addNewUser(newUserMail);
+    await userManagement.inviteUser(newUserMail);
 
     // test
     await userManagement.removeExistingPermissions(newUserMail);
@@ -59,7 +59,7 @@ institutions.forEach((institution) => {
     await adminPage.managePage.goToUserManagement();
 
     // test
-    await userManagement.addNewUser(newUserMail);
+    await userManagement.inviteUser(newUserMail);
     await extraStaffLoginPage.loginDummyIdp(
       newUsername,
       newUserMail,
@@ -87,7 +87,7 @@ institutions.forEach((institution) => {
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();
     await adminPage.managePage.goToUserManagement();
-    await userManagement.addNewUser(newUserMail);
+    await userManagement.inviteUser(newUserMail);
     await extraStaffLoginPage.loginDummyIdp(
       newUsername,
       newUserMail,
