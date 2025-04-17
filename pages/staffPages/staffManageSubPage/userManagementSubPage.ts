@@ -39,6 +39,8 @@ export class UserManagementSubPage extends BaseStaffSubPage {
   
   async inviteUser(email: string, role?: string){
     await this.userManagementLink.click();
+    await this.inviteNewUserButton.waitFor();
+    await this.inviteNewUserButton.click();
     await this.fillNewUserForm(email, role);
     await this.addButton.click();
     await this.page.getByText(`Successfully invited ${email}`).waitFor();
