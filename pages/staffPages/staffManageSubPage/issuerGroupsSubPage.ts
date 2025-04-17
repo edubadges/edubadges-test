@@ -110,7 +110,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
     await this.waitForLoadingToStop();
   }
 
-  private async openIssuerGroup(issuerGroupName: string) {
+  async openIssuerGroup(issuerGroupName: string) {
     await this.searchWithText(issuerGroupName);
     await this.page
       .locator('td')
