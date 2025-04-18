@@ -95,6 +95,6 @@ export class CatalogPage extends BasePage {
     await this.passwordField.fill(account.password);
     await this.nextButton.click();
 
-    this.handleTermsAndConditions(this.loggedInMenu);
+    await this.handleTermsAndConditions(this.loggedInMenu);
   }
 }
