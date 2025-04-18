@@ -8,6 +8,7 @@ institutionsWithoutHBO.forEach((institution) => {
   }) => {
     // var
     const course = 'Psychometrics';
+    const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
@@ -17,7 +18,10 @@ institutionsWithoutHBO.forEach((institution) => {
     await catalogPage.requestEdubadge(institution);
 
     // test
-    await adminPage.badgeClassPage.approveRequest(course, institution);
+    await adminPage.badgeClassPage.approveRequest(
+      course, 
+      studentInfo.name
+    );
 
     // validate
     await expect(
