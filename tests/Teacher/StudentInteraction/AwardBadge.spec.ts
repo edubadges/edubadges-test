@@ -18,10 +18,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await catalogPage.requestEdubadge(institution);
 
     // test
-    await adminPage.badgeClassPage.approveRequest(
-      course, 
-      studentInfo.name
-    );
+    await adminPage.badgeClassPage.approveRequest(course, studentInfo.name);
 
     // validate
     await expect(
@@ -50,7 +47,9 @@ institutionsWithoutHBO.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`Send badge directly from ${institution} through mail`, async ({ adminPage }) =>{
+  test(`Send badge directly from ${institution} through mail`, async ({
+    adminPage,
+  }) => {
     // var
     const courseName = 'Regulation and Integration';
     const studentInfo = await adminPage.getStudentAccount(institution);
@@ -68,6 +67,5 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(
       adminPage.page.getByText('Direct awards have been sent'),
     ).toBeVisible();
-
   });
 });

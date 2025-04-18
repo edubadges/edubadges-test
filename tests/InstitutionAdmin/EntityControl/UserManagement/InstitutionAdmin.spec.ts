@@ -2,7 +2,9 @@ import { expect, test } from '../../../../fixtures/staffFixture';
 import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Invite ${institution} user as institution admin`, async ({ adminPage }) => {
+  test(`Invite ${institution} user as institution admin`, async ({
+    adminPage,
+  }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUserMail = `userToInvite@${institution}mail.edu`;
@@ -21,7 +23,9 @@ institutions.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`Revoke ${institution} user institution admin invite`, async ({ adminPage }) => {
+  test(`Revoke ${institution} user institution admin invite`, async ({
+    adminPage,
+  }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUserMail = `userToRevoke@${institution}mail.edu`;

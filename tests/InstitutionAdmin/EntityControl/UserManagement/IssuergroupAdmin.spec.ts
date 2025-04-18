@@ -2,10 +2,10 @@ import { test } from '../../../../fixtures/staffFixture';
 import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-test(`Accept ${institution} Issuergroup admin invite`, async ({ 
+  test(`Accept ${institution} Issuergroup admin invite`, async ({
     adminPage,
     extraStaffLoginPage,
-}) => {
+  }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteIssuergroupAdmin`;
@@ -23,12 +23,12 @@ test(`Accept ${institution} Issuergroup admin invite`, async ({
     // test
     await userManagement.inviteUser(newUserMail);
     await extraStaffLoginPage.loginDummyIdp(
-        newUsername,
-        newUserMail,
-        institutionServer,
+      newUsername,
+      newUserMail,
+      institutionServer,
     );
 
     // validate
     await extraStaffLoginPage.validateLoginSuccessful();
-});
+  });
 });

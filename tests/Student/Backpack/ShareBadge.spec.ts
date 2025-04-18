@@ -9,7 +9,8 @@ institutionsWithoutHBO.forEach((institution) => {
   }) => {
     //var
     const course = 'Introduction to Political Science';
-    const studentName = (await backpackPage.getStudentAccount(institution)).name;
+    const studentName = (await backpackPage.getStudentAccount(institution))
+      .name;
 
     //setup
     await catalogPage.searchForClass(course);
@@ -18,10 +19,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Institution');
-    await adminPage.badgeClassPage.approveRequest(
-      course,
-      studentName
-    );
+    await adminPage.badgeClassPage.approveRequest(course, studentName);
 
     await backpackPage.login(institution);
     await backpackPage.openBackpack();
@@ -52,7 +50,8 @@ institutionsWithoutHBO.forEach((institution) => {
   }) => {
     //var
     const course = 'History of Political Thought';
-    const studentName = (await backpackPage.getStudentAccount(institution)).name;
+    const studentName = (await backpackPage.getStudentAccount(institution))
+      .name;
 
     //setup
     await catalogPage.searchForClass(course);
@@ -61,10 +60,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Institution');
-    await adminPage.badgeClassPage.approveRequest(
-      course, 
-      studentName
-    );
+    await adminPage.badgeClassPage.approveRequest(course, studentName);
 
     await backpackPage.openBackpack();
     await backpackPage.reloadPage();

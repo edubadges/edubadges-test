@@ -16,9 +16,9 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     .locator('..')
     .locator('.checkmarked');
 
-    /**
-     * Direct award a badge to a student. Omit EPPN to award through private mail.
-     */
+  /**
+   * Direct award a badge to a student. Omit EPPN to award through private mail.
+   */
   async directAwardBadge(
     badgeName: string,
     studentEmail: string,
@@ -34,10 +34,9 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.awardEdubadgeLink.click();
     await this.page.getByRole('textbox').first().fill(studentEmail);
 
-    if(studentEPPN){
+    if (studentEPPN) {
       await this.page.getByRole('textbox').nth(1).fill(studentEPPN);
-    }
-    else{
+    } else {
       await this.mailOnlyCheckbox.click();
     }
 
@@ -66,11 +65,10 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByText('The request(s) have been awarded.').waitFor();
   }
 
-  public async goToAdminView(){
+  public async goToAdminView() {
     await this.page.getByText('Go to admin view').click();
     await this.waitForLoadingToStop();
   }
-
 
   private async openRequests() {
     await this.openRequestsLink.click();
