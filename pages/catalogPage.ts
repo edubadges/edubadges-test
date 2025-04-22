@@ -89,9 +89,11 @@ export class CatalogPage extends BasePage {
     const account = await this.getStudentAccount(institution, accountNr);
 
     await this.usernameField.fill(account.email);
+    await this.page.waitForTimeout(100);
     await this.nextButton.click();
 
     await this.passwordField.waitFor();
+    await this.page.waitForTimeout(100);
     await this.passwordField.fill(account.password);
     await this.nextButton.click();
 
