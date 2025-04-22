@@ -12,7 +12,6 @@ institutionsWithoutHBO.forEach((institution) => {
     // validate
     await expect(backpackPage.page.locator('.expand-menu')).toBeVisible();
     await expect(backpackPage.page).toHaveScreenshot('BackpackLoggedIn.png', {
-      fullPage: true,
       mask: maskedLocators,
     });
   });
@@ -43,25 +42,21 @@ test('See subcategories', async ({ backpackPage }) => {
   // test & validate
   await backpackPage.openBadgeRequests();
   await expect(backpackPage.page).toHaveScreenshot('RequestsBackpack.png', {
-    fullPage: true,
     mask: maskedLocators,
   });
 
   await backpackPage.openCollections();
   await expect(backpackPage.page).toHaveScreenshot('CollectionsBackpack.png', {
-    fullPage: true,
     mask: maskedLocators,
   });
 
   await backpackPage.openImported();
   await expect(backpackPage.page).toHaveScreenshot('ImportedBackpack.png', {
-    fullPage: true,
     mask: maskedLocators,
   });
 
   await backpackPage.openArchive();
   await expect(backpackPage.page).toHaveScreenshot('ArchiveBackpack.png', {
-    fullPage: true,
     mask: maskedLocators,
   });
 
