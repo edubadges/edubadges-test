@@ -17,7 +17,7 @@ institutions.forEach((institution) => {
 });
 
 // Only tested once because logging in is already tested 3 times
-test('Logout WO issuer group admin', async ({ homePage, issuerPortalPage }) => {
+test('Logout WO issuer admin', async ({ homePage, issuerPortalPage }) => {
   // var
   const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
   const institution: institution = 'WO';
