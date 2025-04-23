@@ -70,12 +70,12 @@ export class StaffManagePage extends BaseStaffSubPage {
   // Navigation methods
   async goToIssuerGroups() {
     await this.issuerGroupsLink.click();
-    await this.page.getByText('Add new issuer group').waitFor();
+    await this.page.locator('.header').getByText('Issuer groups').waitFor();
   }
 
   async goToIssuers() {
     await this.issuersLink.click();
-    await this.page.getByText('Add new issuer').waitFor();
+    await this.page.locator('.header').getByText('Issuers').waitFor();
   }
 
   async goToUserManagement() {
