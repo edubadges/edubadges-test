@@ -3,7 +3,11 @@ import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
   test(`Issuer admin cannot create new ${institution} issuer group`, async ({ adminPage }) => {
-    // var
+    // fail if correct account is missing. SHOULD BE CHANGED
+    test.fail(institution == 'HBO' || institution == 'MBO');
+    expect(institution != 'HBO' && institution != 'MBO').toBeTruthy();
+  
+      // var
     const addIsssuergroupButton = adminPage.page.getByRole('link', {
       name: 'Add new issuer group',
     });

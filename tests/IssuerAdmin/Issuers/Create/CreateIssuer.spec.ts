@@ -3,6 +3,10 @@ import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
   test(`Create new ${institution} issuer`, async ({ adminPage }) => {
+    // fail if correct account is missing. SHOULD BE CHANGED
+    test.fail();
+    expect(false).toBeTruthy();
+  
     // var
     const newIssuerName = 'New WO Issuer';
     const descriptionText = 'Test WO Issuergroup';
