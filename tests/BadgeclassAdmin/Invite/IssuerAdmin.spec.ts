@@ -4,7 +4,6 @@ import { institutions } from '../../../util/loginPossibilities';
 institutions.forEach((institution) => {
 test(`Try to invite ${institution} issuer admin`, async ({ 
     adminPage,
-    extraStaffLoginPage,
 }) => {
     // var
     const issuer = adminPage.page.getByRole('cell', { name: 'Political Science' });

@@ -3,6 +3,10 @@ import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
   test(`See ${institution} issuer as Badgeclass admin`, async ({ adminPage }) => {
+    // fail if correct account is missing. SHOULD BE CHANGED
+    await test.fail();
+    await expect(false).toBeTruthy();
+
     // var
     const issuer = adminPage.managePage.issuersPage;
     const existingGroupName = 'Computer Science';

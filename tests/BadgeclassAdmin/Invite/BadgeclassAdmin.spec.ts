@@ -5,6 +5,10 @@ institutions.forEach((institution) => {
 test(`Invite ${institution} Badgeclass admin`, async ({ 
     adminPage,
 }) => {
+    // fail if correct account is missing. SHOULD BE CHANGED
+    await test.fail(institution == 'HBO');
+    await expect(institution != 'HBO').toBeTruthy();
+
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteBadgeclassAdmin`;
