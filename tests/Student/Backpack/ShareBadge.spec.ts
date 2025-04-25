@@ -41,7 +41,7 @@ institutionsWithoutHBO.forEach((institution) => {
   });
 
   // known issue on the verification of the public badge
-  test.skip(`Share public ${institution} edubadge`, async ({
+  test.fail(`Share public ${institution} edubadge`, async ({
     catalogPage,
     backpackPage,
     adminPage,
