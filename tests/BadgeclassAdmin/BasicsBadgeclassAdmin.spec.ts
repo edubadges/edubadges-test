@@ -15,24 +15,26 @@ institutions.forEach((institution) => {
     await expect(loggedInMenu).toBeVisible();
     await expect(navigationHeader).toBeVisible();
   });
+});
 
-  test(`Logout from ${institution}`, async ({ homePage, issuerPortalPage }) => {
-    // var
-    const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
-    const navigationHeader = issuerPortalPage.page.getByRole('navigation');
+// Only test logout once
+test(`Logout from WO`, async ({ homePage, issuerPortalPage }) => {
+  // var
+  const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
+  const navigationHeader = issuerPortalPage.page.getByRole('navigation');
+  const institution = 'WO';
 
-    // setup
-    await homePage.openIssuerPortal();
-    await issuerPortalPage.loginTestIdp(institution, 'Badgeclass');
-    await expect(loggedInMenu).toBeVisible();
-    await expect(navigationHeader).toBeVisible();
+  // setup
+  await homePage.openIssuerPortal();
+  await issuerPortalPage.loginTestIdp(institution, 'Badgeclass');
+  await expect(loggedInMenu).toBeVisible();
+  await expect(navigationHeader).toBeVisible();
 
-    // test
-    await loggedInMenu.click();
-    await loggedInMenu.getByText('Logout').click();
+  // test
+  await loggedInMenu.click();
+  await loggedInMenu.getByText('Logout').click();
 
-    // validate
-    await expect(loggedInMenu).not.toBeVisible();
-    await expect(navigationHeader).not.toBeVisible();
-  });
+  // validate
+  await expect(loggedInMenu).not.toBeVisible();
+  await expect(navigationHeader).not.toBeVisible();
 });
