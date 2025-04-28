@@ -138,6 +138,7 @@ export class BackpackPage extends BasePage {
     await this.waitForLoadingToStop();
     await this.openBadge(badgeName);
     await this.waitForLoadingToStop();
+    await this.page.waitForTimeout(250);
 
     // make public
     await this.page.locator('.slider').click({ force: true });

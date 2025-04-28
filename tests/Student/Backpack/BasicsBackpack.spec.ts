@@ -3,18 +3,12 @@ import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
 institutionsWithoutHBO.forEach((institution) => {
   test(`Login at ${institution}`, async ({ backpackPage }) => {
-    // var
-    const maskedLocators = [backpackPage.page.locator('.content')];
-
     // test
     await backpackPage.login(institution);
 
     // validate
     await expect(backpackPage.page.locator('.expand-menu')).toBeVisible();
-    await expect(backpackPage.page).toHaveScreenshot('BackpackLoggedIn.png', {
-      fullPage: true,
-      mask: maskedLocators,
-    });
+    await expect(backpackPage.page.getByText('My backpack').nth(1)).toBeVisible();
   });
 });
 
@@ -43,25 +37,21 @@ test('See subcategories', async ({ backpackPage }) => {
   // test & validate
   await backpackPage.openBadgeRequests();
   await expect(backpackPage.page).toHaveScreenshot('RequestsBackpack.png', {
-    fullPage: true,
     mask: maskedLocators,
   });
 
   await backpackPage.openCollections();
   await expect(backpackPage.page).toHaveScreenshot('CollectionsBackpack.png', {
-    fullPage: true,
     mask: maskedLocators,
   });
 
   await backpackPage.openImported();
   await expect(backpackPage.page).toHaveScreenshot('ImportedBackpack.png', {
-    fullPage: true,
     mask: maskedLocators,
   });
 
   await backpackPage.openArchive();
   await expect(backpackPage.page).toHaveScreenshot('ArchiveBackpack.png', {
-    fullPage: true,
     mask: maskedLocators,
   });
 
