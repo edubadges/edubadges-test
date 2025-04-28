@@ -7,8 +7,8 @@ test(`Accept ${institution} Issuer admin invite`, async ({
     extraStaffLoginPage,
 }) => {
   // fail if correct account is missing. SHOULD BE CHANGED
-  test.fail();
-  expect(false).toBeTruthy();
+  test.fail(institution == 'WO' || institution == 'HBO' || institution == 'MBO');
+  expect(institution != 'WO' && institution != 'HBO' && institution != 'MBO').toBeTruthy();
 
     // var
     const userManagement = adminPage.managePage.userManagement;

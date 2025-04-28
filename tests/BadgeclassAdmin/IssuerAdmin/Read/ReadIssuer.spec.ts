@@ -4,8 +4,8 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`See ${institution} issuer as Badgeclass admin`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail();
-    await expect(false).toBeTruthy();
+    test.fail(institution == 'WO' || institution == 'HBO' || institution == 'MBO');
+    expect(institution != 'WO' && institution != 'HBO' && institution != 'MBO').toBeTruthy();
 
     // var
     const issuer = adminPage.managePage.issuersPage;
