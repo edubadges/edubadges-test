@@ -5,6 +5,7 @@ import { UserManagement } from './staffManageSubPage/userManagement';
 import { RequestedEdubadgesSubPage } from './staffManageSubPage/requestedEdubadgesSubPage';
 import { UnclaimedDirectAwardsSubPage } from './staffManageSubPage/unclaimedDirectAwardsSubPage';
 import { DeletedDirectAwardsSubPage } from './staffManageSubPage/deletedDirectAwardsSubPage';
+import { expect } from '@playwright/test';
 
 export class StaffManagePage extends BaseStaffSubPage {
   // Navigation locators
@@ -44,6 +45,11 @@ export class StaffManagePage extends BaseStaffSubPage {
   );
   readonly userManagement = new UserManagement(this.page, this.testdata);
 
+  async expectManagePage(){
+    await expect(this.page.locator('.expand-menu')).toBeVisible();
+    await expect(this.page.url()).toContain('manage');
+  }
+  
   /**
    * Clicks the according checkbox once.
    * Finds the tr by finding the courseName and selecting the parent's parent.

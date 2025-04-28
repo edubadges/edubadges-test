@@ -38,3 +38,24 @@ test(`Logout from WO`, async ({ homePage, issuerPortalPage }) => {
   await expect(loggedInMenu).not.toBeVisible();
   await expect(navigationHeader).not.toBeVisible();
 });
+
+test('See staff subpages', async ({ homePage, issuerPortalPage }) => {
+  // var
+
+  // setup
+  await homePage.openIssuerPortal();
+  await issuerPortalPage.loginTestIdp('WO', 'Badgeclass');
+
+  // test
+  await issuerPortalPage.goToBadgeClasses();
+  await issuerPortalPage.badgeClassPage.expectBadgeclassesPage();
+  
+  await issuerPortalPage.goToManage();
+  await issuerPortalPage.managePage.expectManagePage();
+
+  await issuerPortalPage.goToUsers();
+  await issuerPortalPage.usersPage.expectUsersPage();
+
+  await issuerPortalPage.goToInsights();
+  await issuerPortalPage.insightsPage.expectInsightsPage();
+});

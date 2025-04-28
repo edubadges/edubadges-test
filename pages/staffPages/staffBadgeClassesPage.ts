@@ -1,7 +1,8 @@
+import { expect } from '@playwright/test';
 import { BaseStaffSubPage } from './baseStaffSubPage';
 
 export class StaffBadgeClassesPage extends BaseStaffSubPage {
-  // Action locators
+  // Locators
   private readonly awardEdubadgeLink = this.page.getByRole('link', {
     name: 'Award edubadge(s)',
   });
@@ -16,6 +17,11 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     .locator('..')
     .locator('.checkmarked');
 
+
+  async expectBadgeclassesPage(){
+    await expect(this.page.locator('.expand-menu')).toBeVisible();
+    await expect(this.page.getByText('Filter badge classes')).toBeVisible();
+  }
     /**
      * Direct award a badge to a student. Omit EPPN to award through private mail.
      */
