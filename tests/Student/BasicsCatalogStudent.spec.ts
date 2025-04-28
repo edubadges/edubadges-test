@@ -68,7 +68,6 @@ test('Log out from catalog', async ({ catalogPage }) => {
     .click();
   await catalogPage.loginStudentIdp(institution);
   await catalogPage.waitForLoadingToStop();
-  await catalogPage.page.goto('/catalog');
 
   // test
   await catalogPage.page.locator('.expand-menu').click();
