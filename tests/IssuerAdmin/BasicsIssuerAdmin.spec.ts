@@ -7,7 +7,7 @@ institutions.forEach((institution) => {
     issuerPortalPage,
   }) => {
   // fail if correct account is missing. SHOULD BE CHANGED
-  test.fail(institution == 'HBO' || institution == 'MBO');
+  await test.fail(institution == 'HBO' || institution == 'MBO');
   expect(institution != 'HBO' && institution != 'MBO').toBeTruthy();
 
   // test

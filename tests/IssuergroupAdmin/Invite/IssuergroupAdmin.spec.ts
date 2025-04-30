@@ -7,7 +7,7 @@ test(`Accept ${institution} Issuergroup admin invite`, async ({
     extraStaffLoginPage,
 }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    test.fail(institution == 'WO' || institution == 'HBO' || institution == 'MBO');
+    await test.fail(institution == 'WO' || institution == 'HBO' || institution == 'MBO');
     expect(institution != 'WO' && institution != 'HBO' && institution != 'MBO').toBeTruthy();
   
     // var

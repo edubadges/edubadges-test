@@ -4,7 +4,7 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Issuer admin cannot create new ${institution} issuer group`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    test.fail(institution == 'HBO' || institution == 'MBO');
+    await test.fail(institution == 'HBO' || institution == 'MBO');
     expect(institution != 'HBO' && institution != 'MBO').toBeTruthy();
   
       // var
