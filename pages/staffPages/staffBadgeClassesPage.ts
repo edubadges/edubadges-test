@@ -72,6 +72,22 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByText('The request(s) have been awarded.').waitFor();
   }
 
+  async denyRequest(courseName: string, studentName: string, reason?: string) {
+    await this.searchWithText(courseName);
+    await this.openBadge(courseName);
+    await this.openRequests();
+    await this.selectRequest(studentName);
+    await this.page.getByRole('link', { name: 'Deny request', exact: true }).click();
+    await this.page.waitForTimeout(500);
+
+    if(reason){
+      await this.page.locator('input#revocation-reason').fill(reason);
+    }
+
+    await this.optionsLocator.getByRole('link', { name: 'Confirm' }).click();
+    await this.page.getByText('The request(s) have been denied.').waitFor();
+  }
+
   public async goToAdminView(){
     await this.page.getByText('Go to admin view').click();
     await this.waitForLoadingToStop();

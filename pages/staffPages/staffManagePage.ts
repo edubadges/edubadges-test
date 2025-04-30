@@ -49,29 +49,6 @@ export class StaffManagePage extends BaseStaffSubPage {
     await expect(this.page.locator('.expand-menu')).toBeVisible();
     await expect(this.page.url()).toContain('manage');
   }
-  
-  /**
-   * Clicks the according checkbox once.
-   * Finds the tr by finding the courseName and selecting the parent's parent.
-   * Finds the checkbox by searching within the tr
-   */
-  private async selectRequest(courseName: string, studentName: string) {
-    await this.searchWithText(studentName);
-    await this.page
-      .getByRole('link', { name: courseName })
-      .locator('../..')
-      .getByRole('checkbox')
-      .click();
-  }
-
-  async approveRequest(courseName: string, studentName: string) {
-    await this.selectRequest(courseName, studentName);
-    await this.page.getByRole('link', { name: 'Award' }).click();
-    await this.page
-      .locator('.options')
-      .getByRole('link', { name: 'Award' })
-      .click();
-  }
 
   // Navigation methods
   async goToIssuerGroups() {
