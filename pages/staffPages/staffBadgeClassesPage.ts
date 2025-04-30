@@ -10,6 +10,9 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
   private readonly openRequestsLink = this.page.getByRole('link', {
     name: 'Open requests',
   });
+  private readonly openInBackpackLink = this.page.getByRole('link', {
+    name: 'In backpack',
+  });
   private readonly contentLocator = this.page.locator('.content');
   private readonly optionsLocator = this.page.locator('.options');
   private readonly mailOnlyCheckbox = this.page
@@ -88,6 +91,22 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByText('The request(s) have been denied.').waitFor();
   }
 
+  /**
+   * Revokes an already awarded badge.
+   */
+  async revokeBadge(badgeName: string, studentName: string, reason: string) {
+    await this.searchWithText(badgeName);
+    await this.openBadge(badgeName);
+    await this.openInBackpack();
+    await this.selectRequest(studentName);
+    await this.page.getByRole('link', { name: 'Revoke edubadge' }).click();
+    await this.page.waitForTimeout(500);
+
+    await this.page.locator('input#revocation-reason').fill(reason);
+    await this.page.getByRole('link', { name: 'Confirm' }).click();
+    await this.page.getByText('The edubadge(s) have been revoked').waitFor();
+  }
+
   public async goToAdminView(){
     await this.page.getByText('Go to admin view').click();
     await this.waitForLoadingToStop();
@@ -96,6 +115,10 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
 
   private async openRequests() {
     await this.openRequestsLink.click();
+  }
+
+  private async openInBackpack(){
+    await this.openInBackpackLink.click();
   }
 
   private async selectRequest(studentName: string) {
