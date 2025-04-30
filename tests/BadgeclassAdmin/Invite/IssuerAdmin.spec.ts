@@ -2,11 +2,11 @@ import { expect, test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-test(`Try to invite ${institution} issuer admin`, async ({ 
-    adminPage,
-}) => {
+  test(`Try to invite ${institution} issuer admin`, async ({ adminPage }) => {
     // var
-    const issuer = adminPage.page.getByRole('cell', { name: 'Political Science' });
+    const issuer = adminPage.page.getByRole('cell', {
+      name: 'Political Science',
+    });
 
     // setup
     await adminPage.loginTestIdp(institution, 'Badgeclass');
@@ -15,5 +15,5 @@ test(`Try to invite ${institution} issuer admin`, async ({
 
     // test
     await expect(issuer).not.toBeVisible();
-});
+  });
 });

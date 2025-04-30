@@ -2,7 +2,9 @@ import { expect, test } from '../../../../fixtures/staffFixture';
 import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test.skip(`Copy existing micro ${institution} edubadge`, async ({ adminPage }) => {
+  test.skip(`Copy existing micro ${institution} edubadge`, async ({
+    adminPage,
+  }) => {
     // var
     const issuerGroupName = 'Medicine';
     const initialBadgeName = 'A new Medicine micro credential';

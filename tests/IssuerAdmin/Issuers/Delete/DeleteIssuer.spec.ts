@@ -4,9 +4,13 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Delete ${institution} issuer`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(institution == 'WO' || institution == 'HBO' || institution == 'MBO');
-    expect(institution != 'WO' && institution != 'HBO' && institution != 'MBO').toBeTruthy();
-  
+    await test.fail(
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
+    );
+    expect(
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
+    ).toBeTruthy();
+
     // var
     const issuerName = 'Issuer to remove';
     const newIssuerDesc = 'This issuer was made to be removed';

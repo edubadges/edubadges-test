@@ -42,34 +42,33 @@ institutionsWithoutHBO.forEach((institution) => {
   });
 
   // known issue on the verification of the public badge
-  test.fail(`Share public ${institution} edubadge`, async ({
-    catalogPage,
-    backpackPage,
-    adminPage,
-  }) => {
-    //var
-    const course = 'History of Political Thought';
-    const studentInfo = await adminPage.getStudentAccount(institution);
+  test.fail(
+    `Share public ${institution} edubadge`,
+    async ({ catalogPage, backpackPage, adminPage }) => {
+      //var
+      const course = 'History of Political Thought';
+      const studentInfo = await adminPage.getStudentAccount(institution);
 
-    //setup
-    await catalogPage.searchForClass(course);
-    await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
-    await catalogPage.requestEdubadge(institution);
+      //setup
+      await catalogPage.searchForClass(course);
+      await catalogPage.filterOn(institution);
+      await catalogPage.openEduClass(course);
+      await catalogPage.requestEdubadge(institution);
 
-    await adminPage.loginTestIdp(institution, 'Institution');
-    await adminPage.badgeClassPage.approveRequest(course, studentInfo.name);
+      await adminPage.loginTestIdp(institution, 'Institution');
+      await adminPage.badgeClassPage.approveRequest(course, studentInfo.name);
 
-    await backpackPage.login(institution);
-    await backpackPage.openBackpack();
-    await backpackPage.reloadPage();
-    await backpackPage.makeEdubadgePublic(course);
+      await backpackPage.login(institution);
+      await backpackPage.openBackpack();
+      await backpackPage.reloadPage();
+      await backpackPage.makeEdubadgePublic(course);
 
-    await backpackPage.page.getByRole('link', { name: 'Share' }).waitFor();
-    await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
+      await backpackPage.page.getByRole('link', { name: 'Share' }).waitFor();
+      await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
 
-    // test
-    const url = await backpackPage.getShareLink();
-    await backpackPage.validateBadge(url);
-  });
+      // test
+      const url = await backpackPage.getShareLink();
+      await backpackPage.validateBadge(url);
+    },
+  );
 });

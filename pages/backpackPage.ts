@@ -146,7 +146,7 @@ export class BackpackPage extends BasePage {
     await this.waitForLoadingToStop();
 
     // validate
-    this.page
+    await this.page
       .getByText(
         'This edubadge has been made publicly visible. You can share this edubadge now',
       )

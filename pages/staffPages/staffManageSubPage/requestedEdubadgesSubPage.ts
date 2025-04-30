@@ -2,7 +2,7 @@ import { BaseStaffSubPage } from '../baseStaffSubPage';
 
 export class RequestedEdubadgesSubPage extends BaseStaffSubPage {
   private readonly optionsLocator = this.page.locator('.options');
-  
+
   /**
    * Approves a badge request for a student.
    */
@@ -18,17 +18,18 @@ export class RequestedEdubadgesSubPage extends BaseStaffSubPage {
   async denyRequest(courseName: string, studentName: string, reason?: string) {
     await this.searchWithText(studentName);
     await this.selectRequest(courseName);
-    await this.page.getByRole('link', { name: 'Deny request', exact: true }).click();
+    await this.page
+      .getByRole('link', { name: 'Deny request', exact: true })
+      .click();
     await this.page.waitForTimeout(500);
 
-    if(reason){
+    if (reason) {
       await this.page.locator('input#revocation-reason').fill(reason);
     }
 
     await this.optionsLocator.getByRole('link', { name: 'Confirm' }).click();
     await this.page.getByText('The request(s) have been denied.').waitFor();
   }
-
 
   private async selectRequest(courseName: string) {
     await this.page

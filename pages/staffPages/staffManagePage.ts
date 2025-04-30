@@ -45,7 +45,7 @@ export class StaffManagePage extends BaseStaffSubPage {
   );
   readonly userManagement = new UserManagement(this.page, this.testdata);
 
-  async expectManagePage(){
+  async expectManagePage() {
     await expect(this.page.locator('.expand-menu')).toBeVisible();
     await expect(this.page.url()).toContain('manage');
   }

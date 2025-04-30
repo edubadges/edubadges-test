@@ -97,11 +97,17 @@ institutionsWithoutHBO.forEach((institution) => {
 
     // test
     await adminPage.goToBadgeClasses();
-    await adminPage.badgeClassPage.revokeBadge(badgeName, studentInfo.name, reason);
+    await adminPage.badgeClassPage.revokeBadge(
+      badgeName,
+      studentInfo.name,
+      reason,
+    );
 
     // validate
     await backpackPage.reloadPage();
     await backpackPage.openArchive();
-    await expect(badgeLocator.locator('.status-indicator.revoked')).toBeVisible();
+    await expect(
+      badgeLocator.locator('.status-indicator.revoked'),
+    ).toBeVisible();
   });
 });

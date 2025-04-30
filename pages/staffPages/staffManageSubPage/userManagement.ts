@@ -23,8 +23,7 @@ export class UserManagement extends BaseStaffSubPage {
   private readonly emailField = this.page.getByPlaceholder(
     'e.g. john.doe@example.com',
   );
-  private readonly roleForm = this.page.getByText('Role')
-    .locator('..');
+  private readonly roleForm = this.page.getByText('Role').locator('..');
 
   async getInstitutionServer(institution: institution) {
     switch (institution) {
@@ -36,8 +35,8 @@ export class UserManagement extends BaseStaffSubPage {
         return 'harvard-example.edu';
     }
   }
-  
-  async inviteUser(email: string, role?: string){
+
+  async inviteUser(email: string, role?: string) {
     await this.userManagementLink.click();
     await this.inviteNewUserButton.waitFor();
     await this.inviteNewUserButton.click();
@@ -48,7 +47,7 @@ export class UserManagement extends BaseStaffSubPage {
 
   private async fillNewUserForm(emailAddress: string, role?: string) {
     await this.emailField.fill(emailAddress);
-    if(role){
+    if (role) {
       await this.roleForm.locator('.indicator').click();
       await this.roleForm.getByText(role).click();
     }

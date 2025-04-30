@@ -49,7 +49,7 @@ test('See staff subpages', async ({ homePage, issuerPortalPage }) => {
   // test
   await issuerPortalPage.goToBadgeClasses();
   await issuerPortalPage.badgeClassPage.expectBadgeclassesPage();
-  
+
   await issuerPortalPage.goToManage();
   await issuerPortalPage.managePage.expectManagePage();
 

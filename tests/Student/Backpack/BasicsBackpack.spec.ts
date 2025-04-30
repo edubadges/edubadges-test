@@ -8,7 +8,9 @@ institutionsWithoutHBO.forEach((institution) => {
 
     // validate
     await expect(backpackPage.page.locator('.expand-menu')).toBeVisible();
-    await expect(backpackPage.page.getByText('My backpack').nth(1)).toBeVisible();
+    await expect(
+      backpackPage.page.getByText('My backpack').nth(1),
+    ).toBeVisible();
   });
 });
 

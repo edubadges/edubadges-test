@@ -2,9 +2,7 @@ import { expect, test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-test(`Invite ${institution} Badgeclass admin`, async ({ 
-    adminPage,
-}) => {
+  test(`Invite ${institution} Badgeclass admin`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'HBO');
     await expect(institution != 'HBO').toBeTruthy();
@@ -28,10 +26,10 @@ test(`Invite ${institution} Badgeclass admin`, async ({
 
     // validate
     await expect(
-        adminPage.page.getByText(`Successfully invited ${newUserMail}`)
+      adminPage.page.getByText(`Successfully invited ${newUserMail}`),
     ).toBeVisible();
     await expect(
-        adminPage.page.locator('.main-content-margin').getByText(newUserMail)
+      adminPage.page.locator('.main-content-margin').getByText(newUserMail),
     ).toBeVisible();
-});
+  });
 });

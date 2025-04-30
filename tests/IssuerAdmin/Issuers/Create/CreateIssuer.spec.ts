@@ -4,9 +4,13 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Create new ${institution} issuer`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(institution == 'WO' || institution == 'HBO' || institution == 'MBO');
-    expect(institution != 'WO' && institution != 'HBO' && institution != 'MBO').toBeTruthy();
-  
+    await test.fail(
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
+    );
+    expect(
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
+    ).toBeTruthy();
+
     // var
     const newIssuerName = 'New WO Issuer';
     const descriptionText = 'Test WO Issuergroup';

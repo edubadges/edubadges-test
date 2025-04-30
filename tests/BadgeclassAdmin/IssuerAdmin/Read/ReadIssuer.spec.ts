@@ -2,10 +2,16 @@ import { expect, test } from '../../../../fixtures/staffFixture';
 import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`See ${institution} issuer as Badgeclass admin`, async ({ adminPage }) => {
+  test(`See ${institution} issuer as Badgeclass admin`, async ({
+    adminPage,
+  }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(institution == 'WO' || institution == 'HBO' || institution == 'MBO');
-    expect(institution != 'WO' && institution != 'HBO' && institution != 'MBO').toBeTruthy();
+    await test.fail(
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
+    );
+    expect(
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
+    ).toBeTruthy();
 
     // var
     const issuer = adminPage.managePage.issuersPage;
