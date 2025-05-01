@@ -1,15 +1,15 @@
 import { AccountsBase, staffDetails, studentDetails } from './accountBase';
 
 export class MBOAccounts extends AccountsBase {
-  institutionAdminLogin: staffDetails;
+  institutionAdmin: staffDetails;
   issuerGroupAdmin: staffDetails;
   issuerAdmin: staffDetails;
-  badgeClassAdminLogin: staffDetails;
+  badgeClassAdmin: staffDetails;
   student: studentDetails[];
 
   constructor() {
     super();
-    this.institutionAdminLogin = new staffDetails(
+    this.institutionAdmin = new staffDetails(
       process.env.MBO_INSTITUTION_ADMIN_USERNAME || '',
       process.env.MBO_INSTITUTION_ADMIN_PASSWORD || '',
     );
@@ -21,7 +21,7 @@ export class MBOAccounts extends AccountsBase {
       process.env.MBO_ISSUER_ADMIN_USERNAME || '',
       process.env.MBO_ISSUER_ADMIN_PASSWORD || '',
     );
-    this.badgeClassAdminLogin = new staffDetails(
+    this.badgeClassAdmin = new staffDetails(
       process.env.MBO_BADGECLASS_ADMIN_USERNAME || '',
       process.env.MBO_BADGECLASS_ADMIN_PASSWORD || '',
     );

@@ -71,7 +71,7 @@ export abstract class BasePage {
     let account: staffDetails;
     switch (level) {
       case 'Institution':
-        account = instititutionAccounts.institutionAdminLogin;
+        account = instititutionAccounts.institutionAdmin;
         break;
       case 'Issuergroup':
         account = instititutionAccounts.issuerGroupAdmin;
@@ -80,7 +80,7 @@ export abstract class BasePage {
         account = instititutionAccounts.issuerAdmin;
         break;
       case 'Badgeclass':
-        account = instititutionAccounts.badgeClassAdminLogin;
+        account = instititutionAccounts.badgeClassAdmin;
         break;
     }
 
