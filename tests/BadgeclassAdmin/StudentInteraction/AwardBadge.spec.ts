@@ -7,18 +7,18 @@ institutionsWithoutHBO.forEach((institution) => {
     adminPage,
   }) => {
     // var
-    const course = 'Growth and Development';
+    const badgeName = 'Growth and Development';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
     await adminPage.loginTestIdp(institution, 'Badgeclass');
-    await catalogPage.searchForClass(course);
+    await catalogPage.searchForClass(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
+    await catalogPage.openEduClass(badgeName);
     await catalogPage.requestEdubadge(institution);
 
     // test
-    await adminPage.badgeClassPage.approveRequest(course, studentInfo.name);
+    await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
 
     // validate
     await expect(
@@ -36,7 +36,7 @@ institutionsWithoutHBO.forEach((institution) => {
     ).toBeTruthy();
 
     // var
-    const courseName = 'Cognitive Psychology';
+    const badgeName = 'Cognitive Psychology';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
@@ -44,7 +44,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
     // test
     await adminPage.badgeClassPage.directAwardBadge(
-      courseName,
+      badgeName,
       studentInfo.email,
       studentInfo.EPPN,
     );
@@ -63,7 +63,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(institution != 'MBO').toBeTruthy();
 
     // var
-    const courseName = 'Regulation and Integration';
+    const badgeName = 'Regulation and Integration';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
@@ -71,7 +71,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
     // test
     await adminPage.badgeClassPage.directAwardBadge(
-      courseName,
+      badgeName,
       studentInfo.email,
     );
 

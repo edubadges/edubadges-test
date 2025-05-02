@@ -8,21 +8,21 @@ institutionsWithoutHBO.forEach((institution) => {
     adminPage,
   }) => {
     //var
-    const course = 'Introduction to Political Science';
+    const badgeName = 'Introduction to Political Science';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     //setup
-    await catalogPage.searchForClass(course);
+    await catalogPage.searchForClass(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
+    await catalogPage.openEduClass(badgeName);
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Institution');
-    await adminPage.badgeClassPage.approveRequest(course, studentInfo.name);
+    await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
 
     await backpackPage.login(institution);
     await backpackPage.openBackpack();
-    await backpackPage.openBadge(course);
+    await backpackPage.openBadge(badgeName);
 
     // test
     await expect(
@@ -30,7 +30,7 @@ institutionsWithoutHBO.forEach((institution) => {
     ).toHaveAttribute('disabled', 'true');
     await expect(backpackPage.page.locator('.slider')).toBeChecked();
 
-    await backpackPage.makeEdubadgePublic(course);
+    await backpackPage.makeEdubadgePublic(badgeName);
 
     await expect(
       backpackPage.page.getByRole('link', { name: 'Share' }),
@@ -46,22 +46,22 @@ institutionsWithoutHBO.forEach((institution) => {
     `Share public ${institution} edubadge`,
     async ({ catalogPage, backpackPage, adminPage }) => {
       //var
-      const course = 'History of Political Thought';
+      const badgeName = 'History of Political Thought';
       const studentInfo = await adminPage.getStudentAccount(institution);
 
       //setup
-      await catalogPage.searchForClass(course);
+      await catalogPage.searchForClass(badgeName);
       await catalogPage.filterOn(institution);
-      await catalogPage.openEduClass(course);
+      await catalogPage.openEduClass(badgeName);
       await catalogPage.requestEdubadge(institution);
 
       await adminPage.loginTestIdp(institution, 'Institution');
-      await adminPage.badgeClassPage.approveRequest(course, studentInfo.name);
+      await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
 
       await backpackPage.login(institution);
       await backpackPage.openBackpack();
       await backpackPage.reloadPage();
-      await backpackPage.makeEdubadgePublic(course);
+      await backpackPage.makeEdubadgePublic(badgeName);
 
       await backpackPage.page.getByRole('link', { name: 'Share' }).waitFor();
       await expect(backpackPage.page.locator('.slider')).not.toBeChecked();

@@ -62,9 +62,9 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
   /**
    * Approves a badge request for a student.
    */
-  async approveRequest(courseName: string, studentName: string) {
-    await this.searchWithText(courseName);
-    await this.openBadge(courseName);
+  async approveRequest(badgeName: string, studentName: string) {
+    await this.searchWithText(badgeName);
+    await this.openBadge(badgeName);
     await this.openRequests();
     await this.selectRequest(studentName);
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
@@ -73,9 +73,9 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByText('The request(s) have been awarded.').waitFor();
   }
 
-  async denyRequest(courseName: string, studentName: string, reason?: string) {
-    await this.searchWithText(courseName);
-    await this.openBadge(courseName);
+  async denyRequest(badgeName: string, studentName: string, reason?: string) {
+    await this.searchWithText(badgeName);
+    await this.openBadge(badgeName);
     await this.openRequests();
     await this.selectRequest(studentName);
     await this.page

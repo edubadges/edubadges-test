@@ -22,10 +22,10 @@ test('See homepage', async ({ catalogPage }) => {
 
 test('Search for non existing badge', async ({ catalogPage }) => {
   // var
-  const course = 'I do not exist` this course is not real?';
+  const badgeName = 'I do not exist` this badge is not real?';
 
   // test
-  await catalogPage.searchForClass(course);
+  await catalogPage.searchForClass(badgeName);
 
   // validate
   await expect(catalogPage.page).toHaveScreenshot('emptyCatalogPage.png');
@@ -33,13 +33,13 @@ test('Search for non existing badge', async ({ catalogPage }) => {
 
 test('Look at existing badge', async ({ catalogPage }) => {
   // var
-  const course = 'Group Dynamics';
+  const badgeName = 'Group Dynamics';
   const institution: institution = 'MBO';
 
   // test
-  await catalogPage.searchForClass(course);
+  await catalogPage.searchForClass(badgeName);
   await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
+  await catalogPage.openEduClass(badgeName);
 
   // validate
   await expect(catalogPage.page).toHaveScreenshot('edubadgeAnonymous.png');

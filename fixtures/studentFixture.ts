@@ -57,8 +57,8 @@ export const test = base.extend<CatalogFixture>({
   /**  Used for awarding or denying badges to the student*/
   adminPage: async ({ browser, testdata }, use) => {
     // Set up the fixture.
-    var woTeacherContext = await browser.newContext();
-    var page = await woTeacherContext.newPage();
+    var adminContext = await browser.newContext();
+    var page = await adminContext.newPage();
 
     const homePage = new HomePage(page, testdata);
     await homePage.navigateToHomePage();

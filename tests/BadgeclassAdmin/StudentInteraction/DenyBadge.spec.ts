@@ -11,19 +11,19 @@ institutions.forEach((institution) => {
     expect(institution != 'HBO' && institution != 'MBO').toBeTruthy();
 
     // var
-    const course = 'Regulation and Integration';
+    const badgeName = 'Regulation and Integration';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
-    await catalogPage.searchForClass(course);
+    await catalogPage.searchForClass(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
+    await catalogPage.openEduClass(badgeName);
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Badgeclass');
 
     // test
-    await adminPage.badgeClassPage.denyRequest(course, studentInfo.name);
+    await adminPage.badgeClassPage.denyRequest(badgeName, studentInfo.name);
 
     // validate
     await expect(
@@ -37,21 +37,21 @@ test('Deny badge with reason from Badgeclasses', async ({
   catalogPage,
 }) => {
   // var
-  const course = 'Digestion and Defense';
+  const badgeName = 'Digestion and Defense';
   const institution = 'WO';
   const reason = 'Legitimate reason to deny the badge';
   const studentInfo = await adminPage.getStudentAccount(institution);
 
   // setup
-  await catalogPage.searchForClass(course);
+  await catalogPage.searchForClass(badgeName);
   await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
+  await catalogPage.openEduClass(badgeName);
   await catalogPage.requestEdubadge(institution);
 
   await adminPage.loginTestIdp(institution, 'Badgeclass');
 
   // test
-  await adminPage.badgeClassPage.denyRequest(course, studentInfo.name, reason);
+  await adminPage.badgeClassPage.denyRequest(badgeName, studentInfo.name, reason);
 
   // validate
   await expect(
@@ -64,26 +64,26 @@ test('Deny badge with reason from Manage', async ({
   catalogPage,
 }) => {
   // var
-  const course = 'Cognitive Psychology';
-  const institution = 'WO';
+  const badgeName = 'Cognitive Psychology';
+  const badgeName = 'WO';
   const reason = 'Legitimate reason to deny the badge';
-  const studentInfo = await adminPage.getStudentAccount(institution);
+  const studentInfo = await adminPage.getStudentAccount(badgeName);
 
   // setup
-  await test.fail(institution == 'WO');
-  await expect(institution != 'WO');
-  await catalogPage.searchForClass(course);
-  await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
-  await catalogPage.requestEdubadge(institution);
+  await test.fail(badgeName == 'WO');
+  await expect(badgeName != 'WO');
+  await catalogPage.searchForClass(badgeName);
+  await catalogPage.filterOn(badgeName);
+  await catalogPage.openEduClass(badgeName);
+  await catalogPage.requestEdubadge(badgeName);
 
-  await adminPage.loginTestIdp(institution, 'Badgeclass');
+  await adminPage.loginTestIdp(badgeName, 'Badgeclass');
   await adminPage.goToManage();
   await adminPage.managePage.goToRequested();
 
   // test
   await adminPage.managePage.requestedBadgesPage.denyRequest(
-    course,
+    badgeName,
     studentInfo.name,
     reason,
   );
