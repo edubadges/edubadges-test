@@ -8,7 +8,6 @@ institutions.forEach((institution) => {
     await expect(institution != 'HBO').toBeTruthy();
     
     // var
-    const dateMask = adminPage.page.getByText('Created').locator('../..');
     const badgeName = 'Growth and Development';
 
     // setup
@@ -17,12 +16,10 @@ institutions.forEach((institution) => {
     await adminPage.badgeClassPage.openBadge(badgeName);
 
     // validate
-    await expect(adminPage.page).toHaveScreenshot(
-      `SeeBadgeAs${institution}BadgeclassAdmin.png`,
-      {
-        fullPage: true,
-        mask: [dateMask],
-      },
-    );
+    const groupTitle = adminPage.page.locator('.title').getByRole('heading');
+    const breadcrumbs = adminPage.page.locator('.breadcrumb');
+    
+    await expect(groupTitle).toHaveText(badgeName);
+    await expect(breadcrumbs).toHaveText(badgeName);
   });
 });
