@@ -5,10 +5,10 @@ institutions.forEach((institution) => {
   test(`Delete ${institution} issuer`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
+      institution == 'MBO',
     );
     expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
+      institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -17,7 +17,7 @@ institutions.forEach((institution) => {
     const issuers = adminPage.managePage.issuersPage;
 
     // setup
-    await adminPage.loginTestIdp(institution, 'Issuer');
+    await adminPage.loginTestIdp(institution, 'Issuergroup');
     await adminPage.goToManage();
     await adminPage.managePage.goToIssuers();
     await issuers.createNewIssuer(issuerName, newIssuerDesc);
