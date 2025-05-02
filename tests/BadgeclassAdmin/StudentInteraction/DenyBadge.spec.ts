@@ -65,19 +65,19 @@ test('Deny badge with reason from Manage', async ({
 }) => {
   // var
   const badgeName = 'Cognitive Psychology';
-  const badgeName = 'WO';
+  const institution = 'WO';
   const reason = 'Legitimate reason to deny the badge';
-  const studentInfo = await adminPage.getStudentAccount(badgeName);
+  const studentInfo = await adminPage.getStudentAccount(institution);
 
   // setup
-  await test.fail(badgeName == 'WO');
-  await expect(badgeName != 'WO');
+  await test.fail(institution == 'WO');
+  await expect(institution != 'WO');
   await catalogPage.searchForClass(badgeName);
-  await catalogPage.filterOn(badgeName);
+  await catalogPage.filterOn(institution);
   await catalogPage.openEduClass(badgeName);
-  await catalogPage.requestEdubadge(badgeName);
+  await catalogPage.requestEdubadge(institution);
 
-  await adminPage.loginTestIdp(badgeName, 'Badgeclass');
+  await adminPage.loginTestIdp(institution, 'Badgeclass');
   await adminPage.goToManage();
   await adminPage.managePage.goToRequested();
 
