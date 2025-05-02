@@ -5,15 +5,15 @@ institutions.forEach((institution) => {
   test(`See ${institution} issuer`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'MBO',
+      institution == 'WO' || institution == 'MBO' || institution == 'HBO',
     );
     expect(
-      institution != 'MBO',
+      institution != 'WO' && institution != 'MBO' && institution != 'HBO',
     ).toBeTruthy();
 
     // var
     const issuer = adminPage.managePage.issuersPage;
-    const existingGroupName = 'Computer Science';
+    const existingGroupName = 'Medicine';
     const badgeInfoMask = adminPage.page.locator('div.info');
     const crumbMask = adminPage.page.locator('div.bread-crumb');
 

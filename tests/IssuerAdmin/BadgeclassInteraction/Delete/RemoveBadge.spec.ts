@@ -7,10 +7,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -36,10 +36,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -65,10 +65,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var

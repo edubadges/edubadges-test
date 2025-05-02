@@ -5,10 +5,10 @@ institutions.forEach((institution) => {
   test(`See ${institution} issuer group`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var

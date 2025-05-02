@@ -5,13 +5,14 @@ institutions.forEach((institution) => {
   test(`Delete ${institution} issuer`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'MBO',
+      institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'MBO',
+      institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
+    const existingIssuergroupName = 'Medicine';
     const issuerName = 'Issuer to remove';
     const newIssuerDesc = 'This issuer was made to be removed';
     const issuers = adminPage.managePage.issuersPage;
@@ -19,11 +20,9 @@ institutions.forEach((institution) => {
     // setup
     await adminPage.loginTestIdp(institution, 'Issuergroup');
     await adminPage.goToManage();
-    await adminPage.managePage.goToIssuers();
+    await adminPage.managePage.goToIssuerGroups();
+    await adminPage.managePage.issuerGroupPage.openIssuerGroup(existingIssuergroupName)
     await issuers.createNewIssuer(issuerName, newIssuerDesc);
-    await adminPage.goToManage();
-    await adminPage.managePage.goToIssuers();
-    await adminPage.waitForLoadingToStop();
 
     // test
     await issuers.deleteExistingIssuer(issuerName);

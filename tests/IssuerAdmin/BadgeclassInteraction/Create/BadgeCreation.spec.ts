@@ -7,10 +7,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -48,10 +48,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -59,7 +59,7 @@ institutions.forEach((institution) => {
     const breadcrumbs = adminPage.page.locator('div.bread-crumb');
 
     // setup
-    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
     await issuers.searchWithText('Medicine');
     await issuers.openIssuer('Medicine');
@@ -89,10 +89,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -100,7 +100,7 @@ institutions.forEach((institution) => {
     const breadcrumbs = adminPage.page.locator('div.bread-crumb');
 
     // setup
-    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
     await issuers.searchWithText('Medicine');
     await issuers.openIssuer('Medicine');
@@ -131,10 +131,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -144,7 +144,7 @@ institutions.forEach((institution) => {
 
     // setup
     testdata.badgeData.title = `Regular Test automation ${institution}`;
-    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
     await manage.searchWithText('Medicine');
     await manage.openIssuer('Medicine');
@@ -173,10 +173,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -185,7 +185,7 @@ institutions.forEach((institution) => {
 
     // setup
     testdata.badgeData.title = `Micro Test automation ${institution}`;
-    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
     await issuers.searchWithText('Medicine');
     await issuers.openIssuer('Medicine');
@@ -214,10 +214,10 @@ institutions.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'HBO' || institution == 'MBO',
+      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'HBO' && institution != 'MBO',
+      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
@@ -226,7 +226,7 @@ institutions.forEach((institution) => {
 
     // setup
     testdata.badgeData.title = `Extra Test automation ${institution}`;
-    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
     await issuers.searchWithText('Medicine');
     await issuers.openIssuer('Medicine');

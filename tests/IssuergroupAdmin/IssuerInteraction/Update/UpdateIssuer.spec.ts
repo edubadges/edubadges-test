@@ -5,13 +5,14 @@ institutions.forEach((institution) => {
   test(`Edit ${institution} issuer`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
-      institution == 'MBO',
+      institution == 'HBO' || institution == 'MBO',
     );
     expect(
-      institution != 'MBO',
+      institution != 'HBO' && institution != 'MBO',
     ).toBeTruthy();
 
     // var
+    const issuergroupName = 'Medicine';
     const initialIssuerName = 'Initial issuer name';
     const initialIssuerDesc = 'Initial description';
     const editedIssuerName = 'Edited issuer name';
@@ -25,7 +26,8 @@ institutions.forEach((institution) => {
     // setup
     await adminPage.loginTestIdp(institution, 'Issuergroup');
     await adminPage.goToManage();
-    await adminPage.managePage.goToIssuers();
+    await adminPage.managePage.goToIssuerGroups();
+    await adminPage.managePage.issuerGroupPage.openIssuerGroup(issuergroupName);
     await issuers.createNewIssuer(initialIssuerName, initialIssuerDesc);
 
     await adminPage.goToManage();
