@@ -4,16 +4,15 @@ import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 institutionsWithoutHBO.forEach((institution) => {
   test(`Login at ${institution}`, async ({ backpackPage }) => {
     // var
-    const maskedLocators = [backpackPage.page.locator('.content')];
+    const loggedInMenu = backpackPage.page.locator('.expand-menu');
+    const backPackButton = backpackPage.page.getByText('My backpack').nth(1);
 
     // test
     await backpackPage.login(institution);
 
     // validate
-    await expect(backpackPage.page.locator('.expand-menu')).toBeVisible();
-    await expect(
-      backpackPage.page.getByText('My backpack').nth(1),
-    ).toBeVisible();
+    await expect(loggedInMenu).toBeVisible();
+    await expect(backPackButton).toBeVisible();
   });
 });
 
