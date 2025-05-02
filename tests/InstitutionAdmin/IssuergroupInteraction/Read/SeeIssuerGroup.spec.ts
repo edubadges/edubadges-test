@@ -3,14 +3,6 @@ import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
   test(`See ${institution} issuer group`, async ({ adminPage }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuerGroup = adminPage.managePage.issuerGroupPage;
     const existingGroupName = 'Science';
@@ -21,7 +13,7 @@ institutions.forEach((institution) => {
     const crumbMask = adminPage.page.locator('div.bread-crumb');
 
     // test
-    await adminPage.loginTestIdp(institution, 'Issuer');
+    await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();
     await adminPage.managePage.goToIssuerGroups();
     await issuerGroup.searchWithText(existingGroupName);
