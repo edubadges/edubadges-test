@@ -2,11 +2,11 @@ import { expect, test } from '../../../../fixtures/staffFixture';
 import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Edit ${institution} issuer group`, async ({ adminPage }) => {
+  test(`Create ${institution} issuer group`, async ({ adminPage }) => {
     // var
     const issuerGroup = adminPage.managePage.issuerGroupPage;
-    const issuergroupName = 'FirstIssuerGroupName';
-    const issuergroupDesc = 'First description';
+    const issuergroupName = 'IssuerGroupName';
+    const issuergroupDesc = 'The description';
 
     const editButton = adminPage.page.getByRole('link', {
       name: 'Edit issuer group',

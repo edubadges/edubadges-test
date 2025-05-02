@@ -5,7 +5,7 @@ institutions.forEach((institution) => {
   test(`Edit ${institution} issuer group`, async ({ adminPage }) => {
     // var
     const issuerGroup = adminPage.managePage.issuerGroupPage;
-    const initialIssuerGroupName = 'FirstIssuerGroupName';
+    const initialIssuerGroupName = 'InitialIssuerGroupName';
     const initialIssuerGroupDesc = 'First description';
     const editedIssuerGroupName = 'SecondIssuerGroupName';
     const editedIssuerGroupDesc = 'Second description';
