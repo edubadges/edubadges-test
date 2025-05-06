@@ -4,12 +4,8 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Create new ${institution} issuer`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
+    await test.fail(institution == 'HBO' || institution == 'MBO');
+    expect(institution != 'HBO' && institution != 'MBO').toBeTruthy();
 
     // var
     const existingIssuergroupName = 'Medicine';
@@ -21,7 +17,9 @@ institutions.forEach((institution) => {
     await adminPage.loginTestIdp(institution, 'Issuergroup');
     await adminPage.goToManage();
     await adminPage.managePage.goToIssuerGroups();
-    await adminPage.managePage.issuerGroupPage.openIssuerGroup(existingIssuergroupName)
+    await adminPage.managePage.issuerGroupPage.openIssuerGroup(
+      existingIssuergroupName,
+    );
 
     // test
     await issuers.createNewIssuer(newIssuerName, descriptionText);

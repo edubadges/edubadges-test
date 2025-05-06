@@ -6,7 +6,7 @@ institutions.forEach((institution) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'HBO');
     await expect(institution != 'HBO').toBeTruthy();
-    
+
     // var
     const badgeName = 'Growth and Development';
 
@@ -18,7 +18,7 @@ institutions.forEach((institution) => {
     // validate
     const groupTitle = adminPage.page.locator('.title').getByRole('heading');
     const breadcrumbs = adminPage.page.locator('.breadcrumb');
-    
+
     await expect(groupTitle).toHaveText(badgeName);
     await expect(breadcrumbs).toHaveText(badgeName);
   });

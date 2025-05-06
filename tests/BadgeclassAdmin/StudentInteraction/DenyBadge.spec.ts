@@ -51,7 +51,11 @@ test('Deny badge with reason from Badgeclasses', async ({
   await adminPage.loginTestIdp(institution, 'Badgeclass');
 
   // test
-  await adminPage.badgeClassPage.denyRequest(badgeName, studentInfo.name, reason);
+  await adminPage.badgeClassPage.denyRequest(
+    badgeName,
+    studentInfo.name,
+    reason,
+  );
 
   // validate
   await expect(

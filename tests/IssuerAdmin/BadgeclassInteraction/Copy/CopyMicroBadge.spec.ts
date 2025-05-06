@@ -2,9 +2,7 @@ import { expect, test } from '../../../../fixtures/staffFixture';
 import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Copy existing micro ${institution} edubadge`, async ({
-    adminPage,
-  }) => {
+  test(`Copy existing micro ${institution} edubadge`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(
       institution == 'WO' || institution == 'HBO' || institution == 'MBO',

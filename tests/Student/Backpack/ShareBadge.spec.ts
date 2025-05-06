@@ -56,7 +56,10 @@ institutionsWithoutHBO.forEach((institution) => {
       await catalogPage.requestEdubadge(institution);
 
       await adminPage.loginTestIdp(institution, 'Institution');
-      await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
+      await adminPage.badgeClassPage.approveRequest(
+        badgeName,
+        studentInfo.name,
+      );
 
       await backpackPage.login(institution);
       await backpackPage.openBackpack();

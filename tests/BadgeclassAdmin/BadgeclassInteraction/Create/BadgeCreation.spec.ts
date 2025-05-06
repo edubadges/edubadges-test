@@ -8,10 +8,12 @@ institutions.forEach((institution) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'WO' || institution == 'HBO');
     await expect(institution != 'WO' && institution != 'HBO').toBeTruthy();
-    
+
     // var
     const existingBadge = 'Growth and development';
-    const issuerBreadcrumb = adminPage.page.locator('[href*="/manage/issuer/"]').first();
+    const issuerBreadcrumb = adminPage.page
+      .locator('[href*="/manage/issuer/"]')
+      .first();
     const newBadgeButton = adminPage.page.getByRole('link', {
       name: 'Add new badge class',
     });
