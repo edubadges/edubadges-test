@@ -17,6 +17,7 @@ institutions.forEach((institution) => {
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToBadgeClasses();
+    await adminPage.badgeClassPage.searchWithText(badgeName);
     await adminPage.badgeClassPage.openBadge(badgeName);
     await adminPage.badgeClassPage.goToAdminView();
 
