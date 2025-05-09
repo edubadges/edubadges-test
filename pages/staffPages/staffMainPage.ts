@@ -16,6 +16,7 @@ export class StaffMainPage extends BasePage {
   });
   private readonly dutchLink = this.page.getByRole('link', { name: 'NL' });
   private readonly expandMenu = this.page.locator('.expand-menu');
+  private readonly logoutButton = this.expandMenu.getByText('Logout');
 
   // Navigation locators
   private readonly badgeClassesLink = this.page.getByRole('link', {
@@ -140,6 +141,12 @@ export class StaffMainPage extends BasePage {
       await consentButtonLocator.click();
       await this.expandMenu.waitFor();
     }
+  }
+
+  async logout() {
+    await this.expandMenu.click();
+    await this.logoutButton.click();
+    await this.expandMenu.waitFor({ state: 'detached' });
   }
 
   // Navigation methods
