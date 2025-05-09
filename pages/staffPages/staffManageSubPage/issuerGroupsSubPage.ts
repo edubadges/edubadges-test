@@ -49,6 +49,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
     issueOnBehalf: boolean = false,
     organisationURL: string = '',
     linkedInURL: string = '',
+    customIssuergroupName?: string,
   ) {
     await this.addNewIssuerGroupButton.click();
     await this.waitForLoadingToStop();
@@ -60,6 +61,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
       issueOnBehalf,
       organisationURL,
       linkedInURL,
+      customIssuergroupName,
     );
     await this.saveButton.click();
     await this.waitForLoadingToStop();
@@ -125,12 +127,21 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
     issueOnBehalf: boolean,
     organisationURL: string,
     linkedInURL: string,
+    customIssuergroupName?: string,
   ) {
     await this.tabChoiceLocator
       .getByText(isEnglish ? 'English' : 'Dutch')
       .click();
     await this.titleField.fill(groupName);
     await this.descriptionField.fill(groupDesc);
+
+    if(customIssuergroupName){
+      const listItems = this.page.locator('div.listContainer');
+      const issuergroupLocator = this.page.locator('div.item').getByText(customIssuergroupName);
+
+      await listItems.selectOption(customIssuergroupName);
+    }
+  
 
     if (issueOnBehalf) {
       await this.issueOnBehalfButton.click({ force: true });
