@@ -258,8 +258,8 @@ export class IssuersSubPage extends BaseStaffSubPage {
   }
 
   async createRegularBadge(
-    issuerGroupName: string,
     badgeTitle: string,
+    issuergroupName?: string,
     badgeDesc: string = this.testdata.badgeData.description,
     learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
     criterium: string = this.testdata.badgeData.criteria,
@@ -273,8 +273,10 @@ export class IssuersSubPage extends BaseStaffSubPage {
     frameworkCode: string = this.testdata.badgeData.frameworkCode,
     frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
   ) {
-    await this.searchWithText(issuerGroupName);
-    await this.openIssuer(issuerGroupName);
+    if(issuergroupName){
+      await this.searchWithText(issuergroupName);
+      await this.openIssuer(issuergroupName);
+    }
     await this.clickNewBadgeClass();
     await this.clickRegularBadge();
     await this.fillInBadgeForm(

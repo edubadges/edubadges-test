@@ -26,8 +26,8 @@ institutions.forEach((institution) => {
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();
     await issuers.createRegularBadge(
-      issuerGroupName,
       initialBadgeName,
+      issuerGroupName,
       badgeDesc,
       badgeOutcome,
       badgeCriterium,

@@ -13,7 +13,7 @@ institutions.forEach((institution) => {
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();
-    await issuers.createRegularBadge(issuerGroupName, badgeName);
+    await issuers.createRegularBadge(badgeName, issuerGroupName);
 
     // test
     await issuers.removeExistingBadge();
