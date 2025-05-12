@@ -132,6 +132,7 @@ export class BackpackPage extends BasePage {
   }
   //#endregion
 
+  //#region share
   async makeEdubadgePublic(badgeName: string) {
     // navigate
     await this.page.goto('');
@@ -166,4 +167,5 @@ export class BackpackPage extends BasePage {
       .poll(async () => this.page.locator('.check').count())
       .toBeGreaterThanOrEqual(9);
   }
+  //#endregion
 }
