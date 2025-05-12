@@ -137,11 +137,8 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
 
     if(customIssuergroupName){
       const listItems = this.page.locator('div.listContainer');
-      const issuergroupLocator = this.page.locator('div.item').getByText(customIssuergroupName);
-
       await listItems.selectOption(customIssuergroupName);
     }
-  
 
     if (issueOnBehalf) {
       await this.issueOnBehalfButton.click({ force: true });
