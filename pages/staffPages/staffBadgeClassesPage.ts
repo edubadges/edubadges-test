@@ -9,6 +9,9 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
   private readonly openRequestsLink = this.page.getByRole('link', {
     name: 'Open requests',
   });
+  private readonly inBackpackLink = this.page.getByRole('link', {
+    name: 'In backpack',
+  });
   private readonly contentLocator = this.page.locator('.content');
   private readonly optionsLocator = this.page.locator('.options');
   private readonly mailOnlyCheckbox = this.page
@@ -58,13 +61,34 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.searchWithText(courseName);
     await this.openBadge(courseName);
     await this.openRequests();
-    await this.selectRequest(studentName);
+    await this.selectTableRow(studentName);
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
     await this.page.waitForTimeout(500);
     await this.optionsLocator.getByRole('link', { name: 'Award' }).click();
     await this.page.getByText('The request(s) have been awarded.').waitFor();
   }
 
+  async denyRequest(courseName: string, studentName: string) {
+    await this.searchWithText(courseName);
+    await this.openBadge(courseName);
+    await this.openRequests();
+    await this.selectTableRow(studentName);
+    await this.page.getByRole('link', { name: 'Deny request', exact: true }).click();
+    await this.optionsLocator.getByRole('link', { name: 'Confirm' }).click();
+    await this.page.getByText('The request(s) have been denied.').waitFor();
+  }
+
+  async revokeAwardedBadge(courseName: string, studentName: string, reason: string) {
+    await this.searchWithText(courseName);
+    await this.openBadge(courseName);
+    await this.openInBackpack();
+    await this.selectTableRow(studentName);
+    await this.page.getByRole('link', { name: 'Revoke edubadge', exact: true }).click();
+    await this.page.locator('input#invocation-reason').fill(reason);
+    await this.optionsLocator.getByRole('link', { name: 'Confirm' }).click();
+    await this.page.getByText('The edubadge(s) have been revoked.').waitFor();
+  }
+  
   public async goToAdminView() {
     await this.page.getByText('Go to admin view').click();
     await this.waitForLoadingToStop();
@@ -74,7 +98,11 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.openRequestsLink.click();
   }
 
-  private async selectRequest(studentName: string) {
+  private async openInBackpack() {
+    await this.inBackpackLink.click();
+  }
+
+  private async selectTableRow(studentName: string) {
     await this.page
       .getByText(studentName)
       .locator('../../..')
