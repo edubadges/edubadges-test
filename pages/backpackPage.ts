@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test';
+import { expect, Locator } from '@playwright/test';
 import { BasePage } from './basePage';
 import { CopyPastePage } from './copyPastePage';
 import { institution } from '../util/loginPossibilities';
@@ -26,6 +26,9 @@ export class BackpackPage extends BasePage {
   private readonly claimLink = this.page.getByRole('link', {
     name: 'Claim & Add to your backpack',
   });
+  private readonly reacceptLink = this.page.getByRole('link', {
+    name: 'Accept this edubadge',
+  })
   private readonly rejectLink = this.page.getByRole('link', { name: 'Reject' });
 
   // Login locators
@@ -57,6 +60,14 @@ export class BackpackPage extends BasePage {
 
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
+  
+  public async getBadgeLocator(badgeName: string) : Promise<Locator> {
+    return this.page
+      .locator('.card.badge')
+      .getByText(badgeName)
+      .first()
+      .locator('../../..');
+  }
 
   public async claimReceivedBadge(badgeName: string) {
     const badgeLocator = this.page
@@ -64,8 +75,7 @@ export class BackpackPage extends BasePage {
       .getByText(badgeName)
       .locator('../../..');
 
-    await badgeLocator
-      .getByText('View details to claim this edubadge')
+    await badgeLocator.getByText('View details to claim this edubadge')
       .waitFor();
     await badgeLocator.click();
 
@@ -95,7 +105,17 @@ export class BackpackPage extends BasePage {
     await this.page.getByText('Edubadge is rejected').waitFor();
   }
 
-  //#region open categories
+  public async reacceptRejectedBadge(badgeName: string) {
+    const badgeLocator = await this.getBadgeLocator(badgeName);
+    await badgeLocator.getByText('Rejected').waitFor();
+    await badgeLocator.click();
+    await this.confirmButton.click();
+
+    await this.page.getByText('This edubadge has been accepted. You can share this edubadge now')
+      .waitFor();
+  }
+
+  //#region navigation
   async openBackpack() {
     await this.backpackLink.click();
     await this.waitForLoadingToStop();
@@ -127,7 +147,17 @@ export class BackpackPage extends BasePage {
   }
 
   async openBadge(badgeName: string) {
-    await this.page.locator('.card.badge').getByText(badgeName).first().click();
+    await this.page.locator('.card.badge')
+      .getByText(badgeName).first()
+      .click();
+    await this.waitForLoadingToStop();
+  }
+
+  async clickBadgeBreadcrumb() {
+    await this.page
+      .locator('div.student-bread-crumb')
+      .getByText('Your edubadges')
+      .click();
     await this.waitForLoadingToStop();
   }
   //#endregion
