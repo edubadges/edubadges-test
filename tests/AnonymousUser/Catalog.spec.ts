@@ -25,7 +25,7 @@ test('Search for non existing badge', async ({ catalogPage }) => {
   const course = 'I do not exist` this course is not real?';
 
   // test
-  await catalogPage.searchForClass(course);
+  await catalogPage.searchWithText(course);
 
   // validate
   await expect(catalogPage.page).toHaveScreenshot('emptyCatalogPage.png');
@@ -37,9 +37,9 @@ test('Look at existing badge', async ({ catalogPage }) => {
   const institution: institution = 'MBO';
 
   // test
-  await catalogPage.searchForClass(course);
+  await catalogPage.searchWithText(course);
   await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
+  await catalogPage.openBadge(course);
 
   // validate
   await expect(catalogPage.page).toHaveScreenshot('edubadgeAnonymous.png');

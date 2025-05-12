@@ -14,9 +14,9 @@ institutionsWithoutHBO.forEach((institution) => {
     const badgeInfo = catalogPage.page.locator('.content');
 
     // setup
-    await catalogPage.searchForClass(course);
+    await catalogPage.searchWithText(course);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
+    await catalogPage.openBadge(course);
 
     // test
     await catalogPage.page
@@ -40,9 +40,9 @@ institutionsWithoutHBO.forEach((institution) => {
     );
 
     // setup
-    await catalogPage.searchForClass(course);
+    await catalogPage.searchWithText(course);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
+    await catalogPage.openBadge(course);
 
     // test
     await catalogPage.requestEdubadge(institution);
@@ -60,9 +60,9 @@ test('Log out from catalog', async ({ catalogPage }) => {
   const institution: institution = 'WO';
 
   // setup
-  await catalogPage.searchForClass(course);
+  await catalogPage.searchWithText(course);
   await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(course);
+  await catalogPage.openBadge(course);
   await catalogPage.page
     .getByRole('link', { name: 'Login to request this edubadge' })
     .click();

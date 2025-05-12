@@ -30,7 +30,7 @@ export class CatalogPage extends BasePage {
   });
   private readonly successBar = this.page.getByText('Successfully requested');
 
-  async searchForClass(name: string) {
+  async searchWithText(name: string) {
     await this.searchField.fill(name);
   }
 
@@ -51,7 +51,7 @@ export class CatalogPage extends BasePage {
     await this.page.getByText(institutionName).click();
   }
 
-  async openEduClass(name: string) {
+  async openBadge(name: string) {
     await this.page.getByText(name).first().click();
     await expect(
       this.page.getByRole('heading', { name: 'The programme' }),

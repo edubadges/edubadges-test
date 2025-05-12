@@ -13,9 +13,9 @@ institutionsWithoutHBO.forEach((institution) => {
       .name;
 
     //setup
-    await catalogPage.searchForClass(course);
+    await catalogPage.searchWithText(course);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
+    await catalogPage.openBadge(course);
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Institution');
@@ -54,9 +54,9 @@ institutionsWithoutHBO.forEach((institution) => {
       .name;
 
     //setup
-    await catalogPage.searchForClass(course);
+    await catalogPage.searchWithText(course);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
+    await catalogPage.openBadge(course);
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Institution');

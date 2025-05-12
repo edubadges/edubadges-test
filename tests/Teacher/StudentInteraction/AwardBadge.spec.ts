@@ -12,9 +12,9 @@ institutionsWithoutHBO.forEach((institution) => {
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
-    await catalogPage.searchForClass(course);
+    await catalogPage.searchWithText(course);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(course);
+    await catalogPage.openBadge(course);
     await catalogPage.requestEdubadge(institution);
 
     // test
