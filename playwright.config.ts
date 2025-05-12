@@ -25,7 +25,7 @@ export default defineConfig({
     ['html', { open: 'never' }],
     ['junit', { outputFile: 'test-results.xml' }],
   ],
-  timeout: 120000,
+  timeout: 2 * 60 * 1000, // 2 minutes
 
   use: {
     // Base URL to use in actions like `await page.goto('/')`.
