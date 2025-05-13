@@ -5,14 +5,6 @@ institutions.forEach((institution) => {
   test(`Copy existing extracurricular ${institution} edubadge`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuerGroupName = 'Medicine';
     const initialBadgeName = 'A new Medicine extra curricular badge';

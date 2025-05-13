@@ -3,10 +3,6 @@ import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
   test(`See badge in ${institution} staff page`, async ({ adminPage }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(institution == 'HBO');
-    await expect(institution != 'HBO').toBeTruthy();
-
     // var
     const badgeName = 'Growth and Development';
 

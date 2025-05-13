@@ -7,9 +7,9 @@ institutions.forEach((institution) => {
     catalogPage,
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(institution == 'HBO' || institution == 'MBO');
-    expect(institution != 'HBO' && institution != 'MBO').toBeTruthy();
-
+    await test.fail(institution == 'MBO');
+    expect(institution != 'MBO').toBeTruthy();
+    
     // var
     const badgeName = 'Regulation and Integration';
     const studentInfo = await adminPage.getStudentAccount(institution);
@@ -74,8 +74,6 @@ test('Deny badge with reason from Manage', async ({
   const studentInfo = await adminPage.getStudentAccount(institution);
 
   // setup
-  await test.fail(institution == 'WO');
-  await expect(institution != 'WO');
   await catalogPage.searchForClass(badgeName);
   await catalogPage.filterOn(institution);
   await catalogPage.openEduClass(badgeName);

@@ -5,14 +5,6 @@ institutions.forEach((institution) => {
   test(`Edit existing Regular ${institution} edubadge`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuerGroupName = 'Medicine';
     const initialBadgeName = `Original regular ${institution} badge`;
@@ -57,14 +49,6 @@ institutions.forEach((institution) => {
   test(`Edit existing ${institution} micro credential`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuerGroupName = 'Medicine';
     const initialBadgeName = 'Original name micro credential badge';
@@ -106,14 +90,6 @@ institutions.forEach((institution) => {
   test(`Edit existing extra curricular ${institution} edubadge`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuerGroupName = 'Medicine';
     const initialBadgeName = 'Original extra curricular Editbadge';

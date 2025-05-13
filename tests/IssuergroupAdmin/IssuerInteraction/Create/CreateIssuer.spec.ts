@@ -3,10 +3,6 @@ import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
   test(`Create new ${institution} issuer`, async ({ adminPage }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(institution == 'HBO' || institution == 'MBO');
-    expect(institution != 'HBO' && institution != 'MBO').toBeTruthy();
-
     // var
     const existingIssuergroupName = 'Medicine';
     const newIssuerName = 'New WO Issuer';

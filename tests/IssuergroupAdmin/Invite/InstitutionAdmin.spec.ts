@@ -5,6 +5,10 @@ institutions.forEach((institution) => {
   test(`Try to invite ${institution} user as institution admin`, async ({
     adminPage,
   }) => {
+    // fail if correct account is missing. SHOULD BE CHANGED
+    await test.fail(institution == 'MBO' || institution == 'HBO');
+    expect(institution != 'MBO' && institution != 'HBO').toBeTruthy();
+    
     // var
     const addUserButton = adminPage.page.getByRole('link', {
       name: 'Invite new user',

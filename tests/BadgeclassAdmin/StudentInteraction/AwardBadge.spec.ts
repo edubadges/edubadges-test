@@ -28,13 +28,9 @@ institutionsWithoutHBO.forEach((institution) => {
 
   test(`Send badge directly from ${institution}`, async ({ adminPage }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
+    await test.fail(institution == 'MBO');
+    expect(institution != 'MBO').toBeTruthy();
+    
     // var
     const badgeName = 'Cognitive Psychology';
     const studentInfo = await adminPage.getStudentAccount(institution);
@@ -60,7 +56,7 @@ institutionsWithoutHBO.forEach((institution) => {
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
-    await expect(institution != 'MBO').toBeTruthy();
+    expect(institution != 'MBO').toBeTruthy();
 
     // var
     const badgeName = 'Regulation and Integration';
@@ -79,9 +75,5 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(
       adminPage.page.getByText('Direct awards have been sent'),
     ).toBeVisible();
-
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(institution == 'MBO');
-    expect(institution != 'MBO').toBeTruthy();
   });
 });

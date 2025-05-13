@@ -5,14 +5,6 @@ institutions.forEach((institution) => {
   test(`Remove existing regular ${institution} badge`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuerGroupName = 'Medicine';
     const badgeName = 'Regular badge to delete, should be deleted';
@@ -34,14 +26,6 @@ institutions.forEach((institution) => {
   test(`Remove existing ${institution} micro credential`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuerGroupName = 'Medicine';
     const badgeName = 'Micro credential badge to delete, should be deleted';
@@ -63,14 +47,6 @@ institutions.forEach((institution) => {
   test(`Remove existing extra curricular ${institution} badge`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuerGroupName = 'Medicine';
     const badgeName = 'Extra curricular badge to delete, should be deleted';

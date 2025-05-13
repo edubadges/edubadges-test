@@ -5,14 +5,6 @@ institutions.forEach((institution) => {
   test(`Validate error messages empty ${institution} microcredential form`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuers = adminPage.managePage.issuersPage;
     const breadcrumbs = adminPage.page.locator('div.bread-crumb');
@@ -46,14 +38,6 @@ institutions.forEach((institution) => {
   test(`Validate error messages empty ${institution} regular badge form`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuers = adminPage.managePage.issuersPage;
     const breadcrumbs = adminPage.page.locator('div.bread-crumb');
@@ -87,14 +71,6 @@ institutions.forEach((institution) => {
   test(`Validate error messages empty ${institution} extra curricular badge form`, async ({
     adminPage,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuers = adminPage.managePage.issuersPage;
     const breadcrumbs = adminPage.page.locator('div.bread-crumb');
@@ -129,14 +105,6 @@ institutions.forEach((institution) => {
     adminPage,
     testdata,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuers = adminPage.managePage.issuersPage;
     const creationInformation = adminPage.page.locator('div.list');
@@ -171,14 +139,6 @@ institutions.forEach((institution) => {
     adminPage,
     testdata,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
     // var
     const issuers = adminPage.managePage.issuersPage;
     const creationInformation = adminPage.page.locator('div.list');
@@ -212,15 +172,7 @@ institutions.forEach((institution) => {
     adminPage,
     testdata,
   }) => {
-    // fail if correct account is missing. SHOULD BE CHANGED
-    await test.fail(
-      institution == 'WO' || institution == 'HBO' || institution == 'MBO',
-    );
-    expect(
-      institution != 'WO' && institution != 'HBO' && institution != 'MBO',
-    ).toBeTruthy();
-
-    // var
+    /// var
     const issuers = adminPage.managePage.issuersPage;
     const creationInformation = adminPage.page.locator('div.list');
 
