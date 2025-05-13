@@ -61,6 +61,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.badgeClassPage.approveRequest(course, studentName);
 
+    await backpackPage.login(institution);
     await backpackPage.openBackpack();
     await backpackPage.reloadPage();
     await backpackPage.makeEdubadgePublic(course);
