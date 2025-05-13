@@ -45,6 +45,7 @@ institutionsWithoutHBO.forEach((institution) => {
     const succBar = backpackPage.page.getByText(
       'Successfully claimed edubadge',
     );
+    const confirmButton = backpackPage.page.getByRole('link', { name: 'Confirm' });
     const studentAccount = await backpackPage.getStudentAccount(institution);
 
     // setup
@@ -63,7 +64,8 @@ institutionsWithoutHBO.forEach((institution) => {
     await backpackPage.page.waitForTimeout(500);
     await claimText.click();
     await backpackPage.page.waitForTimeout(500);
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+    await backpackPage.handleTermsAndConditions(confirmButton);
+    await confirmButton.click();
 
     // validate
     await expect(succBar).toBeVisible();

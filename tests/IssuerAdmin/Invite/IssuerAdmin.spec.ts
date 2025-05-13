@@ -1,4 +1,4 @@
-import { expect, test } from '../../../fixtures/staffFixture';
+import { test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {

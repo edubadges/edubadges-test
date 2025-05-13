@@ -41,13 +41,15 @@ institutionsWithoutHBO.forEach((institution) => {
     );
   });
 
-  // known issue on the verification of the public badge
-  test.fail(
-    `Share public ${institution} edubadge`,
-    async ({ catalogPage, backpackPage, adminPage }) => {
-      //var
-      const badgeName = 'History of Political Thought';
-      const studentInfo = await adminPage.getStudentAccount(institution);
+  test(`Share public ${institution} edubadge`, async ({
+    catalogPage,
+    backpackPage,
+    adminPage,
+  }) => {
+    //var
+    const badgeName = 'History of Political Thought';
+    const studentName = (await backpackPage.getStudentAccount(institution))
+      .name;
 
       //setup
       await catalogPage.searchForClass(badgeName);
@@ -55,16 +57,13 @@ institutionsWithoutHBO.forEach((institution) => {
       await catalogPage.openEduClass(badgeName);
       await catalogPage.requestEdubadge(institution);
 
-      await adminPage.loginTestIdp(institution, 'Institution');
-      await adminPage.badgeClassPage.approveRequest(
-        badgeName,
-        studentInfo.name,
-      );
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.badgeClassPage.approveRequest(badgeName, studentName);
 
-      await backpackPage.login(institution);
-      await backpackPage.openBackpack();
-      await backpackPage.reloadPage();
-      await backpackPage.makeEdubadgePublic(badgeName);
+    await backpackPage.login(institution);
+    await backpackPage.openBackpack();
+    await backpackPage.reloadPage();
+    await backpackPage.makeEdubadgePublic(badgeName);
 
       await backpackPage.page.getByRole('link', { name: 'Share' }).waitFor();
       await expect(backpackPage.page.locator('.slider')).not.toBeChecked();

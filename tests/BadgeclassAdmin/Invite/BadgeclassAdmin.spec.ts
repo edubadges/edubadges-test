@@ -2,7 +2,10 @@ import { expect, test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Invite ${institution} Badgeclass admin`, async ({ adminPage }) => {
+  test(`Invite ${institution} Badgeclass admin`, async ({ 
+    extraStaffLoginPage,
+    adminPage 
+  }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteBadgeclassAdmin`;
@@ -14,6 +17,7 @@ institutions.forEach((institution) => {
     // setup
     await adminPage.loginTestIdp(institution, 'Badgeclass');
     await adminPage.goToBadgeClasses();
+    await adminPage.badgeClassPage.searchWithText(badgeName);
     await adminPage.badgeClassPage.openBadge(badgeName);
     await adminPage.badgeClassPage.goToAdminView();
 
@@ -27,5 +31,13 @@ institutions.forEach((institution) => {
     await expect(
       adminPage.page.locator('.main-content-margin').getByText(newUserMail),
     ).toBeVisible();
+    await extraStaffLoginPage.loginDummyIdp(
+      newUsername,
+      newUserMail,
+      institutionServer,
+    );
+
+    // validate
+    await extraStaffLoginPage.validateLoginSuccessful();
   });
 });

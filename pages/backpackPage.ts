@@ -133,7 +133,7 @@ export class BackpackPage extends BasePage {
     await this.waitForLoadingToStop();
     await this.openBadge(badgeName);
     await this.waitForLoadingToStop();
-    await this.page.waitForTimeout(250);
+    await this.page.waitForTimeout(250); // reduce flakyness
 
     // make public
     await this.page.locator('.slider').click({ force: true });
@@ -144,8 +144,7 @@ export class BackpackPage extends BasePage {
     await this.page
       .getByText(
         'This edubadge has been made publicly visible. You can share this edubadge now',
-      )
-      .waitFor();
+      ).waitFor();
   }
 
   async getShareLink(): Promise<string> {

@@ -1,11 +1,11 @@
-import { expect, test } from '../../../fixtures/staffFixture';
+import { test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Accept ${institution} Issuergroup admin invite`, async ({
+test(`Accept ${institution} Issuergroup admin invite`, async ({ 
     adminPage,
     extraStaffLoginPage,
-  }) => {
+}) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteIssuergroupAdmin`;
