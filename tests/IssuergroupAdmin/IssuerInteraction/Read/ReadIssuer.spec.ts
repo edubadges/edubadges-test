@@ -13,7 +13,7 @@ institutions.forEach((institution) => {
 
     // var
     const issuer = adminPage.managePage.issuersPage;
-    const existingGroupName = 'Medicine';
+    const existingGroupName = 'Computer Science';
     const badgeInfoMask = adminPage.page.locator('div.info');
     const crumbMask = adminPage.page.locator('div.bread-crumb');
 

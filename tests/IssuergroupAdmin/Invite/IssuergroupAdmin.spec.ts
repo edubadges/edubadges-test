@@ -20,7 +20,7 @@ institutions.forEach((institution) => {
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
     const newUserMail = newUsername + '@' + institutionServer;
-    const issuergroupName = 'Business';
+    const issuergroupName = 'Medicine';
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuergroup');
