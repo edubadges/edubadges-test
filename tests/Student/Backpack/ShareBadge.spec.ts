@@ -46,6 +46,10 @@ institutionsWithoutHBO.forEach((institution) => {
     backpackPage,
     adminPage,
   }) => {
+    // fail if correct account is missing. SHOULD BE CHANGED
+    await test.fail(institution == 'WO' || institution == 'MBO');
+    await expect(institution != 'WO' && institution != 'MBO').toBeTruthy();
+
     //var
     const badgeName = 'History of Political Thought';
     const studentName = (await backpackPage.getStudentAccount(institution))
