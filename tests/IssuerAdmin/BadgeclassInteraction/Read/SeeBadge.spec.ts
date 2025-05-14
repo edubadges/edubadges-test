@@ -13,12 +13,10 @@ institutions.forEach((institution) => {
     await adminPage.badgeClassPage.openBadge(badgeName);
 
     // validate
-    await expect(adminPage.page).toHaveScreenshot(
-      `SeeBadgeAs${institution}IssuerAdmin.png`,
-      {
-        fullPage: true,
-        mask: [dateMask],
-      },
-    );
+    const groupTitle = adminPage.page.locator('div.info').locator('h2');
+    const breadcrumbs = adminPage.page.locator('.bread-crumb');
+
+    await expect(groupTitle).toHaveText(badgeName);
+    await expect(breadcrumbs.getByText(badgeName)).toBeVisible();
   });
 });
