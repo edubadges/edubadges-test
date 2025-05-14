@@ -34,7 +34,7 @@ export class RequestedEdubadgesSubPage extends BaseStaffSubPage {
   private async selectRequest(badgeName: string) {
     await this.page
       .getByText(badgeName)
-      .locator('../../..')
+      .locator('../..')
       .locator('.checkmarked')
       .click();
   }
