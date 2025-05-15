@@ -87,10 +87,7 @@ export class BackpackPage extends BasePage {
   }
 
   public async rejectReceivedBadge(badgeName: string) {
-    const badgeLocator = this.page
-      .locator('.name')
-      .getByText(badgeName)
-      .locator('../../..');
+    const badgeLocator = await this.getBadgeLocator(badgeName);
 
     await this.page.goto('');
     await badgeLocator.click();
