@@ -45,7 +45,9 @@ institutionsWithoutHBO.forEach((institution) => {
     const succBar = backpackPage.page.getByText(
       'Successfully claimed edubadge',
     );
-    const confirmButton = backpackPage.page.getByRole('link', { name: 'Confirm' });
+    const confirmButton = backpackPage.page.getByRole('link', {
+      name: 'Confirm',
+    });
     const studentAccount = await backpackPage.getStudentAccount(institution);
 
     // setup

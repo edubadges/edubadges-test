@@ -144,7 +144,8 @@ export class BackpackPage extends BasePage {
     await this.page
       .getByText(
         'This edubadge has been made publicly visible. You can share this edubadge now',
-      ).waitFor();
+      )
+      .waitFor();
   }
 
   async getShareLink(): Promise<string> {

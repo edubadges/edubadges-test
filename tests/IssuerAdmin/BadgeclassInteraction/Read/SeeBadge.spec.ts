@@ -4,7 +4,6 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`See badge in ${institution} staff page`, async ({ adminPage }) => {
     // var
-    const dateMask = adminPage.page.getByText('Created').locator('../..');
     const badgeName = 'Growth and Development';
 
     // setup

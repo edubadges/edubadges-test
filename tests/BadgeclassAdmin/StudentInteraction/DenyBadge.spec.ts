@@ -9,7 +9,7 @@ institutions.forEach((institution) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
-    
+
     // var
     const badgeName = 'Regulation and Integration';
     const studentInfo = await adminPage.getStudentAccount(institution);

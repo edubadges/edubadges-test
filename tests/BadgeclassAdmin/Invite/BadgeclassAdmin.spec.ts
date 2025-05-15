@@ -2,9 +2,9 @@ import { expect, test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Invite ${institution} Badgeclass admin`, async ({ 
+  test(`Invite ${institution} Badgeclass admin`, async ({
     extraStaffLoginPage,
-    adminPage 
+    adminPage,
   }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;

@@ -55,11 +55,11 @@ institutionsWithoutHBO.forEach((institution) => {
     const studentName = (await backpackPage.getStudentAccount(institution))
       .name;
 
-      //setup
-      await catalogPage.searchForClass(badgeName);
-      await catalogPage.filterOn(institution);
-      await catalogPage.openEduClass(badgeName);
-      await catalogPage.requestEdubadge(institution);
+    //setup
+    await catalogPage.searchForClass(badgeName);
+    await catalogPage.filterOn(institution);
+    await catalogPage.openEduClass(badgeName);
+    await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.badgeClassPage.approveRequest(badgeName, studentName);
@@ -69,12 +69,11 @@ institutionsWithoutHBO.forEach((institution) => {
     await backpackPage.reloadPage();
     await backpackPage.makeEdubadgePublic(badgeName);
 
-      await backpackPage.page.getByRole('link', { name: 'Share' }).waitFor();
-      await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
+    await backpackPage.page.getByRole('link', { name: 'Share' }).waitFor();
+    await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
 
-      // test
-      const url = await backpackPage.getShareLink();
-      await backpackPage.validateBadge(url);
-    },
-  );
+    // test
+    const url = await backpackPage.getShareLink();
+    await backpackPage.validateBadge(url);
+  });
 });
