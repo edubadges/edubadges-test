@@ -6,6 +6,8 @@ import { MBOAccounts } from './MBOAccounts';
 
 export class Testdata {
   public testCaseName: string = '';
+  public retryCount: number = 0;
+
   private _language: Language = Language.en;
   private _pagesForLanguageChangeNotification: BasePageMultiLanguage[] = [];
   readonly badgeData: BadgeData = new BadgeData();
