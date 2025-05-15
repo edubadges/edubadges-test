@@ -93,16 +93,17 @@ export class BackpackPage extends BasePage {
       .locator('../../..');
 
     await this.page.goto('');
-    await badgeLocator
-      .getByText('View details to claim this edubadge')
-      .waitFor();
     await badgeLocator.click();
 
     await this.rejectLink.click();
     await this.confirmButton.click();
     await this.waitForLoadingToStop();
 
-    await this.page.getByText('Edubadge is rejected').waitFor();
+    await this.page.getByText(
+      'This edubadge has been removed. You can no longer download or share this edubadge')
+      .or(this.page.getByText(
+        'Edubadge is rejected')
+    ).waitFor();
   }
 
   public async reacceptRejectedBadge(badgeName: string) {
