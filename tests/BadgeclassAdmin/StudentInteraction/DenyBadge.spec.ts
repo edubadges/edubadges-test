@@ -15,9 +15,9 @@ institutions.forEach((institution) => {
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
-    await catalogPage.searchForClass(badgeName);
+    await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(badgeName);
+    await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Badgeclass');
@@ -43,9 +43,9 @@ test('Deny badge with reason from Badgeclasses', async ({
   const studentInfo = await adminPage.getStudentAccount(institution);
 
   // setup
-  await catalogPage.searchForClass(badgeName);
+  await catalogPage.searchWithText(badgeName);
   await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(badgeName);
+  await catalogPage.openBadge(badgeName);
   await catalogPage.requestEdubadge(institution);
 
   await adminPage.loginTestIdp(institution, 'Badgeclass');
@@ -74,9 +74,9 @@ test('Deny badge with reason from Manage', async ({
   const studentInfo = await adminPage.getStudentAccount(institution);
 
   // setup
-  await catalogPage.searchForClass(badgeName);
+  await catalogPage.searchWithText(badgeName);
   await catalogPage.filterOn(institution);
-  await catalogPage.openEduClass(badgeName);
+  await catalogPage.openBadge(badgeName);
   await catalogPage.requestEdubadge(institution);
 
   await adminPage.loginTestIdp(institution, 'Badgeclass');

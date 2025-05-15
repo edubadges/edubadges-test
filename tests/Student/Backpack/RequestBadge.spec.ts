@@ -18,9 +18,9 @@ institutions.forEach((institution) => {
       .locator('../../..');
 
     //setup
-    await catalogPage.searchForClass(badgeName);
+    await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(badgeName);
+    await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
 
     await backpackPage.login(institution);
@@ -53,9 +53,9 @@ institutions.forEach((institution) => {
       .locator('../../..');
 
     //setup
-    await catalogPage.searchForClass(badgeName);
+    await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(badgeName);
+    await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
 
     await backpackPage.login(institution);

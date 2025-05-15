@@ -91,9 +91,9 @@ institutionsWithoutHBO.forEach((institution) => {
       .getByText('View details to claim this edubadge');
 
     // setup
-    await catalogPage.searchForClass(badgeName);
+    await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openEduClass(badgeName);
+    await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Institution');
@@ -101,7 +101,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
     // test
     await adminPage.goToBadgeClasses();
-    await adminPage.badgeClassPage.revokeBadge(
+    await adminPage.badgeClassPage.revokeAwardedBadge(
       badgeName,
       studentInfo.name,
       reason,
