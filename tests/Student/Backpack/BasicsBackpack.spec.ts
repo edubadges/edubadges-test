@@ -36,7 +36,7 @@ test('See subcategories', async ({ backpackPage }) => {
   const maskedLocators = [backpackPage.page.locator('.content')];
 
   // setup
-  await backpackPage.login('WO');
+  await backpackPage.login('WO', 1);
 
   // test & validate
   await backpackPage.openBadgeRequests();

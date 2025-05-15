@@ -9,14 +9,14 @@ institutionsWithoutHBO.forEach((institution) => {
     catalogPage,
   }) => {
     // var
-    const course = 'Research Methods';
+    const badgeName = 'Research Methods';
     const breadcrumbs = catalogPage.page.locator('div.bread-crumb');
     const badgeInfo = catalogPage.page.locator('.content');
 
     // setup
-    await catalogPage.searchWithText(course);
+    await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openBadge(course);
+    await catalogPage.openBadge(badgeName);
 
     // test
     await catalogPage.page
@@ -34,15 +34,15 @@ institutionsWithoutHBO.forEach((institution) => {
 
   test(`Request ${institution} badge`, async ({ catalogPage }) => {
     // var
-    const course = 'Group Dynamics';
+    const badgeName = 'Group Dynamics';
     const succBar = catalogPage.page.getByText(
-      `successfully requested edubadge ${course}`,
+      `successfully requested edubadge ${badgeName}`,
     );
 
     // setup
-    await catalogPage.searchWithText(course);
+    await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openBadge(course);
+    await catalogPage.openBadge(badgeName);
 
     // test
     await catalogPage.requestEdubadge(institution);
@@ -56,19 +56,18 @@ institutionsWithoutHBO.forEach((institution) => {
 // only runs once because logging in is tested in a previous test
 test('Log out from catalog', async ({ catalogPage }) => {
   // var
-  const course = 'Introduction to Psychology';
+  const badgeName = 'Introduction to Psychology';
   const institution: institution = 'WO';
 
   // setup
-  await catalogPage.searchWithText(course);
+  await catalogPage.searchWithText(badgeName);
   await catalogPage.filterOn(institution);
-  await catalogPage.openBadge(course);
+  await catalogPage.openBadge(badgeName);
   await catalogPage.page
     .getByRole('link', { name: 'Login to request this edubadge' })
     .click();
   await catalogPage.loginStudentIdp(institution);
   await catalogPage.waitForLoadingToStop();
-  await catalogPage.page.goto('/catalog');
 
   // test
   await catalogPage.page.locator('.expand-menu').click();

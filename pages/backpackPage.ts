@@ -31,15 +31,10 @@ export class BackpackPage extends BasePage {
   });
   private readonly rejectLink = this.page.getByRole('link', { name: 'Reject' });
 
-  // Login locators
-  private readonly searchField = this.page.getByPlaceholder('Search...');
   private readonly usernameField = this.page.getByPlaceholder(
     'e.g. user@gmail.com',
   );
   private readonly passwordField = this.page.getByPlaceholder('Password');
-  private readonly eduIdButton = this.page.getByRole('heading', {
-    name: 'Login with eduID (NL) test',
-  });
   private readonly nextButton = this.page.locator('[href*="/next"]');
   private readonly loggedInMenu = this.page.locator('.expand-menu');
 
@@ -170,6 +165,7 @@ export class BackpackPage extends BasePage {
     await this.waitForLoadingToStop();
     await this.openBadge(badgeName);
     await this.waitForLoadingToStop();
+    await this.page.waitForTimeout(250); // reduce flakyness
 
     // make public
     await this.page.locator('.slider').click({ force: true });

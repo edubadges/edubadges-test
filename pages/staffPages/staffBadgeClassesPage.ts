@@ -1,7 +1,8 @@
+import { expect } from '@playwright/test';
 import { BaseStaffSubPage } from './baseStaffSubPage';
 
 export class StaffBadgeClassesPage extends BaseStaffSubPage {
-  // Action locators
+  // Locators
   private readonly awardEdubadgeLink = this.page.getByRole('link', {
     name: 'Award edubadge(s)',
   });
@@ -19,6 +20,10 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     .locator('..')
     .locator('.checkmarked');
 
+  async expectBadgeclassesPage() {
+    await expect(this.page.locator('.expand-menu')).toBeVisible();
+    await expect(this.page.getByText('Filter badge classes')).toBeVisible();
+  }
   /**
    * Direct award a badge to a student. Omit EPPN to award through private mail.
    */
@@ -57,9 +62,9 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
   /**
    * Approves a badge request for a student.
    */
-  async approveRequest(courseName: string, studentName: string) {
-    await this.searchWithText(courseName);
-    await this.openBadge(courseName);
+  async approveRequest(badgeName: string, studentName: string) {
+    await this.searchWithText(badgeName);
+    await this.openBadge(badgeName);
     await this.openRequests();
     await this.selectTableRow(studentName);
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
@@ -68,14 +73,20 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByText('The request(s) have been awarded.').waitFor();
   }
 
-  async denyRequest(courseName: string, studentName: string) {
-    await this.searchWithText(courseName);
-    await this.openBadge(courseName);
+  async denyRequest(badgeName: string, studentName: string, reason?: string) {
+    await this.searchWithText(badgeName);
+    await this.openBadge(badgeName);
     await this.openRequests();
     await this.selectTableRow(studentName);
     await this.page
       .getByRole('link', { name: 'Deny request', exact: true })
       .click();
+    await this.page.waitForTimeout(500);
+
+    if (reason) {
+      await this.page.locator('input#revocation-reason').fill(reason);
+    }
+
     await this.optionsLocator.getByRole('link', { name: 'Confirm' }).click();
     await this.page.getByText('The request(s) have been denied.').waitFor();
   }

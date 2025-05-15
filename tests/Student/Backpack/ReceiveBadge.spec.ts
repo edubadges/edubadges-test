@@ -72,4 +72,46 @@ institutionsWithoutHBO.forEach((institution) => {
     // validate
     await expect(succBar).toBeVisible();
   });
+
+  test(`Have received ${institution} badge revoked`, async ({
+    catalogPage,
+    backpackPage,
+    adminPage,
+  }) => {
+    // var
+    const badgeName = 'Need extra badge name';
+    await test.fail(badgeName == 'Need extra badge name');
+    expect(badgeName != 'Need extra badge name').toBeTruthy();
+
+    const reason = 'A valid reason for revocation';
+    const studentInfo = await adminPage.getStudentAccount(institution);
+    const badgeLocator = backpackPage.page
+      .getByText(badgeName)
+      .locator('../../..')
+      .getByText('View details to claim this edubadge');
+
+    // setup
+    await catalogPage.searchForClass(badgeName);
+    await catalogPage.filterOn(institution);
+    await catalogPage.openEduClass(badgeName);
+    await catalogPage.requestEdubadge(institution);
+
+    await adminPage.loginTestIdp(institution, 'Institution');
+    await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
+
+    // test
+    await adminPage.goToBadgeClasses();
+    await adminPage.badgeClassPage.revokeBadge(
+      badgeName,
+      studentInfo.name,
+      reason,
+    );
+
+    // validate
+    await backpackPage.reloadPage();
+    await backpackPage.openArchive();
+    await expect(
+      badgeLocator.locator('.status-indicator.revoked'),
+    ).toBeVisible();
+  });
 });

@@ -5,6 +5,7 @@ import { UserManagement } from './staffManageSubPage/userManagement';
 import { RequestedEdubadgesSubPage } from './staffManageSubPage/requestedEdubadgesSubPage';
 import { UnclaimedDirectAwardsSubPage } from './staffManageSubPage/unclaimedDirectAwardsSubPage';
 import { DeletedDirectAwardsSubPage } from './staffManageSubPage/deletedDirectAwardsSubPage';
+import { expect } from '@playwright/test';
 
 export class StaffManagePage extends BaseStaffSubPage {
   // Navigation locators
@@ -44,38 +45,20 @@ export class StaffManagePage extends BaseStaffSubPage {
   );
   readonly userManagement = new UserManagement(this.page, this.testdata);
 
-  /**
-   * Clicks the according checkbox once.
-   * Finds the tr by finding the courseName and selecting the parent's parent.
-   * Finds the checkbox by searching within the tr
-   */
-  private async selectRequest(courseName: string, studentName: string) {
-    await this.searchWithText(studentName);
-    await this.page
-      .getByRole('link', { name: courseName })
-      .locator('../..')
-      .getByRole('checkbox')
-      .click();
-  }
-
-  async approveRequest(courseName: string, studentName: string) {
-    await this.selectRequest(courseName, studentName);
-    await this.page.getByRole('link', { name: 'Award' }).click();
-    await this.page
-      .locator('.options')
-      .getByRole('link', { name: 'Award' })
-      .click();
+  async expectManagePage() {
+    await expect(this.page.locator('.expand-menu')).toBeVisible();
+    await expect(this.page.url()).toContain('manage');
   }
 
   // Navigation methods
   async goToIssuerGroups() {
     await this.issuerGroupsLink.click();
-    await this.page.getByText('Add new issuer group').waitFor();
+    await this.page.locator('.header').getByText('Issuer groups').waitFor();
   }
 
   async goToIssuers() {
     await this.issuersLink.click();
-    await this.page.getByText('Add new issuer').waitFor();
+    await this.page.locator('.header').getByText('Issuers').waitFor();
   }
 
   async goToUserManagement() {
