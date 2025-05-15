@@ -1,12 +1,9 @@
 import { expect, test } from '../../../fixtures/studentFixture';
 
-test(`End to end testing with existing resources`, 
-    { tag: '@E2E' }, 
-    async ({
-        catalogPage,
-        backpackPage,
-        adminPage,
-    }) => {
+test(
+  `End to end testing with existing resources`,
+  { tag: '@E2E' },
+  async ({ catalogPage, backpackPage, adminPage }) => {
     // var
     const institution = 'WO';
     const badgeName = 'Circulation and Breathing';
@@ -35,11 +32,13 @@ test(`End to end testing with existing resources`,
 
     // remove badge and validate
     await backpackPage.rejectReceivedBadge(badgeName);
-    await expect(backpackPage.page.getByText(
-            'This edubadge has been removed. You can no longer download or share this edubadge')
-            .or(backpackPage.page.getByText(
-                'Edubadge is rejected'))
-            ).toBeVisible();
+    await expect(
+      backpackPage.page
+        .getByText(
+          'This edubadge has been removed. You can no longer download or share this edubadge',
+        )
+        .or(backpackPage.page.getByText('Edubadge is rejected')),
+    ).toBeVisible();
 
     // revoke and validate
     await adminPage.goToBadgeClasses();
@@ -54,4 +53,5 @@ test(`End to end testing with existing resources`,
     await expect(catalogPage.page.getByText(badgeName)).toBeVisible();
     await catalogPage.page.getByText(badgeName).click();
     await expect(catalogPage.page.getByText(reason)).toBeVisible();
-});
+  },
+);

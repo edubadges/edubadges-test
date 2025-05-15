@@ -1,12 +1,9 @@
 import { expect, test } from '../../../fixtures/staffFixture';
 
-test(`End to end testing by creating every resource needed`, 
-    { tag: '@E2E' }, 
-    async ({ 
-        adminPage, 
-        catalogPage,
-        extraStaffLoginPage,
-    }) => {
+test(
+  `End to end testing by creating every resource needed`,
+  { tag: '@E2E' },
+  async ({ adminPage, catalogPage, extraStaffLoginPage }) => {
     // var
     const issuergroup = adminPage.managePage.issuerGroupPage;
     const issuers = adminPage.managePage.issuersPage;
@@ -25,7 +22,7 @@ test(`End to end testing by creating every resource needed`,
 
     const studentInfo = await adminPage.getStudentAccount(institution);
     const institutionServer =
-        await userManagement.getInstitutionServer(institution);
+      await userManagement.getInstitutionServer(institution);
     const newBadgeAdminName = 'NewE2EBadgeAdmin';
     const newBadgeAdminMail = newBadgeAdminName + '@' + institutionServer;
 
@@ -46,33 +43,37 @@ test(`End to end testing by creating every resource needed`,
     // invite and accept new badgeclass admin
     await adminPage.managePage.userManagement.inviteUser(newBadgeAdminMail);
     await extraStaffLoginPage.loginDummyIdp(
-        newBadgeAdminName,
-        newBadgeAdminMail,
-        institutionServer,
+      newBadgeAdminName,
+      newBadgeAdminMail,
+      institutionServer,
     );
     await extraStaffLoginPage.validateLoginSuccessful();
 
     // award badge and validate
-    await extraStaffLoginPage.badgeClassPage.directAwardBadge(badgeName, studentInfo.email);
+    await extraStaffLoginPage.badgeClassPage.directAwardBadge(
+      badgeName,
+      studentInfo.email,
+    );
     await catalogPage.page.goto('');
-    await catalogPage.page.getByRole('link', { name: 'Open your backpack' }).click();
+    await catalogPage.page
+      .getByRole('link', { name: 'Open your backpack' })
+      .click();
     await catalogPage.loginStudentIdp(institution);
     await catalogPage.page.getByRole('link', { name: 'My backpack' }).click();
     await expect(catalogPage.page.getByText(badgeName)).toBeVisible();
 
     // reject badge and validate
     await catalogPage.reloadPage();
-    await badgeLocator.getByText(
-        'View details to claim this edubadge')
-        .click();
+    await badgeLocator.getByText('View details to claim this edubadge').click();
 
     await catalogPage.page.getByRole('link', { name: 'Reject' }).click();
     await catalogPage.page.getByRole('link', { name: 'Confirm' }).click();
 
     await catalogPage.waitForLoadingToStop();
 
-    await expect(catalogPage.page.getByText(
-      'Edubadge is rejected'
-    )).toBeVisible();
+    await expect(
+      catalogPage.page.getByText('Edubadge is rejected'),
+    ).toBeVisible();
     await expect(badgeLocator).not.toBeVisible();
-});
+  },
+);

@@ -273,7 +273,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     frameworkCode: string = this.testdata.badgeData.frameworkCode,
     frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
   ) {
-    if(issuergroupName){
+    if (issuergroupName) {
       await this.searchWithText(issuergroupName);
       await this.openIssuer(issuergroupName);
     }

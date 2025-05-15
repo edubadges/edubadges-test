@@ -135,7 +135,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
     await this.titleField.fill(groupName);
     await this.descriptionField.fill(groupDesc);
 
-    if(customIssuergroupName){
+    if (customIssuergroupName) {
       const listItems = this.page.locator('div.listContainer');
       await listItems.selectOption(customIssuergroupName);
     }

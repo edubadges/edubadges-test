@@ -28,7 +28,7 @@ export class BackpackPage extends BasePage {
   });
   private readonly reacceptLink = this.page.getByRole('link', {
     name: 'Accept this edubadge',
-  })
+  });
   private readonly rejectLink = this.page.getByRole('link', { name: 'Reject' });
 
   // Login locators
@@ -60,8 +60,8 @@ export class BackpackPage extends BasePage {
 
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
-  
-  public async getBadgeLocator(badgeName: string) : Promise<Locator> {
+
+  public async getBadgeLocator(badgeName: string): Promise<Locator> {
     return this.page
       .locator('.card.badge')
       .getByText(badgeName)
@@ -75,7 +75,8 @@ export class BackpackPage extends BasePage {
       .getByText(badgeName)
       .locator('../../..');
 
-    await badgeLocator.getByText('View details to claim this edubadge')
+    await badgeLocator
+      .getByText('View details to claim this edubadge')
       .waitFor();
     await badgeLocator.click();
 
@@ -96,11 +97,12 @@ export class BackpackPage extends BasePage {
     await this.confirmButton.click();
     await this.waitForLoadingToStop();
 
-    await this.page.getByText(
-      'This edubadge has been removed. You can no longer download or share this edubadge')
-      .or(this.page.getByText(
-        'Edubadge is rejected')
-    ).waitFor();
+    await this.page
+      .getByText(
+        'This edubadge has been removed. You can no longer download or share this edubadge',
+      )
+      .or(this.page.getByText('Edubadge is rejected'))
+      .waitFor();
   }
 
   public async reacceptRejectedBadge(badgeName: string) {
@@ -109,7 +111,10 @@ export class BackpackPage extends BasePage {
     await badgeLocator.click();
     await this.confirmButton.click();
 
-    await this.page.getByText('This edubadge has been accepted. You can share this edubadge now')
+    await this.page
+      .getByText(
+        'This edubadge has been accepted. You can share this edubadge now',
+      )
       .waitFor();
   }
 
@@ -145,9 +150,7 @@ export class BackpackPage extends BasePage {
   }
 
   async openBadge(badgeName: string) {
-    await this.page.locator('.card.badge')
-      .getByText(badgeName).first()
-      .click();
+    await this.page.locator('.card.badge').getByText(badgeName).first().click();
     await this.waitForLoadingToStop();
   }
 
@@ -174,9 +177,11 @@ export class BackpackPage extends BasePage {
     await this.waitForLoadingToStop();
 
     // validate
-    await this.page.getByText(
+    await this.page
+      .getByText(
         'This edubadge has been made publicly visible. You can share this edubadge now',
-      ).waitFor();
+      )
+      .waitFor();
   }
 
   async getShareLink(): Promise<string> {

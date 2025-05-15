@@ -73,24 +73,32 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.openBadge(courseName);
     await this.openRequests();
     await this.selectTableRow(studentName);
-    await this.page.getByRole('link', { name: 'Deny request', exact: true }).click();
+    await this.page
+      .getByRole('link', { name: 'Deny request', exact: true })
+      .click();
     await this.optionsLocator.getByRole('link', { name: 'Confirm' }).click();
     await this.page.getByText('The request(s) have been denied.').waitFor();
   }
 
-  async revokeAwardedBadge(studentName: string, reason: string, courseName?: string,) {
-    if(courseName){
+  async revokeAwardedBadge(
+    studentName: string,
+    reason: string,
+    courseName?: string,
+  ) {
+    if (courseName) {
       await this.searchWithText(courseName);
       await this.openBadge(courseName);
     }
     await this.openInBackpack();
     await this.selectTableRow(studentName);
-    await this.page.getByRole('link', { name: 'Revoke edubadge', exact: true }).click();
+    await this.page
+      .getByRole('link', { name: 'Revoke edubadge', exact: true })
+      .click();
     await this.page.locator('input#revocation-reason').fill(reason);
     await this.optionsLocator.getByRole('link', { name: 'Confirm' }).click();
     await this.page.getByText('The edubadge(s) have been revoked.').waitFor();
   }
-  
+
   public async goToAdminView() {
     await this.page.getByText('Go to admin view').click();
     await this.waitForLoadingToStop();
