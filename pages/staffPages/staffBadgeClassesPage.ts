@@ -86,7 +86,7 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.openInBackpack();
     await this.selectTableRow(studentName);
     await this.page.getByRole('link', { name: 'Revoke edubadge', exact: true }).click();
-    await this.page.locator('input#invocation-reason').fill(reason);
+    await this.page.locator('input#revocation-reason').fill(reason);
     await this.optionsLocator.getByRole('link', { name: 'Confirm' }).click();
     await this.page.getByText('The edubadge(s) have been revoked.').waitFor();
   }
