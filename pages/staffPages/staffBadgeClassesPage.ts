@@ -78,9 +78,11 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.page.getByText('The request(s) have been denied.').waitFor();
   }
 
-  async revokeAwardedBadge(courseName: string, studentName: string, reason: string) {
-    await this.searchWithText(courseName);
-    await this.openBadge(courseName);
+  async revokeAwardedBadge(studentName: string, reason: string, courseName?: string,) {
+    if(courseName){
+      await this.searchWithText(courseName);
+      await this.openBadge(courseName);
+    }
     await this.openInBackpack();
     await this.selectTableRow(studentName);
     await this.page.getByRole('link', { name: 'Revoke edubadge', exact: true }).click();
