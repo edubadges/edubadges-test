@@ -5,13 +5,14 @@ institutions.forEach((institution) => {
   test(`Accept ${institution} Issuergroup admin invite`, async ({
     adminPage,
     extraStaffLoginPage,
+    testdata,
   }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteIssuergroupAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + '@' + institutionServer;
+    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
     const issuergroupName = 'Medicine';
 
     // setup

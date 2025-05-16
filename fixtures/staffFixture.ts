@@ -43,6 +43,7 @@ export const test = base.extend<EdubadgeFixture>({
   testdata: async ({}, use, testInfo) => {
     var testdata = new Testdata();
     testdata.testCaseName = testInfo.title;
+    testdata.retryCount = testInfo.retry;
 
     // Use the fixture value in the test.
     await use(testdata);

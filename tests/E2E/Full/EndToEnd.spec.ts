@@ -3,7 +3,7 @@ import { expect, test } from '../../../fixtures/staffFixture';
 test(
   `End to end testing by creating every resource needed`,
   { tag: '@E2E' },
-  async ({ adminPage, catalogPage, extraStaffLoginPage }) => {
+  async ({ adminPage, catalogPage, extraStaffLoginPage, testdata }) => {
     // var
     const issuergroup = adminPage.managePage.issuerGroupPage;
     const issuers = adminPage.managePage.issuersPage;
@@ -24,7 +24,7 @@ test(
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
     const newBadgeAdminName = 'NewE2EBadgeAdmin';
-    const newBadgeAdminMail = newBadgeAdminName + '@' + institutionServer;
+    const newBadgeAdminMail = newBadgeAdminName + testdata.retryCount + '@' + institutionServer;
 
     // setup
     await adminPage.loginTestIdp('WO', 'Institution');
