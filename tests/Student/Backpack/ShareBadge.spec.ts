@@ -52,8 +52,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
     //var
     const badgeName = 'History of Political Thought';
-    const studentName = (await backpackPage.getStudentAccount(institution))
-      .name;
+    const studentInfo = await backpackPage.getStudentAccount(institution);
 
     //setup
     await catalogPage.searchWithText(badgeName);
@@ -62,7 +61,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await catalogPage.requestEdubadge(institution);
 
     await adminPage.loginTestIdp(institution, 'Institution');
-    await adminPage.badgeClassPage.approveRequest(badgeName, studentName);
+    await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
 
     await backpackPage.login(institution);
     await backpackPage.openBackpack();
