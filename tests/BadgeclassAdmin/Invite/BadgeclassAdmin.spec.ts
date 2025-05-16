@@ -5,13 +5,14 @@ institutions.forEach((institution) => {
   test(`Invite ${institution} Badgeclass admin`, async ({
     extraStaffLoginPage,
     adminPage,
+    testdata,
   }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteBadgeclassAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + '@' + institutionServer;
+    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
     const badgeName = 'Growth and development';
 
     // setup

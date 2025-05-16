@@ -49,13 +49,14 @@ institutions.forEach((institution) => {
   test(`Accept ${institution} institution admin invite`, async ({
     adminPage,
     extraStaffLoginPage,
+    testdata,
   }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUsername = `Accept${institution}InviteInstitutionAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + '@' + institutionServer;
+    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
@@ -77,13 +78,14 @@ institutions.forEach((institution) => {
   test(`Delete ${institution} institution admin permission`, async ({
     adminPage,
     extraStaffLoginPage,
+    testdata,
   }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
     const newUsername = `GetRightsRemoved${institution}InstitutionAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + '@' + institutionServer;
+    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
