@@ -35,7 +35,10 @@ export abstract class BasePage {
     await nextLocator.waitFor();
   }
 
-  async getStudentAccount(institution: institution, studentNumber: number = this.testdata.retryCount) {
+  async getStudentAccount(
+    institution: institution,
+    studentNumber: number = this.testdata.retryCount,
+  ) {
     let instititutionAccounts: AccountsBase;
 
     switch (institution) {

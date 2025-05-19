@@ -68,15 +68,15 @@ export class UserManagement extends BaseStaffSubPage {
       .waitFor();
   }
 
-  async updatePermissions(
-    nameOrEmail: string,
-    newRole: string,){
-      const staffRow = this.page.getByText(nameOrEmail).locator('../..');
-      const roleButton = staffRow.locator('div.indicator');
+  async updatePermissions(nameOrEmail: string, newRole: string) {
+    const staffRow = this.page.getByText(nameOrEmail).locator('../..');
+    const roleButton = staffRow.locator('div.indicator');
 
-      await roleButton.click();
-      await staffRow.getByText(newRole).click( {force: true });
-      await staffRow.getByText(newRole).waitFor();
-      await this.page.getByText(`Successfully changed user permissions to`).waitFor();
-    }
+    await roleButton.click();
+    await staffRow.getByText(newRole).click({ force: true });
+    await staffRow.getByText(newRole).waitFor();
+    await this.page
+      .getByText(`Successfully changed user permissions to`)
+      .waitFor();
+  }
 }

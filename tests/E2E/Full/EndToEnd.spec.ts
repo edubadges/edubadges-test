@@ -24,7 +24,8 @@ test(
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
     const newBadgeAdminName = 'NewE2EBadgeAdmin';
-    const newBadgeAdminMail = newBadgeAdminName + testdata.retryCount + '@' + institutionServer;
+    const newBadgeAdminMail =
+      newBadgeAdminName + testdata.retryCount + '@' + institutionServer;
 
     // setup
     await adminPage.loginTestIdp('WO', 'Institution');

@@ -56,7 +56,8 @@ institutions.forEach((institution) => {
     const newUsername = `Accept${institution}InviteInstitutionAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
+    const newUserMail =
+      newUsername + testdata.retryCount + '@' + institutionServer;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
@@ -85,7 +86,8 @@ institutions.forEach((institution) => {
     const newUsername = `GetRightsRemoved${institution}InstitutionAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
+    const newUserMail =
+      newUsername + testdata.retryCount + '@' + institutionServer;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');

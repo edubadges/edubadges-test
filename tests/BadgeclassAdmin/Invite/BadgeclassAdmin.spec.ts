@@ -12,7 +12,8 @@ institutions.forEach((institution) => {
     const newUsername = `Accept${institution}InviteBadgeclassAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
+    const newUserMail =
+      newUsername + testdata.retryCount + '@' + institutionServer;
     const badgeName = 'Growth and development';
 
     // setup
@@ -52,12 +53,12 @@ institutions.forEach((institution) => {
     const newUsername = `Changed${institution}InviteBadgeclassAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
+    const newUserMail =
+      newUsername + testdata.retryCount + '@' + institutionServer;
     const badgeName = 'Growth and development';
     const originalRole = 'Admin';
     const updatedRole = 'Awarder';
     const staffRow = adminPage.page.getByText(newUserMail).locator('../..');
-    const roleField = staffRow.locator('.select-field');
 
     // setup
     await adminPage.loginTestIdp(institution, 'Badgeclass');

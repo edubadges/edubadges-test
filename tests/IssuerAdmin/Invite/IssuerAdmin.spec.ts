@@ -12,7 +12,8 @@ institutions.forEach((institution) => {
     const newUsername = `Accept${institution}InviteIssuerAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
+    const newUserMail =
+      newUsername + testdata.retryCount + '@' + institutionServer;
     const issuerName = 'Medicine';
 
     // setup
@@ -32,7 +33,7 @@ institutions.forEach((institution) => {
     // validate
     await extraStaffLoginPage.validateLoginSuccessful();
   });
-  
+
   test(`Update ${institution} issuer admin rights`, async ({
     extraStaffLoginPage,
     adminPage,
@@ -43,12 +44,12 @@ institutions.forEach((institution) => {
     const newUsername = `Changed${institution}InviteIssuerAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
+    const newUserMail =
+      newUsername + testdata.retryCount + '@' + institutionServer;
     const issuerName = 'Medicine';
     const originalRole = 'Issuer admin';
     const updatedRole = 'Issuer awarder';
     const staffRow = adminPage.page.getByText(newUserMail).locator('../..');
-    const roleField = staffRow.locator('.select-field');
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');

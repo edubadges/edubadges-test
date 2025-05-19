@@ -12,7 +12,8 @@ institutions.forEach((institution) => {
     const newUsername = `Accept${institution}InviteIssuergroupAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
+    const newUserMail =
+      newUsername + testdata.retryCount + '@' + institutionServer;
     const issuergroupName = 'Medicine';
 
     // setup
@@ -43,12 +44,12 @@ institutions.forEach((institution) => {
     const newUsername = `Changed${institution}InviteIssuergroupAdmin`;
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newUserMail = newUsername + testdata.retryCount + '@' + institutionServer;
+    const newUserMail =
+      newUsername + testdata.retryCount + '@' + institutionServer;
     const issuergroupName = 'Medicine';
     const originalRole = 'Issuer group admin';
     const updatedRole = 'Issuer group awarder';
     const staffRow = adminPage.page.getByText(newUserMail).locator('../..');
-    const roleField = staffRow.locator('.select-field');
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuergroup');

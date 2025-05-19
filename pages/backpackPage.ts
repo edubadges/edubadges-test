@@ -43,7 +43,10 @@ export class BackpackPage extends BasePage {
     name: 'Confirm',
   });
 
-  public async login(institution: institution = 'WO', accountNr: number = this.testdata.retryCount) {
+  public async login(
+    institution: institution = 'WO',
+    accountNr: number = this.testdata.retryCount,
+  ) {
     const account = await this.getStudentAccount(institution, accountNr);
 
     await this.usernameField.fill(account.email);
