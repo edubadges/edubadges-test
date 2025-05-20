@@ -32,6 +32,8 @@ institutionsWithoutHBO.forEach((institution) => {
     );
 
     // validate
-    await expect(adminPage.page.getByText('The edubadge(s) have been revoked.')).toBeVisible();
+    await expect(
+      adminPage.page.getByText('The edubadge(s) have been revoked.'),
+    ).toBeVisible();
   });
 });
