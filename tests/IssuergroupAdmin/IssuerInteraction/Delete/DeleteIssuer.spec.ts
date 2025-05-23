@@ -4,8 +4,8 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Delete ${institution} issuer`, async ({ adminPage }) => {
     // var
+    var issuerName = 'Issuer to remove';
     const existingIssuergroupName = 'Medicine';
-    const issuerName = 'Issuer to remove';
     const newIssuerDesc = 'This issuer was made to be removed';
     const issuers = adminPage.managePage.issuersPage;
 
@@ -16,7 +16,7 @@ institutions.forEach((institution) => {
     await adminPage.managePage.issuerGroupPage.openIssuerGroup(
       existingIssuergroupName,
     );
-    await issuers.createNewIssuer(issuerName, newIssuerDesc);
+    issuerName = await issuers.createNewIssuer(issuerName, newIssuerDesc);
 
     // test
     await issuers.deleteExistingIssuer(issuerName);

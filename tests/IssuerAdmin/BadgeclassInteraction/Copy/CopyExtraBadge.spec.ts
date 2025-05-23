@@ -7,7 +7,7 @@ institutions.forEach((institution) => {
   }) => {
     // var
     const issuerGroupName = 'Medicine';
-    const initialBadgeName = 'A new Medicine extra curricular badge';
+    var initialBadgeName = 'A new Medicine extra curricular badge';
     const badgeDesc = 'The original description';
     const badgeOutcome = 'The original outcome';
     const badgeCriterium = 'The original criterium';
@@ -17,7 +17,7 @@ institutions.forEach((institution) => {
     const badgeAssesment = 'Behavioural assessment';
     const badgeHours = '210';
 
-    const copiedBadgeName = 'A copied Medicine extra curricular badge';
+    var copiedBadgeName = 'A copied Medicine extra curricular badge';
     const issuers = adminPage.managePage.issuersPage;
     const badgeInfo = adminPage.page
       .locator('.info')
@@ -26,7 +26,7 @@ institutions.forEach((institution) => {
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await issuers.createExtracurricularBadge(
+    initialBadgeName = await issuers.createExtracurricularBadge(
       issuerGroupName,
       initialBadgeName,
       badgeDesc,
@@ -45,7 +45,7 @@ institutions.forEach((institution) => {
     );
 
     // test
-    await issuers.copyExistingBadge(copiedBadgeName);
+    copiedBadgeName = await issuers.copyExistingBadge(copiedBadgeName);
 
     // validation
     await expect(badgeInfo.getByText(copiedBadgeName).first()).toBeVisible();

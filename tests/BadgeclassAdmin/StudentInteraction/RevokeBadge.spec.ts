@@ -15,12 +15,13 @@ institutionsWithoutHBO.forEach((institution) => {
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
+    await adminPage.loginTestIdp(institution, 'Institution');
+    
     await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
     await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
 
-    await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
 
     // test

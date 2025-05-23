@@ -17,14 +17,13 @@ institutions.forEach((institution) => {
       .getByText(badgeName)
       .locator('../../..');
 
-    //setup
+    // setup
+    await adminPage.loginTestIdp(institution, 'Badgeclass');
+    await backpackPage.login(institution);
     await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
     await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
-
-    await backpackPage.login(institution);
-    await adminPage.loginTestIdp(institution, 'Badgeclass');
 
     // test
     await adminPage.goToBadgeClasses();
@@ -52,14 +51,13 @@ institutions.forEach((institution) => {
       .getByText(badgeName)
       .locator('../../..');
 
-    //setup
+    // setup
+    await adminPage.loginTestIdp(institution, 'Badgeclass');
+    await backpackPage.login(institution);
     await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
     await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
-
-    await backpackPage.login(institution);
-    await adminPage.loginTestIdp(institution, 'Badgeclass');
 
     // test
     await adminPage.goToBadgeClasses();

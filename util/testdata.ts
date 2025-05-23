@@ -7,6 +7,7 @@ import { MBOAccounts } from './MBOAccounts';
 export class Testdata {
   public testCaseName: string = '';
   public retryCount: number = 0;
+  public browserName: string = '';
 
   private _language: Language = Language.en;
   private _pagesForLanguageChangeNotification: BasePageMultiLanguage[] = [];

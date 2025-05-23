@@ -67,7 +67,7 @@ export class CatalogPage extends BasePage {
       await this.loginStudentIdp(institution, accountNr);
     }
 
-    await this.requestButton.waitFor();
+    await this.requestButton.waitFor({ timeout: 10000 });
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 

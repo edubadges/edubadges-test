@@ -9,11 +9,11 @@ test(
     const issuers = adminPage.managePage.issuersPage;
     const userManagement = adminPage.managePage.userManagement;
 
+    var issuerName = 'E2E Issuer';
+    var badgeName = 'E2E Regular badge';
     const institution = 'WO';
     const issuergroupName = 'E2E Issuergroup';
     const descriptionText = 'E2E filler description';
-    const issuerName = 'E2E Issuer';
-    const badgeName = 'E2E Regular badge';
     const badgeLocator = catalogPage.page
       .locator('.card.badge')
       .getByText(badgeName)
@@ -39,7 +39,7 @@ test(
     await issuers.createNewIssuer(issuerName, descriptionText);
 
     // create badgeclass
-    await issuers.createRegularBadge(badgeName);
+    badgeName = await issuers.createRegularBadge(badgeName);
 
     // invite and accept new badgeclass admin
     await adminPage.managePage.userManagement.inviteUser(newBadgeAdminMail);

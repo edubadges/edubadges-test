@@ -6,14 +6,14 @@ institutions.forEach((institution) => {
     adminPage,
   }) => {
     // var
+    var badgeName = 'Regular badge to delete, should be deleted';
     const issuerGroupName = 'Medicine';
-    const badgeName = 'Regular badge to delete, should be deleted';
     const issuers = adminPage.managePage.issuersPage;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await issuers.createRegularBadge(badgeName, issuerGroupName);
+    badgeName = await issuers.createRegularBadge(badgeName, issuerGroupName);
 
     // test
     await issuers.removeExistingBadge();
@@ -28,13 +28,13 @@ institutions.forEach((institution) => {
   }) => {
     // var
     const issuerGroupName = 'Medicine';
-    const badgeName = 'Micro credential badge to delete, should be deleted';
+    var badgeName = 'Micro credential badge to delete, should be deleted';
     const issuers = adminPage.managePage.issuersPage;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await issuers.createMicroBadge(issuerGroupName, badgeName);
+    badgeName = await issuers.createMicroBadge(issuerGroupName, badgeName);
 
     // test
     await issuers.removeExistingBadge();
@@ -49,13 +49,16 @@ institutions.forEach((institution) => {
   }) => {
     // var
     const issuerGroupName = 'Medicine';
-    const badgeName = 'Extra curricular badge to delete, should be deleted';
+    var badgeName = 'Extra curricular badge to delete, should be deleted';
     const issuers = adminPage.managePage.issuersPage;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await issuers.createExtracurricularBadge(issuerGroupName, badgeName);
+    badgeName = await issuers.createExtracurricularBadge(
+      issuerGroupName,
+      badgeName,
+    );
 
     // test
     await issuers.removeExistingBadge();

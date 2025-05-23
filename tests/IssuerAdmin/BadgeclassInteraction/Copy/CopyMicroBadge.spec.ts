@@ -5,7 +5,7 @@ institutions.forEach((institution) => {
   test(`Copy existing micro ${institution} edubadge`, async ({ adminPage }) => {
     // var
     const issuerGroupName = 'Medicine';
-    const initialBadgeName = 'A new Medicine micro credential';
+    var initialBadgeName = 'A new Medicine micro credential';
     const badgeDesc = 'The original description';
     const badgeOutcome = 'The original outcome';
     const badgeCriterium = 'The original criterium';
@@ -14,7 +14,7 @@ institutions.forEach((institution) => {
     const badgeFormOfPart = 'Blended';
     const badgeAssesment = 'Behavioural assessment';
 
-    const copiedBadgeName = 'A copied Medicine micro credential';
+    var copiedBadgeName = 'A copied Medicine micro credential';
     const issuers = adminPage.managePage.issuersPage;
     const badgeInfo = adminPage.page
       .locator('.info')
@@ -23,7 +23,7 @@ institutions.forEach((institution) => {
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await issuers.createMicroBadge(
+    initialBadgeName = await issuers.createMicroBadge(
       issuerGroupName,
       initialBadgeName,
       badgeDesc,
@@ -36,7 +36,7 @@ institutions.forEach((institution) => {
     );
 
     // test
-    await issuers.copyExistingBadge(copiedBadgeName);
+    copiedBadgeName = await issuers.copyExistingBadge(copiedBadgeName);
 
     // validation
     await expect(badgeInfo.getByText(copiedBadgeName).first()).toBeVisible();

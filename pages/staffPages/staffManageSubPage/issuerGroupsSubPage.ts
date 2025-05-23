@@ -51,6 +51,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
     linkedInURL: string = '',
     customIssuergroupName?: string,
   ) {
+    groupName = `${groupName} ${this.testdata.browserName} retry nr: ${this.testdata.retryCount}`;
     await this.addNewIssuerGroupButton.click();
     await this.waitForLoadingToStop();
 
@@ -68,6 +69,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
 
     // validate
     await this.editIssuerGroupButton.waitFor();
+    return groupName;
   }
 
   /**
@@ -83,6 +85,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
     organisationURL: string = '',
     linkedInURL: string = '',
   ) {
+    newGroupName = `${newGroupName} ${this.testdata.browserName} retry nr: ${this.testdata.retryCount}`;
     await this.openIssuerGroup(oldGroupName);
     await this.clickEditGroup();
 
@@ -97,6 +100,7 @@ export class IssuerGroupSubPage extends BaseStaffSubPage {
     await this.saveChangesButton.click();
 
     await this.editIssuerGroupButton.waitFor();
+    return newGroupName;
   }
 
   async deleteExistingIssuerGroup(groupName: string) {

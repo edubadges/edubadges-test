@@ -6,9 +6,9 @@ institutions.forEach((institution) => {
     adminPage,
   }) => {
     // var
+    var initialBadgeName = `Original regular ${institution} badge`;
+    var editedBadgeName = `Second name regular ${institution} badge`;
     const issuerGroupName = 'Medicine';
-    const initialBadgeName = `Original regular ${institution} badge`;
-    const editedBadgeName = `Second name regular ${institution} badge`;
     const editedBadgeDesc = 'newDescription';
     const editedBadgeOutcome = 'The new outcome';
     const editedBadgeCriterium = 'The new criterium';
@@ -50,9 +50,9 @@ institutions.forEach((institution) => {
     adminPage,
   }) => {
     // var
+    var initialBadgeName = 'Original name micro credential badge';
+    var editedBadgeName = 'SecondName micro credential Editbadge';
     const issuerGroupName = 'Medicine';
-    const initialBadgeName = 'Original name micro credential badge';
-    const editedBadgeName = 'SecondName micro credential Editbadge';
     const editedBadgeDesc = 'new micro credential description';
     const editedBadgeOutcome = 'The new outcome';
     const editedBadgeCriterium = 'The new criterium';
@@ -91,9 +91,9 @@ institutions.forEach((institution) => {
     adminPage,
   }) => {
     // var
+    var initialBadgeName = 'Original extra curricular Editbadge';
+    var editedBadgeName = 'Second name extra curricular Editbadge';
     const issuerGroupName = 'Medicine';
-    const initialBadgeName = 'Original extra curricular Editbadge';
-    const editedBadgeName = 'Second name extra curricular Editbadge';
     const editedBadgeDesc = 'new extra curricular description';
     const editedBadgeOutcome = 'The new outcome';
     const editedBadgeCriterium = 'The new criterium';

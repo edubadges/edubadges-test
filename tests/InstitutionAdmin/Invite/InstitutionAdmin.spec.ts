@@ -4,10 +4,11 @@ import { institutions } from '../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Invite ${institution} user as institution admin`, async ({
     adminPage,
+    testdata,
   }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
-    const newUserMail = `userToInvite@${institution}mail.edu`;
+    const newUserMail = `userToInviteNr${testdata.retryCount}@${institution}mail.edu`;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
@@ -25,10 +26,11 @@ institutions.forEach((institution) => {
 
   test(`Revoke ${institution} user institution admin invite`, async ({
     adminPage,
+    testdata,
   }) => {
     // var
     const userManagement = adminPage.managePage.userManagement;
-    const newUserMail = `userToRevoke@${institution}mail.edu`;
+    const newUserMail = `userToRevokeNr${testdata.retryCount}@${institution}mail.edu`;
 
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');

@@ -11,16 +11,18 @@ institutionsWithoutHBO.forEach((institution) => {
     const badgeName = 'Introduction to Political Science';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
-    //setup
+    // setup
+    await backpackPage.login(institution);
+    await adminPage.loginTestIdp(institution, 'Institution');
+
     await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
     await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
 
-    await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
 
-    await backpackPage.login(institution);
+    await backpackPage.reloadPage();
     await backpackPage.openBackpack();
     await backpackPage.openBadge(badgeName);
 
@@ -54,16 +56,17 @@ institutionsWithoutHBO.forEach((institution) => {
     const badgeName = 'History of Political Thought';
     const studentInfo = await backpackPage.getStudentAccount(institution);
 
-    //setup
+    // setup
+    await backpackPage.login(institution);
+    await adminPage.loginTestIdp(institution, 'Institution');
+    
     await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
     await catalogPage.openBadge(badgeName);
     await catalogPage.requestEdubadge(institution);
 
-    await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
 
-    await backpackPage.login(institution);
     await backpackPage.openBackpack();
     await backpackPage.reloadPage();
     await backpackPage.makeEdubadgePublic(badgeName);

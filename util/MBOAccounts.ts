@@ -39,6 +39,12 @@ export class MBOAccounts extends AccountsBase {
         process.env.MBO_STUDENT_2_NAME || '',
         process.env.MBO_STUDENT_2_EPPN || '',
       ),
+      new studentDetails(
+        process.env.MBO_STUDENT_3_EMAIL || '',
+        process.env.MBO_STUDENT_3_PASSWORD || '',
+        process.env.MBO_STUDENT_3_NAME || '',
+        process.env.MBO_STUDENT_3_EPPN || '',
+      ),
     ];
   }
 }
