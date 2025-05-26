@@ -40,6 +40,7 @@ institutions.forEach((institution) => {
     await issuers.removeExistingBadge();
 
     // validate
+    await issuers.reloadPage();
     await issuers.searchWithText(badgeName);
     await expect(adminPage.page.locator('td')).toHaveCount(0);
   });
