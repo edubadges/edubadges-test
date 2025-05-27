@@ -36,7 +36,7 @@ institutions.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`receive a requested ${institution} badge`, async ({
+  test(`Receive a requested ${institution} badge`, async ({
     catalogPage,
     backpackPage,
     adminPage,
