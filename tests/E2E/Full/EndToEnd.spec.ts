@@ -14,11 +14,6 @@ test(
     const institution = 'WO';
     const issuergroupName = 'E2E Issuergroup';
     const descriptionText = 'E2E filler description';
-    const badgeLocator = catalogPage.page
-      .locator('.card.badge')
-      .getByText(badgeName)
-      .first()
-      .locator('../../..');
 
     const studentInfo = await adminPage.getStudentAccount(institution);
     const institutionServer =
@@ -64,6 +59,11 @@ test(
     await expect(catalogPage.page.getByText(badgeName)).toBeVisible();
 
     // reject badge and validate
+    var badgeLocator = catalogPage.page
+      .locator('.card.badge')
+      .getByText(badgeName)
+      .first()
+      .locator('../../..');
     await catalogPage.reloadPage();
     await badgeLocator.getByText('View details to claim this edubadge').click();
 
