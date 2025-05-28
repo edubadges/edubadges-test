@@ -79,7 +79,7 @@ export class CatalogPage extends BasePage {
 
   public async loginStudentIdp(
     institution: institution,
-    accountNr: number = 0,
+    accountNr: number = this.testdata.retryCount,
   ) {
     await this.searchField.or(this.usernameField).waitFor();
 
