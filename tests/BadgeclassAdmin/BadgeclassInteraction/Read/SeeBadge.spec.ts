@@ -12,10 +12,10 @@ institutions.forEach((institution) => {
     await adminPage.badgeClassPage.openBadge(badgeName);
 
     // validate
-    const groupTitle = adminPage.page.locator('div.info').locator('h2');
+    const badgeNameLocator = adminPage.page.locator('div.info').locator('h2');
     const breadcrumbs = adminPage.page.locator('.bread-crumb');
 
-    await expect(groupTitle).toHaveText(badgeName);
+    await expect(badgeNameLocator).toHaveText(badgeName);
     await expect(breadcrumbs.getByText(badgeName)).toBeVisible();
   });
 });
