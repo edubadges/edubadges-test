@@ -59,7 +59,7 @@ institutionsWithoutHBO.forEach((institution) => {
     // setup
     await backpackPage.login(institution);
     await adminPage.loginTestIdp(institution, 'Institution');
-    
+
     await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
     await catalogPage.openBadge(badgeName);

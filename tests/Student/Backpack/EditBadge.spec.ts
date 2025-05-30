@@ -24,7 +24,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await backpackPage.claimReceivedBadge(badgeName);
 
     // test
-   await backpackPage.rejectReceivedBadge(badgeName);
+    await backpackPage.rejectReceivedBadge(badgeName);
     // validate
     await expect(backpackPage.page.getByText('Rejected')).toBeVisible();
   });

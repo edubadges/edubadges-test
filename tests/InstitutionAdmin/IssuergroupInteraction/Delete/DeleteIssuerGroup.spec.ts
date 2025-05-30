@@ -12,7 +12,10 @@ institutions.forEach((institution) => {
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();
     await adminPage.managePage.goToIssuerGroups();
-    issuerGroupName = await issuerGroup.addNewIssuerGroup(issuerGroupName, newIssuerGroupDesc);
+    issuerGroupName = await issuerGroup.addNewIssuerGroup(
+      issuerGroupName,
+      newIssuerGroupDesc,
+    );
     await adminPage.goToManage();
     await adminPage.managePage.goToIssuerGroups();
     await adminPage.waitForLoadingToStop();

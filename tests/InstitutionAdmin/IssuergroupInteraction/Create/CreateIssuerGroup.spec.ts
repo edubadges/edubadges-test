@@ -18,7 +18,10 @@ institutions.forEach((institution) => {
     await adminPage.managePage.goToIssuerGroups();
 
     // test
-    issuergroupName = await issuerGroup.addNewIssuerGroup(issuergroupName, issuergroupDesc);
+    issuergroupName = await issuerGroup.addNewIssuerGroup(
+      issuergroupName,
+      issuergroupDesc,
+    );
 
     // validate
     const groupTitle = adminPage.page.locator('.title').getByRole('heading');

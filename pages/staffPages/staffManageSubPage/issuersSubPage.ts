@@ -217,7 +217,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
 
   /**Expects the badge to be copied to be opened */
   async copyExistingBadge(badgeTitle: string) {
-    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`
+    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`;
     await this.copyBadgeButton.click();
 
     const pageForm = this.page.getByText('Basic information').locator('..');
@@ -281,7 +281,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     frameworkCode: string = this.testdata.badgeData.frameworkCode,
     frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
   ) {
-    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`
+    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`;
     if (issuergroupName) {
       await this.searchWithText(issuergroupName);
       await this.openIssuer(issuergroupName);

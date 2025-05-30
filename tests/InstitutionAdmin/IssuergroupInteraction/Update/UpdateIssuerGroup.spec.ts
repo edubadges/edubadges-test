@@ -10,10 +10,6 @@ institutions.forEach((institution) => {
     const initialIssuerGroupDesc = 'First description';
     const editedIssuerGroupDesc = 'Second description';
 
-    const editButton = adminPage.page.getByRole('link', {
-      name: 'Edit issuer group',
-    });
-
     // setup
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.goToManage();

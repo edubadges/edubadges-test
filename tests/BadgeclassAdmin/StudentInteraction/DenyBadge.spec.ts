@@ -75,7 +75,7 @@ test('Deny badge with reason from Manage', async ({
 
   // setup
   await adminPage.loginTestIdp(institution, 'Badgeclass');
-  
+
   await catalogPage.searchWithText(badgeName);
   await catalogPage.filterOn(institution);
   await catalogPage.openBadge(badgeName);
