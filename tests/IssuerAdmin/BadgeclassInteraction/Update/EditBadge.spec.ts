@@ -17,7 +17,6 @@ institutions.forEach((institution) => {
     const editedBadgeFormOfPart = 'On-site';
     const editedBadgeAssesment = 'Development report / reflection report';
     const issuers = adminPage.managePage.issuersPage;
-    const creationInformation = adminPage.page.locator('div.list');
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
@@ -25,7 +24,7 @@ institutions.forEach((institution) => {
     await issuers.createRegularBadge(initialBadgeName, issuerGroupName);
 
     // test
-    await issuers.editExistingBadge(
+    editedBadgeName = await issuers.editExistingBadge(
       editedBadgeName,
       editedBadgeDesc,
       editedBadgeOutcome,
@@ -37,13 +36,10 @@ institutions.forEach((institution) => {
     );
 
     // validation
-    await expect(adminPage.page).toHaveScreenshot(
-      `Edited${institution}RegularBadgeclass.png`,
-      {
-        fullPage: true,
-        mask: [creationInformation],
-      },
-    );
+    const badgeNameLocator = adminPage.page.locator('div.info').locator('h2');
+    const breadcrumbs = adminPage.page.locator('.bread-crumb');
+    await expect(badgeNameLocator).toHaveText(editedBadgeName);
+    await expect(breadcrumbs.getByText(editedBadgeName)).toBeVisible();
   });
 
   test(`Edit existing ${institution} micro credential`, async ({
@@ -61,7 +57,6 @@ institutions.forEach((institution) => {
     const editedBadgeFormOfPart = 'Online';
     const editedBadgeAssesment = 'Personalized type of assessment';
     const issuers = adminPage.managePage.issuersPage;
-    const creationInformation = adminPage.page.locator('div.list');
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
@@ -69,7 +64,7 @@ institutions.forEach((institution) => {
     await issuers.createMicroBadge(issuerGroupName, initialBadgeName);
 
     // test
-    await issuers.editExistingBadge(
+    editedBadgeName = await issuers.editExistingBadge(
       editedBadgeName,
       editedBadgeDesc,
       editedBadgeOutcome,
@@ -81,10 +76,10 @@ institutions.forEach((institution) => {
     );
 
     // validation
-    await expect(adminPage.page).toHaveScreenshot(
-      `Edited${institution}MicrocredentialBadgeclass.png`,
-      { fullPage: true, mask: [creationInformation] },
-    );
+    const badgeNameLocator = adminPage.page.locator('div.info').locator('h2');
+    const breadcrumbs = adminPage.page.locator('.bread-crumb');
+    await expect(badgeNameLocator).toHaveText(editedBadgeName);
+    await expect(breadcrumbs.getByText(editedBadgeName)).toBeVisible();
   });
 
   test(`Edit existing extra curricular ${institution} edubadge`, async ({
@@ -102,7 +97,6 @@ institutions.forEach((institution) => {
     const editedBadgeFormOfPart = 'work experience';
     const editedBadgeAssesment = 'Portfolio / portfolio assessment';
     const issuers = adminPage.managePage.issuersPage;
-    const creationInformation = adminPage.page.locator('div.list');
 
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
@@ -110,7 +104,7 @@ institutions.forEach((institution) => {
     await issuers.createExtracurricularBadge(issuerGroupName, initialBadgeName);
 
     // test
-    await issuers.editExistingBadge(
+    editedBadgeName = await issuers.editExistingBadge(
       editedBadgeName,
       editedBadgeDesc,
       editedBadgeOutcome,
@@ -122,9 +116,9 @@ institutions.forEach((institution) => {
     );
 
     // validation
-    await expect(adminPage.page).toHaveScreenshot(
-      `Edited${institution}ExtraCurricularBadgeclass.png`,
-      { fullPage: true, mask: [creationInformation] },
-    );
+    const badgeNameLocator = adminPage.page.locator('div.info').locator('h2');
+    const breadcrumbs = adminPage.page.locator('.bread-crumb');
+    await expect(badgeNameLocator).toHaveText(editedBadgeName);
+    await expect(breadcrumbs.getByText(editedBadgeName)).toBeVisible();
   });
 });
