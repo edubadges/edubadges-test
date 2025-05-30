@@ -18,9 +18,8 @@ test(
     const studentInfo = await adminPage.getStudentAccount(institution);
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newBadgeAdminName = 'NewE2EBadgeAdmin';
-    const newBadgeAdminMail =
-      newBadgeAdminName + testdata.retryCount + '@' + institutionServer;
+    const newBadgeAdminName = `NewE2EBadgeAdmin${testdata.browserName}${testdata.retryCount}`;
+    const newBadgeAdminMail = newBadgeAdminName + '@' + institutionServer;
 
     // setup
     await adminPage.loginTestIdp('WO', 'Institution');
