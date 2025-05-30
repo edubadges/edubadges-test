@@ -9,22 +9,17 @@ test(
     const issuers = adminPage.managePage.issuersPage;
     const userManagement = adminPage.managePage.userManagement;
 
+    var issuerName = 'E2E Issuer';
+    var badgeName = 'E2E Regular badge';
     const institution = 'WO';
     const issuergroupName = 'E2E Issuergroup';
     const descriptionText = 'E2E filler description';
-    const issuerName = 'E2E Issuer';
-    const badgeName = 'E2E Regular badge';
-    const badgeLocator = catalogPage.page
-      .locator('.card.badge')
-      .getByText(badgeName)
-      .first()
-      .locator('../../..');
 
     const studentInfo = await adminPage.getStudentAccount(institution);
     const institutionServer =
       await userManagement.getInstitutionServer(institution);
-    const newBadgeAdminName = 'NewE2EBadgeAdmin';
-    const newBadgeAdminMail = newBadgeAdminName + testdata.retryCount + '@' + institutionServer;
+    const newBadgeAdminName = `NewE2EBadgeAdmin${testdata.browserName}${testdata.retryCount}`;
+    const newBadgeAdminMail = newBadgeAdminName + '@' + institutionServer;
 
     // setup
     await adminPage.loginTestIdp('WO', 'Institution');
@@ -38,7 +33,7 @@ test(
     await issuers.createNewIssuer(issuerName, descriptionText);
 
     // create badgeclass
-    await issuers.createRegularBadge(badgeName);
+    badgeName = await issuers.createRegularBadge(badgeName);
 
     // invite and accept new badgeclass admin
     await adminPage.managePage.userManagement.inviteUser(newBadgeAdminMail);
@@ -63,6 +58,11 @@ test(
     await expect(catalogPage.page.getByText(badgeName)).toBeVisible();
 
     // reject badge and validate
+    var badgeLocator = catalogPage.page
+      .locator('.card.badge')
+      .getByText(badgeName)
+      .first()
+      .locator('../../..');
     await catalogPage.reloadPage();
     await badgeLocator.getByText('View details to claim this edubadge').click();
 

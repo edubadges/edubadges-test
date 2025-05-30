@@ -80,6 +80,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     issuerContactMail?: string,
     issuerGroupName?: string,
   ) {
+    issuerName = `${issuerName} ${this.testdata.browserName} retry ${this.testdata.retryCount}`;
     await this.clickAddNewIssuer();
     await this.fillIssuerForm(
       issuerName,
@@ -92,6 +93,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.saveButton.click();
 
     await this.waitForLoadingToStop();
+    return issuerName;
   }
 
   async editExistingIssuer(
@@ -102,6 +104,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     issuerContactMail?: string,
     issuerGroupName?: string,
   ) {
+    issuerName = `${issuerName} ${this.testdata.browserName} retry ${this.testdata.retryCount}`;
     await this.openIssuer(oldIssuerName);
     await this.clickEditIssuer();
 
@@ -116,6 +119,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
 
     await this.saveChangesButton.click();
     await this.waitForLoadingToStop();
+    return issuerName;
   }
 
   async deleteExistingIssuer(issuerName: string) {
@@ -178,6 +182,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     frameworkCode: string = this.testdata.badgeData.frameworkCode,
     frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
   ) {
+    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`;
     await this.editBadgeButton.click();
     await this.waitForLoadingToStop();
     await this.emptyAllForms();
@@ -198,6 +203,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     );
     await this.saveChangesButton.click();
     await this.editBadgeButton.waitFor();
+    return badgeTitle;
   }
 
   /**Expects the badge to be removed to be opened */
@@ -211,6 +217,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
 
   /**Expects the badge to be copied to be opened */
   async copyExistingBadge(badgeTitle: string) {
+    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`
     await this.copyBadgeButton.click();
 
     const pageForm = this.page.getByText('Basic information').locator('..');
@@ -222,6 +229,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await titleFormLocator.fill(badgeTitle);
 
     await this.publishBadge();
+    return badgeTitle;
   }
 
   private async emptyAllForms() {
@@ -273,6 +281,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     frameworkCode: string = this.testdata.badgeData.frameworkCode,
     frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
   ) {
+    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`
     if (issuergroupName) {
       await this.searchWithText(issuergroupName);
       await this.openIssuer(issuergroupName);
@@ -295,6 +304,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
       frameworkDesc,
     );
     await this.publishBadge();
+    return badgeTitle;
   }
 
   async createMicroBadge(
@@ -313,6 +323,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     frameworkCode: string = this.testdata.badgeData.frameworkCode,
     frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
   ) {
+    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`;
     await this.searchWithText(issuerGroupName);
     await this.openIssuer(issuerGroupName);
     await this.clickNewBadgeClass();
@@ -333,6 +344,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
       frameworkDesc,
     );
     await this.publishBadge();
+    return badgeTitle;
   }
 
   async createExtracurricularBadge(
@@ -352,6 +364,7 @@ export class IssuersSubPage extends BaseStaffSubPage {
     frameworkDesc: string = this.testdata.badgeData.frameworkDescription,
     hoursNeeded: string = this.testdata.badgeData.hours,
   ) {
+    badgeTitle = `${badgeTitle} ${this.testdata.browserName} retry ${this.testdata.retryCount}`;
     await this.searchWithText(issuerGroupName);
     await this.openIssuer(issuerGroupName);
     await this.clickNewBadgeClass();
@@ -372,9 +385,10 @@ export class IssuersSubPage extends BaseStaffSubPage {
       frameworkDesc,
     );
 
-    await this.fillInBadgeHoursForm(hoursNeeded);
+    this.page.getByRole('spinbutton').first().fill(hoursNeeded);
 
     await this.publishBadge();
+    return badgeTitle;
   }
 
   async clickMicroCredential() {
@@ -398,25 +412,8 @@ export class IssuersSubPage extends BaseStaffSubPage {
       .click();
   }
 
-  async fillInMicrocredentialForm() {
-    await this.fillInBadgeForm();
-  }
-
-  async fillInRegularForm() {
-    await this.fillInBadgeForm();
-  }
-
-  async fillInExtraCurricularForm() {
-    await this.fillInBadgeForm();
-  }
-
-  async fillInMBOExtraCurricularForm() {
-    await this.fillInBadgeForm();
-    await this.fillInBadgeHoursForm();
-  }
-
-  private async fillInBadgeForm(
-    badgeTitle: string = this.testdata.badgeData.title,
+  public async fillInBadgeForm(
+    badgeTitle: string = `${this.testdata.testCaseName} ${this.testdata.browserName} retry ${this.testdata.retryCount}`,
     badgeDesc: string = this.testdata.badgeData.description,
     learningOutcomes: string = this.testdata.badgeData.learningOutcomes,
     criterium: string = this.testdata.badgeData.criteria,
@@ -506,12 +503,6 @@ export class IssuersSubPage extends BaseStaffSubPage {
     await this.page.keyboard.type(frameworkDesc);
 
     await this.uploadImage();
-  }
-
-  private async fillInBadgeHoursForm(
-    badgeHours: string = this.testdata.badgeData.hours,
-  ) {
-    this.page.getByRole('spinbutton').first().fill(badgeHours);
   }
 
   async publishBadge() {

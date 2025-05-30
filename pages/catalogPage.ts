@@ -58,13 +58,16 @@ export class CatalogPage extends BasePage {
     ).toBeVisible();
   }
 
-  async requestEdubadge(institution: institution, accountNr: number = this.testdata.retryCount) {
+  async requestEdubadge(
+    institution: institution,
+    accountNr: number = this.testdata.retryCount,
+  ) {
     if (await this.loginButton.isVisible()) {
       await this.loginButton.click();
       await this.loginStudentIdp(institution, accountNr);
     }
 
-    await this.requestButton.waitFor();
+    await this.requestButton.waitFor({ timeout: 10000 });
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
@@ -76,7 +79,7 @@ export class CatalogPage extends BasePage {
 
   public async loginStudentIdp(
     institution: institution,
-    accountNr: number = 0,
+    accountNr: number = this.testdata.retryCount,
   ) {
     await this.searchField.or(this.usernameField).waitFor();
 

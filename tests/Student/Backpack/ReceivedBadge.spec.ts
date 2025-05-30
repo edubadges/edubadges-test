@@ -11,14 +11,13 @@ institutionsWithoutHBO.forEach((institution) => {
     const studentAccount = await backpackPage.getStudentAccount(institution);
 
     // setup
+    await backpackPage.login(institution);
     await adminPage.loginTestIdp(institution, 'Institution');
     await adminPage.badgeClassPage.directAwardBadge(
       badgeName,
       studentAccount.email,
       studentAccount.EPPN,
     );
-
-    await backpackPage.login(institution);
 
     // test
     await backpackPage.rejectReceivedBadge(badgeName);

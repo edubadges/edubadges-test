@@ -39,6 +39,18 @@ export class HBOAccounts extends AccountsBase {
         process.env.HBO_STUDENT_2_NAME || '',
         process.env.HBO_STUDENT_2_EPPN || '',
       ),
+      new studentDetails(
+        process.env.HBO_STUDENT_3_EMAIL || '',
+        process.env.HBO_STUDENT_3_PASSWORD || '',
+        process.env.HBO_STUDENT_3_NAME || '',
+        process.env.HBO_STUDENT_3_EPPN || '',
+      ),
+      new studentDetails(
+        process.env.HBO_STUDENT_4_EMAIL || '',
+        process.env.HBO_STUDENT_4_PASSWORD || '',
+        process.env.HBO_STUDENT_4_NAME || '',
+        process.env.HBO_STUDENT_4_EPPN || '',
+      ),
     ];
   }
 }

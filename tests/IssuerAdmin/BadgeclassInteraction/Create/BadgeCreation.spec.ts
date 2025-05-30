@@ -106,33 +106,29 @@ institutions.forEach((institution) => {
     testdata,
   }) => {
     // var
+    const badgeTitle = `Regular ${institution} badge ${testdata.browserName}`;
     const issuers = adminPage.managePage.issuersPage;
-    const creationInformation = adminPage.page.locator('div.list');
-    const manage = issuers;
+    const issuergroupName = 'Medicine';
+    const editButton = adminPage.page.getByRole('link', {
+      name: 'Edit badge class',
+    });
+    const badgeTitleLocator = adminPage.page.locator('.info').locator('h2');
 
     // setup
-    testdata.badgeData.title = `Regular Test automation ${institution}`;
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await manage.searchWithText('Medicine');
-    await manage.openIssuer('Medicine');
+    await issuers.searchWithText(issuergroupName);
+    await issuers.openIssuer(issuergroupName);
 
     // test
-    await manage.clickNewBadgeClass();
-    await manage.clickRegularBadge();
-    await manage.fillInExtraCurricularForm();
-    await manage.publishBadge();
+    await issuers.clickNewBadgeClass();
+    await issuers.clickRegularBadge();
+    await issuers.fillInBadgeForm(badgeTitle);
+    await issuers.publishBadge();
 
-    await adminPage.page
-      .getByRole('link', { name: 'Edit badge class' })
-      .waitFor();
-
-    await expect(adminPage.page).toHaveScreenshot(
-      `regular${institution}BadgeCreated.png`,
-      {
-        mask: [creationInformation],
-      },
-    );
+    // validate
+    await expect(editButton).toBeVisible();
+    await expect(badgeTitleLocator).toHaveText(badgeTitle);
   });
 
   test(`Validate micro credential ${institution} edu badge creation`, async ({
@@ -140,32 +136,30 @@ institutions.forEach((institution) => {
     testdata,
   }) => {
     // var
+    const badgeTitle = `Micro credential ${institution} ${testdata.browserName}`;
     const issuers = adminPage.managePage.issuersPage;
-    const creationInformation = adminPage.page.locator('div.list');
+    const issuergroupName = 'Medicine';
+    const editButton = adminPage.page.getByRole('link', {
+      name: 'Edit badge class',
+    });
+    const badgeTitleLocator = adminPage.page.locator('.info').locator('h2');
 
     // setup
-    testdata.badgeData.title = `Micro Test automation ${institution}`;
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await issuers.searchWithText('Medicine');
-    await issuers.openIssuer('Medicine');
+    await issuers.searchWithText(issuergroupName);
+    await issuers.openIssuer(issuergroupName);
     await issuers.clickNewBadgeClass();
     await issuers.clickMicroCredential();
 
     // test
-    await issuers.fillInExtraCurricularForm();
+    await issuers.fillInBadgeForm(badgeTitle);
     await issuers.publishBadge();
+    await editButton.waitFor();
 
-    await adminPage.page
-      .getByRole('link', { name: 'Edit badge class' })
-      .waitFor();
-
-    await expect(adminPage.page).toHaveScreenshot(
-      `micro${institution}BadgeCreated.png`,
-      {
-        mask: [creationInformation],
-      },
-    );
+    // validate
+    await expect(editButton).toBeVisible();
+    await expect(badgeTitleLocator).toHaveText(badgeTitle);
   });
 
   test(`Validate extra curricular ${institution} edu badge creation`, async ({
@@ -173,31 +167,28 @@ institutions.forEach((institution) => {
     testdata,
   }) => {
     /// var
+    const badgeTitle = `Extra curricular ${institution} badge ${testdata.browserName}`;
     const issuers = adminPage.managePage.issuersPage;
-    const creationInformation = adminPage.page.locator('div.list');
+    const issuergroupName = 'Medicine';
+    const editButton = adminPage.page.getByRole('link', {
+      name: 'Edit badge class',
+    });
+    const badgeTitleLocator = adminPage.page.locator('.info').locator('h2');
 
     // setup
-    testdata.badgeData.title = `Extra Test automation ${institution}`;
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await issuers.searchWithText('Medicine');
-    await issuers.openIssuer('Medicine');
+    await issuers.searchWithText(issuergroupName);
+    await issuers.openIssuer(issuergroupName);
     await issuers.clickNewBadgeClass();
     await issuers.clickExtraCurricularEduBadge();
 
     // test
-    await issuers.fillInExtraCurricularForm();
+    await issuers.fillInBadgeForm(badgeTitle);
     await issuers.publishBadge();
 
-    await adminPage.page
-      .getByRole('link', { name: 'Edit badge class' })
-      .waitFor();
-
-    await expect(adminPage.page).toHaveScreenshot(
-      `extraCurricular${institution}BadgeCreated.png`,
-      {
-        mask: [creationInformation],
-      },
-    );
+    // validate
+    await expect(editButton).toBeVisible();
+    await expect(badgeTitleLocator).toHaveText(badgeTitle);
   });
 });

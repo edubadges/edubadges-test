@@ -18,6 +18,7 @@ export const test = base.extend<LoginFixture>({
     var testdata = new Testdata();
     testdata.testCaseName = testInfo.title;
     testdata.retryCount = testInfo.retry;
+    testdata.browserName = testInfo.project.name;
 
     // Use the fixture value in the test.
     await use(testdata);

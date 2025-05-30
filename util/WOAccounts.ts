@@ -45,6 +45,12 @@ export class WOAccounts extends AccountsBase {
         process.env.WO_STUDENT_3_NAME || '',
         process.env.WO_STUDENT_3_EPPN || '',
       ),
+      new studentDetails(
+        process.env.WO_STUDENT_4_EMAIL || '',
+        process.env.WO_STUDENT_4_PASSWORD || '',
+        process.env.WO_STUDENT_4_NAME || '',
+        process.env.WO_STUDENT_4_EPPN || '',
+      ),
     ];
   }
 }

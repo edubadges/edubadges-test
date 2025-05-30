@@ -4,8 +4,8 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Create new ${institution} issuer`, async ({ adminPage }) => {
     // var
+    var newIssuerName = 'New WO Issuer';
     const existingIssuergroupName = 'Medicine';
-    const newIssuerName = 'New WO Issuer';
     const descriptionText = 'Test WO Issuer';
     const issuers = adminPage.managePage.issuersPage;
 
@@ -18,7 +18,10 @@ institutions.forEach((institution) => {
     );
 
     // test
-    await issuers.createNewIssuer(newIssuerName, descriptionText);
+    newIssuerName = await issuers.createNewIssuer(
+      newIssuerName,
+      descriptionText,
+    );
 
     // validate
     const editButton = adminPage.page.getByRole('link', {

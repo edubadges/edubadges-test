@@ -6,8 +6,8 @@ institutions.forEach((institution) => {
     adminPage,
   }) => {
     // var
+    var initialBadgeName = 'A new Medicine regular badge';
     const issuerGroupName = 'Medicine';
-    const initialBadgeName = 'A new Medicine regular badge';
     const badgeDesc = 'The original description';
     const badgeOutcome = 'The original outcome';
     const badgeCriterium = 'The original criterium';
@@ -25,7 +25,7 @@ institutions.forEach((institution) => {
     // setup
     await adminPage.loginTestIdp(institution, 'Issuer');
     await adminPage.goToManage();
-    await issuers.createRegularBadge(
+    initialBadgeName = await issuers.createRegularBadge(
       initialBadgeName,
       issuerGroupName,
       badgeDesc,

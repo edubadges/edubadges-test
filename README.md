@@ -42,25 +42,73 @@ The test results are generated in the folder test-results
 This project makes use of an .env file for storing url's, usernames and passwords. This file should contain the following info:
 
 ```bash
-   INSTUTUTION_ADMIN_USERNAME=[value]
-   INSTUTUTION_ADMIN_PASSWORD=[value]
-   ISSUER_GROUP_ADMIN_USERNAME=[value]
-   ISSUER_GROUP_ADMIN_PASSWORD=[value]
-   ISSUER_GROUP_ADMIN_ISSUERGROUP=[value]
-   BADGE_CLASS_ADMIN_HBO_USERNAME=[value]
-   BADGE_CLASS_ADMIN_HBO_PASSWORD=[value]
-   BADGE_CLASS_ADMIN_MBO_USERNAME=[value]
-   BADGE_CLASS_ADMIN_MBO_PASSWORD=[value]
-   BADGE_CLASS_ADMIN_USERNAME=[value]
-   BADGE_CLASS_ADMIN_PASSWORD=[value]
-   ISSUER_ADMIN_USERNAME=[value]
-   ISSUER_ADMIN_PASSWORD=[value]
-   STUDENT_USERNAME=[value]
-   STUDENT_PASSWORD=[value]
-   STUDENT_EMAIL=[value]
-   STUDENT_EPPN=[value]
+   # admins
+   WO_INSTITUTION_ADMIN_USERNAME=[value]
+   WO_INSTITUTION_ADMIN_PASSWORD=[value]
+   WO_ISSUERGROUP_ADMIN_USERNAME=[value]
+   WO_ISSUERGROUP_ADMIN_PASSWORD=[value]
+   WO_ISSUER_ADMIN_USERNAME=[value]
+   WO_ISSUER_ADMIN_PASSWORD=[value]
+   WO_BADGECLASS_ADMIN_USERNAME=[value]
+   WO_BADGECLASS_ADMIN_PASSWORD=[value]
+
+   # students
+   WO_STUDENT_1_EMAIL=[value]
+   WO_STUDENT_1_PASSWORD=[value]
+   WO_STUDENT_1_USERNAME=[value]
+   WO_STUDENT_1_NAME=[value]
+   WO_STUDENT_1_EPPN=[value]
+
+   WO_STUDENT_2_EMAIL=[value]
+   WO_STUDENT_2_PASSWORD=[value]
+   WO_STUDENT_2_USERNAME=[value]
+   WO_STUDENT_2_NAME=[value]
+   WO_STUDENT_2_EPPN=[value]
+   
+   # etc...
+
+   # admins
+   HBO_INSTITUTION_ADMIN_USERNAME=[value]
+   HBO_INSTITUTION_ADMIN_PASSWORD=[value]
+   HBO_ISSUERGROUP_ADMIN_USERNAME=[value]
+   HBO_ISSUERGROUP_ADMIN_PASSWORD=[value]
+   HBO_ISSUER_ADMIN_USERNAME=[value]
+   HBO_ISSUER_ADMIN_PASSWORD=[value]
+   HBO_BADGECLASS_ADMIN_USERNAME=[value]
+   HBO_BADGECLASS_ADMIN_PASSWORD=[value]
+
+   # students
+   HBO_STUDENT_1_EMAIL=[value]
+   HBO_STUDENT_1_PASSWORD=[value]
+   HBO_STUDENT_1_USERNAME=[value]
+   HBO_STUDENT_1_NAME=[value]
+   HBO_STUDENT_1_EPPN=[value]
+
+   # etc...
+
+   # admins
+   MBO_INSTITUTION_ADMIN_USERNAME=[value]
+   MBO_INSTITUTION_ADMIN_PASSWORD=[value]
+   MBO_ISSUERGROUP_ADMIN_USERNAME=[value]
+   MBO_ISSUERGROUP_ADMIN_PASSWORD=[value]
+   MBO_ISSUER_ADMIN_USERNAME=[value]
+   MBO_ISSUER_ADMIN_PASSWORD=[value]
+   MBO_BADGECLASS_ADMIN_USERNAME=[value]
+   MBO_BADGECLASS_ADMIN_PASSWORD=[value]
+
+   # students
+   MBO_STUDENT_1_EMAIL=[value]
+   MBO_STUDENT_1_PASSWORD=[value]
+   MBO_STUDENT_1_USERNAME=[value]
+   MBO_STUDENT_1_NAME=[value]
+   MBO_STUDENT_1_EPPN=[value]
+
+   # etc...
+
    BASE_URL=http://0.0.0.0:8080
 ```
+
+Note that the students can be expanded as they are stored as a list, but this should be changed in the Accounts section of Utils
 
 Baseurl of http://0.0.0.0:8080 is used to run the tests against the local machine. This requires the edubadges server and edubadges UI docker containers also to be running on the localmachine. More info about this can be found in their repo's. 
 
@@ -104,24 +152,33 @@ This folder contains all playwright tests. Tests related to the same subject are
 A test looks like this:
 
 ```typescript
-   import { expect, test } from '../../fixtures/eduBadgesFixture';
+   import { expect, test } from '../../../fixtures/staffFixture';
+   import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 
-   test('Validate error messages empty microcredential form', async ({
-   issuerPortalPageManage,
-   page,
-   }) => {
-   await issuerPortalPageManage.searchForBadgeClass('Medicine');
-   await issuerPortalPageManage.openBadgeClassWithName('Medicine');
-   await issuerPortalPageManage.createNewBadgeClass();
-   await issuerPortalPageManage.createNewMicroCredential();
-   await expect(page).toHaveScreenshot('emptyMicrocredentialForm.png', {
-      fullPage: true,
-   });
-   await page.getByRole('link', { name: 'Publish' }).click();
-   await expect(page).toHaveScreenshot(
-      'emptyMicrocredentialFormWithValidationErrors.png',
-      { fullPage: true },
-   );
+   institutionsWithoutHBO.forEach((institution) => {
+   test(`Award requested badge from ${institution}`, async ({
+      catalogPage,
+      adminPage,
+      }) => {
+         // var
+         const badgeName = 'Growth and Development';
+         const studentInfo = await adminPage.getStudentAccount(institution);
+
+         // setup
+         await adminPage.loginTestIdp(institution, 'Badgeclass');
+         await catalogPage.searchWithText(badgeName);
+         await catalogPage.filterOn(institution);
+         await catalogPage.openBadge(badgeName);
+         await catalogPage.requestEdubadge(institution);
+
+         // test
+         await adminPage.badgeClassPage.approveRequest(badgeName, studentInfo.name);
+
+         // validate
+         await expect(
+            adminPage.page.getByText('The request(s) have been awarded.'),
+         ).toBeVisible();
+      });
    });
 ```
 
@@ -129,7 +186,9 @@ It is important to import the test from a fixture. The fixtures is responsible f
 
 A test is define by test('[unique test name]', async({[objects imported from the fixture]}) => { [test implementation]};)
 * Playwright requires that all test has an unique name. If 2 tests with the same name exists, playwright executes the first test it sees twice instead of running 2 different tests.
-* The fixtures makes sure that all the page objects are provided and are in a test ready state. Things like opening 1 or more browsers, navigating to the correct page, logging in, setting up test data is the responsibility of the fixture. The playwright test itself only contains the actual test code and no border test code.
+* This uniqueness can be created by using variables, like institution level, in the testname when generating multiple tests at the same time.
+* The fixtures makes sure that all the page objects are provided and are in a test ready state. Things like opening 1 or more browsers, navigating to the correct page, or setting up test data is the responsibility of the fixture. The playwright test itself only contains the actual test code and no border test code.
+* Logging in is an expection on the ready state, as the test itself contains the institution that is needed to login. This makes it so that logging in is impossible on fixture level.
 
 ### ./ fixtures
 
@@ -149,37 +208,40 @@ These are the object that can be use in tests that make use of this fixture. The
 
 ```typescript
    export const test = base.extend<LoginFixture>({
-   testdata: async ({}, use, testInfo) => {
-      var testdata = new Testdata();
-      testdata.testCaseName = testInfo.title;
+      testdata: async ({}, use, testInfo) => {
+         var testdata = new Testdata();
+         testdata.testCaseName = testInfo.title;
+         testdata.retryCount = testInfo.retry;
+         testdata.browserName = testInfo.project.name;
 
-      // Use the fixture value in the test.
-      await use(testdata);
+         // Use the fixture value in the test.
+         await use(testdata);
 
-      // Clean up the fixture.
-   },
-   homePage: async ({ page, testdata }, use, testInfo) => {
-      // Set up the fixture
-      testdata.testCaseName = testInfo.title;
-      const loginPage = new HomePage(page, testdata);
-      await loginPage.navigateToHomePage();
+         // Clean up the fixture.
+      },
+      homePage: async ({ page, testdata }, use, testInfo) => {
+         // Set up the fixture
+         testdata.testCaseName = testInfo.title;
+         const loginPage = new HomePage(page, testdata);
+         await loginPage.navigateToHomePage();
 
-      // Use the fixture value in the test.
-      await use(loginPage);
+         // Use the fixture value in the test.
+         await use(loginPage);
 
-      // Clean up the fixture.
-   },
+         // Clean up the fixture.
+      },
 
-   issuerPortalPage: async ({ page, testdata }, use) => {
-      // Set up the fixture.
-      const issuerPortalPage = new IssuerPortalPage(page, testdata);
+      issuerPortalPage: async ({ page, testdata }, use) => {
+         // Set up the fixture.
+         const issuerPortalPage = new StaffMainPage(page, testdata);
 
-      // Use the fixture value in the test.
-      await use(issuerPortalPage);
+         // Use the fixture value in the test.
+         await use(issuerPortalPage);
 
-      // Clean up the fixture.
-   },
+         // Clean up the fixture.
+      },
    });
+   export { expect, BrowserContext } from '@playwright/test';
 ```
 
 The above example shows 

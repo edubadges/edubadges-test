@@ -4,10 +4,10 @@ import { institutions } from '../../../../util/loginPossibilities';
 institutions.forEach((institution) => {
   test(`Edit ${institution} issuer`, async ({ adminPage }) => {
     // var
+    var initialIssuerName = 'Initial issuer name';
+    var editedIssuerName = 'Edited issuer name';
     const issuergroupName = 'Medicine';
-    const initialIssuerName = 'Initial issuer name';
     const initialIssuerDesc = 'Initial description';
-    const editedIssuerName = 'Edited issuer name';
     const editedIssuerDesc = 'Second description';
 
     const issuers = adminPage.managePage.issuersPage;
@@ -20,14 +20,17 @@ institutions.forEach((institution) => {
     await adminPage.goToManage();
     await adminPage.managePage.goToIssuerGroups();
     await adminPage.managePage.issuerGroupPage.openIssuerGroup(issuergroupName);
-    await issuers.createNewIssuer(initialIssuerName, initialIssuerDesc);
+    initialIssuerName = await issuers.createNewIssuer(
+      initialIssuerName,
+      initialIssuerDesc,
+    );
 
     await adminPage.goToManage();
     await adminPage.managePage.goToIssuers();
     await adminPage.waitForLoadingToStop();
 
     // test
-    await issuers.editExistingIssuer(
+    editedIssuerName = await issuers.editExistingIssuer(
       initialIssuerName,
       editedIssuerName,
       editedIssuerDesc,

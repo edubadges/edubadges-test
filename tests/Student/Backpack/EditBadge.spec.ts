@@ -24,11 +24,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await backpackPage.claimReceivedBadge(badgeName);
 
     // test
-    await backpackPage.page
-      .getByRole('link', { name: 'Reject this edubadge' })
-      .click();
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
-
+   await backpackPage.rejectReceivedBadge(badgeName);
     // validate
     await expect(backpackPage.page.getByText('Rejected')).toBeVisible();
   });
