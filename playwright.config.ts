@@ -34,8 +34,11 @@ export default defineConfig({
     // Base URL to use in actions like `await page.goto('/')`.
     baseURL: process.env.BASE_URL,
 
-    // Collect trace when retrying the failed test.
-    trace: 'on',
+    // Collect trace only on failure to reduce artifact size
+    trace: 'retain-on-failure',
+
+    // Capture screenshots only when tests fail
+    screenshot: 'only-on-failure',
   },
   // Configure projects for major browsers.
   projects: [

@@ -137,3 +137,6 @@ test-results.xml
 
 # excel locking mechanism
 *.xlsx#
+
+# IntelliJ
+.idea/
