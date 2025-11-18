@@ -30,6 +30,10 @@ export default defineConfig({
   ],
   timeout: 2 * 60 * 1000, // 2 minutes
 
+  // Use platform-agnostic snapshots
+  snapshotPathTemplate:
+    '{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}{ext}',
+
   use: {
     // Base URL to use in actions like `await page.goto('/')`.
     baseURL: process.env.BASE_URL,
@@ -39,9 +43,6 @@ export default defineConfig({
 
     // Capture screenshots only when tests fail
     screenshot: 'only-on-failure',
-
-    // Use platform-agnostic snapshots
-    snapshotPathTemplate: '{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}{ext}',
   },
   // Configure projects for major browsers.
   projects: [
