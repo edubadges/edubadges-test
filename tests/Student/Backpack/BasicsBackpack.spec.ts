@@ -49,11 +49,6 @@ test('See subcategories', async ({ backpackPage }) => {
     mask: maskedLocators,
   });
 
-  await backpackPage.openImported();
-  await expect(backpackPage.page).toHaveScreenshot('ImportedBackpack.png', {
-    mask: maskedLocators,
-  });
-
   await backpackPage.openArchive();
   await expect(backpackPage.page).toHaveScreenshot('ArchiveBackpack.png', {
     mask: maskedLocators,

@@ -14,9 +14,6 @@ export class BackpackPage extends BasePage {
   private readonly collectionsLink = this.page.getByRole('link', {
     name: 'Collections',
   });
-  private readonly importedLink = this.page.getByRole('link', {
-    name: 'Imported',
-  });
   private readonly archiveLink = this.page.getByRole('link', {
     name: 'Archive',
   });
@@ -129,11 +126,6 @@ export class BackpackPage extends BasePage {
 
   async openCollections() {
     await this.collectionsLink.click();
-    await this.waitForLoadingToStop();
-  }
-
-  async openImported() {
-    await this.importedLink.click();
     await this.waitForLoadingToStop();
   }
 
