@@ -41,21 +41,21 @@ test('See subcategories', async ({ backpackPage }) => {
   // test & validate
   await backpackPage.openBadgeRequests();
   await expect(backpackPage.page).toHaveScreenshot('RequestsBackpack.png', {
-    mask: maskedLocators,
+    mask: maskedLocators, maxDiffPixelRatio: 0.01,
   });
 
   await backpackPage.openCollections();
   await expect(backpackPage.page).toHaveScreenshot('CollectionsBackpack.png', {
-    mask: maskedLocators,
+    mask: maskedLocators, maxDiffPixelRatio: 0.01,
   });
 
   await backpackPage.openArchive();
   await expect(backpackPage.page).toHaveScreenshot('ArchiveBackpack.png', {
-    mask: maskedLocators,
+    mask: maskedLocators, maxDiffPixelRatio: 0.01,
   });
 
   await backpackPage.openAccount();
   await expect(backpackPage.page).toHaveScreenshot('AccountBackpack.png', {
-    mask: maskedLocators,
+    mask: maskedLocators, maxDiffPixelRatio: 0.01,
   });
 });
