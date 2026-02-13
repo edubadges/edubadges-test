@@ -174,4 +174,28 @@ export class StaffMainPage extends BasePage {
     await this.insightsLink.click();
     await this.waitForLoadingToStop();
   }
+
+
+  
+  async searchWithText(name: string) {
+    await this.searchField.fill(name);
+  }
+
+
+   async setExpireDate(name: string) {
+    await this.page.getByText(name).first().click();
+   
+    await this.page.getByText('Go to admin view').click();
+    
+    await this.page.getByRole('link', { name: 'Edit badge class' }).click();
+    
+    await this.page.locator('label').filter({ hasText: 'After' }).locator('span').first().click();
+    await this.page.locator('.expiration > .select-field > .selectContainer > input').first().click();
+    await this.page.getByText('Days').first().click({timeout: 4000});
+    await this.page.getByRole('link', { name: 'Save changes' }).click();
+    await this.page.getByText('Go to award view').click({timeout: 20000}); 
+    await this.page.getByRole('link', { name: 'Award edubadge(s)' }).click();
+    await this.page.getByRole('link', { name: 'Badge classes' }).click();
+   
+  }
 }

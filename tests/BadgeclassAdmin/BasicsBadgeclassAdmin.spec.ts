@@ -11,6 +11,15 @@ institutions.forEach((institution) => {
     await homePage.openIssuerPortal();
     await issuerPortalPage.loginTestIdp(institution, 'Badgeclass');
 
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+
+    const dateOptions = { month: 'short', day: 'numeric', year: 'numeric' } as const;
+    const formattedDate = today.toLocaleDateString('en-US', dateOptions);
+   // const formattedDate = today.toLocaleString('nl-NL');
+
+     console.log(formattedDate + "tesstttttttttttt"); 
+
     // validate
     await expect(loggedInMenu).toBeVisible();
     await expect(navigationHeader).toBeVisible();
