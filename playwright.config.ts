@@ -23,6 +23,8 @@ export default defineConfig({
   // Opt out of parallel tests on CI.
   workers: process.env.CI ? 1 : 2,
 
+  
+
   // Reporter to use
   reporter: [
     ['html', { open: 'never' }],
@@ -43,6 +45,9 @@ export default defineConfig({
 
     // Capture screenshots only when tests fail
     screenshot: 'only-on-failure',
+    
+     // Grant permission to read from the clipboard
+     permissions: ['clipboard-read'],
   },
   // Configure projects for major browsers.
   projects: [
