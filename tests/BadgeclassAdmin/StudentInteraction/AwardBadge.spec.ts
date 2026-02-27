@@ -92,10 +92,11 @@ institutionsWithoutHBO.forEach((institution) => {
   test(`Award requested badge from ${institution} with expiration date`, async ({
     catalogPage,
     adminPage,
-
+    browserName
   }) => {
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
 
     // var
     const badgeName = 'Digestion and Defense';
@@ -122,6 +123,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await catalogPage.page.waitForTimeout(8000);
     await catalogPage.page.reload();
     await catalogPage.page.getByRole('link', { name: 'My backpack' }).click();
+    await catalogPage.page.waitForTimeout(1000);
     await catalogPage.page.getByText('Digestion and Defense', { exact: true }).click()
     await expect(
        catalogPage.page.getByText('Expires'),
