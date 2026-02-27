@@ -87,7 +87,7 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.openBadge(badgeName);
     await this.openRequests();
     await this.selectTableRow(studentName);
-    await this.page.waitForTimeout(1000);
+    await this.page.waitForTimeout(5000);
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
     await this.page.waitForTimeout(500);
     await this.optionsLocator.getByRole('link', { name: 'Award' }).click();

@@ -96,15 +96,17 @@ institutionsWithoutHBO.forEach((institution) => {
     adminPage,
     browserName
   }) => {
+   test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
-    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
+
 
     // var
     const badgeName = 'Digestion and Defense';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup and set expiry date
+    await adminPage.page.waitForTimeout(8000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
     await adminPage.page.waitForTimeout(2000);
     
