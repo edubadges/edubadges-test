@@ -63,15 +63,32 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
    * Approves a badge request for a student.
    */
   async approveRequest(badgeName: string, studentName: string) {
+    await this.page.waitForTimeout(1000);
     await this.searchWithText(badgeName);
     await this.openBadge(badgeName);
     await this.openRequests();
     await this.selectTableRow(studentName);
+    await this.page.waitForTimeout(1000);
     await this.page.getByRole('link', { name: 'Award', exact: true }).click();
     await this.page.waitForTimeout(500);
     await this.optionsLocator.getByRole('link', { name: 'Award' }).click();
     await this.page.getByText('The request(s) have been awarded.').waitFor();
   }
+
+  async approveRequestWithExpireDate(badgeName: string, studentName: string) {
+    await this.page.waitForTimeout(1000);
+    await this.page.getByRole('link', { name: 'Badge classes' }).click();
+    await this.searchWithText(badgeName);
+    await this.openBadge(badgeName);
+    await this.openRequests();
+    await this.selectTableRow(studentName);
+    await this.page.waitForTimeout(1000);
+    await this.page.getByRole('link', { name: 'Award', exact: true }).click();
+    await this.page.waitForTimeout(500);
+    await this.optionsLocator.getByRole('link', { name: 'Award' }).click();
+    await this.page.getByText('The request(s) have been awarded.').waitFor();
+  }
+
 
   async denyRequest(badgeName: string, studentName: string, reason?: string) {
     await this.searchWithText(badgeName);
