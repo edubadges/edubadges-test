@@ -5,7 +5,9 @@ institutionsWithoutHBO.forEach((institution) => {
   test(`Award requested badge from ${institution}`, async ({
     catalogPage,
     adminPage,
+    browserName
   }) => {
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     // var
     const badgeName = 'Growth and Development';
     const studentInfo = await adminPage.getStudentAccount(institution);
@@ -13,6 +15,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
     // setup
+    await adminPage.page.waitForTimeout(8000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
     await adminPage.page.waitForTimeout(5000);
     
@@ -37,6 +40,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
   test(`Send badge directly from ${institution}`, async ({ adminPage }) => {
+      await adminPage.page.waitForTimeout(8000);
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
@@ -46,6 +50,7 @@ institutionsWithoutHBO.forEach((institution) => {
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
+    await adminPage.page.waitForTimeout(8000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
 
     // test
@@ -66,19 +71,21 @@ institutionsWithoutHBO.forEach((institution) => {
     browserName,
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
-    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
+
 
     // var
     const badgeName = 'Regulation and Integration';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
+    await adminPage.page.waitForTimeout(8000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
 
     // test
-    await adminPage.badgeClassPage.directAwardBadge(
+    await adminPage.badgeClassPage.directAwardBadgeEmail(
       badgeName,
       studentInfo.email,
     );

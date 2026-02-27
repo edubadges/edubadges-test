@@ -45,13 +45,48 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
 
     if (studentEPPN) {
       await this.page.getByRole('textbox').nth(1).fill(studentEPPN);
+      
   
     } else {
+      await this.page.waitForTimeout(500);
       await this.mailOnlyCheckbox.click();
     }
+
     await this.page.waitForTimeout(500);
-    await this.page.getByRole('textbox').nth(1).fill("testVoornaam");
-    await this.page.getByRole('textbox').nth(2).fill("testAchternaam");
+    await this.awardButton.click();
+  }
+
+  /**
+   * Direct award a badge to a student. Omit EPPN to award through private mail.
+   */
+  async directAwardBadgeEmail(
+    badgeName: string,
+    studentEmail: string,
+    studentEPPN?: string,
+  ) {
+    await this.searchWithText(badgeName);
+    await this.openBadge(badgeName);
+    await this.sendDirectBadgeEmail(studentEmail, studentEPPN);
+    await this.page.getByText('Direct awards have been sent').waitFor();
+  }
+
+  private async sendDirectBadgeEmail(studentEmail: string, studentEPPN?: string) {
+    await this.awardEdubadgeLink.click();
+    await this.page.getByRole('textbox').first().fill(studentEmail);
+
+
+    if (studentEPPN) {
+      await this.page.getByRole('textbox').nth(1).fill(studentEPPN);
+      
+  
+    } else {
+    
+     
+      await this.mailOnlyCheckbox.click();
+    }
+      await this.page.waitForTimeout(500);
+     await this.page.getByRole('textbox').nth(1).fill("testVoornaam");
+      await this.page.getByRole('textbox').nth(2).fill("testAchternaam");
     await this.page.waitForTimeout(500);
     await this.awardButton.click();
   }
