@@ -191,7 +191,9 @@ export class StaffMainPage extends BasePage {
     
     await this.page.locator('label').filter({ hasText: 'After' }).locator('span').first().click();
     await this.page.locator('.expiration > .select-field > .selectContainer > input').first().click();
-    await this.page.getByText('Days').first().click({timeout: 4000});
+    await this.page.waitForTimeout(1000);
+    await this.page.getByText('Days').first().click({force: true});
+    await this.page.waitForTimeout(5000);
     await this.page.getByRole('link', { name: 'Save changes' }).click();
     await this.page.waitForTimeout(5000);
     await this.page.getByText('Go to award view').click(); 

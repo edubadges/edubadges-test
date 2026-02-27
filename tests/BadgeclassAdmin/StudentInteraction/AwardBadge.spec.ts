@@ -63,10 +63,12 @@ institutionsWithoutHBO.forEach((institution) => {
 
   test(`Send badge directly from ${institution} through mail`, async ({
     adminPage,
+    browserName,
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
 
     // var
     const badgeName = 'Regulation and Integration';

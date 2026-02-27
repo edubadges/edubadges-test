@@ -42,12 +42,17 @@ export class StaffBadgeClassesPage extends BaseStaffSubPage {
     await this.awardEdubadgeLink.click();
     await this.page.getByRole('textbox').first().fill(studentEmail);
 
+
     if (studentEPPN) {
       await this.page.getByRole('textbox').nth(1).fill(studentEPPN);
+  
     } else {
       await this.mailOnlyCheckbox.click();
     }
-
+    await this.page.waitForTimeout(500);
+    await this.page.getByRole('textbox').nth(1).fill("testVoornaam");
+    await this.page.getByRole('textbox').nth(2).fill("testAchternaam");
+    await this.page.waitForTimeout(500);
     await this.awardButton.click();
   }
 
