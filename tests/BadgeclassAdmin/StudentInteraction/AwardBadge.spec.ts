@@ -124,15 +124,14 @@ institutionsWithoutHBO.forEach((institution) => {
     await adminPage.setExpireDate(badgeName);
     await catalogPage.openBadge(badgeName);
     
-    await catalogPage.requestEdubadge(institution);
+    await catalogPage.requestEdubadgeExpiry(institution);
 
     
     // test
     await adminPage.badgeClassPage.approveRequestWithExpireDate(badgeName, studentInfo.name);
     
     //validate catalogus page
-    await catalogPage.page.waitForTimeout(8000);
-    await catalogPage.page.reload();
+    await catalogPage.page.waitForTimeout(10000);
     await catalogPage.page.getByRole('link', { name: 'My backpack' }).click();
     await catalogPage.page.waitForTimeout(1000);
     await catalogPage.page.getByText('Digestion and Defense', { exact: true }).click()
