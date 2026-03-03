@@ -56,6 +56,17 @@ export class BackpackPage extends BasePage {
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
 
+    public async loginSeperated() {
+    await this.usernameField.fill('edubackpack8@gmail.com');
+    await this.nextButton.click();
+
+    await this.passwordField.waitFor();
+    await this.passwordField.fill('Password1!');
+    await this.nextButton.click();
+
+    await this.handleTermsAndConditions(this.loggedInMenu);
+  }
+
   public async getBadgeLocator(badgeName: string): Promise<Locator> {
     return this.page
       .locator('.card.badge')
