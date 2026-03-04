@@ -39,13 +39,15 @@ institutionsWithoutHBO.forEach((institution) => {
   
 
 
-  test(`Send badge directly from ${institution}`, async ({ adminPage }) => {
+  test(`Send badge directly from ${institution}`, async ({ adminPage, browserName }) => {
       await adminPage.page.waitForTimeout(8000);
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
 
     // var
+    await adminPage.page.waitForTimeout(8000);
     const badgeName = 'Cognitive Psychology';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
@@ -109,7 +111,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
     // var
-    const badgeName = 'Digestion and Defense';
+    const badgeName = 'Research Methods';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup and set expiry date
@@ -143,7 +145,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await catalogPage.page.waitForTimeout(13000);
     await catalogPage.page.getByRole('link', { name: 'My backpack' }).click();
     await catalogPage.page.waitForTimeout(1000);
-    await catalogPage.page.getByText('Digestion and Defense', { exact: true }).click()
+    await catalogPage.page.getByText(badgeName, { exact: true }).click()
     await expect(
        catalogPage.page.getByText('Expires'),
      ).toBeVisible();

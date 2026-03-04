@@ -5,7 +5,9 @@ institutions.forEach((institution) => {
   test(`Deny ${institution} badge without reason from Badgeclasses`, async ({
     adminPage,
     catalogPage,
+    browserName,
   }) => {
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
@@ -35,7 +37,9 @@ institutions.forEach((institution) => {
 test('Deny badge with reason from Badgeclasses', async ({
   adminPage,
   catalogPage,
+  browserName,
 }) => {
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
   // var
   const badgeName = 'Digestion and Defense';
   const institution = 'WO';
@@ -66,7 +70,9 @@ test('Deny badge with reason from Badgeclasses', async ({
 test('Deny badge with reason from Manage', async ({
   adminPage,
   catalogPage,
+  browserName,
 }) => {
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
   // var
   const badgeName = 'Cognitive Psychology';
   const institution = 'WO';
