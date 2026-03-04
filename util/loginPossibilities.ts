@@ -9,6 +9,7 @@ export type adminLevel =
 // list of possible institutions
 export const institutions: institution[] = ['WO', 'HBO', 'MBO'];
 export const institutionsWithoutHBO: institution[] = ['WO', 'MBO'];
+export const institutionsWithoutHBOAndMBO: institution[] = ['WO'];
 
 // lists of accounts
 export const allAccounts: adminLevel[] = [

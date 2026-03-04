@@ -78,25 +78,7 @@ export class CatalogPage extends BasePage {
   }
 
 
-    async requestEdubadgeExpiry(
-    institution: institution,
-    accountNr: number = this.testdata.retryCount,
-  ) {
-    if (await this.loginButton.isVisible()) {
-      await this.loginButton.click();
-      await this.loginStudentIdpExpiry(institution, accountNr);
-    }
 
-    await this.page.waitForTimeout(5000);
-    await this.requestButton.click();
-    await this.waitForLoadingToStop();
-
-    await this.page.waitForTimeout(2000);
-    await this.handleTermsAndConditions(this.confirmButton.or(this.successBar));
-    await this.confirmButton.or(this.successBar).click();
-
-    await this.successBar.waitFor();
-  }
 
 
   public async loginStudentIdp(
@@ -127,6 +109,26 @@ export class CatalogPage extends BasePage {
   }
 
 
+  async requestEdubadgeExpiry(
+    institution: institution,
+    accountNr: number = this.testdata.retryCount,
+  ) {
+    if (await this.loginButton.isVisible()) {
+      await this.loginButton.click();
+      await this.loginStudentIdpExpiry(institution, accountNr);
+    }
+
+    await this.page.waitForTimeout(5000);
+    await this.requestButton.click();
+    await this.waitForLoadingToStop();
+
+    await this.page.waitForTimeout(2000);
+    await this.handleTermsAndConditions(this.confirmButton.or(this.successBar));
+    await this.confirmButton.or(this.successBar).click();
+
+    await this.successBar.waitFor();
+  }
+
   public async loginStudentIdpExpiry(
     institution: institution,
     accountNr: number = this.testdata.retryCount,
@@ -151,8 +153,10 @@ export class CatalogPage extends BasePage {
     await this.nextButton.click();
 
     await this.page.waitForTimeout(2000);
-    await this.reloadPage();
-    await this.page.waitForTimeout(1000);
+    await this.reloadPageExpire();
+    await this.page.waitForTimeout(2000);
+
+
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
 }

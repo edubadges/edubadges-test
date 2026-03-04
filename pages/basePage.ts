@@ -16,6 +16,11 @@ export abstract class BasePage {
     await this.page.reload();
   }
 
+  async reloadPageExpire() {
+    await this.page.reload({ waitUntil: 'networkidle' });
+  }
+
+
   async waitForLoadingToStop() {
     await this.page.locator('.lds-roller').waitFor({ state: 'hidden' });
   }
@@ -27,6 +32,7 @@ export abstract class BasePage {
   async handleTermsAndConditions(nextLocator: Locator) {
     const termsAndConditions = this.page.getByRole('link', { name: 'I agree' });
     await this.waitForLoadingToStop();
+    
     await termsAndConditions.or(nextLocator).waitFor();
     if (await termsAndConditions.isVisible()) {
       await termsAndConditions.click();
