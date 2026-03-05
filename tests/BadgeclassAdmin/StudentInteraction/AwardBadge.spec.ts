@@ -15,13 +15,13 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
     // setup
-    await adminPage.page.waitForTimeout(8000);
+    await adminPage.page.waitForTimeout(2000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
-    await adminPage.page.waitForTimeout(5000);
+    await adminPage.page.waitForTimeout(1000);
     
     await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
-    await catalogPage.openBadge(badgeName);
+    await catalogPage.openBadgeExpiry(badgeName);
     
     await catalogPage.requestEdubadge(institution);
   
@@ -40,14 +40,13 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
   test(`Send badge directly from ${institution}`, async ({ adminPage, browserName }) => {
-      await adminPage.page.waitForTimeout(8000);
     test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
 
     // var
-    await adminPage.page.waitForTimeout(8000);
+    await adminPage.page.waitForTimeout(4000);
     const badgeName = 'Cognitive Psychology';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
@@ -83,7 +82,7 @@ institutionsWithoutHBO.forEach((institution) => {
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup
-    await adminPage.page.waitForTimeout(8000);
+    await adminPage.page.waitForTimeout(4000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
 
     // test
@@ -111,37 +110,36 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
     // var
-    const badgeName = 'Research Methods';
+    const badgeName = 'Circulation and Breathing';
     const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup and set expiry date
-    await adminPage.page.waitForTimeout(8000);
+    await adminPage.page.waitForTimeout(4000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
     await adminPage.page.waitForTimeout(2000);
     
-    await catalogPage.searchWithText(badgeName);
-    await catalogPage.filterOn(institution);
-    await catalogPage.page.waitForTimeout(2000);
-    
     await adminPage.setExpireDate(badgeName);
 
-    await adminPage.page.waitForTimeout(3000);
+    await adminPage.page.waitForTimeout(1000);
     await adminPage.badgeClassPage.directAwardBadge(
       badgeName,
       studentInfo.email,
       studentInfo.EPPN,
     );
-    await adminPage.page.waitForTimeout(3000);
 
-    
-    await catalogPage.openBadge(badgeName);
+
+
+    //validate catalogus page
+    await catalogPage.searchWithText(badgeName);
+    await catalogPage.filterOn(institution);
+    await catalogPage.openBadgeExpiry(badgeName);
     await catalogPage.requestEdubadgeExpiry(institution);
-
     
     // test
     await adminPage.badgeClassPage.approveRequestWithExpireDate(badgeName, studentInfo.name);
     
-    //validate catalogus page
+ 
+
     await catalogPage.page.waitForTimeout(13000);
     await catalogPage.page.getByRole('link', { name: 'My backpack' }).click();
     await catalogPage.page.waitForTimeout(1000);

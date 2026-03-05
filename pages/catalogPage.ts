@@ -58,6 +58,16 @@ export class CatalogPage extends BasePage {
     ).toBeVisible();
   }
 
+
+  async openBadgeExpiry(name: string) {
+
+    await this.page.getByText(name).first().click({ force: true });
+
+    await expect(
+      this.page.getByRole('heading', { name: 'The programme' }),
+    ).toBeVisible();
+  }
+
   async requestEdubadge(
     institution: institution,
     accountNr: number = this.testdata.retryCount,
@@ -118,7 +128,7 @@ export class CatalogPage extends BasePage {
       await this.loginStudentIdpExpiry(institution, accountNr);
     }
 
-    await this.page.waitForTimeout(5000);
+    await this.requestButton.waitFor({ timeout: 10000 });
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
