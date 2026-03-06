@@ -189,16 +189,16 @@ export class StaffMainPage extends BasePage {
     
     await this.page.getByRole('link', { name: 'Edit badge class' }).click();
     
-    await this.page.locator('label').filter({ hasText: 'After' }).locator('span').first().click();
-    await this.page.locator('.expiration > .select-field > .selectContainer > input').first().click();
+    await this.page.locator('label').filter({ hasText: 'After' }).locator('span').first().click({force: true});
+    await this.page.locator('.expiration > .select-field > .selectContainer > input').first().click({force: true});
     await this.page.waitForTimeout(1000);
     await this.page.getByText('Days').first().click({force: true});
     await this.page.waitForTimeout(5000);
     await this.page.getByRole('link', { name: 'Save changes' }).click();
-    await this.page.waitForTimeout(5000);
-    await this.page.getByText('Go to award view').click(); 
-    await this.page.getByRole('link', { name: 'Award edubadge(s)' }).click();
-    await this.page.getByRole('link', { name: 'Badge classes' }).click();
+    await this.page.waitForTimeout(8000);
+    await this.page.getByText('Go to award view').click({force: true}); 
+    await this.page.getByRole('link', { name: 'Award edubadge(s)' }).click({force: true});
+    await this.page.getByRole('link', { name: 'Badge classes' }).click({force: true});
    
   }
 }
