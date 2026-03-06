@@ -123,8 +123,8 @@ institutionsWithoutHBO.forEach((institution) => {
     await adminPage.page.waitForTimeout(1000);
     await adminPage.badgeClassPage.directAwardBadge(
       badgeName,
-      studentInfo.email,
-      studentInfo.EPPN,
+      'student20example@gmail.com',
+      'student20@university-example.org',
     );
 
 
@@ -136,7 +136,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await catalogPage.requestEdubadgeExpiry(institution);
     
     // test
-    await adminPage.badgeClassPage.approveRequestWithExpireDate(badgeName, studentInfo.name);
+    await adminPage.badgeClassPage.approveRequestWithExpireDate(badgeName, 'Martin Jørgensen');
     
  
 
