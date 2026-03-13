@@ -46,6 +46,8 @@ export default defineConfig({
     // Capture screenshots only when tests fail
     screenshot: 'only-on-failure',
     
+     // Grant permission to read from the clipboard
+     permissions: ['clipboard-read'],
   },
   // Configure projects for major browsers.
   projects: [
@@ -53,9 +55,9 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    /*{
+    {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
-    },*/
+    },
   ],
 });
