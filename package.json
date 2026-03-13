@@ -21,10 +21,12 @@
   "license": "GNU AGPL",
   "description": "",
   "dependencies": {
+    "artillery": "^2.0.30",
     "dotenv": "^16.4.7",
     "playwright": "^1.49.1"
   },
   "devDependencies": {
+    "@artilleryio/types": "^0.11.0",
     "@eslint/js": "^9.18.0",
     "@playwright/test": "^1.50.1",
     "@types/node": "^22.10.6",

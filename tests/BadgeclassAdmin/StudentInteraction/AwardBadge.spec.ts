@@ -133,8 +133,10 @@ institutionsWithoutHBO.forEach((institution) => {
     await backpackPage.page.getByText(badgeName).click();
     await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
     await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
-
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click({force :true});
+    await backpackPage.page.waitForTimeout(4000);
+    await backpackPage.reloadPage();
+    await backpackPage.page.waitForTimeout(1000);
 
     //validate expire date Jan 25, 2026 format
     const today = new Date();
