@@ -8,7 +8,7 @@ import { institutionsWithoutHBOAndMBO } from '../../../util/loginPossibilities';
     await backpackPage.page.waitForTimeout(3000);
 
     // test
-    await backpackPage.loginSeperated();
+    await backpackPage.loginSeperated('edubackpack8@gmail.com');
     await backpackPage.page.waitForTimeout(3000);
 
     // validate

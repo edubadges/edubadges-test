@@ -183,7 +183,9 @@ export class StaffMainPage extends BasePage {
 
 
    async setExpireDate(name: string) {
-    await this.page.getByText(name).first().click();
+
+    await this.page.waitForTimeout(2000);
+    await this.page.getByText(name).first().click({force: true});
    
     await this.page.getByText('Go to admin view').click();
     
@@ -201,4 +203,6 @@ export class StaffMainPage extends BasePage {
     await this.page.getByRole('link', { name: 'Badge classes' }).click({force: true});
    
   }
+
+
 }

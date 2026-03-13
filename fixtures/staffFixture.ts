@@ -3,12 +3,14 @@ import { HomePage } from '../pages/homePage';
 import { StaffMainPage } from '../pages/staffPages/staffMainPage';
 import { Testdata } from '../util/testdata';
 import { CatalogPage } from '../pages/catalogPage';
+import { BackpackPage } from '../pages/backpackPage';
 
 type EdubadgeFixture = {
   adminPage: StaffMainPage;
   catalogPage: CatalogPage;
   testdata: Testdata;
   extraStaffLoginPage: StaffMainPage;
+  backpackPage: BackpackPage;
 };
 
 export const test = base.extend<EdubadgeFixture>({
@@ -40,6 +42,23 @@ export const test = base.extend<EdubadgeFixture>({
 
     // Clean up the fixture.
   },
+  backpackPage: async ({ browser, testdata }, use, testInfo) => {
+    // Set up the fixture.
+    testdata.testCaseName = testInfo.title;
+
+    var backpackContext = await browser.newContext();
+    var page = await backpackContext.newPage();
+
+    const homePage = new HomePage(page, testdata);
+    await homePage.navigateToHomePage();
+    await homePage.openBackpack();
+    const backpackPage = new BackpackPage(page, testdata);
+
+    // Use the fixture value in the test.
+    await use(backpackPage);
+
+    // Clean up the fixture.
+  },
   testdata: async ({}, use, testInfo) => {
     var testdata = new Testdata();
     testdata.testCaseName = testInfo.title;
@@ -66,5 +85,12 @@ export const test = base.extend<EdubadgeFixture>({
 
     // Clean up the fixture.
   },
+
+
+
+
+
+
+
 });
 export { expect, BrowserContext } from '@playwright/test';

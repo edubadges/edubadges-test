@@ -56,8 +56,9 @@ export class BackpackPage extends BasePage {
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
 
-    public async loginSeperated() {
-    await this.usernameField.fill('edubackpack8@gmail.com');
+    public async loginSeperated(name: string) {
+
+    await this.usernameField.fill(name);
     await this.nextButton.click();
 
     await this.passwordField.waitFor();

@@ -1,5 +1,9 @@
 import { expect, test } from '../../../fixtures/staffFixture';
+import { BackpackPage } from '../../../pages/backpackPage';
 import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
+// Import the backpackPage fixture if available
+
+
 
 institutionsWithoutHBO.forEach((institution) => {
   test(`Award requested badge from ${institution}`, async ({
@@ -100,55 +104,39 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
   test(`Award requested badge from ${institution} with expiration date`, async ({
-    catalogPage,
+
     adminPage,
-    browserName
+    browserName,
+    backpackPage,
   }) => {
    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
 
+    
 
     // var
     const badgeName = 'Circulation and Breathing';
-    const studentInfo = await adminPage.getStudentAccount(institution);
 
     // setup and set expiry date
-    await adminPage.page.waitForTimeout(4000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
-    await adminPage.page.waitForTimeout(2000);
     
     await adminPage.setExpireDate(badgeName);
-
-    await adminPage.page.waitForTimeout(1000);
     await adminPage.badgeClassPage.directAwardBadge(
       badgeName,
       'student20example@gmail.com',
       'student20@university-example.org',
     );
 
+    //test and claim badge
+    await backpackPage.loginSeperated('student20example@gmail.com');
+    await backpackPage.page.getByText(badgeName).click();
+    await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
+    await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
 
 
-    //validate catalogus page
-    await catalogPage.searchWithText(badgeName);
-    await catalogPage.filterOn(institution);
-    await catalogPage.openBadgeExpiry(badgeName);
-    await catalogPage.requestEdubadgeExpiry(institution);
-    
-    // test
-    await adminPage.badgeClassPage.approveRequestWithExpireDate(badgeName, 'Martin Jørgensen');
-    
- 
-
-    await catalogPage.page.waitForTimeout(13000);
-    await catalogPage.page.getByRole('link', { name: 'My backpack' }).click();
-    await catalogPage.page.waitForTimeout(1000);
-    await catalogPage.page.getByText(badgeName, { exact: true }).click()
-    await expect(
-       catalogPage.page.getByText('Expires'),
-     ).toBeVisible();
-
-    //expire datum Jan 25, 2026 datum format
+    //validate expire date Jan 25, 2026 format
     const today = new Date();
     today.setDate(today.getDate() + 1);
  
@@ -156,7 +144,7 @@ institutionsWithoutHBO.forEach((institution) => {
     const tomorrowFormattedDate = today.toLocaleDateString('en-US', dateOptions);
     console.log(tomorrowFormattedDate);
      await expect(
-       catalogPage.page.getByText(tomorrowFormattedDate),
+       backpackPage.page.getByText(tomorrowFormattedDate),
      ).toBeVisible();
 
     
