@@ -22,13 +22,13 @@ institutionsWithoutHBO.forEach((institution) => {
     await adminPage.page.waitForTimeout(2000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
     await adminPage.page.waitForTimeout(1000);
-    
+
     await catalogPage.searchWithText(badgeName);
     await catalogPage.filterOn(institution);
     await catalogPage.openBadgeExpiry(badgeName);
-    
+
     await catalogPage.requestEdubadge(institution);
-  
+
 
 
     // test
@@ -38,12 +38,15 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(
       adminPage.page.getByText('The request(s) have been awarded.'),
     ).toBeVisible();
+
+
+
   });
 
-  
 
 
-  test(`Send badge directly from ${institution}`, async ({ adminPage, browserName }) => {
+
+  test(`Send badge directly from ${institution} and check audit trail`, async ({ adminPage, browserName }) => {
     test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
@@ -69,7 +72,22 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(
       adminPage.page.getByText('Direct awards have been sent'),
     ).toBeVisible();
+
+    await adminPage.page.waitForTimeout(2000);
+    await adminPage.page.getByRole('banner').locator('#OUTLINED').click();
+    await adminPage.page.getByText('DA audit trail').click();
+    await adminPage.page.locator('div').filter({ hasText: 'DirectAward audit trail .' }).nth(3).click();
+    await adminPage.page.getByRole('textbox', { name: 'Search...' }).click();
+    await adminPage.page.getByRole('textbox', { name: 'Search...' }).fill('Cognitive');
+    await expect(
+      adminPage.page.getByText('Cognitive Psychology'),
+    ).toBeVisible();
+
+
+
   });
+
+
 
   test(`Send badge directly from ${institution} through mail`, async ({
     adminPage,
@@ -109,18 +127,18 @@ institutionsWithoutHBO.forEach((institution) => {
     browserName,
     backpackPage,
   }) => {
-   test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
+    test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     await test.fail(institution == 'MBO');
     expect(institution != 'MBO').toBeTruthy();
 
-    
+
 
     // var
     const badgeName = 'Circulation and Breathing';
 
     // setup and set expiry date
     await adminPage.loginTestIdp(institution, 'Badgeclass');
-    
+
     await adminPage.setExpireDate(badgeName);
     await adminPage.badgeClassPage.directAwardBadge(
       badgeName,
@@ -141,15 +159,20 @@ institutionsWithoutHBO.forEach((institution) => {
     //validate expire date Jan 25, 2026 format
     const today = new Date();
     today.setDate(today.getDate() + 1);
- 
+
     const dateOptions = { month: 'short', day: 'numeric', year: 'numeric' } as const;
     const tomorrowFormattedDate = today.toLocaleDateString('en-US', dateOptions);
     console.log(tomorrowFormattedDate);
-     await expect(
-       backpackPage.page.getByText(tomorrowFormattedDate),
-     ).toBeVisible();
+    await expect(
+      backpackPage.page.getByText(tomorrowFormattedDate),
+    ).toBeVisible();
 
-    
+
   });
+
+
+
+
+
 
 });
