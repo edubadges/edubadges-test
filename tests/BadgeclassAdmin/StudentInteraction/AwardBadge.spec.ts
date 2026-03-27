@@ -46,7 +46,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
 
-  test(`Send badge directly from ${institution} and check audit trail`, async ({ adminPage, browserName }) => {
+  test(`Send badge directly from ${institution} and check audit trail`, async ({ adminPage, browserName, backpackPage }) => {
     test.skip(browserName !== 'chromium', 'Deze test is alleen voor Chrome');
     // fail if correct account is missing. SHOULD BE CHANGED
     await test.fail(institution == 'MBO');
@@ -61,6 +61,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await adminPage.page.waitForTimeout(8000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
 
+
     // test
     await adminPage.badgeClassPage.directAwardBadge(
       badgeName,
@@ -73,6 +74,7 @@ institutionsWithoutHBO.forEach((institution) => {
       adminPage.page.getByText('Direct awards have been sent'),
     ).toBeVisible();
 
+    //check audit trail
     await adminPage.page.waitForTimeout(2000);
     await adminPage.page.getByRole('banner').locator('#OUTLINED').click();
     await adminPage.page.getByText('DA audit trail').click();
@@ -82,7 +84,35 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(
       adminPage.page.getByText('Cognitive Psychology'),
     ).toBeVisible();
+    await adminPage.page.getByRole('textbox', { name: 'Search...' }).clear()
+    await adminPage.page.getByRole('textbox', { name: 'Search...' }).fill('Student19');
+    await expect(
+      adminPage.page.getByText('student19example@gmail.com'),
+    ).toBeVisible();
 
+    //claim badge
+    await backpackPage.loginSeperated('student19example@gmail.com');
+    await backpackPage.page.getByText(badgeName).click();
+    await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
+    await backpackPage.page.waitForTimeout(3000);
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click({ force: true })
+    await backpackPage.page.waitForTimeout(3000);
+
+    //audit trail should be empty after claiming badge
+    await adminPage.page.reload();
+    await adminPage.page.waitForTimeout(3000);
+    await adminPage.page.getByRole('banner').locator('#OUTLINED').click();
+    await adminPage.page.locator('div').filter({ hasText: 'DirectAward audit trail .' }).nth(3).click();
+    await adminPage.page.getByRole('textbox', { name: 'Search...' }).click();
+    await adminPage.page.getByRole('textbox', { name: 'Search...' }).fill('Cognitive');
+    await expect(
+      adminPage.page.getByText('Cognitive Psychology'),
+    ).not.toBeVisible();
+    await adminPage.page.getByRole('textbox', { name: 'Search...' }).clear()
+    await adminPage.page.getByRole('textbox', { name: 'Search...' }).fill('Student19');
+    await expect(
+      adminPage.page.getByText('student19example@gmail.com'),
+    ).not.toBeVisible();
 
 
   });
@@ -91,6 +121,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
   test(`Send badge directly from ${institution} through mail`, async ({
     adminPage,
+    backpackPage,
     browserName,
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED
@@ -117,6 +148,41 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(
       adminPage.page.getByText('Direct awards have been sent'),
     ).toBeVisible();
+
+
+    await backpackPage.loginSeperated('student19example@gmail.com');
+    await backpackPage.page.getByText(badgeName).click();
+    await backpackPage.page.getByText('Regulation and Integration Issued by Medicine (Medicine) Study load 2.5 ECTS/EC').click();
+    await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
+    await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+    await backpackPage.page.waitForTimeout(4000);
+    await backpackPage.page.locator('.slider').click({ force: true });
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click()
+    await backpackPage.page.getByRole('link', { name: 'Share' }).click();
+
+    // 1. Press button copy link
+    await backpackPage.page.getByRole('link', { name: 'Copy the link' }).click();
+    // 2. Retrieve the clioboard content
+    const clipboardText = await backpackPage.page.evaluate(() => navigator.clipboard.readText());
+    console.log('Clipboard Content', clipboardText);
+
+    //3. Navigate only if the link is valid
+    if (clipboardText) {
+      await backpackPage.page.goto(clipboardText);
+      await backpackPage.page.waitForTimeout(4000);
+
+    } else {
+      throw new Error('Link "href" attribute is null or missing.');
+    }
+
+    await backpackPage.page.getByRole('link', { name: 'Verify' }).click();
+    await backpackPage.page.waitForTimeout(4000);
+     await expect(
+      backpackPage.page.locator('span').filter({ hasText: 'Issued to Petra Penttilä' }).getByRole('strong')
+    ).toBeVisible();
+    
+
   });
 
 
