@@ -87,7 +87,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await adminPage.page.getByRole('textbox', { name: 'Search...' }).clear()
     await adminPage.page.getByRole('textbox', { name: 'Search...' }).fill('Student19');
     await expect(
-      adminPage.page.getByText('student19example@gmail.com'),
+      adminPage.page.getByText('student19example@gmail.com').first()
     ).toBeVisible();
 
     //claim badge
@@ -154,8 +154,8 @@ institutionsWithoutHBO.forEach((institution) => {
     await backpackPage.page.getByText(badgeName).click();
     await backpackPage.page.getByText('Regulation and Integration Issued by Medicine (Medicine) Study load 2.5 ECTS/EC').click();
     await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
-    await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+    //await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
+    //await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
     await backpackPage.page.waitForTimeout(4000);
     await backpackPage.page.locator('.slider').click({ force: true });
     await backpackPage.page.getByRole('link', { name: 'Confirm' }).click()
@@ -200,6 +200,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
 
     // var
+
     const badgeName = 'Circulation and Breathing';
 
     // setup and set expiry date
@@ -214,6 +215,7 @@ institutionsWithoutHBO.forEach((institution) => {
 
     //test and claim badge
     await backpackPage.loginSeperated('student20example@gmail.com');
+    await backpackPage.page.waitForTimeout(4000);
     await backpackPage.page.getByText(badgeName).click();
     await backpackPage.page.getByRole('link', { name: 'Claim & Add to your backpack' }).click();
     await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
