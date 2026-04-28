@@ -1,0 +1,20 @@
+services:
+  playwright-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+      - ./.env:/app/.env:ro
+    environment:
+      - CI=true
+    networks:
+      - edubadges-server_edubadges-server
+    # Keep container running for debugging if needed
+    # Uncomment the line below to keep container alive after tests
+    # command: tail -f /dev/null
+
+networks:
+  edubadges-server_edubadges-server:
+    external: true
