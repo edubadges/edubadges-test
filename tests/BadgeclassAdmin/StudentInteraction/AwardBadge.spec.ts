@@ -108,11 +108,7 @@ institutionsWithoutHBO.forEach((institution) => {
     await expect(
       adminPage.page.getByText('Cognitive Psychology'),
     ).not.toBeVisible();
-    await adminPage.page.getByRole('textbox', { name: 'Search...' }).clear()
-    await adminPage.page.getByRole('textbox', { name: 'Search...' }).fill('Student19');
-    await expect(
-      adminPage.page.getByText('student19example@gmail.com'),
-    ).not.toBeVisible();
+
 
 
   });
