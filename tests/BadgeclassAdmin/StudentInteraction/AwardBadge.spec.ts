@@ -158,8 +158,12 @@ institutionsWithoutHBO.forEach((institution) => {
     await backpackPage.page
       .getByRole('link', { name: 'Claim & Add to your backpack' })
       .click();
+  
     await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+    await backpackPage.page.waitForTimeout(3000);
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click({ force: true });
+   
+    
     await backpackPage.page.waitForTimeout(4000);
     await backpackPage.page.locator('.slider').click({ force: true });
     await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
@@ -183,12 +187,20 @@ institutionsWithoutHBO.forEach((institution) => {
       throw new Error('Link "href" attribute is null or missing.');
     }
 
-    await backpackPage.page.getByRole('link', { name: 'Verify' }).click();
+    await backpackPage.page.waitForTimeout(3000);
+    await backpackPage.page.getByRole('link', { name: 'Verify' }).click({ force: true });
     await backpackPage.page.waitForTimeout(4000);
     await expect(
       backpackPage.page
         .locator('span')
-        .filter({ hasText: 'Issued to Petra Penttilä' })
+        .filter({ hasText: 'Issued to testVoornaam testAchternaam' })
+        .getByRole('strong'),
+    ).toBeVisible();
+
+    await expect(
+      backpackPage.page
+        .locator('span')
+        .filter({ hasText: 'Name of the holder Petra Penttilä' })
         .getByRole('strong'),
     ).toBeVisible();
   });
@@ -219,6 +231,7 @@ institutionsWithoutHBO.forEach((institution) => {
     //test and claim badge
     await backpackPage.loginSeperated('student20example@gmail.com');
     await backpackPage.page.waitForTimeout(4000);
+
     await backpackPage.page.getByText(badgeName).click();
     await backpackPage.page
       .getByRole('link', { name: 'Claim & Add to your backpack' })
