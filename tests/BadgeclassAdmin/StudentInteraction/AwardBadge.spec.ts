@@ -159,7 +159,7 @@ institutionsWithoutHBO.forEach((institution) => {
       .getByRole('link', { name: 'Claim & Add to your backpack' })
       .click();
   
-    await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
+ 
     await backpackPage.page.waitForTimeout(3000);
     await backpackPage.page.getByRole('link', { name: 'Confirm' }).click({ force: true });
    
