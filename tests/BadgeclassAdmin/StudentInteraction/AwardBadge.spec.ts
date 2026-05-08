@@ -162,12 +162,13 @@ institutionsWithoutHBO.forEach((institution) => {
  
     await backpackPage.page.waitForTimeout(3000);
     await backpackPage.page.getByRole('link', { name: 'Confirm' }).click({ force: true });
-   
-    
     await backpackPage.page.waitForTimeout(4000);
     await backpackPage.page.locator('.slider').click({ force: true });
-    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
+    await backpackPage.page.waitForTimeout(2000);
+    await backpackPage.page.getByRole('link', { name: 'Confirm' }).click({ force: true });
+    await backpackPage.page.waitForTimeout(4000);
     await backpackPage.page.getByRole('link', { name: 'Share' }).click();
+    await backpackPage.page.waitForTimeout(4000);
 
     // 1. Press button copy link
     await backpackPage.page
