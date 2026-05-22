@@ -89,6 +89,7 @@ test('Deny badge with reason from Manage', async ({
 
   await adminPage.goToManage();
   await adminPage.managePage.goToRequested();
+  await adminPage.page.waitForTimeout(2000);
 
   // test
   await adminPage.managePage.requestedBadgesPage.denyRequest(

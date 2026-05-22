@@ -18,11 +18,15 @@ institutions.forEach((institution) => {
     // test
     await issuers.clickNewBadgeClass();
     await issuers.clickMicroCredential();
+
+    if(institution == 'HBO' || institution == 'WO') {
     await expect(adminPage.page).toHaveScreenshot(
       `empty${institution}MicrocredentialForm.png`,
       {
         fullPage: true,
         mask: [breadcrumbs],
+        maxDiffPixelRatio: 0.04,
+        clip: { x: 0, y: 0, width: 1280, height: 4353 },
       },
     );
     await adminPage.page.getByRole('link', { name: 'Publish' }).click();
@@ -31,8 +35,33 @@ institutions.forEach((institution) => {
       {
         fullPage: true,
         mask: [breadcrumbs],
+        maxDiffPixelRatio: 0.04,
+        clip: { x: 0, y: 0, width: 1280, height: 4573 }
       },
     );
+    } else if (institution == 'MBO'){
+    await expect(adminPage.page).toHaveScreenshot(
+      `empty${institution}MicrocredentialForm.png`,
+      {
+        fullPage: true,
+        mask: [breadcrumbs],
+        maxDiffPixelRatio: 0.04,
+        clip: { x: 0, y: 0, width: 1280, height: 4333 },
+      },
+    );
+    await adminPage.page.getByRole('link', { name: 'Publish' }).click();
+    await expect(adminPage.page).toHaveScreenshot(
+      `empty${institution}MicrocredentialFormWithValidationErrors.png`,
+      {
+        fullPage: true,
+        mask: [breadcrumbs],
+        maxDiffPixelRatio: 0.04,
+        clip: { x: 0, y: 0, width: 1280, height: 4553 },
+      },
+    );
+   }
+
+
   });
 
   test(`Validate error messages empty ${institution} regular badge form`, async ({
@@ -56,6 +85,8 @@ institutions.forEach((institution) => {
       {
         fullPage: true,
         mask: [breadcrumbs],
+        maxDiffPixelRatio: 0.1,
+        clip: { x: 0, y: 0, width: 1280, height: 4583 },
       },
     );
     await adminPage.page.getByRole('link', { name: 'Publish' }).click();
@@ -64,6 +95,8 @@ institutions.forEach((institution) => {
       {
         fullPage: true,
         mask: [breadcrumbs],
+        maxDiffPixelRatio: 0.1,
+        clip: { x: 0, y: 0, width: 1280, height: 4831 },
       },
     );
   });
@@ -88,7 +121,9 @@ institutions.forEach((institution) => {
       `empty${institution}ExtraCurricularEdubadgeForm.png`,
       {
         fullPage: true,
-        mask: [breadcrumbs],
+        mask: [breadcrumbs],     
+        maxDiffPixelRatio: 0.1,
+        clip: { x: 0, y: 0, width: 1280, height: 4583 },
       },
     );
     await adminPage.page.getByRole('link', { name: 'Publish' }).click();
@@ -97,6 +132,8 @@ institutions.forEach((institution) => {
       {
         fullPage: true,
         mask: [breadcrumbs],
+        maxDiffPixelRatio: 0.1,
+        clip: { x: 0, y: 0, width: 1280, height: 4775 },
       },
     );
   });

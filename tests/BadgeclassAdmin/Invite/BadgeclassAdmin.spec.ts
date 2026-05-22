@@ -27,12 +27,14 @@ institutions.forEach((institution) => {
     await userManagement.inviteUser(newUserMail);
 
     // validate
+  
     await expect(
       adminPage.page.getByText(`Successfully invited ${newUserMail}`),
     ).toBeVisible();
     await expect(
       adminPage.page.locator('.main-content-margin').getByText(newUserMail),
     ).toBeVisible();
+    await adminPage.page.waitForTimeout(2000);
     await extraStaffLoginPage.loginDummyIdp(
       newUsername,
       newUserMail,
@@ -62,6 +64,7 @@ institutions.forEach((institution) => {
 
     // setup
     await adminPage.loginTestIdp(institution, 'Badgeclass');
+    await adminPage.page.waitForTimeout(2000);
     await adminPage.goToBadgeClasses();
     await adminPage.badgeClassPage.searchWithText(badgeName);
     await adminPage.badgeClassPage.openBadge(badgeName);

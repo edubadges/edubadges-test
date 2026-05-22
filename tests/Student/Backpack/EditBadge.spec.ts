@@ -20,9 +20,10 @@ institutionsWithoutHBO.forEach((institution) => {
     );
 
     await backpackPage.reloadPage();
+    await backpackPage.page.waitForTimeout(2000);
     await backpackPage.openBackpack();
     await backpackPage.claimReceivedBadge(badgeName);
-
+    await backpackPage.page.waitForTimeout(2000);
     // test
     await backpackPage.rejectReceivedBadge(badgeName);
     // validate

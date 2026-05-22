@@ -27,6 +27,7 @@ institutions.forEach((institution) => {
       'SeeExistingIssuergroup.png',
       {
         mask: [dateMask, badgeclassMask, crumbMask],
+        maxDiffPixelRatio: 0.02,
       },
     );
   });

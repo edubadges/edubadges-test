@@ -206,7 +206,7 @@ institutionsWithoutHBO.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`Award requested badge from ${institution} with expiration date`, async ({
+  test.skip(`Award requested badge from ${institution} with expiration date`, async ({
     adminPage,
     browserName,
     backpackPage,

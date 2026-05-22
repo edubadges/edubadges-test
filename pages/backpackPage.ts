@@ -100,6 +100,7 @@ export class BackpackPage extends BasePage {
     await this.page.goto('');
     await badgeLocator.click();
 
+    await this.page.waitForTimeout(2000);
     await this.rejectLink.click();
     await this.confirmButton.click();
     await this.waitForLoadingToStop();

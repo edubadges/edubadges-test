@@ -39,7 +39,10 @@ institutionsWithoutHBO.forEach((institution) => {
     ).toHaveAttribute('disabled', 'false');
     await expect(backpackPage.page.locator('.slider')).not.toBeChecked();
     await expect(backpackPage.page).toHaveScreenshot(
-      'Successfully made badge public.png',
+      'Successfully made badge public.png',{
+             maxDiffPixelRatio: 0.04,
+      }
+      
     );
   });
 

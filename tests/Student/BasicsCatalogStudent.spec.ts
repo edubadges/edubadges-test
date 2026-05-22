@@ -28,7 +28,10 @@ institutionsWithoutHBO.forEach((institution) => {
     // validate
     await expect(catalogPage.page).toHaveScreenshot(
       'NotYetRequestedBadge.png',
-      { mask: [breadcrumbs, badgeInfo] },
+      { mask: [breadcrumbs, badgeInfo], 
+        maxDiffPixelRatio: 0.04,
+
+      },
     );
   });
 

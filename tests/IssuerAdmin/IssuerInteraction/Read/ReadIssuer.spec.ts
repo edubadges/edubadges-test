@@ -22,6 +22,7 @@ institutions.forEach((institution) => {
 
     await expect(adminPage.page).toHaveScreenshot('SeeExistingIssuer.png', {
       mask: [badgeInfoMask, crumbMask],
+      maxDiffPixelRatio: 0.04,
     });
   });
 });

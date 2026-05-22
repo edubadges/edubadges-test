@@ -19,7 +19,9 @@ institutions.forEach((institution) => {
     });
 
     // setup
+    await adminPage.page.waitForTimeout(2000);
     await adminPage.loginTestIdp(institution, 'Badgeclass');
+  
     await adminPage.goToBadgeClasses();
     await adminPage.badgeClassPage.searchWithText(existingBadge);
     await adminPage.badgeClassPage.openBadge(existingBadge);

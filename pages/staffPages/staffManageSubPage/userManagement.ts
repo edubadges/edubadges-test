@@ -73,8 +73,11 @@ export class UserManagement extends BaseStaffSubPage {
     const roleButton = staffRow.locator('div.indicator');
 
     await roleButton.click();
-    await staffRow.getByText(newRole).click({ force: true });
+    await this.page.waitForTimeout(500);
+    await staffRow.getByText(newRole).click({ force: true })
+    await this.page.waitForTimeout(500);
     await staffRow.getByText(newRole).waitFor();
+    await this.page.waitForTimeout(500); 
     await this.page
       .getByText(`Successfully changed user permissions to`)
       .waitFor();
