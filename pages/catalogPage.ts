@@ -81,6 +81,8 @@ export class CatalogPage extends BasePage {
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
+    await this.handleConsent(this.loggedInMenu); 
+
     await this.handleTermsAndConditions(this.confirmButton.or(this.successBar));
     await this.confirmButton.or(this.successBar).click();
 
@@ -115,6 +117,8 @@ export class CatalogPage extends BasePage {
     await this.nextButton.click();
 
     await this.page.waitForTimeout(2000);
+    await this.handleConsent(this.loggedInMenu);
+    await this.page.waitForTimeout(2000);
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
 
@@ -132,6 +136,8 @@ export class CatalogPage extends BasePage {
     await this.requestButton.click();
     await this.waitForLoadingToStop();
 
+    await this.page.waitForTimeout(2000);
+    await this.handleConsent(this.loggedInMenu); 
     await this.page.waitForTimeout(2000);
     await this.handleTermsAndConditions(this.confirmButton.or(this.successBar));
     await this.confirmButton.or(this.successBar).click();
@@ -166,7 +172,9 @@ export class CatalogPage extends BasePage {
     await this.reloadPageExpire();
     await this.page.waitForTimeout(2000);
 
-
+    await this.page.waitForTimeout(2000);
+    await this.handleConsent(this.loggedInMenu);
+    await this.page.waitForTimeout(2000);
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
 }

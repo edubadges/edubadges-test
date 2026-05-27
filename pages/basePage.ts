@@ -41,6 +41,25 @@ export abstract class BasePage {
     await nextLocator.waitFor();
   }
 
+  async handleConsent(nextLocator: Locator) {
+    await this.page.waitForTimeout(500);
+    const proceedButton = this.page.getByRole('button', {
+      name: 'Proceed to Edubadges [',
+    });
+
+    await proceedButton.or(nextLocator).waitFor();
+    if (await proceedButton.isVisible()) {
+      await proceedButton.click();
+    }
+
+
+    await this.waitForLoadingToStop();
+    await nextLocator.waitFor();
+
+}
+
+
+
   async getStudentAccount(
     institution: institution,
     studentNumber: number = this.testdata.retryCount,

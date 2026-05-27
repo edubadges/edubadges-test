@@ -53,6 +53,9 @@ export class BackpackPage extends BasePage {
     await this.passwordField.fill(account.password);
     await this.nextButton.click();
 
+    
+    await this.handleConsent(this.loggedInMenu);
+
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
 
@@ -64,6 +67,8 @@ export class BackpackPage extends BasePage {
     await this.passwordField.waitFor();
     await this.passwordField.fill('Password1!');
     await this.nextButton.click();
+
+    await this.handleConsent(this.loggedInMenu);
 
     await this.handleTermsAndConditions(this.loggedInMenu);
   }
@@ -88,6 +93,9 @@ export class BackpackPage extends BasePage {
     await badgeLocator.click();
 
     await this.claimLink.click();
+
+    await this.handleConsent(this.loggedInMenu);
+
     await this.handleTermsAndConditions(this.confirmButton);
 
     await this.confirmButton.click();
