@@ -82,6 +82,7 @@ export class StaffMainPage extends BasePage {
     await this.passwordField.fill(account.password);
     await this.loginButton.click();
 
+    await this.page.waitForTimeout(3000);
     const proceedButton = this.page.getByRole('button', {
       name: 'Proceed to Edubadges [',
     });
