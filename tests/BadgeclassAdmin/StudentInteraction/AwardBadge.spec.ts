@@ -206,7 +206,7 @@ institutionsWithoutHBO.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test.skip(`Award requested badge from ${institution} with expiration date`, async ({
+  test(`Award requested badge from ${institution} with expiration date`, async ({
     adminPage,
     browserName,
     backpackPage,
@@ -223,10 +223,9 @@ institutionsWithoutHBO.forEach((institution) => {
     await adminPage.loginTestIdp(institution, 'Badgeclass');
 
     await adminPage.setExpireDate(badgeName);
-    await adminPage.badgeClassPage.directAwardBadge(
+    await adminPage.badgeClassPage.directAwardBadgeEmail(
       badgeName,
       'student20example@gmail.com',
-      'student20@university-example.org',
     );
 
     //test and claim badge
@@ -239,9 +238,9 @@ institutionsWithoutHBO.forEach((institution) => {
       .click();
     await backpackPage.page.getByRole('link', { name: 'I agree' }).click();
     await backpackPage.page.getByRole('link', { name: 'Confirm' }).click();
-    await backpackPage.page.waitForTimeout(4000);
+    await backpackPage.page.waitForTimeout(5000);
     await backpackPage.reloadPage();
-    await backpackPage.page.waitForTimeout(1000);
+    await backpackPage.page.waitForTimeout(2000);
 
     //validate expire date Jan 25, 2026 format
     const today = new Date();
