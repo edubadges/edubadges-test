@@ -4,7 +4,7 @@ import { institutionsWithoutHBO } from '../../../util/loginPossibilities';
 // Import the backpackPage fixture if available
 
 institutionsWithoutHBO.forEach((institution) => {
-  test(`Award requested badge from ${institution}`, async ({
+  test(`Award requested badge from ${institution}`,{annotation: [{type: 'Award request badge', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portal. This navigates to the Issuer portal page. Log in with account. Search for assignment "Growth and development". Request badge and approve request "The request(s) have been awarded'}]}, async ({
     catalogPage,
     adminPage,
     browserName,
@@ -34,7 +34,7 @@ institutionsWithoutHBO.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`Send badge directly from ${institution} and check audit trail`, async ({
+  test(`Send badge directly from ${institution} and check audit trail`,{annotation: [{type: 'Award badge with email and EPPN', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portal. This navigates to the Issuer portal page. Log in with account. Search for assignment "Cognitive Psychology" and Award edubadge(s). Verify "Direct awards have been sent'}]}, async ({
     adminPage,
     browserName,
     backpackPage,
@@ -119,7 +119,7 @@ institutionsWithoutHBO.forEach((institution) => {
     ).not.toBeVisible();
   });
 
-  test(`Send badge directly from ${institution} through mail`, async ({
+  test(`Send badge directly from ${institution} through mail`,{annotation: [{type: 'Award badge from email only', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portaal. This navigates to the Issuer portal page. Log in with staff1. Search for Regulation and Integration" and click  Award edubadge(s). Check the box Enabling awarding based on private email. Verify that  Direct awards have been sent.'}]}, async ({
     adminPage,
     backpackPage,
     browserName,
@@ -206,7 +206,7 @@ institutionsWithoutHBO.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`Award requested badge from ${institution} with expiration date`, async ({
+  test(`Award requested badge from ${institution} with expiration date`,{annotation: [{type: 'Award badge from email only with experation date', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portaal. This navigates to the Issuer portal page. Log in with staff1. Search for Circulation and Breathing and click Award edubadge(s). Set expiration date to 1 day. Check the box Enabling awarding based on private email. Verify that Direct awards have been sent '}]}, async ({
     adminPage,
     browserName,
     backpackPage,

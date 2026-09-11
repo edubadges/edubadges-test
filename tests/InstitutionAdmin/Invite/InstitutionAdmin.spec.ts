@@ -2,7 +2,7 @@ import { expect, test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Invite ${institution} user as institution admin`, async ({
+  test(`Invite ${institution} user as institution admin`,{annotation: [{type: 'Invite user as institution admin', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context, to navigate to the homepage and click the "Open the issuer portaal" button. The application navigates to the Issuer portal page. Log in with staff1. Navigate to Manage. Go to User management and invite a new user with the role institution admin'}]}, async ({ 
     adminPage,
     testdata,
   }) => {
@@ -24,7 +24,7 @@ institutions.forEach((institution) => {
     ).toBeVisible();
   });
 
-  test(`Revoke ${institution} user institution admin invite`, async ({
+  test(`Revoke ${institution} user institution admin invite`,{annotation: [{type: 'Revoke  user institution admin invite', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context, to navigate to the homepage and click the "Open the issuer portaal" button. The application navigates to the Issuer portal page. Log in with staff1. Navigate to Manage. Go to User management and invite a new user with the role institution admin. Select the created invite for the user, remove the permission, and verify the message "succesvol remove invite".'}]}, async ({  
     adminPage,
     testdata,
   }) => {
@@ -48,7 +48,7 @@ institutions.forEach((institution) => {
     await expect(adminPage.page.getByText(newUserMail)).not.toBeVisible();
   });
 
-  test(`Accept ${institution} institution admin invite`, async ({
+  test(`Accept ${institution} institution admin invite`,{annotation: [{type: 'Accept institution admin invite', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context, to navigate to the homepage and click the "Open the issuer portaal" button. The application navigates to the Issuer portal page. Log in with staff1. Navigate to Manage. Go to User management and invite a new user with the role institution admin. Select the created invite for the user, accept the invite, and verify the message "succesvol accepted invite".'}]}, async ({ 
     adminPage,
     extraStaffLoginPage,
     testdata,
@@ -78,7 +78,7 @@ institutions.forEach((institution) => {
     await extraStaffLoginPage.validateLoginSuccessful();
   });
 
-  test(`Delete ${institution} institution admin permission`, async ({
+  test(`Delete ${institution} institution admin permission`,{annotation: [{type: 'Delete institution admin permission', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context, to navigate to the homepage and click the "Open the issuer portaal" button. The application navigates to the Issuer portal page. Log in with staff1. Navigate to Manage. Go to User management and invite a new user with the role institution admin. Select the created invite for the user, remove the permission, and verify the message "successfully remove rights".'}]}, async ({ 
     adminPage,
     extraStaffLoginPage,
     testdata,

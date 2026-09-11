@@ -29,6 +29,11 @@ export default defineConfig({
   reporter: [
     ['html', { open: 'never' }],
     ['junit', { outputFile: 'test-results.xml' }],
+        ['playwright-feature-reporter', { 
+      outputFile: './README2.md',
+      fullReportLink: 'playwright-report/index.html',
+      reportProjects: true
+    }],
   ],
   timeout: 2 * 60 * 1000, // 2 minutes
 

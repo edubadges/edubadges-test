@@ -2,7 +2,7 @@ import { expect, test } from '../../fixtures/loginFixture';
 import { institutions } from '../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Login at ${institution}`, async ({ homePage, issuerPortalPage }) => {
+  test(`Login at ${institution}`,{annotation: [{type: 'check login with different accounts', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portal. This navigates to the Issuer portal page. Log in with account. The navigation menu is loaded.'}]}, async ({ homePage, issuerPortalPage }) => {
     // var
     const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
     const navigationHeader = issuerPortalPage.page.getByRole('navigation');
@@ -27,8 +27,8 @@ institutions.forEach((institution) => {
 });
 
 // Only test logout once
-test(`Logout from WO`, async ({ homePage, issuerPortalPage }) => {
-  // var
+test(`Logout from WO`,{annotation: [{type: 'Logout from WO account', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portal. This navigates to the Issuer portal page. Log in with staff1. Log out.'}]}, async ({ homePage, issuerPortalPage }) => {
+
   const loggedInMenu = issuerPortalPage.page.locator('.expand-menu');
   const navigationHeader = issuerPortalPage.page.getByRole('navigation');
   const institution = 'WO';
@@ -48,7 +48,7 @@ test(`Logout from WO`, async ({ homePage, issuerPortalPage }) => {
   await expect(navigationHeader).not.toBeVisible();
 });
 
-test('See staff subpages', async ({ homePage, issuerPortalPage }) => {
+test('See staff subpages',{annotation: [{type: 'See different subpages manage, Users, Insight ', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portal. This navigates to the Issuer portal page. Log in with staff1. Go through the various menu tabs: manage, Users, Insight'}]}, async ({ homePage, issuerPortalPage }) => {
   // var
 
   // setup

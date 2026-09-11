@@ -2,7 +2,7 @@ import { expect, test } from '../../../../fixtures/staffFixture';
 import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`${institution} badgeclass admin cannot create a badge`, async ({
+  test(`${institution} badgeclass admin cannot create a badge`,{annotation: [{type: 'MBO cant create new badge class', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portal. This navigates to the Issuer portal page.Log in with professor2.Enter Growth and development in the search field. Open the Growth and development page.Click on manage and verify that "add new badge class" is not available.'}]},  async ({
     adminPage,
   }) => {
     // fail if correct account is missing. SHOULD BE CHANGED

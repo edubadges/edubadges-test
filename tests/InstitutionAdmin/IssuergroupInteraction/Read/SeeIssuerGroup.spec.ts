@@ -2,7 +2,7 @@ import { expect, test } from '../../../../fixtures/staffFixture';
 import { institutions } from '../../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`See ${institution} issuer group`, async ({ adminPage }) => {
+  test(`See ${institution} issuer group`,{annotation: [{type: 'See issuer group', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context, to navigate to the homepage and click the "Open the issuer portaal" button. The application navigates to the Issuer portal page. Log in with staff1. Navigate to Manage. Go to Issuer groups and select an existing group. Verify the details of the selected group.'}]}, async ({ adminPage }) => {
     // var
     const issuerGroup = adminPage.managePage.issuerGroupPage;
     const existingGroupName = 'Science';

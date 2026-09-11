@@ -2,7 +2,7 @@ import { expect, test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Deny ${institution} badge without reason from Badgeclasses`, async ({
+  test(`Deny ${institution} badge without reason from Badgeclasses`,{annotation: [{type: 'Deny badge without reason', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portaal. This navigates to the Issuer portal page.Log in with user. Search for Growth and development. Request badge and deny request The request(s) have been denied.'}]}, async ({
     adminPage,
     catalogPage,
     browserName,
@@ -34,7 +34,7 @@ institutions.forEach((institution) => {
   });
 });
 
-test('Deny badge with reason from Badgeclasses', async ({
+test('Deny badge with reason from Badgeclasses',{annotation: [{type: 'Deny badge with reason', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portaal. This navigates to the Issuer portal page. Log in with staff1.Search for Cognitive Psychology. Request badge and deny request The request(s) have been denied.'}]}, async ({
   adminPage,
   catalogPage,
   browserName,
@@ -67,7 +67,7 @@ test('Deny badge with reason from Badgeclasses', async ({
   ).toBeVisible();
 });
 
-test('Deny badge with reason from Manage', async ({
+test('Deny badge with reason from Manage',{annotation: [{type: 'Deny badge with reason from Manage', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portaal. This navigates to the Issuer portal page. Log in with staff1. Search for Decision and Defense. Request badge and deny request The request(s) have been denied.'}]}, async ({
   adminPage,
   catalogPage,
   browserName,

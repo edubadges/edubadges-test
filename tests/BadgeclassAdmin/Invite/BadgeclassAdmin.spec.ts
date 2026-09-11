@@ -2,7 +2,7 @@ import { expect, test } from '../../../fixtures/staffFixture';
 import { institutions } from '../../../util/loginPossibilities';
 
 institutions.forEach((institution) => {
-  test(`Invite ${institution} Badgeclass admin`, async ({
+  test(`Invite ${institution} Badgeclass admin`,{annotation: [{type: 'Invite email badgeclass admin', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portal. This navigates to the Issuer portal page. Log in with account. Enter "Growth and development" into the search field. Go to admin view, then User management, and select invite new user. Fill in the details and verify that the badge is visible.'}]}, async ({
     extraStaffLoginPage,
     adminPage,
     testdata,
@@ -45,7 +45,7 @@ institutions.forEach((institution) => {
     await extraStaffLoginPage.validateLoginSuccessful();
   });
 
-  test(`Update ${institution} Badgeclass admin rights`, async ({
+  test(`Update ${institution} Badgeclass admin rights`,{annotation: [{type: 'Update badgeclass rights from awarder to admin rights', description: 'The test calls staffFixture.ts in the fixture folder. Use adminPage, which contains a browser context to navigate to the homepage, and click the button Open the issuer portal. This navigates to the Issuer portal page. Log in with account. Enter "Growth and development" into the search field. Go to admin view, then User management, and select invite new user. Change the permissions from awarder to admin.'}]}, async ({
     extraStaffLoginPage,
     adminPage,
     testdata,
