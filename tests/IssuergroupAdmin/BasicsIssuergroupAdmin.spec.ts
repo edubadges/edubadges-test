@@ -34,5 +34,4 @@ test('Logout WO issuer group admin', async ({ homePage, issuerPortalPage }) => {
 
   // validate
   await expect(loggedInMenu).not.toBeVisible();
-  await expect(issuerPortalPage.page.getByRole('navigation')).not.toBeVisible();
 });

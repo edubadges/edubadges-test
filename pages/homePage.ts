@@ -5,22 +5,25 @@ import { BasePageMultiLanguage } from './basePageMultiLanguage';
 export class HomePage extends BasePageMultiLanguage {
   // Navigation locators
   private readonly catalogLink = this.page.getByRole('link', {
-    name: 'Open the catalog',
+    name: 'Catalog',
   });
   private readonly backpackLink = this.page.getByRole('link', {
-    name: 'Open your backpack',
+    name: 'Open my backpack',
   });
   private readonly dutchLink = this.page.getByRole('link', { name: 'NL' });
   private readonly englishLink = this.page.getByRole('link', { name: 'EN' });
 
   // Language-specific locators
-  private openIssuerPortalLocator: Locator = this.page.getByRole('link', {
-    name: 'Open the issuer portal',
-  });
+  private openIssuerPortalLocator: Locator;
+    
+
 
   constructor(page: Page, testdata: Testdata) {
     super(page, testdata);
     this.languageChange();
+
+    this.openIssuerPortalLocator = this.page.getByRole('navigation').getByRole('link', { name: 'Log into the issuerportal' });
+    
   }
 
   public languageChange(): void {
@@ -33,13 +36,13 @@ export class HomePage extends BasePageMultiLanguage {
 
   private changeLocatorsToEnglish() {
     this.openIssuerPortalLocator = this.page.getByRole('link', {
-      name: 'Open the issuer portal',
+      name: 'Log into the issuerportal',
     });
   }
 
   private changeLocatorsToDutch() {
     this.openIssuerPortalLocator = this.page.getByRole('link', {
-      name: 'Open het issuer portaal',
+      name: 'Log into the issuerportal',
     });
   }
 

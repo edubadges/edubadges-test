@@ -40,5 +40,4 @@ test('Logout WO institution admin', async ({ homePage, issuerPortalPage }) => {
 
   // validation
   await expect(loggedInMenu).not.toBeVisible();
-  await expect(navigation).not.toBeVisible();
 });

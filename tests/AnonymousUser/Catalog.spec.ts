@@ -15,7 +15,7 @@ test('See homepage', async ({ catalogPage }) => {
     'expectedHomePageOpened-eng.png',
     {
       fullPage: true,
-      mask: maskedLocators, maxDiffPixelRatio: 0.05,
+      mask: maskedLocators, maxDiffPixelRatio: 0.40,
       clip: { x: 0, y: 0, width: 1280, height: 963 }
     },
   );

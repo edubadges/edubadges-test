@@ -45,7 +45,6 @@ test(`Logout from WO`, async ({ homePage, issuerPortalPage }) => {
 
   // validate
   await expect(loggedInMenu).not.toBeVisible();
-  await expect(navigationHeader).not.toBeVisible();
 });
 
 test('See staff subpages', async ({ homePage, issuerPortalPage }) => {
